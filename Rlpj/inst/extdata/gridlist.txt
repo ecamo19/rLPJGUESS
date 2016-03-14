@@ -1,0 +1,3 @@
+! grid_ID  Location(spaces are ok)
+30.0  65.0	N Karelia - boreal forest
+-3.0	55.0	Scotland - temperate forest
