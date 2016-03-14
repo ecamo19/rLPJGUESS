@@ -2,7 +2,7 @@
 #'
 #' @description This function first creates a setup for running the LPJ in parallel
 #'  based o the provided input parameters, and then runs the model in parallel.
-#'  The function asumes a specific initial configuration. A folder (mainDir)
+#'  The function assumes a specific initial configuration. A folder (mainDir)
 #'  containing the input data, the templates, and link to the model must exist.
 #'  A directory structure for the outputs will be build wihtin this folder by
 #'  the function.
