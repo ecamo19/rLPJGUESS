@@ -25,6 +25,14 @@
 #' the inputs data and templates for LPJ-GUESS and a directory structure for
 #' storing inputs and outputs of each single run. The setupParallel function is
 #' ought to be run before calling the runLPJparallel.
+#' Running the LPJ parallel involves two steps. First, to create a parallel
+#' setup (setupParallel function), and second, to actually run in parallel the model
+#' (runLPJparallel function).  The parallelization requires the packages snow and
+#'  also the Rmpi package, if you aim at using a MPI cluster.
+#'  This function reads the setup parallel object and creates a cluster to which
+#'  submits the model wrapper function with its respective parameters. To understand
+#'  how to use both setupParallel and runLPJparallel, you might want first to see
+#'  what happens in a single model run.
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
 #' @export
@@ -32,9 +40,63 @@
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez
 #'
 #' @examples \dontrun{
+#' # We need to specify the absolute path of each input file:
+#' file.co2<-"/home/crudata/co2_1901-2013_FAKE.txt"
+#' file.cru <- "/home/crudata/cru_1901_2006.bin"
+#' file.cru.misc <- "/home/crudata/cru_1901_2006misc.bin"
+#' file.ndep <- "/home/crudata/GlobalNitrogenDeposition.bin"
+#'
+#' # if you are using the global_cf.ins file you need to specify the site
+#' # specific input files as well
+#' file.temp <- "/home/inputLPJ/temp.nc"
+#' file.prec <- "/home/inputLPJ/prec.nc"
+#' file.insol <- "/home/inputLPJ/rad.nc"
+#'
+#' # Create some paramaters to test modell.
+#' # Number of runs is proportional to number of parameter set you are testing
+#' parameterDefault <- list (run_emax = NULL)
+#'
+#' # Test 6 different values for emax.
+#' par <- seq(1,5, len = 6)
+#' # Create the list object with the parameters
+#' parameterList <- vector("list", length(par))
+#' for (i in 1:length(par)) {
+#'    parameterDefault$run_emax <- par[i]
+#'    parameterList[[i]] <- parameterDefault
+#'  }
+#'
+#' # Call setupParallel
+#' setupObject  <- setupParallel(3, "SOCK", "global", "cf", gridList = "gridlist_geb.txt",
+#'                              mainDir = "~/lpjRun")
+#'
+#' # Call the runLPjParallel
 #' result <- runLPJParallel(setupObject , plot.data = FALSE, save.plots = FALSE,
-#' parameterList=parameterList, file.co2, file.cru, file.cru.misc, file.ndep,
-#' file.temp, file.prec, file.insol)
+#'                          parameterList=parameterList, file.co2, file.cru,
+#'                          file.cru.misc, file.ndep, file.temp, file.prec, file.insol)
+#'
+#'    Checking conditions
+#'    Reading the parallel object structure
+#'    Creating the single run objects....1....2....3....4....5....6
+#'    Creating a SOCK cluster with 3 cores
+#'    Sending tasks to the cores
+#'
+#'    Processing ended!
+#'
+#' str(result,1)
+#'    List of 6
+#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'
+#' str(result[[1]], 2 )
+#'    Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'    ..@ runInfo  :List of 15
+#'    ..@ dataTypes:List of 39
+#'
+#'
 #'  }
 runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
                            parameterList=NULL, file.co2 = NULL, file.cru = NULL,

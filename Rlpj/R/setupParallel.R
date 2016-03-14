@@ -26,7 +26,7 @@
 #'  the directory structure for the outputs
 #' @param typeList  a character vector with the outputs to be analyzed.
 #' Default value is all outputs.
-#' @return a setup object or names list containing the setup paremeters to run
+#' @return a setup object or named list containing the setup paremeters to run
 #' the LPJ in parallel
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
@@ -34,10 +34,39 @@
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @examples \dontrun{
-#'  typeList <- c("aaet", "nuptake")
-#'  setupObject <- setupParallel(numCores= 10, clusterType = "SOCK",
-#'                   gridList= "gridlist.txt", mainDir=mainDir,typeList = typeList,
-#'                   scale = "europe", mode = "cf")
+#' mainDir <- "~/lpjRun"
+#' list.files(mainDir)
+#' [1] "guess" or "guesscmd.exe"  # link to the model executable
+#' [2] "gridlist.txt"      # list of gridcells
+#' [3] "global.ins"        # template1 (optional)
+#' [4] "global_cru.ins"    # template2 (optional)
+#'
+#' setupObject <- setupParallel(numCores= 10, clusterType = "SOCK",
+#'                              gridList= "gridlist.txt", mainDir=mainDir,typeList =NULL,
+#'                              scale = "europe", mode = "cf")
+#'
+#'      Output type list has not been provided.
+#'      Setting type list to default values.
+#'
+#'      Using package template (template 1).
+#'      Saving package template in the mainDir.
+#'
+#'      Using package template (template 2).
+#'      Saving package template in the mainDir.
+#'
+#'      Creating the foder structure....1....2....3....4....5....6....7....8....9....10
+#'
+#'str(setupObject)
+#'      List of 9
+#'      $ mainDir    : chr "/home/lpjRun"
+#'      $ template1  : chr "europe.ins"
+#'      $ template2  : chr "europe_cf.ins"
+#'      $ gridList   : chr "gridlist.txt"
+#'      $ clusterType: chr "SOCK"
+#'      $ numCores   : num 10
+#'      $ typeList   : chr [1:39] "aaet" "agpp" "aiso" "amon" ...
+#'      $ mode       : chr "cf"
+#'      $ scale      : chr "europe"
 #'}
 setupParallel <- function(numCores=NULL, clusterType = NULL,  scale = NULL, mode = NULL , template1 = NULL, template2=NULL,
                           gridList= NULL, mainDir=NULL, typeList = NULL){
@@ -57,11 +86,11 @@ setupParallel <- function(numCores=NULL, clusterType = NULL,  scale = NULL, mode
       # check cluster size
       numCores.available <- Rmpi::mpi.universe.size() - 1
       if ( numCores.available == 0) {
-        stop("\nThere are not enough available cores  to create a cluster")
+        stop("\nThere are not enough available cores  to create a cluster.")
       }else if ( numCores.available != numCores) {
-        message(paste("There are", numCores.available,"cores available ", sep = " "))
-        message(paste("You requested", numCores,  "cores", sep = " "))
-        message("The number of cores will be set to meet the available resources")
+        message(paste("There are", numCores.available,"cores available. ", sep = " "))
+        message(paste("You requested", numCores,  "cores.", sep = " "))
+        message("The number of cores will be set to meet the available resources.")
         numCores <- numCores.available
       }
     }
@@ -72,30 +101,32 @@ setupParallel <- function(numCores=NULL, clusterType = NULL,  scale = NULL, mode
   }
   # mode
   if (is.null(mode) || mode != "cf" & mode != "cru"){
-    stop("Please provide a valid cluster type: cf or cru.\n")
+    stop("Please provide a valid cluster type: cf or cru.")
   }
   if ( is.null(scale) || scale != "global" & scale != "europe"){
-    stop("Please provide a valid scale: global or europe")
+    stop("Please provide a valid scale: global or europe.")
   }
   if (is.null(typeList)){
     typeList <-  typelist.default
-    cat("\nOutput type list has not been provided.")
-    cat("\nSetting type list to default values")
+    cat("\nOutput typeList has not been provided.")
+    cat("\nSetting typeList to default values.")
   }
   # checking template1
   if (is.null(template1)){
-    cat("\nUsing package template (template 1)")
+    cat("\n\nUsing package template (template 1).")
+    cat("\nSaving package template in the mainDir.")
     template1 <- getTemplate (scale, mainDir)
   }else if (!file.exists(file.path(mainDir, template1))){
-    warning ("The provided template (template1) does not exits")
+    warning ("The provided template (template1) does not exist.")
     stop("Please provide a valid template name.")
   }
   # checkign template 2: either cru or cf
   if ( is.null(template2)){
     template2 <- getTemplate (type = paste(scale,"_", mode, sep = ""), outputDir = mainDir)
-    cat("\nUsing package template (template 2)")
+    cat("\n\nUsing package template (template 2).")
+    cat("\nSaving package template in the mainDir.")
   }else if (!file.exists(file.path(mainDir, template2))){
-    warning ("The provided template (template2) does not exits.")
+    warning ("The provided template (template2) does not exist.")
     stop("Please provide a valid template name.")
   }
   # checking gridlist
@@ -103,7 +134,7 @@ setupParallel <- function(numCores=NULL, clusterType = NULL,  scale = NULL, mode
     stop ("Please provide a valid grid list.")
   }
   # creatiing the folder structure
-  cat("\nCreating the foder structure")
+  cat("\n\nCreating the foder structure")
   for (i in 1:numCores) {
     cat(paste("....", i, sep = ""))
     dir.create(file.path(mainDir, paste("runDirectory",i,sep="")), showWarnings = FALSE)
@@ -116,4 +147,3 @@ setupParallel <- function(numCores=NULL, clusterType = NULL,  scale = NULL, mode
                 gridList=gridList, clusterType = clusterType, numCores= numCores,
                 typeList=typeList, mode = mode, scale = scale ))
 }
-
