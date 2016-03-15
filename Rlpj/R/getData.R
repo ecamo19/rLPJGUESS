@@ -57,7 +57,7 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
       }
     }
   if (is.null(typeList.valid)){
-    stop("There are not model outputs")
+    stop("There are not model outputs. Please check the guess.log files.")
   }
     # starting tclass!
   LPJout <- LPJData()
