@@ -250,13 +250,18 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
     # MPISapply on its tassk. Result is a list of list, thus, it must be
     # unlisted
     # needlog avoids fork call
-    Rmpi::mpi.spawn.Rslaves(nslaves = setupObject$numCores, needlog = FALSE, comm = 1)
+    if(is.loaded ("mpi_initialize") == TRUE){
+      if (Rmpi::mpi.comm.size() < 1 ){
+        cat("\nPlease call exit_mpi at the end of you script")
+        Rmpi::mpi.spawn.Rslaves(nslaves = setupObject$numCores, needlog = FALSE)
+      }
+    }
     cores <- rep(setupObject$numCores, setupObject$numCores)
-    Rmpi::mpi.bcast.Robj2slave(cores, comm=1)
-    Rmpi::mpi.bcast.Robj2slave(runParameters, comm=1)
-    Rmpi::mpi.bcast.cmd(library(Rlpj), comm=1)
-    result <- Rmpi::mpi.parSapply(cores, MPISapply, runParameters = runParameters, comm=1)
-    Rmpi::mpi.close.Rslaves(dellog = FALSE)
+    Rmpi::mpi.bcast.Robj2slave(cores)
+    Rmpi::mpi.bcast.Robj2slave(runParameters)
+    Rmpi::mpi.bcast.cmd(library(Rlpj))
+    result <- Rmpi::mpi.parSapply(cores, MPISapply, runParameters = runParameters)
+    #Rmpi::mpi.close.Rslaves(dellog = FALSE)
     #Rmpi::mpi.finalize() # Dont need to specify type
   }
   cat("\nProcessing ended!")
@@ -276,8 +281,8 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
 #' @author Ramiro Silveyra Gonzalez
 #' @note based on lapplys from M. T. Morgan (mtmorgan@fhcrc.org) (Parallel R)
 #'
-MPISapply <- function(numcores, runParameters, comm = 1) {
-  rank <- Rmpi::mpi.comm.rank(comm)
+MPISapply <- function(numcores, runParameters) {
+  rank <- Rmpi::mpi.comm.rank()
   # master doesnt work the data
   if (rank > 0){
     mywork <- runParameters[seq(rank, length(runParameters), numcores)]
