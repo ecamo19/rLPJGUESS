@@ -4,7 +4,7 @@
 \alias{MPISapply}
 \title{The function to run the LPJ in parallel}
 \usage{
-MPISapply(numcores, runParameters, comm = 1)
+MPISapply(numcores, runParameters)
 }
 \arguments{
 \item{numcores}{a integer specifying number of cores of the cluster}
