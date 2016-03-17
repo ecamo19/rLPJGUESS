@@ -7,13 +7,14 @@
 runLPJwrapper(runObject)
 }
 \arguments{
-\item{runObject}{a named list created by the setupParallel function containing
+\item{runObject}{a named list created by the runLPJParallel function containing
 the following: mainDir, template1, template2, gridList, runDir, outDir, mode,
 scale, typeList, runID,  gridFilename, plot.data and save.plots}
 }
 \value{
-a list object containing the runInfo, the provided run information and
- parameters; and the processed output data from the run.
+a a data class object with the slots runInfo and dataTypes. The runInfo
+slot contains the provided run information and parameters; the dataTypes holds
+the processed output data from the run.
 }
 \description{
 This function modifies the lpj template with the desired parameter

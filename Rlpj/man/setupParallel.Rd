@@ -39,20 +39,19 @@ the directory structure for the outputs}
 Default value is all outputs.}
 }
 \value{
-a setup object or named list containing the setup paremeters to run
+a setup object or named list containing the setup parameters to run
 the LPJ in parallel
 }
 \description{
 This function first creates a setup for running the LPJ in parallel
- based o the provided input parameters, and then runs the model in parallel.
- The function assumes a specific initial configuration. A folder (mainDir)
- containing the input data, the templates, and link to the model must exist.
- A directory structure for the outputs will be build wihtin this folder by
- the function.
+ based on the provided input parameters. The function assumes a specific initial
+ configuration. A folder (mainDir) containing the input data, the templates,
+ and link to the model must exist. A directory structure for the outputs will
+ be build wihtin this folder by the function.
 }
 \examples{
 \dontrun{
-mainDir <- "~/lpjRun"
+mainDir <- "/some/absolute/path/mainDir"
 list.files(mainDir)
 [1] "guess" or "guesscmd.exe"  # link to the model executable
 [2] "gridlist.txt"      # list of gridcells
@@ -76,7 +75,7 @@ setupObject <- setupParallel(numCores= 10, clusterType = "SOCK",
 
 str(setupObject)
      List of 9
-     $ mainDir    : chr "/home/lpjRun"
+     $ mainDir    : chr "/some/absolute/path/mainDir"
      $ template1  : chr "europe.ins"
      $ template2  : chr "europe_cf.ins"
      $ gridList   : chr "gridlist.txt"

@@ -36,7 +36,7 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
       # Exceptions are the fine roots distributions for all species and PFTs
       parameterList <- checkParameters(scale = "europe", parameterList)
   }else{
-    stop("writeParameters: Cannot recognize the template: global?? europe??")
+    stop("writeParameters: Cannot recognize the template: neither global nor europe")
   }
   # getting parameters names
   parameterNames <- names(parameterList)
@@ -51,14 +51,13 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
 
 #' @title A parameter list function
 #' @description  This function checks the provided parameter list against the
-#' the complete parameters list. If any parameter is not provided, the fucntion will
-#' add it to the paramter list and return a complete parameter list with the values
-#' provided as input and the default values for those parametes that were not provided.
+#' complete parameters list. If any parameter is not provided, the function will
+#' add it to the parameter list and return a complete parameter list with the values
+#' provided as input and the default values for those parameters that were not provided.
 #' @param scale a character string indicating whether the model runs global or for europe.
 #' @param parameterList a named list holding the parameter or combination or parameters
 #'  to be tested.
-#' @return none
-#' @details TODO (names of list)
+#' @return a named list holding the values of the template parameter.
 #' @export
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
@@ -69,7 +68,7 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
 checkParameters <- function(scale = NULL, parameterList = NULL){
     # include check
   if ( scale != "global" & scale != "europe"){
-    stop("Cannot recognize the template: global?? europe??")
+    stop("checkParameters: Cannot recognize the template: neither global nor europe.")
   }
   # call the default template
   default <- parameterList.default[[scale]]

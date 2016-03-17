@@ -12,8 +12,6 @@ MPISapply(numcores, runParameters)
 \item{runParameters}{a list of lists, each list containing the following information:
 mainDir, template1, template2, gridList, runDir, outDir, mode, scale,
  typeList, parameterList, runID and gridFilename}
-
-\item{comm}{a communicator number}
 }
 \description{
 This function tells each core which are its tasks and makes the
@@ -21,6 +19,13 @@ core run the runLPJwrapper on them using sapply
 }
 \note{
 based on lapplys from M. T. Morgan (mtmorgan@fhcrc.org) (Parallel R)
+}
+\examples{
+\dontrun{#'
+result <- MPISapply(numcores = 6, runParameters = runParameters)
+}
+
+
 }
 \author{
 Ramiro Silveyra Gonzalez

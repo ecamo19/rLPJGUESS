@@ -1,11 +1,10 @@
 #' @title The function to create a setup for parallel runs of the LPJ-GUESS
 #'
 #' @description This function first creates a setup for running the LPJ in parallel
-#'  based o the provided input parameters, and then runs the model in parallel.
-#'  The function assumes a specific initial configuration. A folder (mainDir)
-#'  containing the input data, the templates, and link to the model must exist.
-#'  A directory structure for the outputs will be build wihtin this folder by
-#'  the function.
+#'  based on the provided input parameters. The function assumes a specific initial
+#'  configuration. A folder (mainDir) containing the input data, the templates,
+#'  and link to the model must exist. A directory structure for the outputs will
+#'  be build wihtin this folder by the function.
 #' @param numCores  a integer specifying number of cores of the cluster
 #' @param clusterType a character string indicating the type of cluster to be created. If running in bwHPC,
 #'  type must be "MPI". If running in personal computer, type must be "SOCK".
@@ -26,7 +25,7 @@
 #'  the directory structure for the outputs
 #' @param typeList  a character vector with the outputs to be analyzed.
 #' Default value is all outputs.
-#' @return a setup object or named list containing the setup paremeters to run
+#' @return a setup object or named list containing the setup parameters to run
 #' the LPJ in parallel
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
@@ -34,7 +33,7 @@
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @examples \dontrun{
-#' mainDir <- "~/lpjRun"
+#' mainDir <- "/some/absolute/path/mainDir"
 #' list.files(mainDir)
 #' [1] "guess" or "guesscmd.exe"  # link to the model executable
 #' [2] "gridlist.txt"      # list of gridcells
@@ -58,7 +57,7 @@
 #'
 #'str(setupObject)
 #'      List of 9
-#'      $ mainDir    : chr "/home/lpjRun"
+#'      $ mainDir    : chr "/some/absolute/path/mainDir"
 #'      $ template1  : chr "europe.ins"
 #'      $ template2  : chr "europe_cf.ins"
 #'      $ gridList   : chr "gridlist.txt"

@@ -29,10 +29,6 @@
 #' setup (setupParallel function), and second, to actually run in parallel the model
 #' (runLPJparallel function).  The parallelization requires the packages snow and
 #'  also the Rmpi package, if you aim at using a MPI cluster.
-#'  This function reads the setup parallel object and creates a cluster to which
-#'  submits the model wrapper function with its respective parameters. To understand
-#'  how to use both setupParallel and runLPJparallel, you might want first to see
-#'  what happens in a single model run.
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
 #' @export
@@ -40,17 +36,17 @@
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez
 #'
 #' @examples \dontrun{
-#' # We need to specify the absolute path of each input file:
-#' file.co2<-"/home/crudata/co2_1901-2013_FAKE.txt"
-#' file.cru <- "/home/crudata/cru_1901_2006.bin"
-#' file.cru.misc <- "/home/crudata/cru_1901_2006misc.bin"
-#' file.ndep <- "/home/crudata/GlobalNitrogenDeposition.bin"
+#' # You need to specify the absolute path of each input file:
+#' file.co2<-"/some/absolute/path/crudata/co2_1901-2013_FAKE.txt"
+#' file.cru <- "/some/absolute/path/crudata/cru_1901_2006.bin"
+#' file.cru.misc <- "/some/absolute/path/crudata/cru_1901_2006misc.bin"
+#' file.ndep <- "/some/absolute/path/crudata/GlobalNitrogenDeposition.bin"
 #'
-#' # if you are using the global_cf.ins file you need to specify the site
+#' # If you are using the global_cf.ins file you need to specify the site
 #' # specific input files as well
-#' file.temp <- "/home/inputLPJ/temp.nc"
-#' file.prec <- "/home/inputLPJ/prec.nc"
-#' file.insol <- "/home/inputLPJ/rad.nc"
+#' file.temp <- "/some/absolute/path/cfdata/temp.nc"
+#' file.prec <- "/some/absolute/path/cfdata/prec.nc"
+#' file.insol <- "/some/absolute/path/cfdata/rad.nc"
 #'
 #' # Create some paramaters to test modell.
 #' # Number of runs is proportional to number of parameter set you are testing
@@ -67,7 +63,7 @@
 #'
 #' # Call setupParallel
 #' setupObject  <- setupParallel(3, "SOCK", "global", "cf", gridList = "gridlist_geb.txt",
-#'                              mainDir = "~/lpjRun")
+#'                              mainDir = "/some/absolute/path/mainDir")
 #'
 #' # Call the runLPjParallel
 #' result <- runLPJParallel(setupObject , plot.data = FALSE, save.plots = FALSE,
@@ -275,11 +271,14 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
 #' @param runParameters a list of lists, each list containing the following information:
 #' mainDir, template1, template2, gridList, runDir, outDir, mode, scale,
 #'  typeList, parameterList, runID and gridFilename
-#' @param comm a communicator number
 #' @export
 #' @keywords Rlpj
 #' @author Ramiro Silveyra Gonzalez
 #' @note based on lapplys from M. T. Morgan (mtmorgan@fhcrc.org) (Parallel R)
+#' @examples \dontrun{#'
+#' result <- MPISapply(numcores = 6, runParameters = runParameters)
+#' }
+#'
 #'
 MPISapply <- function(numcores, runParameters) {
   rank <- Rmpi::mpi.comm.rank()

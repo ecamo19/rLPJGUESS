@@ -1,10 +1,10 @@
 #' @title A function to process LPJ outputs
-#' @description This function reads the asci output produced by LPJ-GUESS.
-#' It takes a list of data types and finds them in the specified path.
-#' The data is stored as a matrix with the shape of a time series (zoo, otherwise ts)
-#' in a data class object: LPJData.
+#' @description This function reads the ASCII outputs produced by LPJ-GUESS.
+#' It takes a list of output types (typeList) and finds them in the specified path.
+#' The data is stored as a matrix with the shape of a zoo time series and
+#' packed in a data class object: LPJData.
 #' @param typeList  a character vector with the outputs to be analyzed.
-#' Default value is all outputs.
+#' Default value is all outputs that were cretaed
 #' @param outDir a character string indicating path to the output directory
 #' @param runInfo, a named list with the information of the LPJ run.
 #' The runInfo it will be stored by the function as RData along with
@@ -17,11 +17,11 @@
 #' weighted by their size (regular grids only, default FALSE).
 #' @param year.offset a integer indicating the value to be added to the 'Year'
 #'  column in the LPJ-GUESS output.
-#' @return LPJout class,the processed data returned in a S4 Class: LPJData Class
+#' @return the processed data returned in a S4 Class: LPJData Class
 #' @seealso \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 #' @export
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
-#' @note Based an older code of Joerg Steinkamp
+#' @note Based on an older code of Joerg Steinkamp
 #' @examples \dontrun{
 #' LPJout <- getData( typeList = c("aaet",  "cflux","lai", "nflux"),
 #'           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
@@ -121,7 +121,7 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
     listData[[typeList.valid[[j]]]] <- as.matrix(data.ts)
   }
   # add it to the data class
-  LPJout@dataTypes<-listData
+  LPJout@dataTypes <- listData
   return (LPJout)
 }
 
@@ -139,7 +139,7 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
 #' @export
 #' @return Returns the area in square meters along a vetor of latitudes by equal
 #'  longitude distance. Vector of gridcell area is m^2
-#' @note an older code of Joerg Steinkamp
+#' @note Based on an older code of Joerg Steinkamp
 #' @examples \dontrun{
 #' area1d <- gridarea1d(uniq.lat, abs(uniq.lon[2]-uniq.lon[1]))*1.e-6
 #' }

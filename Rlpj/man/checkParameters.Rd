@@ -13,16 +13,13 @@ checkParameters(scale = NULL, parameterList = NULL)
 to be tested.}
 }
 \value{
-none
+a named list holding the values of the template parameter.
 }
 \description{
 This function checks the provided parameter list against the
-the complete parameters list. If any parameter is not provided, the fucntion will
-add it to the paramter list and return a complete parameter list with the values
-provided as input and the default values for those parametes that were not provided.
-}
-\details{
-TODO (names of list)
+complete parameters list. If any parameter is not provided, the function will
+add it to the parameter list and return a complete parameter list with the values
+provided as input and the default values for those parameters that were not provided.
 }
 \examples{
 \dontrun{

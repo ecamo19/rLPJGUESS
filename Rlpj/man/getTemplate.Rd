@@ -8,7 +8,7 @@ getTemplate(type = NULL, outputDir = NULL)
 }
 \arguments{
 \item{type}{a character string indicating the template name: global,
-global_cf, global_cru, europe, europe_cf, europe_cru}
+global_cf, global_cru, europe, europe_cf, europe_cru.}
 
 \item{outputDir}{a character string indicating path to the output directory}
 }

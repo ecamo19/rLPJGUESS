@@ -3,11 +3,12 @@
 #' @description This function modifies the lpj template with the desired parameter
 #'  values and then does a system call for running the lpj modell.
 #'  The modell outputs are processed, plotted (if set to TRUE)
-#' @param runObject a named list created by the setupParallel function containing
+#' @param runObject a named list created by the runLPJParallel function containing
 #' the following: mainDir, template1, template2, gridList, runDir, outDir, mode,
 #' scale, typeList, runID,  gridFilename, plot.data and save.plots
-#' @return a list object containing the runInfo, the provided run information and
-#'  parameters; and the processed output data from the run.
+#' @return a a data class object with the slots runInfo and dataTypes. The runInfo
+#' slot contains the provided run information and parameters; the dataTypes holds
+#' the processed output data from the run.
 #' @export
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
@@ -42,13 +43,7 @@ runLPJwrapper <- function(runObject){
     runObject$save.plots <- FALSE
   }
   if (is.null(runObject[["typeList"]])){
-    runObject$typeList <- c("aaet", "agpp", "aiso", "amon", "anpp", "cflux",
-                            "clitter", "cmass", "cpool", "cton_leaf", "dens","firert",
-                            "fpc", "speciesheight", "lai", "maet", "mevap", "mgpp",
-                            "mintercep", "miso", "mlai", "mmon", "mnee", "mnpp",
-                            "mpet", "mra", "mrh", "mrunoff", "mwcont_lower", "mwcont_upper",
-                            "nflux", "ngases", "nlitter", "nmass", "npool", "nsources",
-                            "nuptake", "runoff", "vmaxnlim")
+    runObject$typeList <- typelist.default
     warning("The output type list has not been provided")
     warning("Setting type list to default values.")
   }

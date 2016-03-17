@@ -7,7 +7,7 @@
 getParameterList(scale = NULL)
 }
 \arguments{
-\item{scale}{string, whether the parameters are for the global or europe template}
+\item{scale}{a character string indicating whether the parameters are for the global or europe template}
 }
 \value{
 a list with parameter names and their values
@@ -15,5 +15,10 @@ a list with parameter names and their values
 \description{
 This function returns the LPJ-GUESS parameter list required for the writeTemplate function.
 It also allows users to see the default values of the templates.
+}
+\examples{
+\dontrun{
+parameterList <- getParameterList("global")
+}
 }
 

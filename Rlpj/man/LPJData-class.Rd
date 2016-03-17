@@ -3,18 +3,16 @@
 \docType{class}
 \name{LPJData-class}
 \alias{LPJData-class}
-\title{A LPJ-GUESS data class object#'}
+\title{A LPJ-GUESS data class object}
 \value{
-a data class object
+a data class object with the slots runInfo and dataTypes
 }
 \description{
-This is a data class object
-}
-\note{
-Based an older code of Istem Fer, Uni Potsdam
+This is a data class object to store both the LPJ-GUESS outputs
+and the information that was passed to LPJ-GUESS.
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez
+Ramiro Silveyra Gonzalez
 }
 \keyword{Rlpj}
 

@@ -10,7 +10,7 @@ getData(typeList = NULL, outDir = NULL, runInfo = NULL,
 }
 \arguments{
 \item{typeList}{a character vector with the outputs to be analyzed.
-Default value is all outputs.}
+Default value is all outputs that were cretaed}
 
 \item{outDir}{a character string indicating path to the output directory}
 
@@ -31,16 +31,16 @@ weighted by their size (regular grids only, default FALSE).}
 column in the LPJ-GUESS output.}
 }
 \value{
-LPJout class,the processed data returned in a S4 Class: LPJData Class
+the processed data returned in a S4 Class: LPJData Class
 }
 \description{
-This function reads the asci output produced by LPJ-GUESS.
-It takes a list of data types and finds them in the specified path.
-The data is stored as a matrix with the shape of a time series (zoo, otherwise ts)
-in a data class object: LPJData.
+This function reads the ASCII outputs produced by LPJ-GUESS.
+It takes a list of output types (typeList) and finds them in the specified path.
+The data is stored as a matrix with the shape of a zoo time series and
+packed in a data class object: LPJData.
 }
 \note{
-Based an older code of Joerg Steinkamp
+Based on an older code of Joerg Steinkamp
 }
 \examples{
 \dontrun{

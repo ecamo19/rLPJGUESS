@@ -2,9 +2,17 @@
 % Please edit documentation in R/exit_mpi.R
 \name{exit.mpi}
 \alias{exit.mpi}
-\title{The function to close MPI connection on cluster}
+\title{The function to close MPI connection on cluster.}
 \usage{
 exit.mpi()
+}
+\description{
+This function will close slaves and finalize mpi.
+}
+\details{
+The exit.mpi should be use when working on MPI clusters. It must be
+called at the end of you script. Be aware that when mpi is exited, it will be
+no longer possible to work on MPI clusters withouht relaunching R.
 }
 \examples{
 \dontrun{
@@ -12,7 +20,7 @@ exit.mpi()
  }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez
+Ramiro Silveyra Gonzalez
 }
 \seealso{
 \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf}
