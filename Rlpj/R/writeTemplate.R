@@ -23,7 +23,7 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
     stop("Please provide a valid run directory.")
   }
   if (is.null(template1) || !file.exists(file.path(runDir, template1))){
-    stop("The provided template (globalTemplate) does not exits. Please provide a template name.")
+    stop("The provided template  does not exits. Please provide a template name.")
   }
   # call the function
   if (grepl("global",template1)){
@@ -64,7 +64,7 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @examples \dontrun{
 #' parameterList <- list(run_emax = 4, run_lambda_max = 1)
-#' parameterList,checked <- checkParameters(scale= "global", parameterList)
+#' parameterList.checked <- checkParameters(scale= "global", parameterList)
 #' }
 checkParameters <- function(scale = NULL, parameterList = NULL){
     # include check
