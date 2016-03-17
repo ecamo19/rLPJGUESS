@@ -14,7 +14,7 @@ We recommend to install first these packages and then install Rlpj. To install R
 
     devtools::install_github("biometry/RLPJ/Rlpj", ref = "master", build_vignettes = TRUE)
 
-In the case you want to install the dependencies at the same time, set denpendencies flag to TRUE.
+In the case you want to install the dependencies at the same time, set the dependencies flag to TRUE.
 
     devtools::install_github("biometry/RLPJ/Rlpj", ref = "master", build_vignettes = TRUE, dependencies = TRUE)
 
