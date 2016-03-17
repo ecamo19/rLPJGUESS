@@ -10,7 +10,7 @@ vignette: >
 ---
 
 
-The Rlpj package is thought to ease the parallelization of the LPJ-GUESS in High Computer Performance Environments (HPC). The package is a collection of tools that will allow you to create a parallel setup and run in parallel not only the LPJ model, but also the processing of the model outputs including plotting and validity analysis. The package can be also used for parallel run in personal computers.
+The Rlpj package is thought to ease the parallelization of the LPJ-GUESS in High Computer Performance Environments (HPC). The package is a collection of tools that will allow you to create a parallel setup and run in parallel not only the LPJ model, but also the processing of the model outputs. The package can be also used for parallel run in personal computers.
 
 In this document you will learn how to prepare a parallel setup and how to use the different functions of Rlpj. The code is open to further improvements and modifications, feel free to adapt it to your needs.
 
@@ -39,7 +39,7 @@ with a structure like this:
 
 
 
-The model templates are included within the package as part of the system data. They have been edited with some reference values, but you might want to change then. The function *getTemplate* allows to drwan the templates from package. To learn more about how to writing parameters in the template, check out the *writeParameters* function. 
+The model templates are included within the package as part of the system data. They have been edited with some reference values, but you might want to change then. The function *getTemplate* allows to drawn the templates from package. To learn more about how to writing parameters in the template, check out the *writeParameters* function and the *getParameterList*. 
 
 
 ## Running LPJ in parallel
@@ -60,14 +60,14 @@ The **runLPJwrapper** function is a wrapper with the code we want to run on the 
   
 ## Adapting the package to your needs
 
-The Rconect package is set of defined tools for running the LPJ in a cluster but you can adapt it to you personal needs. One of the critical points is the **writeTemplate** function. This function search for any parameter in the template and replaces it by the provided values. If no values are provided, it sets the parameter value to its default. At the moment, 256 physiological parameters are included. If you want to add more parameters to this fucntion, you will have to modify both template and function. 
+The Rconect package is set of defined tools for running the LPJ in a cluster but you can adapt it to you personal needs. One of the critical points is the **writeTemplate** function. This function search for any parameter in the template and replaces it by the provided values. If no values are provided, it sets the parameter value to its default. At the moment, 256 physiological parameters are included. If you want to add more parameters to this function, you will have to modify both template and function. 
 
 In the template, for a *parameterX* the function will look for *run_parameterX*, and replace it by your provided value, otherwise its default. You can edit the template, replacing parameter values by similar string *run_parameterx*. In the function, then you can include the *parameterx* default value.
 
 
-## An Example of using Rconect
+## An Example of using Rlpj
 
-Here you will see an example of how to use the Rconet package. We will not run the LPJ itself, because the model is not included in the package, but we will make use of all package functions.
+Here you will see an example of how to use the Rlpj package. We will not run the LPJ-GUESS itself because the model is not included in the package. However, we will make use of *almost* all package functions.
 
 #### Creating a setup and run in parallel
 
@@ -89,12 +89,7 @@ list.files(mainDir)
 ```
 
 It happens that we have already the europe templates. However, we want to use the global templates. This is not problem because they are part of the package.
-And we do not have a link to guess, because the LPJ-GUESS is not part of this package.
-
-Since we are running this on a personal laptop, lets use a low number cores and create a SOCK cluster.
-
-
-Now that I have prepared the variables, I can call the *setupParallel* function and build the directory structure. 
+Since we are running this on a personal laptop, lets use a low number cores and create a SOCK cluster. Now that I have prepared the variables, I can call the *setupParallel* function and build the directory structure. 
 
 ```{r}
 # Now, I specify which outputs I want process.
@@ -103,6 +98,10 @@ typeList <- c("aaet", "nuptake")
 # Choosing the parameters
 # Only modifying 1 parameter: emax. 
 # The complete list of parameters that can be modified can be found in the "data_raw/createInternalData.R"
+# Chekc parameterList
+parameterDefault <- getParameterList("europe")
+parameterDefault[1:10]
+
 parameterDefault <- list (run_emax = NULL)
 # I want to test 20 different values for emax. I want therefore to run 20 time the LPJ
 par <- seq(1,5, len = 20)
@@ -168,7 +167,7 @@ file_insol <- "/some/absolute/path/cfdata/rad.nc"
 #### A single Run
 
 Here you will see how a single run takes place. The *runLPJParallel* performs some 
-prelimary staks such as organizing input data into the runDirs. Then it creates the 
+preliminary taks such as organizing input data into the runDirs. Then it creates the 
 desired cluster and calls the *runLPJwrapper*. 
 
 The *runLPJwrapper* agglutinates all single steps to carry one complete call to LPJ-GUESS. Normally, we would call the function, but since we do want to call the LPJ model, we will run the steps that takes in place in a single run.
@@ -204,7 +203,7 @@ template [c(156:166)]
 # runLPJ(mainDir, runDir, "global_cru.ins")
 ```
 
-Assuming that you have run the LPJ, you should see in the outDirectory the output files, as specified in the template. In this example, we do not run the LPJ and thus, we do not create any output data. But some output data examples are provided in the folder *extdata/exampleOutputs*.  In the lines below, we will read the outputs, process and plot them, and finally test their validity.
+Assuming that you have run the LPJ, you should see in the outDirectory the output files, as specified in the template. In this example, we do not run the LPJ and thus, we do not create any output data. But some output data examples are provided in the folder *extdata/exampleOutputs*.  In the lines below, we will read the outputs, process and plot them.
 
 ```{r, fig.show='hold', fig.width=7, fig.heigth=10}
 # Lets move to the ouput examples
@@ -212,7 +211,8 @@ outDir <- system.file("extdata/exampleOutputs", package = "Rlpj")
 # And check the outputs
 list.files(outDir)
 
-# Lets say we want to proccess just some of the datatypes
+# Lets say we want to process just some of the datatypes
+# Normally, you will want to proccess all outputs you have created.
 typeList = c("aaet","lai", "nonsense")
 # As you noticed, we included a wrong value: nonsense. The function should be able to sort this out.
 # We call the getData function to obtain the processed data
@@ -232,10 +232,13 @@ Now that we have processed the output data, we can plot the data and see how the
 plotData(dataList = LPJout@dataTypes, typeList = c("lai") , outDir = outDir, save.plots = FALSE)
 ```
 
-If you have more doubts about the functions, please chekc the the help files.
+If you have more doubts about the functions, please check the the help files.
 
 ```{r, echo=FALSE}
 # And cleand the folder
-unlink(file.path(mainDir, list.files(mainDir)[!grepl("grid",  list.files(mainDir))]), recursive = TRUE)
+files <- list.files(mainDir)
+files <- files[!grepl("grid", files)]
+files <- files[!grepl("example", files)]
+unlink(file.path(mainDir, files), recursive = TRUE)
 #do.call(file.remove,list( grep("runDirectory",list.files(mainDir) )) )
 ```
