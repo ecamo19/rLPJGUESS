@@ -27,7 +27,7 @@ TODO (names of list)
 \examples{
 \dontrun{
 parameterList <- list(run_emax = 4, run_lambda_max = 1)
-parameterList,checked <- checkParameters(scale= "global", parameterList)
+parameterList.checked <- checkParameters(scale= "global", parameterList)
 }
 }
 \author{
