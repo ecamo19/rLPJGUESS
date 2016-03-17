@@ -1,5 +1,6 @@
 # RLPJ
 A R package that wraps the LPJ-GUESS model
 
-devtools::install_github("biometry/RLPJ/Rlpj", ref = "master")
+To install the package type the following:
+devtools::install_github("biometry/RLPJ/Rlpj", ref = "master", build_vignettes = TRUE)
 
