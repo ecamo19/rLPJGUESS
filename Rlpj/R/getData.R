@@ -43,26 +43,26 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
     stop("Can't load required library 'zoo'.")
   }
   # Finding the files in path and checking if they exist
-  typeList.valid <- NULL
+  keep <- rep(FALSE, length(typeList))
   for (i in 1:length(typeList)){
     if (file.exists(file.path(outDir, paste(typeList[[i]], ".out", sep="")))){
-        # check if they are empty
-      if ( file.info( file.path(outDir, paste(typeList[[i]], ".out", sep="")) )[['size']] == 0){
+        if ( file.info( file.path(outDir, paste(typeList[[i]], ".out", sep="")) )[['size']] == 0){
         message( paste("The",  typeList[[i]], ".out is empty!\n", sep = " ") )
       }else{
-        typeList.valid <- c(typeList.valid, typeList[[i]])
+        keep[i] <- TRUE
       }
     }else{
       message( paste("There is no ",  typeList[[i]], ".out\n", sep = "") )
       }
     }
-  if (is.null(typeList.valid)){
-    warning("There are not model outputs. Please check the guess.log files.")
-    listData <- NA
-  }else{
+  if (any(keep)){
+    typeList.valid <- typeList[keep]
     # Creating a list to hold data
     listData <- vector(mode="list", length=length(typeList.valid))
     names(listData) <- typeList.valid
+  }else{
+    warning("There are not model outputs. Please check the guess.log files.")
+    listData <- NA
   }
     # starting tclass!
   LPJout <- LPJData()
