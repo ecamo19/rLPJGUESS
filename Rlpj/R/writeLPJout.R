@@ -22,6 +22,7 @@ writeLPJout <- function(runInfo = NULL, typeList = NULL, outDir= NULL){
   if (is.null(outDir) || !file.exists(outDir)){
     stop("No validoutDir has been provided")
   }
+  load(runInfo)
 
   # Check what is available
   typeList.available <- names(runObject$output)
@@ -42,7 +43,6 @@ writeLPJout <- function(runInfo = NULL, typeList = NULL, outDir= NULL){
       stop("None of the requested output types exists")
     }
   }
-
   # Write out the output data
   for (i in 1:length(typeList.valid)){
     df <- as.data.frame(runObject$output[[typeList.valid[i]]])
