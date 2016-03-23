@@ -174,8 +174,9 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
     }
   }
   cat("\nCreating the single run objects")#single run objects
+  progessBar <- txtProgressBar(min = 0, max = length(parameterList), style = 3)
   for (i in 1:length(parameterList)){
-    cat(paste("....", i, sep = ""))
+    setTxtProgressBar(progessBar, i)
     singleRun$runID <- i
     singleRun$parameterList <- parameterList[[i]]
     singleRun$runDir <- runDir[i]
@@ -203,6 +204,7 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
     # add to run parameters (list for parallel)
     runParameters[[i]] <- singleRun
   }
+  close(progessBar)
   # If packages are available, start the parallel configuration and model run
   # Prepare list if plots
   if (plot.data){
@@ -220,9 +222,9 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
   }
   # Initialisation of snowfall.
   # Create cluster
-  cat( paste ("\nCreating a", setupObject$clusterType, "cluster with",
-             setupObject$numCores, "cores", sep = " " ))
   if (setupObject$clusterType =="SOCK"){
+    cat( paste ("\nCreating a", setupObject$clusterType, "cluster with",
+                setupObject$numCores, "cores", sep = " " ))
     cl <-  snow::makeSOCKcluster(setupObject$numCores)
     # Exporting needed data and loading required
     # packages on workers. --> If daa is loaded firs it can be exporte to all workers
@@ -248,8 +250,13 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
     # needlog avoids fork call
     if(is.loaded ("mpi_initialize") == TRUE){
       if (Rmpi::mpi.comm.size() < 1 ){
+        cat( paste ("\nCreating a", setupObject$clusterType, "cluster with",
+                    setupObject$numCores, "cores", sep = " " ))
         cat("\nPlease call exit_mpi at the end of you script")
         Rmpi::mpi.spawn.Rslaves(nslaves = setupObject$numCores, needlog = FALSE)
+      }else{
+        cat(paste("\nUsing the existing", setupObject$clusterType, "cluster with",
+                    setupObject$numCores, "cores", sep = " " ))
       }
     }
     cores <- rep(setupObject$numCores, setupObject$numCores)
@@ -278,8 +285,6 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
 #' @examples \dontrun{#'
 #' result <- MPISapply(numcores = 6, runParameters = runParameters)
 #' }
-#'
-#'
 MPISapply <- function(numcores, runParameters) {
   rank <- Rmpi::mpi.comm.rank()
   # master doesnt work the data
