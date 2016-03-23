@@ -68,10 +68,6 @@ runLPJwrapper <- function(runObject){
   # getting data
   LPJout <- getData (runObject$typeList, runObject$outDir, runObject)
   # plotting data
-  if (runObject[["plot.data"]] == TRUE){
-    plotData(dataList = LPJout@dataTypes, typeList = runObject$typeList,
-             outDir = runObject$outDir, save.plots = runObject$save.plots)
-  }
   # delete all files
   files.delete <- list.files(runObject$runDir, full.names = TRUE, recursive = TRUE)
   files.delete <- files.delete[!grepl("runInfo", files.delete)]
@@ -81,6 +77,10 @@ runLPJwrapper <- function(runObject){
   save(runObject, file = file.path(runObject$runInfoDir,
                                     paste("runInfo", runObject$runID,".Rdata", sep = "")))
   #For example, make a list with all the info provided to runLPJ, and store it with save()
+  if (runObject[["plot.data"]] == TRUE){
+    plotData(data = LPJout@dataTypes, typeList = runObject$typeList,
+             outDir = runObject$outDir, save.plots = runObject$save.plots)
+  }
   message(paste("\nFinished run ", runObject$runID,  "\n", sep = ""))
   return (LPJout)
 }
