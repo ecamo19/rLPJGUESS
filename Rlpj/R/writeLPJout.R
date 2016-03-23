@@ -36,13 +36,18 @@ writeLPJout <- function(runInfo = NULL, typeList = NULL, outDir= NULL){
         keep[i] <- TRUE
       }
     }
-    typeList.valid <- typeList[keep]
+    if (any(keep)){
+      typeList.valid <- typeList[keep]
+    }else{
+      stop("None of the requested output types exists")
+    }
   }
+
   # Write out the output data
   for (i in 1:length(typeList.valid)){
     df <- as.data.frame(runObject$output[[typeList.valid[i]]])
     cols <- colnames(df)
-    df$Year <- rownames(df)
+    df$Year <- as.numeric(rownames(df))
     df <-  df[,c("Year", cols)]
     write.table(df, file.path(outDir, paste(typeList.valid[i], ".out", sep="")),
                 col.names = TRUE, row.names = FALSE, sep = " ")
