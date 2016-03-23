@@ -57,68 +57,73 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
       }
     }
   if (is.null(typeList.valid)){
-    stop("There are not model outputs. Please check the guess.log files.")
+    warning("There are not model outputs. Please check the guess.log files.")
+    listData <- NA
+  }else{
+    # Creating a list to hold data
+    listData <- vector(mode="list", length=length(typeList.valid))
+    names(listData) <- typeList.valid
   }
     # starting tclass!
   LPJout <- LPJData()
     # storing run info
   LPJout@runInfo <- runInfo
-  # Creating a list to hold data
-  listData <- vector(mode="list", length=length( typeList.valid))
-  names(listData) <- typeList.valid
-  # Adding Data to listData
-  # looping over data types, reading files, processing data and adding it to the Data Class
-  # list append data, probably will have to use the name() function to give it the right name
-  # in the end, make the list of class LPJData
-  # Add data to LPJout Data class
-  for (j in 1:length(typeList.valid)) {
-    # reading output
-    data <- read.table(file.path(outDir, paste( typeList.valid[[j]], ".out", sep="")),header=T)
-    # setting annual true or false
-    annual <- TRUE
-    if (colnames(data)[4] == "Jan"){
-      annual <- FALSE
-    }
-    # choosing the spatial subset
-    data <- subset(data, Lon>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
-    data$Year <- data$Year + year.offset
-    # create the area weight if desired
-    data$area <- 1.
-    if (area.weighted) {
-      data$area <- NA
-      uniq.lon <- sort(unique(data$Lon))
-      uniq.lat <- sort(unique(data$Lat), decreasing = TRUE)
-      uniq.lon <- seq(min(uniq.lon), max(uniq.lon),
-                      min(uniq.lon[2:length(uniq.lon)] - uniq.lon[1:(length(uniq.lon)-1)]))
-      uniq.lat <- seq(max(uniq.lat), min(uniq.lat),
-                      max(uniq.lat[2:length(uniq.lat)] - uniq.lat[1:(length(uniq.lat)-1)]))
-      area1d <- gridarea1d(uniq.lat, abs(uniq.lon[2]-uniq.lon[1]))*1.e-6
-      for (i in 1:length(uniq.lat))
-        data$area[data$Lat == uniq.lat[i]] = area1d[i]
-    }
-    uniq.year <- sort(unique(data$Year))
-    cnames <- colnames(data)
-    data.tmp <- NULL
-    for (i in uniq.year){
-      data.tmp <- rbind(data.tmp, data.frame(t(colMeans(data[data$Year == i, ]))))
+
+  if(!is.na(listData)){
+    # Adding Data to listData
+    # looping over data types, reading files, processing data and adding it to the Data Class
+    # list append data, probably will have to use the name() function to give it the right name
+    # in the end, make the list of class LPJData
+    # Add data to LPJout Data class
+    for (j in 1:length(typeList.valid)) {
+      # reading output
+      data <- read.table(file.path(outDir, paste( typeList.valid[[j]], ".out", sep="")),header=T)
+      # setting annual true or false
+      annual <- TRUE
+      if (colnames(data)[4] == "Jan"){
+        annual <- FALSE
       }
-    # remove the unused columns
-    data <- data.tmp[, !(cnames=="Lon" | cnames=="Lat" | cnames=="Year" | cnames=="area")]
-    rm(data.tmp)
-    #if annual remove columns with unique values
-    if (annual) {
-     # keep <- rep(TRUE, ncol(data))
-      # remove columns with unique values
-     # for (i in 1:ncol(data)){
-      #    if (min(data[,i]) == max (data[,i])) keep[i] = FALSE
-     # }
-     # data <-  data[, keep]
-      data.ts <- ts(data, start=min(uniq.year), frequency=1)
-    }else {
-      data.ts <- ts(as.vector(t(as.matrix(data))), start=min(uniq.year), frequency=12)
+      # choosing the spatial subset
+      data <- subset(data, Lon>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
+      data$Year <- data$Year + year.offset
+      # create the area weight if desired
+      data$area <- 1.
+      if (area.weighted) {
+        data$area <- NA
+        uniq.lon <- sort(unique(data$Lon))
+        uniq.lat <- sort(unique(data$Lat), decreasing = TRUE)
+        uniq.lon <- seq(min(uniq.lon), max(uniq.lon),
+                        min(uniq.lon[2:length(uniq.lon)] - uniq.lon[1:(length(uniq.lon)-1)]))
+        uniq.lat <- seq(max(uniq.lat), min(uniq.lat),
+                        max(uniq.lat[2:length(uniq.lat)] - uniq.lat[1:(length(uniq.lat)-1)]))
+        area1d <- gridarea1d(uniq.lat, abs(uniq.lon[2]-uniq.lon[1]))*1.e-6
+        for (i in 1:length(uniq.lat))
+          data$area[data$Lat == uniq.lat[i]] = area1d[i]
+      }
+      uniq.year <- sort(unique(data$Year))
+      cnames <- colnames(data)
+      data.tmp <- NULL
+      for (i in uniq.year){
+        data.tmp <- rbind(data.tmp, data.frame(t(colMeans(data[data$Year == i, ]))))
+      }
+      # remove the unused columns
+      data <- data.tmp[, !(cnames=="Lon" | cnames=="Lat" | cnames=="Year" | cnames=="area")]
+      rm(data.tmp)
+      #if annual remove columns with unique values
+      if (annual) {
+        # keep <- rep(TRUE, ncol(data))
+        # remove columns with unique values
+        # for (i in 1:ncol(data)){
+        #    if (min(data[,i]) == max (data[,i])) keep[i] = FALSE
+        # }
+        # data <-  data[, keep]
+        data.ts <- ts(data, start=min(uniq.year), frequency=1)
+      }else {
+        data.ts <- ts(as.vector(t(as.matrix(data))), start=min(uniq.year), frequency=12)
+      }
+      data.ts <- zoo::zoo(data.ts)
+      listData[[typeList.valid[[j]]]] <- as.matrix(data.ts)
     }
-    data.ts <- zoo::zoo(data.ts)
-    listData[[typeList.valid[[j]]]] <- as.matrix(data.ts)
   }
   # add it to the data class
   LPJout@dataTypes <- listData
