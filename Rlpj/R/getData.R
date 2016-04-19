@@ -9,14 +9,15 @@
 #' @param runInfo, a named list with the information of the LPJ run.
 #' The runInfo it will be stored by the function as RData along with
 #' the processed outputs of the model
-#' @param lon.extent a numeric vector containing the min and max values used
-#'  for west-east extent(default -180 to 180)
-#' @param lat.extent a numeric vector containing the max and min values used
-#'  for north-south extent (default 90 to -90).
-#' @param area.weighted a boolean indicating whether the gridcells should be
-#' weighted by their size (regular grids only, default FALSE).
-#' @param year.offset a integer indicating the value to be added to the 'Year'
-#'  column in the LPJ-GUESS output.
+#' @param processing a boolean indicating whether output files will be turned into time series
+# @param lon.extent a numeric vector containing the min and max values used
+#  for west-east extent(default -180 to 180)
+# @param lat.extent a numeric vector containing the max and min values used
+#  for north-south extent (default 90 to -90).
+# @param area.weighted a boolean indicating whether the gridcells should be
+# weighted by their size (regular grids only, default FALSE).
+# @param year.offset a integer indicating the value to be added to the 'Year'
+#  column in the LPJ-GUESS output.
 #' @return the processed data returned in a S4 Class: LPJData Class
 #' @seealso \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 #' @export
@@ -27,8 +28,10 @@
 #'           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
 #' }
 
-getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-180, 180),
-                    lat.extent=c(-90, 90), area.weighted=FALSE, year.offset=0 ) {
+getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, processing = TRUE,
+                    delete = TRUE){
+                    #lon.extent=c(-180, 180), lat.extent=c(-90, 90),
+                    #area.weighted=FALSE, year.offset=0 ) {
   # checking provided parameters
   if (is.null(outDir) || !file.exists(outDir)){
     stop("Please provide a valid output directory.")
@@ -42,6 +45,7 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
   if (!requireNamespace("zoo", quietly = TRUE)){
     stop("Can't load required library 'zoo'.")
   }
+
   # Finding the files in path and checking if they exist
   keep <- rep(FALSE, length(typeList))
   for (i in 1:length(typeList)){
@@ -70,59 +74,91 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
   LPJout@runInfo <- runInfo
 
   if(!is.na(listData)){
-    # Adding Data to listData
-    # looping over data types, reading files, processing data and adding it to the Data Class
-    # list append data, probably will have to use the name() function to give it the right name
-    # in the end, make the list of class LPJData
-    # Add data to LPJout Data class
-    for (j in 1:length(typeList.valid)) {
-      # reading output
-      data <- read.table(file.path(outDir, paste( typeList.valid[[j]], ".out", sep="")),header=T)
-      # setting annual true or false
-      annual <- TRUE
-      if (colnames(data)[4] == "Jan"){
-        annual <- FALSE
+    if (processing == FALSE){
+      # Adding Data to listData
+      # looping over data types, reading files,  no processing data and adding it to the Data Class
+      # list append data, probably will have to use the name() function to give it the right name
+      # in the end, make the list of class LPJData
+      # Add data to LPJout Data class
+      for (j in 1:length(typeList.valid)) {
+        data <- read.table(file.path(outDir, paste( typeList.valid[[j]], ".out", sep="")),header=T)
+        listData[[typeList.valid[[j]]]] <- data
       }
-      # choosing the spatial subset
-      data <- subset(data, Lon>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
-      data$Year <- data$Year + year.offset
-      # create the area weight if desired
-      data$area <- 1.
-      if (area.weighted) {
-        data$area <- NA
-        uniq.lon <- sort(unique(data$Lon))
-        uniq.lat <- sort(unique(data$Lat), decreasing = TRUE)
-        uniq.lon <- seq(min(uniq.lon), max(uniq.lon),
-                        min(uniq.lon[2:length(uniq.lon)] - uniq.lon[1:(length(uniq.lon)-1)]))
-        uniq.lat <- seq(max(uniq.lat), min(uniq.lat),
-                        max(uniq.lat[2:length(uniq.lat)] - uniq.lat[1:(length(uniq.lat)-1)]))
-        area1d <- gridarea1d(uniq.lat, abs(uniq.lon[2]-uniq.lon[1]))*1.e-6
-        for (i in 1:length(uniq.lat))
-          data$area[data$Lat == uniq.lat[i]] = area1d[i]
+    }else{
+      # Chekc how many grids in output
+      data <- read.table(file.path(outDir, paste( typeList.valid[[1]], ".out", sep="")),header=T)
+      coordinates <- unique(paste(data$Lat, data$Lon, sep = "_"))
+      listData <- rep(list(listData), length(coordinates))
+      names(listData) <- paste("grid", coordinates, sep = "_") # will need better named
+      # Adding Data to listData
+      # looping over data types, reading files, processing data and adding it to the Data Class
+      # list append data, probably will have to use the name() function to give it the right name
+      # in the end, make the list of class LPJData
+      # Add data to LPJout Data class
+      coordinates <- lapply(coordinates, function(x){as.numeric(unlist(strsplit(x, "_")))})
+      #keep <- rep(TRUE, length(coord))
+      #sub_data <- coord[coord>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
+
+      for (k in 1:length(coordinates)){
+        for (j in 1:length(typeList.valid)) {
+          # reading output
+          data <- read.table(file.path(outDir, paste(typeList.valid[[j]], ".out", sep="")),header=T)
+
+          data.ts  <- convertTS(data)
+          # choosing the spatial subset
+          #data <- subset(data, Lon>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
+          #data <- data[data$Lat==coordinates[[k]][1] & data$Lon==coordinates[[k]][2],]
+          # setting annual true or false
+          #annual <- TRUE
+          #if (colnames(data)[4] == "Jan"){
+          #  annual <- FALSE
+          #}
+          #data$Year <- data$Year + year.offset
+          # create the area weight if desired
+          #data$area <- 1.
+          #if (area.weighted) {
+          #  data$area <- NA
+          #  uniq.lon <- sort(unique(data$Lon))
+          #  uniq.lat <- sort(unique(data$Lat), decreasing = TRUE)
+          #  uniq.lon <- seq(min(uniq.lon), max(uniq.lon),
+          #                  min(uniq.lon[2:length(uniq.lon)] - uniq.lon[1:(length(uniq.lon)-1)]))
+          #  uniq.lat <- seq(max(uniq.lat), min(uniq.lat),
+          #                  max(uniq.lat[2:length(uniq.lat)] - uniq.lat[1:(length(uniq.lat)-1)]))
+          #  area1d <- gridarea1d(uniq.lat, abs(uniq.lon[2]-uniq.lon[1]))*1.e-6
+          #  for (i in 1:length(uniq.lat))
+          #    data$area[data$Lat == uniq.lat[i]] = area1d[i]
+          #}
+          #uniq.year <- sort(unique(data$Year))
+          #cnames <- colnames(data)
+          #data.tmp <- NULL
+          #for (l in 1:length(uniq.year)){
+          #  data.tmp <- rbind(data.tmp, data.frame(t(colMeans(data[data$Year == uniq.year[l], ]))))
+          #}
+          # remove the unused columns
+          #data <- data.tmp[, !(cnames=="Lon" | cnames=="Lat" | cnames=="Year" | cnames=="area")]
+          #rm(data.tmp)
+#          if (annual) {
+            #if annual remove columns with unique values
+            # keep <- rep(TRUE, ncol(data))
+            # remove columns with unique values
+            # for (i in 1:ncol(data)){
+            #    if (min(data[,i]) == max (data[,i])) keep[i] = FALSE
+            # }
+            # data <-  data[, keep]
+#            data.ts <- ts(data, start=min(uniq.year), frequency=1)
+#            data.ts <- zoo::zoo(data.ts)
+#          }else {
+ #           data.ts <- ts(as.vector(t(as.matrix(data))), start=min(uniq.year), frequency=12)
+  #          data.ts <- zoo::zoo(data.ts, frequency=12)
+   #       }
+    #      data.ts <- zoo::zoo(data.ts)
+          listData[[k]][[typeList.valid[[j]]]] <- data.ts
+        }
       }
-      uniq.year <- sort(unique(data$Year))
-      cnames <- colnames(data)
-      data.tmp <- NULL
-      for (i in uniq.year){
-        data.tmp <- rbind(data.tmp, data.frame(t(colMeans(data[data$Year == i, ]))))
+    # if only one grid, simplify the list
+      if (length(listData) == 1){
+        listData <- listData[[1]]
       }
-      # remove the unused columns
-      data <- data.tmp[, !(cnames=="Lon" | cnames=="Lat" | cnames=="Year" | cnames=="area")]
-      rm(data.tmp)
-      #if annual remove columns with unique values
-      if (annual) {
-        # keep <- rep(TRUE, ncol(data))
-        # remove columns with unique values
-        # for (i in 1:ncol(data)){
-        #    if (min(data[,i]) == max (data[,i])) keep[i] = FALSE
-        # }
-        # data <-  data[, keep]
-        data.ts <- ts(data, start=min(uniq.year), frequency=1)
-      }else {
-        data.ts <- ts(as.vector(t(as.matrix(data))), start=min(uniq.year), frequency=12)
-      }
-      data.ts <- zoo::zoo(data.ts)
-      listData[[typeList.valid[[j]]]] <- as.matrix(data.ts)
     }
   }
   # add it to the data class
@@ -130,49 +166,76 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, lon.extent=c(-18
   return (LPJout)
 }
 
-#' @title grid cell area along a vector of latitudes
-#' @description The function returns a vector of area in square meters of along
-#' a vector of latitudes. These must not be of equal distance. However, for the
-#' longitude will be equal along the given latitude vector. The latitude is assumed
-#' to be the gridcell midpoint and the northern and southern edges are
-#' calculated by as half of the distance to the next element in the latitude vector.#'
-#' @param lat vetor of latitudes
-#' @param dlon longitudinal extent
-#' @param ellipse TRUE (polar and equatorial radius differ) or
-#' FALSE (default, polar and equatorial radius are the same)
-#' @keywords RLpj
-#' @export
-#' @return Returns the area in square meters along a vetor of latitudes by equal
-#'  longitude distance. Vector of gridcell area is m^2
-#' @note Based on an older code of Joerg Steinkamp
-#' @examples \dontrun{
-#' area1d <- gridarea1d(uniq.lat, abs(uniq.lon[2]-uniq.lon[1]))*1.e-6
-#' }
 
-.EarthRadius         <- 6371220.0
-.EarthRadius.polar   <- 6356752.3142
-.EarthRadius.equator <- 6378137.0
-
-gridarea1d <- function (lat, dlon, scale=1.0, ellipse=FALSE) {
-  nlat <- length(lat)
-  area <- array(0.0, nlat)
-
-  lat.border <- array(0.0, nlat+1)
-  lat.border[1] = lat[1] - (lat[2] -lat[1])/2.
-  for (i in 2:nlat) {
-    lat.border[i] = lat[i] - (lat[i] - lat[i-1])/2.
+convertTS <- function(data = NULL){
+  # setting annual true or false
+  annual <- TRUE
+  if (colnames(data)[4] == "Jan"){
+    annual <- FALSE
   }
-  lat.border[nlat+1] = lat[nlat] + (lat[nlat] - lat[nlat-1])/2.
+  uniq.year <- sort(unique(data$Year))
+  cnames <- colnames(data)
+  data.tmp <- NULL
+  for (i in 1:length(uniq.year)){
+    data.tmp <- rbind(data.tmp, data.frame(t(colMeans(data[data$Year == uniq.year[i], ]))))
+  }
+  # remove the unused columns
+  data <- data.tmp[, !(cnames=="Lon" | cnames=="Lat" | cnames=="Year")]
+  rm(data.tmp)
+  if (annual) {
+    data.ts <- ts(data, start=min(uniq.year), frequency=1)
+    data.ts <- zoo::zoo(data.ts)
+  }else {
+    data.ts <- ts(as.vector(t(as.matrix(data))), start=min(uniq.year), frequency=12)
+    data.ts <- zoo::zoo(data.ts, frequency=12)
+  }
+  data.ts <- zoo::zoo(data.ts)
+  return(data.ts)
+}
 
-  for (i in 1:nlat) {
+# @title grid cell area along a vector of latitudes
+# @description The function returns a vector of area in square meters of along
+# a vector of latitudes. These must not be of equal distance. However, for the
+# longitude will be equal along the given latitude vector. The latitude is assumed
+# to be the gridcell midpoint and the northern and southern edges are
+# calculated by as half of the distance to the next element in the latitude vector.#'
+# @param lat vetor of latitudes
+# @param dlon longitudinal extent
+# @param ellipse TRUE (polar and equatorial radius differ) or
+# FALSE (default, polar and equatorial radius are the same)
+# @keywords RLpj
+# @export
+# @return Returns the area in square meters along a vetor of latitudes by equal
+#  longitude distance. Vector of gridcell area is m^2
+# @note Based on an older code of Joerg Steinkamp
+# @examples \dontrun{
+# area1d <- gridarea1d(uniq.lat, abs(uniq.lon[2]-uniq.lon[1]))*1.e-6
+# }
+
+#.EarthRadius         <- 6371220.0
+#.EarthRadius.polar   <- 6356752.3142
+#.EarthRadius.equator <- 6378137.0
+
+#gridarea1d <- function (lat, dlon, scale=1.0, ellipse=FALSE) {
+#  nlat <- length(lat)
+#  area <- array(0.0, nlat)#
+
+#  lat.border <- array(0.0, nlat+1)
+#  lat.border[1] = lat[1] - (lat[2] -lat[1])/2.
+#  for (i in 2:nlat) {
+#    lat.border[i] = lat[i] - (lat[i] - lat[i-1])/2.
+#  }
+#  lat.border[nlat+1] = lat[nlat] + (lat[nlat] - lat[nlat-1])/2.
+
+#  for (i in 1:nlat) {
     # this causes a negligible difference (510.068 compared to 510.1013 10^6 km^2
     # @ 0.5° resolution globally).
-    if (ellipse){
-      .EarthRadius <- .EarthRadius.equator * cos(lat[i]/180.0*pi)^2 + .EarthRadius.polar * sin(lat[i]/180*pi)^2
-    }
-    x <- cos(lat[i]/180.0*pi) * 2. * pi * .EarthRadius / (360.0/dlon)
-    y <- 2 * pi * .EarthRadius * (abs(lat.border[i+1] - lat.border[i]) / 360.)
-    area[i] <- x*y
-  }
-  return(area*scale)
-}
+#    if (ellipse){
+#      .EarthRadius <- .EarthRadius.equator * cos(lat[i]/180.0*pi)^2 + .EarthRadius.polar * sin(lat[i]/180*pi)^2
+#    }
+#    x <- cos(lat[i]/180.0*pi) * 2. * pi * .EarthRadius / (360.0/dlon)
+#    y <- 2 * pi * .EarthRadius * (abs(lat.border[i+1] - lat.border[i]) / 360.)
+#    area[i] <- x*y
+#  }
+#  return(area*scale)
+#}
