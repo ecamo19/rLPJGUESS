@@ -7,7 +7,7 @@
 runLPJParallel(setupObject, plot.data = FALSE, save.plots = FALSE,
   parameterList = NULL, file.co2 = NULL, file.cru = NULL,
   file.cru.misc = NULL, file.ndep = NULL, file.temp = NULL,
-  file.prec = NULL, file.insol = NULL)
+  file.prec = NULL, file.insol = NULL, processing = TRUE, delete = TRUE)
 }
 \arguments{
 \item{setupObject}{a named list created by the setupParallel function containing
@@ -38,6 +38,11 @@ precipitation input file}
 
 \item{file.insol}{a character string providing the absolute path to the
 insolation input file}
+
+\item{processing}{a boolean indicating whether output files will be turned into time series}
+
+\item{delete}{a boolean indicating whether output files should be deleted after processing.
+Saved plots will not be deleted.}
 }
 \value{
 a list holding the outputs of the runLPJwrapper (see function help)

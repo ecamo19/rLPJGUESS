@@ -24,8 +24,6 @@ based on lapplys from M. T. Morgan (mtmorgan@fhcrc.org) (Parallel R)
 \dontrun{#'
 result <- MPISapply(numcores = 6, runParameters = runParameters)
 }
-
-
 }
 \author{
 Ramiro Silveyra Gonzalez

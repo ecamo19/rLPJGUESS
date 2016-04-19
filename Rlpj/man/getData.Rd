@@ -5,8 +5,7 @@
 \title{A function to process LPJ outputs}
 \usage{
 getData(typeList = NULL, outDir = NULL, runInfo = NULL,
-  lon.extent = c(-180, 180), lat.extent = c(-90, 90),
-  area.weighted = FALSE, year.offset = 0)
+  processing = TRUE)
 }
 \arguments{
 \item{typeList}{a character vector with the outputs to be analyzed.
@@ -18,17 +17,7 @@ Default value is all outputs that were cretaed}
 The runInfo it will be stored by the function as RData along with
 the processed outputs of the model}
 
-\item{lon.extent}{a numeric vector containing the min and max values used
-for west-east extent(default -180 to 180)}
-
-\item{lat.extent}{a numeric vector containing the max and min values used
-for north-south extent (default 90 to -90).}
-
-\item{area.weighted}{a boolean indicating whether the gridcells should be
-weighted by their size (regular grids only, default FALSE).}
-
-\item{year.offset}{a integer indicating the value to be added to the 'Year'
-column in the LPJ-GUESS output.}
+\item{processing}{a boolean indicating whether output files will be turned into time series}
 }
 \value{
 the processed data returned in a S4 Class: LPJData Class

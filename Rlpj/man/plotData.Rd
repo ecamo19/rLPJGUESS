@@ -4,11 +4,11 @@
 \alias{plotData}
 \title{A plot function for LPJdata objects}
 \usage{
-plotData(dataList = NULL, typeList = NULL, outDir = NULL,
-  save.plots = TRUE)
+plotData(data = NULL, typeList = NULL, outDir = NULL,
+  save.plots = FALSE, prefix = "")
 }
 \arguments{
-\item{dataList}{a list of matrices contained in the LPJ data object.}
+\item{data}{a list of data contained in the LPJ data object.}
 
 \item{typeList}{a character vector with the outputs to be plotted}
 
@@ -16,6 +16,9 @@ plotData(dataList = NULL, typeList = NULL, outDir = NULL,
 saved, if save.plot set to TRUE}
 
 \item{save.plots}{a boolean indicating whether the plots are saved in the outDir}
+
+\item{prefix}{a character string specifying the prefix to be added to the plots files.
+Only relevant if saving plots.}
 }
 \value{
 plots for data types included in typeList
