@@ -20,6 +20,9 @@
 #'  insolation input file
 #' @param plot.data  a boolean indicating whether the ouput data will be plotted.
 #' @param save.plots  a boolean indicating whether the plots will be saved.
+#' @param processing a boolean indicating whether output files will be turned into time series
+#' @param delete a boolean indicating whether output files should be deleted after processing.
+#' Saved plots will not be deleted.
 #' @return a list holding the outputs of the runLPJwrapper (see function help)
 #' @details The runLPJparallel assumes the existence of a folder containing all
 #' the inputs data and templates for LPJ-GUESS and a directory structure for
@@ -97,7 +100,8 @@
 runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
                            parameterList=NULL, file.co2 = NULL, file.cru = NULL,
                            file.cru.misc = NULL, file.ndep= NULL,
-                           file.temp = NULL, file.prec = NULL, file.insol = NULL){
+                           file.temp = NULL, file.prec = NULL, file.insol = NULL,
+                           processing = TRUE, delete = TRUE){
   # Checking conditions before start processing
   cat("\nChecking conditions")
   if ( is.null(setupObject[["clusterType"]])){
@@ -164,7 +168,8 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
   singleRun <- list (mainDir = setupObject$mainDir,  template1 = NULL, template2 = NULL,
                      gridList= NULL, runDir = NULL, outDir = NULL, mode = setupObject$mode,
                      scale = setupObject$scale,  typeList = setupObject$typeList, parameterList=NULL,
-                     runID = NULL, gridFilename = NULL, runInfoDir =  runInfoDir)
+                     runID = NULL, gridFilename = NULL, runInfoDir =  runInfoDir,
+                     processing = processing, delete = delete)
   # the actual list that will hold the information need for all runs
   runParameters <- rep(list(), length(parameterList))
   for (i in 1:setupObject[["numCores"]]) {
