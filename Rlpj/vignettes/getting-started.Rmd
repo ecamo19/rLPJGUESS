@@ -213,7 +213,7 @@ list.files(outDir)
 
 # Lets say we want to process just some of the datatypes
 # Normally, you will want to proccess all outputs you have created.
-typeList = c("aaet","lai", "nonsense")
+typeList <- c("aaet","lai", "nonsense")
 # As you noticed, we included a wrong value: nonsense. The function should be able to sort this out.
 # We call the getData function to obtain the processed data
 LPJout <- getData(typeList = typeList, outDir=outDir, runInfo=list(runNumber = 1, parameter= parameters))
@@ -229,7 +229,7 @@ Now that we have processed the output data, we can plot the data and see how the
 ```{r,fig.show= "hold", fig.keep ='all',  fig.width=7, fig.heigth=16}
 # Now we can plot the object
 # Let say I just want to plot LAI, and I dont want to save the plots
-plotData(dataList = LPJout@dataTypes, typeList = c("lai") , outDir = outDir, save.plots = FALSE)
+plotData(data = LPJout@dataTypes, typeList = c("lai") , outDir = outDir, save.plots = FALSE)
 ```
 
 If you have more doubts about the functions, please check the the help files.
