@@ -28,8 +28,7 @@
 #'           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
 #' }
 
-getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, processing = TRUE,
-                    delete = TRUE){
+getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, processing = TRUE){
                     #lon.extent=c(-180, 180), lat.extent=c(-90, 90),
                     #area.weighted=FALSE, year.offset=0 ) {
   # checking provided parameters
