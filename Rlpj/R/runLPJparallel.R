@@ -179,6 +179,7 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
     }
   }
   cat("\nCreating the single run objects")#single run objects
+  cat("\n")
   progessBar <- txtProgressBar(min = 0, max = length(parameterList), style = 3)
   for (i in 1:length(parameterList)){
     setTxtProgressBar(progessBar, i)
@@ -210,6 +211,7 @@ runLPJParallel <- function(setupObject, plot.data = FALSE, save.plots = FALSE,
     runParameters[[i]] <- singleRun
   }
   close(progessBar)
+  cat("\n",length(parameterList)," objects created")
   # If packages are available, start the parallel configuration and model run
   # Prepare list if plots
   if (plot.data){
