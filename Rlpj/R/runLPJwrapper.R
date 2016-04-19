@@ -66,8 +66,8 @@ runLPJwrapper <- function(runObject){
   runLPJ(runObject$mainDir, runObject$runDir,
          paste(runObject$scale,"_", runObject$mode, ".ins", sep = "") )
   # getting data
-  LPJout <- getData (runObject$typeList, runObject$outDir, runObject,
-                     runObject$processing, runObject$delete)
+  LPJout <- getData(runObject$typeList, runObject$outDir, runObject,
+                     runObject$processing)
   # plotting data
   # delete all files
   if ( runObject$delete == TRUE){
