@@ -12,8 +12,6 @@ Depends:
 License: GPL-2
 LazyData: true
 Suggests:
-    zoo,
-    snow,
     Rmpi,
     knitr,
     methods,
