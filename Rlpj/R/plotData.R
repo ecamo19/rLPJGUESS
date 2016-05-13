@@ -44,8 +44,6 @@ plotData <- function(data = NULL, typeList = NULL, outDir= NULL,
   #    data <- runObject$output
   #  }
   #}
-
-
   # Plot from
   typeList.available <- names(data)
   if (is.null(typeList)){
