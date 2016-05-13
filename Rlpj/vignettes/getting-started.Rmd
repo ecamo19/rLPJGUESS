@@ -31,11 +31,11 @@ with a structure like this:
   
   $ ls   
   
-          guess             # link to the model executable  
-          gridlist.txt      # list of gridcells
-          global.ins        # model template  (optional)
-          global_cru.ins    # model template  (optional) or
-          global_cf.ins     # model template  (optional)
+          guess / guesscmd.exe   # link to the model executable  
+          gridlist.txt           # list of gridcells
+          global.ins             # model template  (optional)
+          global_cru.ins         # model template  (optional) or
+          global_cf.ins          # model template  (optional)
 
 
 
@@ -44,19 +44,13 @@ The model templates are included within the package as part of the system data. 
 
 ## Running LPJ in parallel
 
-Running the LPJ parallel involves two steps. First, to create a parallel setup (**setupParallel**) function, and second, to actually run in parallel the model (**runLPJparallel**).  The parallelization requires the packages *snow* and also the *Rmpi* package, if you aim at using a MPI cluster.
+Running the LPJ parallel involves two steps. First, to create a parallel setup (**setupParallel**) function, and second, to actually run in parallel the model (**runLPJparallel**).  The parallelization requires the packages *snow* and if you aim at using a MPI cluster, also the *Rmpi* package.
 
 The **setupParallel** function will help you at creating a directory structure for storing your model outputs and arranging the model templates for each run. Calling the setupParallel returns a list object that contains all information needed to run the LPJ in parallel.
 
-The **runLPJparallel** function reads the setup parallel object and creates a cluster to which submits the model wrapper function with its respective parameters. To understand how to use both setupParallel and runLPJparallel, you might want first to see what happens in a single model run.
+The **runLPJ** function reads the setup parallel object and creates a cluster to which submits the model wrapper function with its respective parameters. To understand how to use both setupParallel and runLPJparallel, you might want first to see what happens in a single model run.
 
 
-The **runLPJwrapper** function is a wrapper with the code we want to run on the worker processes and  is called by the "apply" function of the package snowfall. This function is actually a collection of single functions to be run sequentially. The following task are performed:
-
-  - writing the parameters in the model template  (*writeTemplate*)
-  - call the LPJ model and input the the template (*runLPJ*)
-  - processed the output data from the LPJ (*getData*)
-  - plot the processed output (*plotData*) (optional)
   
 ## Adapting the package to your needs
 
@@ -88,8 +82,8 @@ list.files(mainDir)
 
 ```
 
-It happens that we have already the europe templates. However, we want to use the global templates. This is not problem because they are part of the package.
-Since we are running this on a personal laptop, lets use a low number cores and create a SOCK cluster. Now that I have prepared the variables, I can call the *setupParallel* function and build the directory structure. 
+It happens that we have already the europe templates. However, we want to use the global templates. This is not a problem because they are part of the package.
+Since we are running this on a personal laptop, lets use a low number cores and create a SOCK cluster. Now that we  have prepared the variables, we can call the *setupParallel* function and build the directory structure. 
 
 ```{r}
 # Now, I specify which outputs I want process.
@@ -118,9 +112,7 @@ print(parameterList[c(2:3)])
 # as specified in the gridlist.txt file.
 # Lets call the setupParallel
 options(error=traceback)
-setupObject <- setupParallel(numCores= 3, clusterType = "SOCK",
-                             gridList= "gridlist.txt", scale = "europe",
-                             mode = "cru", mainDir=mainDir,typeList=typeList)
+setupObject <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
 
 # if we check object, we see that contains the information for creating the cluster
 names(setupObject)
@@ -158,17 +150,75 @@ file_insol <- "/some/absolute/path/cfdata/rad.nc"
 # to executable in the mainDir. So we will skip this step
 
 # ---- The call ------------------------#
-# results <- runLPJParallel(setupObject,  plot.data = FALSE, save.plots = FALSE,parameterList=parameterList)
+# result <- runLPJ(mainDir, gridList, scale = "global",mode = "cf", file.co2,
+#                  file.cru, file.cru.misc, file.ndep, file.temp, file.prec,
+#                  file.insol, parameterList = parameterList, parallel = TRUE,
+#                  setupObject = mySetup)
 # ---- The call ------------------------#
 
 ```
+The package call would return something like this:
+
+    Output typeList has not been provided
+
+    Setting typeList to default values
+    
+
+    Using package template (template 1)
+
+    Saving package template in the mainDir
+    
+
+    Using package template (template 2)
+
+    Saving package template in the mainDir
+    
+
+    Checking conditions
+
+    Reading the parallel object structure
+
+    |==============================================================| 100%
+
+    Creating a SOCK cluster with 3 cores
+
+    Sending tasks to the cores
+
+
+    Processing ended!
+
+ The output of the runLPJ call is a list  with the following structure:
+ 
+    str(result,1)
+
+    List of 6
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    str(result[[1]], 2 )
+
+    Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    ..@ runInfo  :List of 15
+
+    ..@ dataTypes:List of 39
 
 
 #### A single Run
 
-Here you will see how a single run takes place. The *runLPJParallel* performs some 
+Here you will see how a single run takes place. The *runLPJ* in parallel mode does some 
 preliminary taks such as organizing input data into the runDirs. Then it creates the 
-desired cluster and calls the *runLPJwrapper*. 
+desired cluster and calls a internal wrapper (*runLPJwrapper*).
 
 The *runLPJwrapper* agglutinates all single steps to carry one complete call to LPJ-GUESS. Normally, we would call the function, but since we do want to call the LPJ model, we will run the steps that takes in place in a single run.
 
@@ -203,7 +253,7 @@ template [c(156:166)]
 # runLPJ(mainDir, runDir, "global_cru.ins")
 ```
 
-Assuming that you have run the LPJ, you should see in the outDirectory the output files, as specified in the template. In this example, we do not run the LPJ and thus, we do not create any output data. But some output data examples are provided in the folder *extdata/exampleOutputs*.  In the lines below, we will read the outputs, process and plot them.
+Assuming that we would have run the LPJ, we should see in the outDirectory the output files, as specified in the template. In this example, we do not run the LPJ and thus, we do not create any output data. But some output data examples are provided in the folder *extdata/exampleOutputs*.  In the lines below, we will read the outputs, process and plot them.
 
 ```{r, fig.show='hold', fig.width=7, fig.heigth=10}
 # Lets move to the ouput examples
