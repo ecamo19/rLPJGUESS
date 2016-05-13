@@ -9,9 +9,9 @@
 #' no longer possible to work on MPI clusters withouht relaunching R.
 #'
 #' @examples \dontrun{
-#' exit.mpi()
+#' exitMPI()
 #'  }
-exit.mpi <- function(){
+exitMPI <- function(){
   if (is.loaded("mpi_initialize")){
     if (Rmpi::mpi.comm.size(comm =1) > 1){
       cat("\nPlease use mpi.close.Rslaves() to close slaves.")
