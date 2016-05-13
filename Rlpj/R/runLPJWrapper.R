@@ -9,14 +9,16 @@
 #' @return a a data class object with the slots runInfo and dataTypes. The runInfo
 #' slot contains the provided run information and parameters; the dataTypes holds
 #' the processed output data from the run.
-#' @export
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @note Based an older code of Istem Fer, Uni Potsdam
 #' @examples \dontrun{
 #' runLPJwrapper(runObject)
 #' }
-runLPJwrapper <- function(runObject){
+runLPJWrapper <- function(runObject){
+  #----------------------------------------------------------------------------#
+  # CHECK INPUTS AND EXIT IF ANY ERROR
+  #----------------------------------------------------------------------------#
   # checking conditions
   if (is.null(runObject[["runDir"]]) || !file.exists(runObject$runDir)){
     stop("Please provide a valid run directory.")
@@ -25,14 +27,14 @@ runLPJwrapper <- function(runObject){
     stop("Please provide a valid output directory.")
   }
   if (is.null(runObject[["template1"]])){
-    stop("Please provide a valid  template name.")
+    stop("Please provide a valid  template1 name.")
   }
   if (is.null(runObject[["template2"]])){
-    stop("Please provide a valid  template name.")
+    stop("Please provide a valid  template2 name.")
   }
-  if (is.null(runObject[["parameterList"]])){
-    stop("Please provide a valid parameter list.")
-  }
+  #if (is.null(runObject[["parameterList"]])){ No because it could run with default values
+  #  stop("Please provide a valid parameter list.")
+  #}
   if (is.null(runObject[["plot.data"]])){
     warning("The plot.data boolean has not been provided. It will be set to FALSE.")
     runObject$plot.data <- FALSE
@@ -47,28 +49,32 @@ runLPJwrapper <- function(runObject){
     warning("The output type list has not been provided")
     warning("Setting type list to default values.")
   }
+  #----------------------------------------------------------------------------#
+  # WRAP THE FUNCTIONS
+  #----------------------------------------------------------------------------#
   # checking directory existence
   # starting the function itself
   # print out info message
-  message(paste("\nStarting run ", runObject$runID,  "\n", sep = ""))
+  cat(paste("\n\nStarting run ", runObject$runID,  "\n", sep = ""))
   # set the wd
   setwd(runObject$runDir)
   # write out files
-  writeLines(runObject$template1,file.path(runObject$runDir,
-             paste(runObject$scale, ".ins", sep = "") ))
-  writeLines(runObject$template2,file.path(runObject$runDir,
-             paste(runObject$scale,"_", runObject$mode, ".ins", sep = "") ))
-  writeLines(runObject$gridList, file.path(runObject$runDir, runObject$gridFilename ))
+  writeLines(runObject$template1,file.path(runObject$runDir,runObject$template1Name))
+  writeLines(runObject$template2,file.path(runObject$runDir,runObject$template2Name))
+  writeLines(runObject$gridList, file.path(runObject$runDir, runObject$gridListName))
   # writing template
-  writeTemplate(paste(runObject$scale, ".ins", sep = "") , runObject$parameterList,
+  writeTemplate(runObject$template1Name, runObject$parameterList,
                   runObject$runDir)
   # calling the model
-  runLPJ(runObject$mainDir, runObject$runDir,
-         paste(runObject$scale,"_", runObject$mode, ".ins", sep = "") )
+  callLPJ(runObject$mainDir, runObject$runDir,runObject$template2Name, runObject$mode)
   # getting data
   LPJout <- getData(runObject$typeList, runObject$outDir, runObject,
                      runObject$processing)
-  # plotting data
+
+
+  #----------------------------------------------------------------------------#
+  # CLEAN UP RUNDIR
+  #----------------------------------------------------------------------------#
   # delete all files
   if ( runObject$delete == TRUE){
     files.delete <- list.files(runObject$runDir, full.names = TRUE, recursive = TRUE)
@@ -76,7 +82,9 @@ runLPJwrapper <- function(runObject){
     files.delete <- files.delete[!grepl("png", files.delete)]
     do.call("unlink", list(files.delete))
   }
-
+  #----------------------------------------------------------------------------#
+  # SAVE RUNINFO AND PLOT
+  #----------------------------------------------------------------------------#
   runObject$output <- LPJout@dataTypes
   # Sav the run info
   #For example, make a list with all the info provided to runLPJ, and store it with save()
@@ -87,7 +95,10 @@ runLPJwrapper <- function(runObject){
              outDir = runObject$outDir, save.plots = runObject$save.plots,
              prefix = paste("run",runObject$runID, "_", sep=""))
   }
-  message(paste("\nFinished run ", runObject$runID,  "\n", sep = ""))
+  cat(paste("\nFinished run ", runObject$runID,  "\n", sep = ""))
+  #----------------------------------------------------------------------------#
+  # END
+  #----------------------------------------------------------------------------#
   return (LPJout)
 }
 
