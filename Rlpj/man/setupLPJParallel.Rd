@@ -37,15 +37,13 @@ list.files(mainDir)
 [4] "global_cru.ins"    # template2 (optional)
 
 mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
-str(mySetup, 1)
-     $ clusterType: chr "SOCK"
-     $ numCores   : num 3
-     $ runDir     : chr [1:3] "/some/absolute/path/mainDir/runDirectory1"
-                              "/some/absolute/path/mainDir/runDirectory2"
-                               "/some/absolute/path/mainDir/runDirectory3"
-     $ outDir     : chr [1:3] "/some/absolute/path/mainDir/runDirectory1/outDirectory1"
-                              "/some/absolute/path/mainDir/runDirectory2/outDirectory2"
-                               "/some/absolute/path/mainDir/runDirectory3/outDirectory3"
+   class              : LPJSetup
+   cluster type       : SOCK
+   number of cores    : 3
+   output directories :
+   /home/trashtos/GitHub/lpjRun/runDirectory1
+   /home/trashtos/GitHub/lpjRun/runDirectory2
+   /home/trashtos/GitHub/lpjRun/runDirectory3
 }
 }
 \author{
