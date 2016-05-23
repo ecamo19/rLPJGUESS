@@ -59,14 +59,14 @@ runLPJWrapper <- function(runObject){
   # set the wd
   setwd(runObject$runDir)
   # write out files
-  writeLines(runObject$template1,file.path(runObject$runDir,runObject$template1Name))
-  writeLines(runObject$template2,file.path(runObject$runDir,runObject$template2Name))
-  writeLines(runObject$gridList, file.path(runObject$runDir, runObject$gridListName))
+  writeLines(runObject$template1Mem,file.path(runObject$runDir,runObject$template1))
+  writeLines(runObject$template2Mem,file.path(runObject$runDir,runObject$template2))
+  writeLines(runObject$gridListMem, file.path(runObject$runDir, runObject$gridList))
   # writing template
-  writeTemplate(runObject$template1Name, runObject$parameterList,
+  writeTemplate(runObject$template1, runObject$parameterList,
                   runObject$runDir)
   # calling the model
-  callLPJ(runObject$mainDir, runObject$runDir,runObject$template2Name, runObject$mode)
+  callLPJ(runObject$mainDir, runObject$runDir,runObject$template2, runObject$mode)
   # getting data
   LPJout <- getData(runObject$typeList, runObject$outDir, runObject,
                      runObject$processing)
@@ -91,7 +91,7 @@ runLPJWrapper <- function(runObject){
   save(runObject, file = file.path(runObject$runInfoDir,
                                    paste("runInfo", runObject$runID,".Rdata", sep = "")))
   if (runObject[["plot.data"]] == TRUE){
-    plotData(data = LPJout@dataTypes, typeList = runObject$typeList,
+    plotLPJData(data = LPJout@dataTypes, typeList = runObject$typeList,
              outDir = runObject$outDir, save.plots = runObject$save.plots,
              prefix = paste("run",runObject$runID, "_", sep=""))
   }
