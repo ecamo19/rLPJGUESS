@@ -16,10 +16,10 @@
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez
 #' @examples \dontrun{
-#' plotData(dataList = list( aaet = aaet), typeList = c("aaet"),
+#' plotLPJData(dataList = list( aaet = aaet), typeList = c("aaet"),
 #'  outDir = "/runDir/outDir", save.plots = FALSE)
 #' }
-plotData <- function(data = NULL, typeList = NULL, outDir= NULL,
+plotLPJData <- function(data = NULL, typeList = NULL, outDir= NULL,
                      save.plots = FALSE, prefix = ""){
 
   # checking input parameters
