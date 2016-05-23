@@ -12,14 +12,13 @@
 #' @param processing a boolean indicating whether output files will be turned into time series
 #' @return the processed data returned in a S4 Class: LPJData Class
 #' @seealso \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
-#' @export
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @note Based on an older code of Joerg Steinkamp
+#' @export
 #' @examples \dontrun{
 #' LPJout <- getData( typeList = c("aaet",  "cflux","lai", "nflux"),
 #'           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
 #' }
-
 getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, processing = TRUE){
                     #lon.extent=c(-180, 180), lat.extent=c(-90, 90),
                     #area.weighted=FALSE, year.offset=0 ) {
@@ -74,14 +73,15 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, processing = TRU
     run.function <- FALSE
     listData  <- list(NA)
   }
-    # starting tclass!
-  LPJout <- LPJData()
+
     # storing run info
-  LPJout@runInfo <- runInfo
+  #LPJout@runInfo <- runInfo
   #----------------------------------------------------------------------------#
   # OBTAIN OUTPUTS:
   #----------------------------------------------------------------------------#
   if(run.function){
+    # starting tclass!
+
     if (processing == FALSE){
       # Adding Data to listData
       # looping over data types, reading files,  no processing data and adding it to the Data Class
@@ -168,7 +168,10 @@ getData <- function(typeList = NULL, outDir=NULL, runInfo=NULL, processing = TRU
     }
   }
   # add it to the data class
-  LPJout@dataTypes <- listData
+  LPJout <- new(Class="LPJData",
+                runInfo=runInfo,
+                dataTypes=listData)
+  #LPJout@dataTypes <- listData
   return (LPJout)
 }
 
