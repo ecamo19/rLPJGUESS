@@ -7,8 +7,7 @@ Authors@R: c(person("Florian", "Hartig", , "florian.hartig@biom.uni-freiburg.de"
 Description: The Rlpj package is thought to ease the parallelization of the LPJ-GUESS in High Computer Performance Environments (HPC). The package is a collection of tools that will allow you to create a parallel setup and run in parallel not only the LPJ model, but also the processing of the model outputs including plotting and validity analysis. The package can be also used for parallel run in personal computers.
 Depends:
     R (>= 3.1.0),
-    zoo,
-    snow
+    methods
 License: GPL-2
 LazyData: true
 Suggests:
@@ -20,3 +19,4 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
+Maintainer: Maurizio Bagnara <maurizio.bagnara@biom.uni-freiburg.de>
