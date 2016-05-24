@@ -3,7 +3,7 @@
 #'  writeTemplate function.
 #' It also allows users to download the templates.
 #' @param type a character string indicating the template name: global,
-#'  global_cf, global_cru, europe, europe_cf, europe_cru.
+#'  global_cf, global_cru, europe, europe_cf or europe_cru
 #' @param outputDir a character string indicating path to the output directory
 #' @return a template object or template.ins file in the specified folder
 #' @export
@@ -32,9 +32,10 @@ getTemplate <- function(type = NULL, outputDir = NULL){
 
 
 #' @title A get paremeter list function
-#' @description  This function returns the LPJ-GUESS parameter list required for the writeTemplate function.
-#' It also allows users to see the default values of the templates.
-#' @param scale a character string indicating whether the parameters are for the global or europe template
+#' @description  This function returns the LPJ-GUESS parameter list required for
+#'  the writeTemplate function.It also allows to see the default values of the templates.
+#' @param scale a character string indicating whether the parameters are for the
+#' global or europe template
 #' @return a list with parameter names and their values
 #' @export
 #' @examples \dontrun{

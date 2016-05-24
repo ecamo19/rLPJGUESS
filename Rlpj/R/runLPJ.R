@@ -24,7 +24,7 @@
 #' @param file.insol a character string providing the absolute path to the
 #'  insolation input file
 #' @param typeList a character vector with the outputs to be analyzed.
-#' Default value is all outputs.
+#' Default value is all outputs
 #' @param parameterList a named list containing the parameters to be calibrated
 #' @param template1  character string providing the general model template,
 #'  e.g, global.ins. It must be in the mainDir. Provide only the file name,
@@ -32,22 +32,21 @@
 #' @param template2 a character string providing the  "specific" model template,
 #'  e.g, global_cf.ins or global_cru.ins. It must be in the mainDir. Provide
 #'  only the file name, not the path. If not provided, package templates will be
-#'   used.
+#'   used
 #' @param plot.data  a boolean indicating whether the ouput data will be plotted
-#'  (default FALSE).
+#'  (default FALSE)
 #' @param save.plots  a boolean indicating whether the plots will be saved (default
-#'  FALSE).
+#'  FALSE)
 #' @param processing a boolean indicating whether output files will be turned into
-#'  time series (default FALSE).
+#'  time series (default FALSE)
 #' @param delete a boolean indicating whether output files should be deleted after
-#'  processing (default TRUE).
-#' Saved plots will not be deleted.
+#'  processing (default TRUE). Saved plots will not be deleted
 #' @param parallel a boolean indicating whether the function must run in parallel
-#' (default FALSE). If parallel TRUE, the setupObject must be provided.
-#' @param setupObject a names list created with the setupLPJParallel function.
+#' (default FALSE). If parallel TRUE, the setupObject must be provided
+#' @param setupObject a names list created with the setupLPJParallel function
 #' @param ID an integer after which the output directory will be named (default empty).
-#' If parallel TRUE, ID is ignored and defined by setupLPJParallel.
-#' @return a list holding the outputs of the runLPJwrapper (see function help)
+#' If parallel TRUE, ID is ignored and defined by setupLPJParallel
+#' @return a LPJData class object holding the model outputs and the run information
 #' @details The runLPJ in parallel assumes the existence of a folder containing all
 #' the inputs data and templates for LPJ-GUESS and a directory structure for
 #' storing inputs and outputs of each single run. The setupLPJParallel function is

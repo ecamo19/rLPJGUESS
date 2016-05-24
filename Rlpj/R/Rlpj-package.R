@@ -1,0 +1,33 @@
+#' @name Rlpj-package
+#' @title Overview of the functions in the Rlpj package
+#' @description The RLPJ package provides functions to run LPJ-Guess within R.
+#' It also allows to parallelize the execution of LPJ-Guess on personal laptops
+#' and on HPC.
+#'
+#' The package should be particularly useful for users aiming at integrating LPj outputs
+#' in R routines and parellizing LPJ-Guess.
+#'
+#' Below is a list of the functions grouped by theme. See the vignette for more
+#' information and some examples.
+#'
+#' @section I. Run LPJ-Guess:  \itemize{
+#'   \item \code{\link{runLPJ}} To run LPJ-Guess serial/parallel
+#'   \item \code{\link{setupLPJParallel}} To create a parallel setup
+#'   \item \code{\link{exitMPI}} To exit MPI clusters
+#' }
+#'
+#' @section II. Visualize data: \itemize{
+#'   \item \code{\link{plotData}} To plot data from LPJData
+#' }
+#' @section III. Utility functions: \itemize{
+#'  \item \code{\link{getTemplate}} To obtain the in-package stored model templates
+#'  \item \code{\link{getParameterList}} To obtain the in-package stored parameter default values
+#' }
+#'#'
+#'
+#' @author Except where indicated otherwise, the functions in this package were
+#'  written by Ramiro Silveyra Gonzalez, Maurizio Bagnara and Florian Hartig
+
+"_PACKAGE"
+
+# here is good place for imports

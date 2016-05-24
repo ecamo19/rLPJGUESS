@@ -6,7 +6,7 @@
 #' @param typeList  a character vector with the outputs to be analyzed.
 #' Default value is all outputs that were cretaed
 #' @param outDir a character string indicating path to the output directory
-#' @param runInfo, a named list with the information of the LPJ run.
+#' @param runInfo, a named list with the information of the LPJ run
 #' The runInfo it will be stored by the function as RData along with
 #' the processed outputs of the model
 #' @param processing a boolean indicating whether output files will be turned into time series

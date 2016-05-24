@@ -1,10 +1,10 @@
-#' @title The function to close MPI connection on cluster.
+#' @title The function to close MPI connection on cluster
 #' @description This function will close slaves and finalize mpi.
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf}
 #' @export
 #' @keywords Rlpj
 #' @author Ramiro Silveyra Gonzalez
-#' @details The exit.mpi should be use when working on MPI clusters. It must be
+#' @details The exitMPI should be use when working on MPI clusters. It must be
 #' called at the end of you script. Be aware that when mpi is exited, it will be
 #' no longer possible to work on MPI clusters withouht relaunching R.
 #'

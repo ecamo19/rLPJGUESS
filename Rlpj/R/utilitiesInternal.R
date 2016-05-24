@@ -1,12 +1,12 @@
 #' @title The function to fill the single run object
 #'
-#' @description This function TODO
-#' @param singleObject TODO
-#' @param runDir TODO
-#' @param outDir TODO
-#' @param parameterList TODO
-#' @param ID TODO
-#' @return TODO
+#' @description This function completes the sinlge object with the required parameters
+#' @param singleObject a named list
+#' @param runDir  a character string indicating path to the run directory
+#' @param outDir a character string indicating path to the output directory
+#' @param parameterList a named list containing the parameters to be calibrated
+#' @param ID an integer indicating the run number
+#' @return the filled singleObject
 fillSingleObject <- function(singleObject, runDir, outDir, parameterList, ID ){
   singleObject$runID <- ID
   singleObject$runDir <- runDir
@@ -32,11 +32,11 @@ fillSingleObject <- function(singleObject, runDir, outDir, parameterList, ID ){
 
 
 
-#' @title The function to fill the single run object
-#'
-#' @description This function TODO
-#' @param data TODO
-#' @return TODO
+#' @title The function to convert data into time series
+#' @description This function transform the data into a zoo time series. The
+#' variabels Lon, Lat and Year are dropped.
+#' @param data a data frame containing the LPJ model outputs
+#' @return a montly or yearly zoo time seires object
 convertTS <- function(data = NULL){
   # setting annual true or false
   annual <- TRUE

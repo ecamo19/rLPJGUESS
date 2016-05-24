@@ -6,7 +6,7 @@
 #' the following: mainDir, numCores, clusterType, runDir, outDir
 #' @param singleRun a named list created by the setupParallel function containing
 #' the following: mainDir, template1, template2, gridList, clusterType, numCores,
-#'  typeList, mode and scale.
+#'  typeList, mode and scale
 #' @param parameterList a named list containing the parameters to be calibrated
 #' @return a list holding the outputs of the runLPJwrapper (see function help)
 #' @details The runLPJparallel assumes the existence of a folder containing all

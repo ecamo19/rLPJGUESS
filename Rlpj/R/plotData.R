@@ -3,13 +3,13 @@
 #' a time series with zoo and plots the variables against time.
 #' Plots are saved in the output folder, if the save.plots boolean is set to TRUE.
 #' Data in the data object is already a time series object, but stored as a matrix.
-#' @param data a list of data contained in the LPJ data object.
+#' @param data a list of data contained in the LPJ data object
 #' @param outDir a character string indicating the folder where the plots will be
 #' saved, if save.plot set to TRUE
 #' @param save.plots a boolean indicating whether the plots are saved in the outDir
 #' @param typeList a character vector with the outputs to be plotted
 #' @param prefix a character string specifying the prefix to be added to the plots files.
-#' Only relevant if saving plots.
+#' Only relevant if saving plots
 #' @return plots for data types included in typeList
 #' @seealso \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 #' @export

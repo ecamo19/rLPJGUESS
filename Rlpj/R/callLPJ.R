@@ -1,11 +1,11 @@
-#' @title A function to call the LPJ modell'
+#' @title A function to call the LPJ modell
 #' @description This function does a system call, passing a template to the LPJ
 #'  model.
 #' @param mainDir a character string indicating the path to LPJ
 #' @param runDir a character string indicating the path to the runDirectory
 #' @param template2 a character string providing the  "specific" model template,
 #'  e.g, global_cf.ins or global_cru.ins. Provide only the file name, not the path.
-#'  If not provided, package templates will be used.
+#'  If not provided, package templates will be used
 #' @param mode a character string indicating whether using cru or cf data
 #' @return none
 #' @keywords Rlpj

@@ -1,13 +1,13 @@
 #' @title A writing template function for LPJ
-#' @description  This function reads a template, and replaces parameters with the
-#' provides parameters list.If any parameters values is not provided, the function will
-#' set it to the default values. The function assumes that a copy of the template
-#'  is already placed in the run folder.
+#' @description  This function reads the LPJ template, and replaces parameters within
+#' it based on the provided parameters list. Not provived  parameter, will set it
+#' to the default values. The function assumes that a copy of the template
+#'  is already placed in the folder (runDir).
 #' @param template1 a character string providing the general model template,
-#'  e.g, global.ins. Provide only the file name, not the path.
+#'  e.g, global.ins. Provide only the file name, not the path
 #' @param parameterList  a named list containing the parameters to be calibrated
 #' @param runDir a character string indicating path to the run directory
-#' @return none
+#' @return a modified template that is written out in the run directory
 #' @export
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara

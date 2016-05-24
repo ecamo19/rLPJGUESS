@@ -2,14 +2,14 @@
 #'
 #' @description This function first creates a setup for running the LPJ in parallel
 #'  based on the provided input parameters. The function assumes a specific initial
-#'  configuration. A folder (mainDir) containing the input data, the templates,
-#'  and link to the model must exist. A directory structure for the outputs will
-#'  be build wihtin this folder by the function.
+#'  configuration. A folder (mainDir) containing a link to the model and optionally,
+#'  the model templates. The function will build a directory structure for the outputs
+#'  this folder.
 #' @param numCores  a integer specifying number of cores of the cluster
 #' @param clusterType a character string indicating the type of cluster to be created. If running in bwHPC,
-#'  type must be "MPI". If running in personal computer, type must be "SOCK".
+#'  type must be "MPI". If running in personal computer, type must be "SOCK"
 #' @param mainDir a character string indicating the path to the directory where
-#'  all input data and template are located and in which the function will create
+#'  link to the model and optionall, the model templates, in which the function will create
 #'  the directory structure for the outputs
 #' @return a setup object or named list containing the setup parameters to run
 #' the LPJ in parallel

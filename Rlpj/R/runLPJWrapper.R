@@ -2,13 +2,13 @@
 #'
 #' @description This function modifies the lpj template with the desired parameter
 #'  values and then does a system call for running the lpj modell.
-#'  The modell outputs are processed, plotted (if set to TRUE)
+#'  The modell outputs are processed and plotted, if specified.
 #' @param runObject a named list created by the runLPJParallel function containing
 #' the following: mainDir, template1, template2, gridList, runDir, outDir, mode,
 #' scale, typeList, runID,  gridFilename, plot.data and save.plots
-#' @return a a data class object with the slots runInfo and dataTypes. The runInfo
+#' @return a data class object with the slots runInfo and dataTypes. The runInfo
 #' slot contains the provided run information and parameters; the dataTypes holds
-#' the processed output data from the run.
+#' the processed output data from the run
 #' @keywords Rlpj
 #' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @note Based an older code of Istem Fer, Uni Potsdam

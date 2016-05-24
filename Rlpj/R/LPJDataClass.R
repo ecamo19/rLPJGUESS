@@ -4,7 +4,7 @@
 #' @return a data class object with the slots runInfo and dataTypes
 #' @export
 #' @keywords Rlpj
-#' @author Ramiro Silveyra Gonzalez
+#' #' @author Ramiro Silveyra Gonzalez
 setClass("LPJData",
          representation(
            runInfo = "list",
