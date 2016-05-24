@@ -1,0 +1,294 @@
+---
+title: "Rlpj Package"
+author: "Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Rlpj Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+The Rlpj package is thought to ease the parallelization of the LPJ-GUESS in High Computer Performance Environments (HPC). The package is a collection of tools that will allow you to create a parallel setup and run in parallel not only the LPJ model, but also the processing of the model outputs. The package can be also used for parallel run in personal computers.
+
+In this document you will learn how to prepare a parallel setup and how to use the different functions of Rlpj. The code is open to further improvements and modifications, feel free to adapt it to your needs.
+
+## Preliminary tasks: preparing data for Rlpj
+
+The Rlpj package will help you to run LPJ-GUESS in parallel,  but first you will have to prepare your data, so that you can make use the of the package utilities. Specifically, Rlpj requires that *i)* you have already compiled the LPJ model in your computer or home folder in the HPC, and that *ii)* the existence of a directory where the outputs of the model will be saved, lets name it the Main Directory. 
+
+
+In the Main Directory, the following files must be available:
+
+  - a link to the guess executable (see installing LPJ guess)
+  - a text file with the grids 
+  - the model input templates (optional)
+
+with a structure like this:
+
+  $ cd ./mainDir
+  
+  $ ls   
+  
+          guess / guesscmd.exe   # link to the model executable  
+          gridlist.txt           # list of gridcells
+          global.ins             # model template  (optional)
+          global_cru.ins         # model template  (optional) or
+          global_cf.ins          # model template  (optional)
+
+
+
+The model templates are included within the package as part of the system data. They have been edited with some reference values, but you might want to change then. The function *getTemplate* allows to drawn the templates from package. To learn more about how to writing parameters in the template, check out the *writeParameters* function and the *getParameterList*. 
+
+
+## Running LPJ in parallel
+
+Running the LPJ parallel involves two steps. First, to create a parallel setup (**setupParallel**) function, and second, to actually run in parallel the model (**runLPJparallel**).  The parallelization requires the packages *snow* and if you aim at using a MPI cluster, also the *Rmpi* package.
+
+The **setupParallel** function will help you at creating a directory structure for storing your model outputs and arranging the model templates for each run. Calling the setupParallel returns a list object that contains all information needed to run the LPJ in parallel.
+
+The **runLPJ** function reads the setup parallel object and creates a cluster to which submits the model wrapper function with its respective parameters. To understand how to use both setupParallel and runLPJparallel, you might want first to see what happens in a single model run.
+
+
+  
+## Adapting the package to your needs
+
+The Rconect package is set of defined tools for running the LPJ in a cluster but you can adapt it to you personal needs. One of the critical points is the **writeTemplate** function. This function search for any parameter in the template and replaces it by the provided values. If no values are provided, it sets the parameter value to its default. At the moment, 256 physiological parameters are included. If you want to add more parameters to this function, you will have to modify both template and function. 
+
+In the template, for a *parameterX* the function will look for *run_parameterX*, and replace it by your provided value, otherwise its default. You can edit the template, replacing parameter values by similar string *run_parameterx*. In the function, then you can include the *parameterx* default value.
+
+
+## An Example of using Rlpj
+
+Here you will see an example of how to use the Rlpj package. We will not run the LPJ-GUESS itself because the model is not included in the package. However, we will make use of *almost* all package functions.
+
+#### Creating a setup and run in parallel
+
+Before calling the *setupParallel* function, we will prepare the input parameters for the function.  In this case, I want to test 20 different values for the *emax* parameter. Concerning the outputs, I am only interested in *aaet* and *lai* outputs.
+
+
+Lets choose a mainDir and have a look at it. Remember that the mainDir is the folder in the directory structure for the parallel runs will be created. It should contain a link to your guess executable and file with list of gridcells.
+
+```{r}
+# clearing local environment
+rm(list=ls())
+# Loading the library
+library(Rlpj)
+
+# The main dir in this case is within the package
+mainDir <- system.file("extdata", package = "Rlpj")
+list.files(mainDir) 
+
+```
+
+It happens that we have already the europe templates. However, we want to use the global templates. This is not a problem because they are part of the package.
+Since we are running this on a personal laptop, lets use a low number cores and create a SOCK cluster. Now that we  have prepared the variables, we can call the *setupParallel* function and build the directory structure. 
+
+```{r}
+# Now, I specify which outputs I want process.
+typeList <- c("aaet", "nuptake")
+
+# Choosing the parameters
+# Only modifying 1 parameter: emax. 
+# The complete list of parameters that can be modified can be found in the "data_raw/createInternalData.R"
+# Chekc parameterList
+parameterDefault <- getParameterList("europe")
+parameterDefault[1:10]
+
+parameterDefault <- list (run_emax = NULL)
+# I want to test 20 different values for emax. I want therefore to run 20 time the LPJ
+par <- seq(1,5, len = 20)
+print (par)
+# I create the list object with the parameters
+parameterList <- vector("list", length(par))
+for (i in 1:length(par)) {
+  parameterDefault$run_emax <- par[i]
+  parameterList[[i]] <- parameterDefault
+}
+print(parameterList[c(2:3)])
+
+# We will be using only the cru data and run the model at 2 European locations
+# as specified in the gridlist.txt file.
+# Lets call the setupParallel
+options(error=traceback)
+setupObject <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
+
+# if we check object, we see that contains the information for creating the cluster
+names(setupObject)
+```
+
+If we check the mainDir, we see that there new folders and templates.
+Within the the runDir folders, there is also a outDir folder to temporary stop the model outputs
+```{r}
+list.files(mainDir) 
+runDir <- file.path(mainDir, "runDirectory1")
+list.files(runDir)
+```
+
+The runDirs are still empty. No worries, the setupObject contains everything need for each run. Once we call the *runLPJParallel* things will run smoothly
+```{r}
+str(setupObject)
+```
+
+Now we are ready to call the *runLPJParallel* , but LPJ-GUESS it is not part of this 
+package, and thus, calling the function will return an error. Anyway, we should procceed as follows.
+
+```{r, fig.show='hold'}
+# We need to specify the absolute path of each input file :
+file_co2<-"/some/absolute/path/crudata/co2_1901-2006.txt"
+file_cru <- "/some/absolute/path/crudata/cru_1901_2006.bin"
+file_cru_misc <- "/some/absolute/path/crudata/cru_1901_2006misc.bin"
+file_ndep <- "/some/absolute/path/crudata/GlobalNitrogenDeposition.bin"
+
+# If wer are using the global_cf.ins file you need to specify the site specific input files as well
+file_temp <- "/some/absolute/path/cfdata/temp.nc"
+file_prec <- "/some/absolute/path/cfdata/prec.nc"
+file_insol <- "/some/absolute/path/cfdata/rad.nc"
+
+# However, you need first to compile the model and have a link
+# to executable in the mainDir. So we will skip this step
+
+# ---- The call ------------------------#
+# result <- runLPJ(mainDir, gridList, scale = "global",mode = "cf", file.co2,
+#                  file.cru, file.cru.misc, file.ndep, file.temp, file.prec,
+#                  file.insol, parameterList = parameterList, parallel = TRUE,
+#                  setupObject = mySetup)
+# ---- The call ------------------------#
+
+```
+The package call would return something like this:
+
+    Output typeList has not been provided
+
+    Setting typeList to default values
+    
+
+    Using package template (template 1)
+
+    Saving package template in the mainDir
+    
+
+    Using package template (template 2)
+
+    Saving package template in the mainDir
+    
+
+    Checking conditions
+
+    Reading the parallel object structure
+
+    |==============================================================| 100%
+
+    Creating a SOCK cluster with 3 cores
+
+    Sending tasks to the cores
+
+
+    Processing ended!
+
+ The output of the runLPJ call is a list  with the following structure:
+ 
+    str(result,1)
+
+    List of 6
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    str(result[[1]], 2 )
+
+    Formal class 'LPJData' [package "Rlpj"] with 2 slots
+
+    ..@ runInfo  :List of 15
+
+    ..@ dataTypes:List of 39
+
+
+#### A single Run
+
+Here you will see how a single run takes place. The *runLPJ* in parallel mode does some 
+preliminary taks such as organizing input data into the runDirs. Then it creates the 
+desired cluster and calls a internal wrapper (*runLPJwrapper*).
+
+The *runLPJwrapper* agglutinates all single steps to carry one complete call to LPJ-GUESS. Normally, we would call the function, but since we do want to call the LPJ model, we will run the steps that takes in place in a single run.
+
+```{r, fig.show='hold'}
+# Lets move to one of the run directories
+runDir <- file.path(mainDir, "runDirectory1")
+list.files(runDir)
+# First step is to write the parameters
+# We will selected only one of the parameters created above
+parameters <- parameterList[[1]]
+# this we want to write in the template
+parameters
+# Now we call the writeTemplate function
+# First we read the template to check how it looks like
+# in concrete, the parameters we want to change
+template <- getTemplate("europe", runDir)
+list.files(runDir)
+
+template <- readLines(file.path(runDir, "europe.ins"))
+
+template [c(156:166)]
+# now we write the template
+writeTemplate(template1 = "europe.ins", parameterList = parameters, runDir = runDir)
+template <- readLines(file.path(runDir, "europe.ins"))
+
+# and lets check what it has been written in the template
+# if no value was provided for the parameters, they have been set to default values
+template [c(156:166)]
+
+# Next step is to call the model
+# but we skip it
+# runLPJ(mainDir, runDir, "global_cru.ins")
+```
+
+Assuming that we would have run the LPJ, we should see in the outDirectory the output files, as specified in the template. In this example, we do not run the LPJ and thus, we do not create any output data. But some output data examples are provided in the folder *extdata/exampleOutputs*.  In the lines below, we will read the outputs, process and plot them.
+
+```{r, fig.show='hold', fig.width=7, fig.heigth=10}
+# Lets move to the ouput examples
+outDir <- system.file("extdata/exampleOutputs", package = "Rlpj")
+# And check the outputs
+list.files(outDir)
+
+# Lets say we want to process just some of the datatypes
+# Normally, you will want to proccess all outputs you have created.
+typeList <- c("aaet","lai", "nonsense")
+# As you noticed, we included a wrong value: nonsense. The function should be able to sort this out.
+# We call the getData function to obtain the processed data
+LPJout <- getData(typeList = typeList, outDir=outDir, runInfo=list(runNumber = 1, parameter= parameters))
+# You see the fucntion has foudn we gave wrong values
+# The returned object is a S4 Object
+slotNames(LPJout)
+names(LPJout@dataTypes)
+summary(LPJout@dataTypes$lai)
+```
+
+Now that we have processed the output data, we can plot the data and see how the variables evolve across the year. The *plotData* will plot the data as a time series using the zoo library, if available, otherwise, using ts. 
+
+```{r,fig.show= "hold", fig.keep ='all',  fig.width=7, fig.heigth=16}
+# Now we can plot the object
+# Let say I just want to plot LAI, and I dont want to save the plots
+plotData(data = LPJout@dataTypes, typeList = c("lai") , outDir = outDir, save.plots = FALSE)
+```
+
+If you have more doubts about the functions, please check the the help files.
+
+```{r, echo=FALSE}
+# And cleand the folder
+files <- list.files(mainDir)
+files <- files[!grepl("grid", files)]
+files <- files[!grepl("example", files)]
+unlink(file.path(mainDir, files), recursive = TRUE)
+#do.call(file.remove,list( grep("runDirectory",list.files(mainDir) )) )
+```
