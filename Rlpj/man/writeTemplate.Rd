@@ -8,20 +8,20 @@ writeTemplate(template1 = NULL, parameterList = NULL, runDir = NULL)
 }
 \arguments{
 \item{template1}{a character string providing the general model template,
-e.g, global.ins. Provide only the file name, not the path.}
+e.g, global.ins. Provide only the file name, not the path}
 
 \item{parameterList}{a named list containing the parameters to be calibrated}
 
 \item{runDir}{a character string indicating path to the run directory}
 }
 \value{
-none
+a modified template that is written out in the run directory
 }
 \description{
-This function reads a template, and replaces parameters with the
-provides parameters list.If any parameters values is not provided, the function will
-set it to the default values. The function assumes that a copy of the template
- is already placed in the run folder.
+This function reads the LPJ template, and replaces parameters within
+it based on the provided parameters list. Not provived  parameter, will set it
+to the default values. The function assumes that a copy of the template
+ is already placed in the folder (runDir).
 }
 \note{
 Based an older code of Istem Fer, Uni Potsdam

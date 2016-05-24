@@ -11,8 +11,10 @@ a data class object with the slots runInfo and dataTypes
 This is a data class object to store both the LPJ-GUESS outputs
 and the information that was passed to LPJ-GUESS.
 }
-\author{
-Ramiro Silveyra Gonzalez
-}
+\keyword{#'}
+\keyword{@author}
+\keyword{Gonzalez}
+\keyword{Ramiro}
 \keyword{Rlpj}
+\keyword{Silveyra}
 

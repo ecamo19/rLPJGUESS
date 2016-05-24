@@ -2,7 +2,7 @@
 % Please edit documentation in R/exitMPI.R
 \name{exitMPI}
 \alias{exitMPI}
-\title{The function to close MPI connection on cluster.}
+\title{The function to close MPI connection on cluster}
 \usage{
 exitMPI()
 }
@@ -10,7 +10,7 @@ exitMPI()
 This function will close slaves and finalize mpi.
 }
 \details{
-The exit.mpi should be use when working on MPI clusters. It must be
+The exitMPI should be use when working on MPI clusters. It must be
 called at the end of you script. Be aware that when mpi is exited, it will be
 no longer possible to work on MPI clusters withouht relaunching R.
 }

@@ -8,7 +8,7 @@ plotData(data = NULL, typeList = NULL, outDir = NULL,
   save.plots = FALSE, prefix = "")
 }
 \arguments{
-\item{data}{a list of data contained in the LPJ data object.}
+\item{data}{a list of data contained in the LPJ data object}
 
 \item{typeList}{a character vector with the outputs to be plotted}
 
@@ -18,7 +18,7 @@ saved, if save.plot set to TRUE}
 \item{save.plots}{a boolean indicating whether the plots are saved in the outDir}
 
 \item{prefix}{a character string specifying the prefix to be added to the plots files.
-Only relevant if saving plots.}
+Only relevant if saving plots}
 }
 \value{
 plots for data types included in typeList

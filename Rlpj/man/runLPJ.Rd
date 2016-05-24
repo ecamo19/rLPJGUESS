@@ -46,7 +46,7 @@ precipitation input file}
 insolation input file}
 
 \item{typeList}{a character vector with the outputs to be analyzed.
-Default value is all outputs.}
+Default value is all outputs}
 
 \item{parameterList}{a named list containing the parameters to be calibrated}
 
@@ -57,31 +57,30 @@ e.g, global.ins. It must be in the mainDir. Provide only the file name,
 \item{template2}{a character string providing the  "specific" model template,
 e.g, global_cf.ins or global_cru.ins. It must be in the mainDir. Provide
 only the file name, not the path. If not provided, package templates will be
- used.}
+ used}
 
 \item{plot.data}{a boolean indicating whether the ouput data will be plotted
-(default FALSE).}
+(default FALSE)}
 
 \item{save.plots}{a boolean indicating whether the plots will be saved (default
-FALSE).}
+FALSE)}
 
 \item{processing}{a boolean indicating whether output files will be turned into
-time series (default FALSE).}
+time series (default FALSE)}
 
 \item{delete}{a boolean indicating whether output files should be deleted after
- processing (default TRUE).
-Saved plots will not be deleted.}
+processing (default TRUE). Saved plots will not be deleted}
 
 \item{parallel}{a boolean indicating whether the function must run in parallel
-(default FALSE). If parallel TRUE, the setupObject must be provided.}
+(default FALSE). If parallel TRUE, the setupObject must be provided}
 
-\item{setupObject}{a names list created with the setupLPJParallel function.}
+\item{setupObject}{a names list created with the setupLPJParallel function}
 
 \item{ID}{an integer after which the output directory will be named (default empty).
-If parallel TRUE, ID is ignored and defined by setupLPJParallel.}
+If parallel TRUE, ID is ignored and defined by setupLPJParallel}
 }
 \value{
-a list holding the outputs of the runLPJwrapper (see function help)
+a LPJData class object holding the model outputs and the run information
 }
 \description{
 This function reads the setup parallel object and creates a

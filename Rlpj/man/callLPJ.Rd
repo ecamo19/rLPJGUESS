@@ -2,7 +2,7 @@
 % Please edit documentation in R/callLPJ.R
 \name{callLPJ}
 \alias{callLPJ}
-\title{A function to call the LPJ modell'}
+\title{A function to call the LPJ modell}
 \usage{
 callLPJ(mainDir = NULL, runDir = NULL, template2 = NULL, mode = NULL)
 }
@@ -13,7 +13,7 @@ callLPJ(mainDir = NULL, runDir = NULL, template2 = NULL, mode = NULL)
 
 \item{template2}{a character string providing the  "specific" model template,
 e.g, global_cf.ins or global_cru.ins. Provide only the file name, not the path.
-If not provided, package templates will be used.}
+If not provided, package templates will be used}
 
 \item{mode}{a character string indicating whether using cru or cf data}
 }

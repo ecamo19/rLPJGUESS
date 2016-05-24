@@ -13,7 +13,7 @@ Default value is all outputs that were cretaed}
 
 \item{outDir}{a character string indicating path to the output directory}
 
-\item{runInfo, }{a named list with the information of the LPJ run.
+\item{runInfo, }{a named list with the information of the LPJ run
 The runInfo it will be stored by the function as RData along with
 the processed outputs of the model}
 

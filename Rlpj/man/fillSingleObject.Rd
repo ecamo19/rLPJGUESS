@@ -7,20 +7,20 @@
 fillSingleObject(singleObject, runDir, outDir, parameterList, ID)
 }
 \arguments{
-\item{singleObject}{TODO}
+\item{singleObject}{a named list}
 
-\item{runDir}{TODO}
+\item{runDir}{a character string indicating path to the run directory}
 
-\item{outDir}{TODO}
+\item{outDir}{a character string indicating path to the output directory}
 
-\item{parameterList}{TODO}
+\item{parameterList}{a named list containing the parameters to be calibrated}
 
-\item{ID}{TODO}
+\item{ID}{an integer indicating the run number}
 }
 \value{
-TODO
+the filled singleObject
 }
 \description{
-This function TODO
+This function completes the sinlge object with the required parameters
 }
 

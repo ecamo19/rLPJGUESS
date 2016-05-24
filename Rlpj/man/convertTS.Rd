@@ -2,17 +2,18 @@
 % Please edit documentation in R/utilitiesInternal.R
 \name{convertTS}
 \alias{convertTS}
-\title{The function to fill the single run object}
+\title{The function to convert data into time series}
 \usage{
 convertTS(data = NULL)
 }
 \arguments{
-\item{data}{TODO}
+\item{data}{a data frame containing the LPJ model outputs}
 }
 \value{
-TODO
+a montly or yearly zoo time seires object
 }
 \description{
-This function TODO
+This function transform the data into a zoo time series. The
+variabels Lon, Lat and Year are dropped.
 }
 
