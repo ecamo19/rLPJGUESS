@@ -35,7 +35,6 @@ information and some examples.
  \item \code{\link{getTemplate}} To obtain the in-package stored model templates
  \item \code{\link{getParameterList}} To obtain the in-package stored parameter default values
 }
-#'
 }
 \author{
 Except where indicated otherwise, the functions in this package were
