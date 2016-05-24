@@ -4,7 +4,7 @@
 \alias{runLPJParallel}
 \title{The function to run the LPJ in parallel}
 \usage{
-runLPJParallel(setupObject, singleRun = NULL, parameterList = NULL)
+runLPJParallel(setupObject = NULL, singleRun = NULL, parameterList = NULL)
 }
 \arguments{
 \item{setupObject}{a named list created by the setupLPJParallel function containing
