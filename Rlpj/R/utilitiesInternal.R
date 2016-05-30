@@ -1,12 +1,12 @@
-#' @title The function to fill the single run object
-#'
-#' @description This function completes the sinlge object with the required parameters
-#' @param singleObject a named list
-#' @param runDir  a character string indicating path to the run directory
-#' @param outDir a character string indicating path to the output directory
-#' @param parameterList a named list containing the parameters to be calibrated
-#' @param ID an integer indicating the run number
-#' @return the filled singleObject
+# @title The function to fill the single run object
+#
+# @description This function completes the sinlge object with the required parameters
+# @param singleObject a named list
+# @param runDir  a character string indicating path to the run directory
+# @param outDir a character string indicating path to the output directory
+# @param parameterList a named list containing the parameters to be calibrated
+# @param ID an integer indicating the run number
+# @return the filled singleObject
 fillSingleObject <- function(singleObject, runDir, outDir, parameterList, ID ){
   singleObject$runID <- ID
   singleObject$runDir <- runDir
@@ -32,11 +32,11 @@ fillSingleObject <- function(singleObject, runDir, outDir, parameterList, ID ){
 
 
 
-#' @title The function to convert data into time series
-#' @description This function transform the data into a zoo time series. The
-#' variabels Lon, Lat and Year are dropped.
-#' @param data a data frame containing the LPJ model outputs
-#' @return a montly or yearly zoo time seires object
+# @title The function to convert data into time series
+# @description This function transform the data into a zoo time series. The
+# variabels Lon, Lat and Year are dropped.
+# @param data a data frame containing the LPJ model outputs
+# @return a montly or yearly zoo time seires object
 convertTS <- function(data = NULL){
   # setting annual true or false
   annual <- TRUE
@@ -65,21 +65,21 @@ convertTS <- function(data = NULL){
 
 
 
-#' @title A parameter list function
-#' @description  This function checks the provided parameter list against the
-#' complete parameters list. If any parameter is not provided, the function will
-#' add it to the parameter list and return a complete parameter list with the values
-#' provided as input and the default values for those parameters that were not provided.
-#' @param scale a character string indicating whether the model runs global or for europe.
-#' @param parameterList a named list holding the parameter or combination or parameters
-#'  to be tested.
-#' @return a named list holding the values of the template parameter.
-#' @keywords Rlpj
-#' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
-#' @examples \dontrun{
-#' parameterList <- list(run_emax = 4, run_lambda_max = 1)
-#' parameterList.checked <- checkParameters(scale= "global", parameterList)
-#' }
+# @title A parameter list function
+# @description  This function checks the provided parameter list against the
+# complete parameters list. If any parameter is not provided, the function will
+# add it to the parameter list and return a complete parameter list with the values
+# provided as input and the default values for those parameters that were not provided.
+# @param scale a character string indicating whether the model runs global or for europe.
+# @param parameterList a named list holding the parameter or combination or parameters
+#  to be tested.
+# @return a named list holding the values of the template parameter.
+# @keywords Rlpj
+# @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+# @examples \dontrun{
+# parameterList <- list(run_emax = 4, run_lambda_max = 1)
+# parameterList.checked <- checkParameters(scale= "global", parameterList)
+# }
 checkParameters <- function(scale = NULL, parameterList = NULL){
   # include check
   if ( scale != "global" & scale != "europe"){

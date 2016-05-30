@@ -1,26 +1,26 @@
-#' @title The function to run the LPJ in parallel
-#' @description This function reads the setup parallel object and creates a
-#'  cluster to which it submits the model wrapper function with its respective
-#'  parameters.
-#' @param setupObject a named list created by the setupLPJParallel function containing
-#' the following: mainDir, numCores, clusterType, runDir, outDir
-#' @param singleRun a named list created by the setupParallel function containing
-#' the following: mainDir, template1, template2, gridList, clusterType, numCores,
-#'  typeList, mode and scale
-#' @param parameterList a named list containing the parameters to be calibrated
-#' @return a list holding the outputs of the runLPJwrapper (see function help)
-#' @details The runLPJparallel assumes the existence of a folder containing all
-#' the inputs data and templates for LPJ-GUESS and a directory structure for
-#' storing inputs and outputs of each single run. The setupParallel function is
-#' ought to be run before calling the runLPJparallel.
-#' Running the LPJ parallel involves two steps. First, to create a parallel
-#' setup (setupLPJParallel function), and second, to actually run in parallel the model
-#' (runLPJparallel function).  The parallelization requires the packages snow and
-#'  also the Rmpi package, if you aim at using a MPI cluster.
-#' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
-#'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
-#' @keywords Rlpj
-#' @author Florian Hartig, Ramiro Silveyra Gonzalez
+# @title The function to run the LPJ in parallel
+# @description This function reads the setup parallel object and creates a
+#  cluster to which it submits the model wrapper function with its respective
+#  parameters.
+# @param setupObject a named list created by the setupLPJParallel function containing
+# the following: mainDir, numCores, clusterType, runDir, outDir
+# @param singleRun a named list created by the setupParallel function containing
+# the following: mainDir, template1, template2, gridList, clusterType, numCores,
+#  typeList, mode and scale
+# @param parameterList a named list containing the parameters to be calibrated
+# @return a list holding the outputs of the runLPJwrapper (see function help)
+# @details The runLPJparallel assumes the existence of a folder containing all
+# the inputs data and templates for LPJ-GUESS and a directory structure for
+# storing inputs and outputs of each single run. The setupParallel function is
+# ought to be run before calling the runLPJparallel.
+# Running the LPJ parallel involves two steps. First, to create a parallel
+# setup (setupLPJParallel function), and second, to actually run in parallel the model
+# (runLPJparallel function).  The parallelization requires the packages snow and
+#  also the Rmpi package, if you aim at using a MPI cluster.
+# @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
+#  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
+# @keywords Rlpj
+# @author Florian Hartig, Ramiro Silveyra Gonzalez
 runLPJParallel <- function(setupObject = NULL, singleRun = NULL, parameterList = NULL)
   {
   #----------------------------------------------------------------------------#
