@@ -1,4 +1,4 @@
-#' @title A function to call the LPJ modell
+#' @title A function to call the LPJ modell'
 #' @description This function does a system call, passing a template to the LPJ
 #'  model.
 #' @param mainDir a character string indicating the path to LPJ
@@ -45,7 +45,7 @@ callLPJ <- function(mainDir = NULL, runDir = NULL, template2 = NULL, mode = NULL
                     file.path(runDir, template2), sep = " ")
   }
   # here I try-catch?
-  cat("Calling LPJ-GUESS")
+  cat("Calling LPJ-GUESS\n")
   cat(paste(submit, "\n", sep = ""))
   try(system (submit, intern = TRUE), FALSE)
 }
