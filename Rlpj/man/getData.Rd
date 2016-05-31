@@ -4,20 +4,20 @@
 \alias{getData}
 \title{A function to process LPJ outputs}
 \usage{
-getData(typeList = NULL, outDir = NULL, runInfo = NULL,
-  processing = TRUE)
+getData(x = NULL, typeList = NULL, runInfo = NULL, processing = FALSE)
 }
 \arguments{
+\item{x}{a character string indicating path to the output files}
+
 \item{typeList}{a character vector with the outputs to be analyzed.
-Default value is all outputs that were cretaed}
+Default value is all}
 
-\item{outDir}{a character string indicating path to the output directory}
-
-\item{runInfo, }{a named list with the information of the LPJ run
+\item{runInfo}{a named list with the information of the LPJ run
 The runInfo it will be stored by the function as RData along with
-the processed outputs of the model}
+the processed outputs of the model (optional)}
 
-\item{processing}{a boolean indicating whether output files will be turned into time series}
+\item{processing}{a boolean indicating whether output files will be turned
+into time series (default is FALSE)}
 }
 \value{
 the processed data returned in a S4 Class: LPJData Class
@@ -25,8 +25,13 @@ the processed data returned in a S4 Class: LPJData Class
 \description{
 This function reads the ASCII outputs produced by LPJ-GUESS.
 It takes a list of output types (typeList) and finds them in the specified path.
-The data is stored as a matrix with the shape of a zoo time series and
-packed in a data class object: LPJData.
+The data is stored in a data class object: LPJData. If processing is TRUE,
+the data will be stored as zoo time series. Ohterwise, as data frames.
+}
+\details{
+To convert the outputs into zoo time series is only supported when running the
+model for one grid cell. For running  LPJ-GUESS for several grid cells, please set
+processing to FALSE.
 }
 \note{
 Based on an older code of Joerg Steinkamp
@@ -41,6 +46,6 @@ LPJout <- getData( typeList = c("aaet",  "cflux","lai", "nflux"),
 Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
 }
 \seealso{
-\url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
+\linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 }
 

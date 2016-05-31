@@ -15,13 +15,19 @@ e.g, global.ins. Provide only the file name, not the path}
 \item{runDir}{a character string indicating path to the run directory}
 }
 \value{
-a modified template that is written out in the run directory
+none
 }
 \description{
-This function reads the LPJ template, and replaces parameters within
-it based on the provided parameters list. Not provived  parameter, will set it
-to the default values. The function assumes that a copy of the template
- is already placed in the folder (runDir).
+This function reads a template, and replaces parameters with the
+provides parameters list. If any parameter values is not provided, the function will
+set it to the default values. The function assumes that a copy of the template
+ is already placed in the run directory.
+}
+\details{
+The provided template can be either the one provided by the package or
+a self edited template. The function assumes a specific coding for writing the
+parameters values. For this reason, we recommend to use the package templates.
+If using self edited templates, please take the package templates as a reference.
 }
 \note{
 Based an older code of Istem Fer, Uni Potsdam
@@ -34,6 +40,9 @@ writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
 }
 \author{
 Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+}
+\seealso{
+\code{\link{getTemplate}}, \code{\link{getParameterList}}
 }
 \keyword{Rlpj}
 

@@ -10,11 +10,12 @@ The RLPJ package provides functions to run LPJ-Guess within R.
 It also allows to parallelize the execution of LPJ-Guess on personal laptops
 and on HPC.
 
-The package should be particularly useful for users aiming at integrating LPj outputs
-in R routines and parellizing LPJ-Guess.
+The package should be particularly useful for users aiming at integrating LPJ outputs
+in R routines and parellizing the model.
 
 Below is a list of the functions grouped by theme. See the vignette for more
-information and some examples.
+information and some examples   (you can open it by running this command:
+\code{vignette('Rlpj')})
 }
 \section{I. Run LPJ-Guess}{
   \itemize{
@@ -26,7 +27,7 @@ information and some examples.
 
 \section{II. Visualize data}{
  \itemize{
-  \item \code{\link{plotData}} To plot data from LPJData
+  \item \code{\link{plotLPJData}} To plot data from LPJData objects
 }
 }
 
@@ -36,8 +37,19 @@ information and some examples.
  \item \code{\link{getParameterList}} To obtain the in-package stored parameter default values
 }
 }
+
+\section{IV. Other functions}{
+ \itemize{
+ \item \code{\link{callLPJ}} To make a system call for LPJ-GUESS
+ \item \code{\link{getData}} To read and process LPJ-GUESS outputs
+ \item \code{\link{writeTemplate}} To write LPJ-GUESS templates
+
+}
+}
 \author{
 Except where indicated otherwise, the functions in this package were
  written by Ramiro Silveyra Gonzalez, Maurizio Bagnara and Florian Hartig
 }
+\keyword{LPJ-Guess}
+\keyword{package}
 

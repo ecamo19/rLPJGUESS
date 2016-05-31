@@ -9,23 +9,23 @@ setupLPJParallel(numCores = NULL, clusterType = NULL, mainDir = NULL)
 \arguments{
 \item{numCores}{a integer specifying number of cores of the cluster}
 
-\item{clusterType}{a character string indicating the type of cluster to be created. If running in bwHPC,
-type must be "MPI". If running in personal computer, type must be "SOCK"}
+\item{clusterType}{a character string indicating the type of cluster to be created.
+If running on personal computer, type should be SOCK. If running on HPC,
+type should be MPI}
 
 \item{mainDir}{a character string indicating the path to the directory where
-link to the model and optionall, the model templates, in which the function will create
+the template and the model link are located and in which the function will create
 the directory structure for the outputs}
 }
 \value{
-a setup object or named list containing the setup parameters to run
-the LPJ in parallel
+a LPJSetup object
 }
 \description{
 This function first creates a setup for running the LPJ in parallel
  based on the provided input parameters. The function assumes a specific initial
- configuration. A folder (mainDir) containing a link to the model and optionally,
- the model templates. The function will build a directory structure for the outputs
- this folder.
+ configuration. A folder (mainDir) containing the input data, the templates,
+ and link to the model must exist. A directory structure for the outputs will
+ be built wihtin this folder by the function.
 }
 \examples{
 \dontrun{
@@ -37,15 +37,14 @@ list.files(mainDir)
 [4] "global_cru.ins"    # template2 (optional)
 
 mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
-str(mySetup, 1)
-     $ clusterType: chr "SOCK"
-     $ numCores   : num 3
-     $ runDir     : chr [1:3] "/some/absolute/path/mainDir/runDirectory1"
-                              "/some/absolute/path/mainDir/runDirectory2"
-                               "/some/absolute/path/mainDir/runDirectory3"
-     $ outDir     : chr [1:3] "/some/absolute/path/mainDir/runDirectory1/outDirectory1"
-                              "/some/absolute/path/mainDir/runDirectory2/outDirectory2"
-                               "/some/absolute/path/mainDir/runDirectory3/outDirectory3"
+mySetup
+     class              : LPJSetup
+     cluster type       : SOCK
+     number of cores    : 3
+     output directories :
+     /some/absolute/path/mainDir/runDirectory1
+     /some/absolute/path/mainDir/runDirectory2
+     /some/absolute/path/mainDir/runDirectory3
 }
 }
 \author{

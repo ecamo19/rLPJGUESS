@@ -4,83 +4,62 @@
 \alias{runLPJ}
 \title{The function to run the LPJ in parallel}
 \usage{
-runLPJ(mainDir = NULL, gridList = NULL, scale = NULL, mode = NULL,
-  file.co2 = NULL, file.cru = NULL, file.cru.misc = NULL,
-  file.ndep = NULL, file.temp = NULL, file.prec = NULL,
-  file.insol = NULL, typeList = NULL, parameterList = NULL,
-  template1 = NULL, template2 = NULL, plot.data = FALSE,
-  save.plots = FALSE, processing = FALSE, delete = TRUE,
-  parallel = FALSE, setupObject = NULL, ID = "")
+runLPJ(x = NULL, typeList = NULL, parameterList = NULL, settings = NULL)
 }
 \arguments{
-\item{mainDir}{a character string indicating the path to the directory where
+\item{x}{either a LPJSetup object created with the setupLPJParallel function or a
+character string indicating the path to the directory where
 all input data and template are located and in which the function will create
 the directory structure for the outputs}
-
-\item{gridList}{a character string providing the name of the text file with
-the grids to be included in the model, e.g gridlist.txt. It must be in the mainDir.
-Provide only the file name, not the path.}
-
-\item{scale}{a character string indicating whether the model runs global or
-for europe.}
-
-\item{mode}{a character string indicating whether using cru or cf data}
-
-\item{file.co2}{a character string providing the absolute path to the C02 input file}
-
-\item{file.cru}{a character string providing the absolute path to the cur? input file}
-
-\item{file.cru.misc}{a character string providing the absolute path to the cru?
-input file}
-
-\item{file.ndep}{a character string providing the absolute path to the nitrogen
-deposition input file}
-
-\item{file.temp}{a character string providing the absolute path to the temperature
-input file}
-
-\item{file.prec}{a character string providing the absolute path to the
-precipitation input file}
-
-\item{file.insol}{a character string providing the absolute path to the
-insolation input file}
 
 \item{typeList}{a character vector with the outputs to be analyzed.
 Default value is all outputs}
 
 \item{parameterList}{a named list containing the parameters to be calibrated}
 
-\item{template1}{character string providing the general model template,
-e.g, global.ins. It must be in the mainDir. Provide only the file name,
- not the path. If not provided, package templates will be used.}
-
-\item{template2}{a character string providing the  "specific" model template,
-e.g, global_cf.ins or global_cru.ins. It must be in the mainDir. Provide
-only the file name, not the path. If not provided, package templates will be
- used}
-
-\item{plot.data}{a boolean indicating whether the ouput data will be plotted
-(default FALSE)}
-
-\item{save.plots}{a boolean indicating whether the plots will be saved (default
-FALSE)}
-
-\item{processing}{a boolean indicating whether output files will be turned into
-time series (default FALSE)}
-
-\item{delete}{a boolean indicating whether output files should be deleted after
-processing (default TRUE). Saved plots will not be deleted}
-
-\item{parallel}{a boolean indicating whether the function must run in parallel
-(default FALSE). If parallel TRUE, the setupObject must be provided}
-
-\item{setupObject}{a names list created with the setupLPJParallel function}
-
-\item{ID}{an integer after which the output directory will be named (default empty).
-If parallel TRUE, ID is ignored and defined by setupLPJParallel}
+\item{settings}{additional parameters \itemize{
+\item  gridList a character string providing the name of the text file with
+the grids to be included in the model, e.g gridlist.txt. It must be in the mainDir.
+Provide only the file name, not the path
+\item mode a character string indicating whether using cru or cf data
+\item scale a character string indicating whether the model runs global or
+for europe
+\item  mode a character string indicating whether using cru or cf data
+\item file.co2 a character string providing the absolute path to the C02 input file
+\item file.cru a character string providing the absolute path to the cru input file
+\item file.cru.misc a character string providing the absolute path to the cru
+ misc  input file
+\item file.ndep a character string providing the absolute path to the nitrogen
+ deposition input file
+\item file.temp a character string providing the absolute path to the temperature
+ input file
+\item file.prec a character string providing the absolute path to the
+precipitation input file
+\item file.insol a character string providing the absolute path to the
+ insolation input file
+\item template1  character string providing the general model template,
+ e.g, global.ins. It must be in the mainDir. Provide only the file name,
+  not the path. If not provided, package templates will be used
+\item template2 a character string providing the  "specific" model template,
+ e.g, global_cf.ins or global_cru.ins. It must be in the mainDir. Provide
+ only the file name, not the path. If not provided, package templates will be
+  used
+\item plot.data  a boolean indicating whether the ouput data will be plotted
+ (default FALSE)
+\item save.plots  a boolean indicating whether the plots will be saved (default
+ FALSE)
+\item processing a boolean indicating whether output files will be turned into zoo
+ time series (default FALSE). This is only supported when running the model
+ for one grid cell. For several grid cells, please set processing to FALSE.
+\item delete a boolean indicating whether output files should be deleted after
+ processing (default TRUE). Saved plots will not be deleted
+\item runID an integer after which the output directory will be named (default empty).
+If parallel TRUE, ID is ignored and defined by setupLPJParallel
+}}
 }
 \value{
-a LPJData class object holding the model outputs and the run information
+a object of class LPJData. The LPJData object will be automatically stored as RData
+in a folder in the mainDir. The folder will be named as runInfo plus the date in format %Y_%m_%d_%H%M%S.
 }
 \description{
 This function reads the setup parallel object and creates a
@@ -90,67 +69,67 @@ This function reads the setup parallel object and creates a
 \details{
 The runLPJ in parallel assumes the existence of a folder containing all
 the inputs data and templates for LPJ-GUESS and a directory structure for
-storing inputs and outputs of each single run. The setupLPJParallel function is
-ought to be run before calling the runLPJparallel.
+storing inputs and outputs of each single run.
 Running the LPJ parallel involves two steps. First, to create a parallel
-setup (setupParallel function), and second, to actually run in parallel the model
-(runLPJparallel function).  The parallelization requires the packages snow and
- also the Rmpi package, if you aim at using a MPI cluster.
+setup (\code{\link{setupLPJParallel}}), and second, to actually run in parallel the model
+(\code{\link{runLPJ}}).  The parallelization requires the package \emph{snow} for SOCK clusters or
+the package \emph{Rmpi} for MPI clusters.
+}
+\section{Warning}{
+ When using MPI clusters, please call the function \code{\link{exitMPI}}
+before terminating your R session.
+}
+
+\section{Model templates}{
+  The provided templates can be either the ones provided by the package or
+a self edited templates. The function assumes a specific coding for writing the
+parameters values. For this reason, we recommend to use the package templates.
+If using self edited templates, please take the package templates as a reference (\code{\link{getTemplate}})
 }
 \examples{
 \dontrun{
-#' # You need to specify the absolute path of each input file:
+
 file.co2<-"/some/absolute/path/crudata/co2_1901-2013.txt"
 file.cru <- "/some/absolute/path/crudata/cru_1901_2006.bin"
 file.cru.misc <- "/some/absolute/path/crudata/cru_1901_2006misc.bin"
 file.ndep <- "/some/absolute/path/crudata/GlobalNitrogenDeposition.bin"
-
-# If you are using the global_cf.ins file you need to specify the site
-# specific input files as well
 file.temp <- "/some/absolute/path/cfdata/temp.nc"
 file.prec <- "/some/absolute/path/cfdata/prec.nc"
 file.insol <- "/some/absolute/path/cfdata/rad.nc"
 
-#' mainDir <- "/some/absolute/path/mainDir"
+mainDir <- "/some/absolute/path/mainDir"
 list.files(mainDir)
-   [1] "guess" or "guesscmd.exe"  # link to the model executable
-   [2] "gridlist.txt"             # list of gridcells
-   [3] "global.ins"               # template1 (optional)
-   [4] "global_cru.ins"           # template2 (optional)
+[1] "guess" or "guesscmd.exe"  # link to the model executable
+[2] "gridlist.txt"      # list of gridcells
+[3] "global.ins"        # template1 (optional)
+[4] "global_cru.ins"    # template2 (optional)
+
+# General settings
+settings <- list (gridList = gridList,mode = "cf", scale = "global",
+                file.co2 = file.co2, file.cru = file.cru,
+                file.cru.misc = file.cru.misc, file.ndep = file.ndep,
+                file.temp = file.temp, file.prec = file.prec,
+                file.insol = file.insol, delete = F)
 
 
 # Single  Run
-result <- runLPJ(mainDir, gridList, scale = "global",mode = "cf", file.co2,
-                 file.cru, file.cru.misc, file.ndep, file.temp , file.prec,
-                 file.insol)
+ result <-  runLPJ(mainDir, settings= settings)
+ result
+     class              : LPJData
+     LPJ template 1     : global.ins
+     LPJ template 2     : global_cf.ins
+     grid cells         : 99  Somewhere
+     run directory      : /some/absolute/path/mainDir/runDirectory
+     LPJ model outputs  : 39 outputs
+     aaet agpp aiso amon anpp cflux clitter cmass cpool cton_leaf dens
+     firert fpc speciesheight lai maet mevap mgpp mintercep miso mlai mmon
+     mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
+     nlitter nmass npool nsources nuptake runoff vmaxnlim
 
 
-       Output typeList has not been provided.
-       Setting typeList to default values.
-
-       Using package template (template 1).
-       Saving package template in the mainDir.
-
-       Using package template (template 2).
-       Saving package template in the mainDir.
-
-       You have not provided a parameter list.
-       Model will run with default values
-
-       Starting run 1
-       Calling "/some/absolute/path/guess -input cf "/some/absolute/path/runDirectory/global_cf.ins
-       Finished run 1
-
- str(result,2)
-       Formal class 'LPJData' [package "Rlpj"] with 2 slots
-       ..@ runInfo  :List of 17
-       ..@ dataTypes:List of 39
-
-
-#Parallel Run
-
-# Create some paramaters to test modell.
-# Number of runs is proportional to number of parameter set you are testing
+#  Parallel Run
+# Create some paramaters to test the model.
+# Number of runs is proportional to number of parameter being testet
 parameterDefault <- list (run_emax = NULL)
 
 # Test 6 different values for emax.
@@ -163,31 +142,11 @@ for (i in 1:length(par)) {
  }
 
 # Call setupParallel
-mySetup  <- setupLPJParallel(3, "SOCK", "cf", mainDir = "/some/absolute/path/mainDir")
+mySetup  <- setupLPJParallel(3, "SOCK", "cf",
+                             mainDir = "/some/absolute/path/mainDir")
 
 # Call runLPJ
-result <- runLPJ(mainDir, gridList, scale = "global",mode = "cf", file.co2,
-                 file.cru, file.cru.misc, file.ndep, file.temp, file.prec,
-                 file.insol, parameterList = parameterList, parallel = TRUE,
-                 setupObject = mySetup)
-
-   Output typeList has not been provided
-   Setting typeList to default values
-
-   Using package template (template 1)
-   Saving package template in the mainDir
-
-   Using package template (template 2)
-   Saving package template in the mainDir
-
-   Checking conditions
-   Reading the parallel object structure
-   |=============================================================| 100\%
-   Creating a SOCK cluster with 3 cores
-   Sending tasks to the cores
-
-   Processing ended!
-
+result <- runLPJ(mySetup, settings= settings, parameterList = parameterList)
 str(result,1)
    List of 6
    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
@@ -197,11 +156,6 @@ str(result,1)
    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
 
-str(result[[1]], 2 )
-   Formal class 'LPJData' [package "Rlpj"] with 2 slots
-   ..@ runInfo  :List of 15
-   ..@ dataTypes:List of 39
-
 
  }
 }
@@ -210,8 +164,9 @@ Florian Hartig, Ramiro Silveyra Gonzalez
 }
 \seealso{
 \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
- \url{https://cran.r-project.org/web/packages/snow/snow.pdf,
- \code{\link{setupLPJParallel}}}
+ \url{https://cran.r-project.org/web/packages/snow/snow.pdf},
+ \code{\link{setupLPJParallel}}, \code{\link{exitMPI}}, \linkS4class{LPJData},
+ \linkS4class{LPJSetup}
 }
 \keyword{Rlpj}
 
