@@ -2,6 +2,7 @@
 library(Rlpj)
 
 # We need to specify the path of each input file inside the mainDir:
+
 file.co2<-"/home/trashtos/GitHub/lpjRun/crudata/co2_1901-2013_FAKE.txt"
 file.cru <- "/home/trashtos/GitHub/lpjRun/crudata/cru_1901_2006.bin"
 file.cru.misc <- "/home/trashtos/GitHub/lpjRun/crudata/cru_1901_2006misc.bin"
@@ -14,9 +15,12 @@ file.insol <- "/home/trashtos/GitHub/lpjRun/inputLPJ/rad.nc"
 mainDir <- "/home/trashtos/GitHub/lpjRun"
 gridList <- "gridlist_geb.txt"
 
-result <-   runLPJ(mainDir, gridList, scale = "global",mode = "cf", file.co2,
-                   file.cru, file.cru.misc, file.ndep, file.temp, file.prec,
-                   file.insol, delete = F)
+
+settings <- list (gridList = gridList,mode = "cf", scale = "europe",
+                  file.co2 = file.co2, file.cru = file.cru, file.cru.misc = file.cru.misc,
+                  file.ndep = file.ndep, file.temp = file.temp, file.prec = file.prec,
+                  file.insol = file.insol, delete = F, plot.data =T, save.plots=F)
+result <-   runLPJ(mainDir, settings= settings, typeList = c("aaet"))
 
 
 
@@ -41,10 +45,8 @@ for (i in 1:length(par)) {
 mySetup  <- setupLPJParallel(numCores = 3, clusterType ="SOCK", mainDir = "/home/trashtos/GitHub/lpjRun")
 
 proc1 <- proc.time()
-result <-   runLPJ(mainDir, gridList, scale = "global", mode = "cf", file.co2,
-                   file.cru, file.cru.misc, file.ndep, file.temp, file.prec,
-                   file.insol, parameterList = parameterList,  parallel = TRUE,
-                   processing = TRUE, setupObject = mySetup, delete = TRUE)
+result <-   runLPJ(mySetup,  settings= settings, parameterList = parameterList,
+                   typeList = c("aaet"))
 proc.time() - proc1
 
 
