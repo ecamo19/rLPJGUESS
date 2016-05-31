@@ -1,12 +1,12 @@
 #Internal data
-
+#setwd("/home/trashtos/GitHub/ownBranches/RLPJ/Rlpj")
 # list.files
-files <- list.files("./inst//extdata", full.names = TRUE)
+files <- list.files("./data-raw", full.names = TRUE)
 # open globals and save them
 files.global <- sort(files[grepl("global", files)])
 # create global object
 global <- vector("list", length(files.global))
-names(global) <- gsub(".ins","", gsub("./inst//extdata/", "", files.global))
+names(global) <- gsub(".ins","", gsub("./data-raw/", "", files.global))
 for (i in 1:length(global)){
   global[[i]] <- readLines(files.global[i])
 }
@@ -14,7 +14,7 @@ for (i in 1:length(global)){
 files.europe <- sort(files[grepl("europe", files)])
 # create global object
 europe <- vector("list", length(files.europe))
-names(europe) <- gsub(".ins","", gsub("./inst//extdata/", "", files.europe))
+names(europe) <- gsub(".ins","", gsub("./data-raw/", "", files.europe))
 for (i in 1:length(europe)){
   europe[[i]] <- readLines(files.europe[i])
 }
@@ -42,6 +42,7 @@ files.parameters$cf <- list(file.co2 = c("path_to_co2_1901-2006.txt", NULL),
                            file.temp = c("path_to_temp.nc", NULL),
                            file.prec = c("path_to_prec.nc", NULL),
                            file.insol = c("path_to_rad.nc", NULL))
+
 files.parameters$cru <- list(file.co2 = c("path_to_co2_1901-2006.txt", NULL),
                            file.cru = c("path_to_cru_1901_2006.bin", NULL),
                            file.cru.misc = c("path_to_cru_1901_2006misc.bin", NULL),
@@ -196,6 +197,7 @@ global[["ShIntol_alphar"]] <- 10.0
 global[["ShIntol_greff_min"]] <- 0.08
 global[["ShIntol_turnover_sap"]] <- 0.1
   # Boreal needleleaved evergreen tree
+global[["BNE_include"]] <- 1
 global[["BNE_leaflong"]] <- 3
 global[["BNE_turnover_leaf"]] <- 0.33
 global[["BNE_tcmin_surv"]] <- -31
@@ -210,6 +212,7 @@ global[["BNE_seas_iso"]] <- 0
 global[["BNE_eps_mon"]] <- 4.8
 global[["BNE_storfrac_mon"]] <- 0.5
   # Boreal needleleaved evergreen tree
+global[["BINE_include"]] <- 1
 global[["BINE_leaflong"]] <- 3
 global[["BINE_turnover_leaf"]] <- 0.33
 global[["BINE_tcmin_surv"]] <- -31
@@ -224,6 +227,7 @@ global[["BINE_seas_iso"]] <- 0
 global[["BINE_eps_mon"]] <- 4.8
 global[["BINE_storfrac_mon"]] <- 0.5
   # Boreal needleleaved summergreen tree
+global[["BNS_include"]] <- 1
 global[["BNS_tcmin_surv"]] <- -1000
 global[["BNS_tcmin_est"]] <- -1000
 global[["BNS_tcmax_est"]] <- -2
@@ -238,6 +242,7 @@ global[["BNS_seas_iso"]] <- 1
 global[["BNS_eps_mon"]] <- 4.8
 global[["BNS_storfrac_mon"]] <- 0.5
   # Temperate needleleaved evergreen tree
+global[["TeNE_include"]] <- 1
 global[["TeNE_leaflong"]] <- 3
 global[["TeNE_turnover_leaf"]] <- 0.33
 global[["TeNE_tcmin_surv"]] <- -2
@@ -252,6 +257,7 @@ global[["TeNE_seas_iso"]] <- 0
 global[["TeNE_eps_mon"]] <- 4.8
 global[["TeNE_storfrac_mon"]] <- 0.5
   # Shade-tolerant temperate broadleaved summergreen tree
+global[["TeBS_include"]] <- 1
 global[["TeBS_tcmin_surv"]] <- -14
 global[["TeBS_tcmin_est"]]<- -13
 global[["TeBS_tcmax_est"]] <- 6
@@ -264,6 +270,7 @@ global[["TeBS_seas_iso"]] <- 1
 global[["TeBS_eps_mon"]] <- 1.6
 global[["TeBS_storfrac_mon"]] <- 0.
   # Shade-intolerant broadleaved summergreen tree
+global[["IBS_include"]] <- 1
 global[["IBS_tcmin_surv"]] <- -30
 global[["IBS_tcmin_est"]] <- -30
 global[["IBS_tcmax_est"]] <- 7
@@ -276,6 +283,7 @@ global[["IBS_seas_iso"]] <- 1
 global[["IBS_eps_mon"]] <- 1.6
 global[["IBS_storfrac_mon"]] <- 0.
   # Temperate broadleaved evergreen tree
+global[["TeBE_include"]] <- 1
 global[["TeBE_leaflong"]] <- 3
 global[["TeBE_turnover_leaf"]] <- 0.33
 global[["TeBE_tcmin_surv"]] <- -1
@@ -290,6 +298,7 @@ global[["TeBE_seas_iso"]] <- 0
 global[["TeBE_eps_mon"]] <- 1.6
 global[["TeBE_storfrac_mon"]] <- 0.
   # Tropical shade tolerant broadleaved evergreen tree
+global[["TrBE_include"]] <- 1
 global[["TrBE_leaflong"]] <- 2
 global[["TrBE_turnover_leaf"]] <- 0.5
 global[["TrBE_longevity"]] <- 500
@@ -299,6 +308,7 @@ global[["TrBE_seas_iso"]] <- 0
 global[["TrBE_eps_mon"]] <- 0.8
 global[["TrBE_storfrac_mon"]] <- 0.
   # Tropical shade intolerant broadleaved evergreen tree
+global[["TrIBE_include"]] <- 1
 global[["TrIBE_leaflong"]] <- 2
 global[["TrIBE_turnover_leaf"]] <- 0.5
 global[["TrIBE_longevity"]] <- 200
@@ -308,6 +318,7 @@ global[["TrIBE_seas_iso"]] <- 0
 global[["TrIBE_eps_mon"]] <- 0.8
 global[["TrIBE_storfrac_mon"]] <- 0.0
   # Tropical broadleaved raingreen tree
+global[["TrBR_include"]] <- 1
 global[["TrBR_fnstorage"]] <- 0.15
 global[["TrBR_leaflong"]] <- 0.5
 global[["TrBR_turnover_leaf"]] <- 1
@@ -318,6 +329,7 @@ global[["TrBR_seas_iso"]] <- 0
 global[["TrBR_eps_mon"]] <- 2.4
 global[["TrBR_storfrac_mon"]] <- 0.0
   # Cool (C3) grass
+global[["C3G_include"]] <- 1
 global[["C3G_respcoeff"]] <- 1.0
 global[["C3G_pstemp_min"]] <- -5
 global[["C3G_pstemp_low"]] <- 10
@@ -333,6 +345,7 @@ global[["C3G_seas_iso"]] <- 1
 global[["C3G_eps_mon"]] <- 1.6
 global[["C3G_storfrac_mon"]] <- 0.5
   # Warm (C4) grass
+global[["C4G_include"]] <- 1
 global[["C4G_respcoeff"]] <- 0.15
 global[["C4G_pstemp_min"]] <- 6
 global[["C4G_pstemp_low"]] <- 20
@@ -451,6 +464,7 @@ europe[["temperate_pstemp_low"]] <- 15
 europe[["temperate_pstemp_high"]] <- 25
 europe[["temperate_pstemp_max"]] <- 38
   # Parameters specific to Abies alba
+europe[["Abi_alb_include"]] <- 1
 europe[["Abi_alb_sla"]] <- 9.3
 europe[["Abi_alb_gmin"]] <- 0.3
 europe[["Abi_alb_fnstorage"]] <- 0.05
@@ -474,6 +488,7 @@ europe[["Abi_alb_seas_iso"]] <- 0
 europe[["Abi_alb_eps_mon"]] <- 1.8
 europe[["Abi_alb_storfrac_mon"]] <- 0.5
   # Parameters specific to boreal evergreen shrub
+europe[["BES_include"]] <- 1
 europe[["BES_crownarea_max"]] <- 3
 europe[["BES_k_allom1"]] <- 20
 europe[["BES_k_allom2"]] <- 5
@@ -502,6 +517,7 @@ europe[["BES_eps_mon"]] <- 4.0
 europe[["BES_storfrac_mon"]] <- 0.5
 europe[["BES_ga"]] <- 0.040
   # Parameters specific to Betula pendula
+europe[["Bet_pen_include"]] <- 1
 europe[["Bet_pen_sla"]] <- 24.3
 europe[["Bet_pen_gmin"]] <- 0.5
 europe[["Bet_pen_fnstorage"]] <- 0.15
@@ -523,6 +539,7 @@ europe[["Bet_pen_seas_iso"]] <- 1
 europe[["Bet_pen_eps_mon"]] <- 6.
 europe[["Bet_pen_storfrac_mon"]] <- 0.
   # Parameters specific to Betula pubescens
+europe[["Bet_pub_include"]] <- 1
 europe[["Bet_pub_sla"]] <- 24.3
 europe[["Bet_pub_gmin"]] <- 0.5
 europe[["Bet_pub_fnstorage"]] <- 0.15
@@ -544,6 +561,7 @@ europe[["Bet_pub_seas_iso"]] <- 1
 europe[["Bet_pub_eps_mon"]] <- 1.0
 europe[["Bet_pub_storfrac_mon"]] <- 0.
   # Parameters specific to Carpinus betulus
+europe[["Car_bet_include"]] <- 1
 europe[["Car_bet_sla"]] <- 24.3
 europe[["Car_bet_gmin"]] <- 0.5
 europe[["Car_bet_fnstorage"]] <- 0.15
@@ -565,6 +583,7 @@ europe[["Car_bet_seas_iso"]] <- 1
 europe[["Car_bet_eps_mon"]] <- 0.08
 europe[["Car_bet_storfrac_mon"]] <- 0.
   # Parameters specific to Corylus avellana
+europe[["Cor_ave_include"]] <- 1
 europe[["Cor_ave_crownarea_max"]] <- 15
 europe[["Cor_ave_k_latosa"]] <- 4000
 europe[["Cor_ave_sla"]] <- 12
@@ -588,6 +607,7 @@ europe[["Cor_ave_seas_iso"]] <- 1
 europe[["Cor_ave_eps_mon"]] <- 0.
 europe[["Cor_ave_storfrac_mon"]] <- 0.
   # Parameters specific to Fagus sylvatica
+europe[["Fag_syl_include"]] <- 1
 europe[["Fag_syl_sla"]] <- 24.3
 europe[["Fag_syl_gmin"]] <- 0.5
 europe[["Fag_syl_fnstorage"]] <- 0.15
@@ -609,6 +629,7 @@ europe[["Fag_syl_seas_iso"]] <- 1
 europe[["Fag_syl_eps_mon"]] <- 10.
 europe[["Fag_syl_storfrac_mon"]] <- 0.
   # Parameters specific to Fraxinus excelsior
+europe[["Fra_exc_include"]] <- 1
 europe[["Fra_exc_sla"]] <- 24.3
 europe[["Fra_exc_gmin"]] <- 0.5
 europe[["Fra_exc_fnstorage"]] <- 0.15
@@ -630,6 +651,7 @@ europe[["Fra_exc_seas_iso"]] <- 1
 europe[["Fra_exc_eps_mon"]] <- 0.
 europe[["Fra_exc_storfrac_mon"]] <- 0.
   # Parameters specific to Juniperus oxycedrus
+europe[["Jun_oxy_include"]] <- 1
 europe[["Jun_oxy_k_latosa"]] <- 1500
 europe[["Jun_oxy_crownarea_max"]] <- 10
 europe[["Jun_oxy_sla"]] <- 10
@@ -655,6 +677,7 @@ europe[["Jun_oxy_seas_iso"]] <- 0
 europe[["Jun_oxy_eps_mon"]] <- 2.0
 europe[["Jun_oxy_storfrac_mon"]] <- 0.5
   # Parameters specific to Mediterranean raingreen low shrub: Cistus, Rosmarinus, Genista, Lavandula, Erica
+europe[["MRS_include"]] <- 1
 europe[["MRS_k_latosa"]] <- 1500
 europe[["MRS_sla"]] <- 10
 europe[["MRS_gmin"]] <- 0.5
@@ -679,6 +702,7 @@ europe[["MRS_eps_mon"]] <- 4.0
 europe[["MRS_storfrac_mon"]] <- 0.5
 europe[["MRS_ga"]] <- 0.040
   # Parameters specific to Picea abies
+europe[["Pic_abi_include"]] <- 1
 europe[["Pic_abi_sla"]] <- 9.3
 europe[["Pic_abi_gmin"]] <- 0.3
 europe[["Pic_abi_fnstorage"]] <- 0.05
@@ -702,6 +726,7 @@ europe[["Pic_abi_seas_iso"]] <- 0
 europe[["Pic_abi_eps_mon"]] <- 6.0
 europe[["Pic_abi_storfrac_mon"]] <- 0.5
   # Parameters specific to Picea sitchensis
+europe[["Pic_sit_include"]] <- 1
 europe[["Pic_sit_k_latosa"]] <- 4500
 europe[["Pic_sit_sla"]] <- 9.3
 europe[["Pic_sit_gmin"]] <- 0.3
@@ -726,6 +751,7 @@ europe[["Pic_sit_seas_iso"]] <- 0
 europe[["Pic_sit_eps_mon"]] <- 0.
 europe[["Pic_sit_storfrac_mon"]] <- 0.5
   # Parameters specific to Pinus sylvestris
+europe[["Pin_syl_include"]] <- 1
 europe[["Pin_syl_k_latosa"]] <- 3000
 europe[["Pin_syl_sla"]] <- 9.3
 europe[["Pin_syl_gmin"]] <- 0.3
@@ -750,6 +776,7 @@ europe[["Pin_syl_seas_iso"]] <- 0
 europe[["Pin_syl_eps_mon"]] <- 4.0
 europe[["Pin_syl_storfrac_mon"]] <- 0.5
   # Parameters specific to Pinus halepensis
+europe[["Pin_hal_include"]] <- 1
 europe[["Pin_hal_k_latosa"]] <- 3000
 europe[["Pin_hal_sla"]] <- 9.3
 europe[["Pin_hal_gmin"]] <- 0.3
@@ -774,6 +801,7 @@ europe[["Pin_hal_seas_iso"]] <- 0
 europe[["Pin_hal_eps_mon"]] <- 10.0
 europe[["Pin_hal_storfrac_mon"]] <- 0.5
   # Parameters specific to Populus tremula
+europe[["Pop_tre_include"]] <- 1
 europe[["Pop_tre_sla"]] <- 24.3
 europe[["Pop_tre_gmin"]] <- 0.5
 europe[["Pop_tre_fnstorage"]] <- 0.15
@@ -795,6 +823,7 @@ europe[["Pop_tre_seas_iso"]] <- 1
 europe[["Pop_tre_eps_mon"]] <- 4.0
 europe[["Pop_tre_storfrac_mon"]] <- 0.
   # Parameters specific to Quercus coccifera
+europe[["Que_coc_include"]] <- 1
 europe[["Que_coc_k_latosa"]] <- 2500
 europe[["Que_coc_sla"]] <- 10
 europe[["Que_coc_gmin"]] <- 0.5
@@ -819,6 +848,7 @@ europe[["Que_coc_eps_mon"]] <- 10.0
 europe[["Que_coc_storfrac_mon"]] <- 0.
 europe[["Que_coc_ga"]] <- 0.040
   # Parameters specific to Querqus ilex
+europe[["Que_ile_include"]] <- 1
 europe[["Que_ile_k_latosa"]] <- 3000
 europe[["Que_ile_sla"]] <- 9.3
 europe[["Que_ile_gmin"]] <- 0.5
@@ -843,6 +873,7 @@ europe[["Que_ile_seas_iso"]] <- 0
 europe[["Que_ile_eps_mon"]] <- 16.0
 europe[["Que_ile_storfrac_mon"]] <- 0.
   # Parameters specific to Quercus pubescens
+europe[["Que_pub_include"]] <- 1
 europe[["Que_pub_sla"]] <- 24.3
 europe[["Que_pub_gmin"]] <- 0.5
 europe[["Que_pub_fnstorage"]] <- 0.15
@@ -864,6 +895,7 @@ europe[["Que_pub_seas_iso"]] <- 1
 europe[["Que_pub_eps_mon"]] <- 0.
 europe[["Que_pub_storfrac_mon"]] <- 0.
   # Parameters specific to Quercus robur
+europe[["Que_rob_include"]] <- 1
 europe[["Que_rob_sla"]] <- 24.3
 europe[["Que_rob_gmin"]] <- 0.5
 europe[["Que_rob_fnstorage"]] <- 0.15
@@ -885,6 +917,7 @@ europe[["Que_rob_seas_iso"]] <- 1
 europe[["Que_rob_eps_mon"]] <- 0.
 europe[["Que_rob_storfrac_mon"]] <- 0.
   # Parameters specific to Tila cordata
+europe[["Til_cor_include"]] <- 1
 europe[["Til_cor_sla"]] <- 24.3
 europe[["Til_cor_gmin"]] <- 0.5
 europe[["Til_cor_fnstorage"]] <- 0.15
@@ -906,6 +939,7 @@ europe[["Til_cor_seas_iso"]] <- 1
 europe[["Til_cor_eps_mon"]] <- 0.
 europe[["Til_cor_storfrac_mon"]] <- 0.
   # Parameters specific to Ulmus glaucescens
+europe[["Ulm_gla_include"]] <- 1
 europe[["Ulm_gla_sla"]] <- 24.3
 europe[["Ulm_gla_gmin"]] <- 0.5
 europe[["Ulm_gla_fnstorage"]] <- 0.15
@@ -927,6 +961,7 @@ europe[["Ulm_gla_seas_iso"]] <- 1
 europe[["Ulm_gla_eps_mon"]] <- 0.
 europe[["Ulm_gla_storfrac_mon"]] <- 0.
   # Parameters specific to cool (C3) grass
+europe[["C3_gr_include"]] <- 1
 europe[["C3_gr_sla"]] <- 32.4
 europe[["C3_gr_gmin"]] <- 0.5
 europe[["C3_gr_leaflong"]] <- 0.5
@@ -951,6 +986,7 @@ europe[["C3_gr_seas_iso"]] <- 1
 europe[["C3_gr_eps_mon"]] <- 1.0
 europe[["C3_gr_storfrac_mon"]] <- 0.5
   # Parameters specific to warm (C4) grass
+europe[["C4_gr_include"]] <- 1
 europe[["C4_gr_gmin"]] <- 0.5
 europe[["C4_gr_leaflong"]] <- 0.5
 europe[["C4_gr_turnover_leaf"]] <- 1
@@ -980,5 +1016,5 @@ parameterList.default[['europe']] <- europe
 # Put the data in the package
 
 
-devtools::use_data(parameterList.default, typelist.default, templates, internal = TRUE, overwrite = TRUE)
+devtools::use_data(parameterList.default, files.parameters, typelist.default, templates, internal = TRUE, overwrite = TRUE)
 
