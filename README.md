@@ -1,15 +1,3 @@
-# RLPJ
-
-A R package that wraps the LPJ-GUESS model
-
-## Installing Rlpj
-
-Rlpj depends on three packages:
-
-- zoo
-- snow (for SOCK cluster)
-- Rmpi (for MPI clusters)
-
 # Rlpj
 
 A R package that wraps the LPJ-GUESS model
