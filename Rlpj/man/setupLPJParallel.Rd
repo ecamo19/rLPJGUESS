@@ -23,9 +23,8 @@ a LPJSetup object
 \description{
 This function first creates a setup for running the LPJ in parallel
  based on the provided input parameters. The function assumes a specific initial
- configuration. A folder (mainDir) containing the input data, the templates,
- and link to the model must exist. A directory structure for the outputs will
- be built wihtin this folder by the function.
+ configuration. A folder (mainDir) containing the model templates for LPJ-GUESS
+ (optional) and link to the model executable (not for Windows).
 }
 \examples{
 \dontrun{

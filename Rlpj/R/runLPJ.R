@@ -57,9 +57,8 @@
 #' a self edited templates. The function assumes a specific coding for writing the
 #' parameters values. For this reason, we recommend to use the package templates.
 #' If using self edited templates, please take the package templates as a reference (\code{\link{getTemplate}})
-#' @details The runLPJ in parallel assumes the existence of a folder containing all
-#' the inputs data and templates for LPJ-GUESS and a directory structure for
-#' storing inputs and outputs of each single run.
+#' @details The runLPJ in parallel assumes the existence of a folder the model templates
+#'  for LPJ-GUESS (optional) and link to the model executable (not for Windows).
 #' Running the LPJ parallel involves two steps. First, to create a parallel
 #' setup (\code{\link{setupLPJParallel}}), and second, to actually run in parallel the model
 #' (\code{\link{runLPJ}}).  The parallelization requires the package \emph{snow} for SOCK clusters or

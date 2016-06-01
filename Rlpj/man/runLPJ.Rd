@@ -67,9 +67,8 @@ This function reads the setup parallel object and creates a
  parameters.
 }
 \details{
-The runLPJ in parallel assumes the existence of a folder containing all
-the inputs data and templates for LPJ-GUESS and a directory structure for
-storing inputs and outputs of each single run.
+The runLPJ in parallel assumes the existence of a folder the model templates
+ for LPJ-GUESS (optional) and link to the model executable (not for Windows).
 Running the LPJ parallel involves two steps. First, to create a parallel
 setup (\code{\link{setupLPJParallel}}), and second, to actually run in parallel the model
 (\code{\link{runLPJ}}).  The parallelization requires the package \emph{snow} for SOCK clusters or

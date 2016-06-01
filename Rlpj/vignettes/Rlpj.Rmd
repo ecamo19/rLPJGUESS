@@ -32,7 +32,7 @@ with a structure like this:
   
   $ ls   
   
-          guess / guesscmd.exe   # link to the model executable  
+          guess / guesscmd.exe   # link to the model executable (not for Windows)
           gridlist.txt           # list of grid cells
           global.ins             # model template  (optional)
           global_cru.ins         # model template  (optional) or
