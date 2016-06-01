@@ -158,23 +158,26 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
     if(!file.exists(x)){
       stop("Invalid main directory")
     }
-    if ( is.null(parameterList)){
-      cat ("\n\nYou have not provided a parameter list")
-      cat ("\nModel will run with default values")
-      parameterList <- getParameterList(singleRun$scale)
 
-    }else if(!class(parameterList) == "list"){
-      stop("Please provide a valid parameter list")
-    }else{
-
-    }
 
     # do the settings check
     singleRun <- try(createSingleObject(x, typeList, settings), FALSE)
     if ('try-error' %in% class(singleRun)){
       stop("Invalid settings provided")
     }
-    singleRun$parameterList <- parameterList
+
+    if ( is.null(parameterList)){
+      cat ("\n\nYou have not provided a parameter list")
+      cat ("\nModel will run with default values")
+      singleRun$parameterList <- getParameterList(singleRun$scale)
+
+    }else if(!class(parameterList) == "list"){
+      stop("Please provide a valid parameter list")
+    }else{
+      singleRun$parameterList  <- parameterList
+
+    }
+
 
 
 
