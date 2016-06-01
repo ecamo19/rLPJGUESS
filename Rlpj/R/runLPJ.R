@@ -161,12 +161,12 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
     if ( is.null(parameterList)){
       cat ("\n\nYou have not provided a parameter list")
       cat ("\nModel will run with default values")
-      singleRun$parameterList <- getParameterList(singleRun$scale)
+      parameterList <- getParameterList(singleRun$scale)
 
     }else if(!class(parameterList) == "list"){
       stop("Please provide a valid parameter list")
     }else{
-      singleRun$parameterList <- parameterList
+
     }
 
     # do the settings check
@@ -174,6 +174,7 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
     if ('try-error' %in% class(singleRun)){
       stop("Invalid settings provided")
     }
+    singleRun$parameterList <- parameterList
 
 
 
