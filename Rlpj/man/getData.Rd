@@ -2,7 +2,7 @@
 % Please edit documentation in R/getData.R
 \name{getData}
 \alias{getData}
-\title{A function to process LPJ outputs}
+\title{A function to process LPJ-GUESS outputs}
 \usage{
 getData(x = NULL, typeList = NULL, runInfo = NULL, processing = FALSE)
 }

@@ -1,4 +1,4 @@
-#' @title The function to run the LPJ in parallel
+#' @title The function to run the LPJ-GUESS in parallel
 #' @description This function reads the setup parallel object and creates a
 #'  cluster to which it submits the model wrapper function with its respective
 #'  parameters.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/callLPJ.R
 \name{callLPJ}
 \alias{callLPJ}
-\title{A function to call the LPJ modell'}
+\title{A function to call the LPJ_GUESS modell}
 \usage{
 callLPJ(mainDir = NULL, runDir = NULL, template2 = NULL, mode = NULL)
 }

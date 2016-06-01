@@ -2,7 +2,7 @@
 % Please edit documentation in R/runLPJ.R
 \name{runLPJ}
 \alias{runLPJ}
-\title{The function to run the LPJ in parallel}
+\title{The function to run the LPJ-GUESS in parallel}
 \usage{
 runLPJ(x = NULL, typeList = NULL, parameterList = NULL, settings = NULL)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotLPJData.R
 \name{plotLPJData}
 \alias{plotLPJData}
-\title{A plot function for LPJdata objects}
+\title{A plot function for LPJData objects}
 \usage{
 plotLPJData(x = NULL, typeList = NULL, outDir = NULL,
   save.plots = FALSE, prefix = "")

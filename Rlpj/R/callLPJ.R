@@ -1,4 +1,4 @@
-#' @title A function to call the LPJ modell'
+#' @title A function to call the LPJ_GUESS modell
 #' @description This function does a system call, passing a template to the LPJ
 #'  model.
 #' @param mainDir a character string indicating the path to LPJ

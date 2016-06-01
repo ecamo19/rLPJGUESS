@@ -1,4 +1,4 @@
-#' @title A function to process LPJ outputs
+#' @title A function to process LPJ-GUESS outputs
 #' @description This function reads the ASCII outputs produced by LPJ-GUESS.
 #' It takes a list of output types (typeList) and finds them in the specified path.
 #' The data is stored in a data class object: LPJData. If processing is TRUE,

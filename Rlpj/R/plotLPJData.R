@@ -1,4 +1,4 @@
-#' @title A plot function for LPJdata objects
+#' @title A plot function for LPJData objects
 #' @description  This function reads data from a LPJData object and plots the
 #'  variables against time. Plots are saved in the output folder, if the save.plots is set to TRUE.
 #' @param x a LPJData object.
