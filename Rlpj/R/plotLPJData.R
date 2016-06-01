@@ -62,50 +62,49 @@ plotLPJData <- function(x=NULL, typeList = NULL, outDir= NULL,
   # Checking existentce of data types # in theory do not need if your plotting from class object
   for (i in 1:length(typeList.valid)){
     df <- data[[typeList.valid[[i]] ]]
-    # check how many coordinates
-    coordinates <- unique(paste(df$Lat, df$Lon, sep = "_"))
-    if(length(coordinates) > 1 ){
-      # if only one grid, simplify the list
-      #      if (length(listData) == 1){
-      # listData <- listData[[1]]
-      # Adding Data to listData
-      # looping over data types, reading files, processing data and adding it to the Data Class
-      # list append data, probably will have to use the name() function to give it the right name
-      # in the end, make the list of class LPJData
-      # Add data to LPJout Data class
-      coordinates <- lapply(coordinates, function(x){as.numeric(unlist(strsplit(x, "_")))})
-      #keep <- rep(TRUE, length(coord))
-      #sub_data <- coord[coord>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
-      for (k in 1:length(coordinates)){
-        df_subset <- df[df$Lat==coordinates[[k]][1] & df$Lon==coordinates[[k]][2],]
-        if(zoo::is.zoo(df_subset) == FALSE){
-          df_subset <- convertTS(df_subset)
-        }
-        if (save.plots){
-          png(file.path(outDir, paste(prefix, typeList.valid[[i]], ".png", sep="")),width=1000,height=750)
-          if(length(colnames(df_subset))==1){
-            plot(df_subset, main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
-                                        "Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
-          }else{
-            plot(df_subset, main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
-                                        "Variable:", typeList.valid[[i]]),xlab="Years")
+    if(zoo::is.zoo(df) == FALSE){
+      # check how many coordinates
+      coordinates <- unique(paste(df$Lat, df$Lon, sep = "_"))
+      #if(length(coordinates) > 1 ){
+        # if only one grid, simplify the list
+        #      if (length(listData) == 1){
+        # listData <- listData[[1]]
+        # Adding Data to listData
+        # looping over data types, reading files, processing data and adding it to the Data Class
+        # list append data, probably will have to use the name() function to give it the right name
+        # in the end, make the list of class LPJData
+        # Add data to LPJout Data class
+        coordinates <- lapply(coordinates, function(x){as.numeric(unlist(strsplit(x, "_")))})
+        #keep <- rep(TRUE, length(coord))
+        #sub_data <- coord[coord>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
+        for (k in 1:length(coordinates)){
+          df_subset <- df[df$Lat==coordinates[[k]][1] & df$Lon==coordinates[[k]][2],]
+          if(zoo::is.zoo(df_subset) == FALSE){
+            df_subset <- convertTS(df_subset)
           }
-          dev.off()
-        }else{
-          if(length(colnames(df_subset))==1){
-            plot(df_subset,  main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
-                                         "Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
+          if (save.plots){
+            png(file.path(outDir, paste(prefix, typeList.valid[[i]], ".png", sep="")),width=1000,height=750)
+            if(length(colnames(df_subset))==1){
+              plot(df_subset, main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
+                                          "Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
+            }else{
+              plot(df_subset, main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
+                                          "Variable:", typeList.valid[[i]]),xlab="Years")
+            }
+            dev.off()
           }else{
-            plot(df_subset,  main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
-                                  "Variable:", typeList.valid[[i]]),xlab="Years")
+            if(length(colnames(df_subset))==1){
+              plot(df_subset,  main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
+                                           "Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
+            }else{
+              plot(df_subset,  main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
+                                           "Variable:", typeList.valid[[i]]),xlab="Years")
+            }
           }
         }
-      }
+
     }else{
     # something like is zoo
-      if(zoo::is.zoo(df) == FALSE){
-        df <- convertTS(df)
-      }
       if (save.plots){
         png(file.path(outDir, paste(prefix, typeList.valid[[i]], ".png", sep="")),width=1000,height=750)
         if(length(colnames(df))==1){
