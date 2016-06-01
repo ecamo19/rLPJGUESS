@@ -45,7 +45,7 @@ The model templates are included within the package as part of the system data. 
 
 #### Running LPJ in parallel
 
-Running the LPJ parallel involves two steps. First, to create a parallel setup (**setupParallel**) function, and second, to actually run in parallel the model (**runLPJ**).  The parallelization requires the packages *snow* and if you aim at using a MPI cluster, the *Rmpi* package.
+Running the LPJ parallel involves two steps. First, to create a parallel setup (**setupParallel**) function, and second, to actually run in parallel the model (**runLPJ**).  The parallelization requires the package *snow* for SOCK cluster and for MPI cluster, the *Rmpi* package.
 
 The **setupParallel** function will help you at creating a directory structure for storing your model outputs and arranging the model templates for each run. Calling the setupParallel returns a list object that contains all information needed to run the LPJ in parallel.
 
@@ -102,7 +102,7 @@ settings <- list (gridList = gridList,mode = "cf", scale = "global",
 #### A serial run
 
 After the steps above, we are ready to call runLPJ. LPJ-GUESS is, however, not part of this 
-package, and thus, we will skip runLPJ here. Anyway, we should procceed as follows:
+package, and thus, we will skip runLPJ here. Anyway, we should procceed as follows
 
 ```{r}
 
@@ -140,8 +140,7 @@ The output is a LPJData object holding the information on the model run and the 
 
 #### A parallel run
 
-Because we are  running this on a personal laptop, we will choose a low number cores and create a SOCK cluster. By calling the
-function setupParallel we will create a parallel setup for runLPJ. 
+Because we are  running this on a personal laptop, we will choose a low number cores and create a SOCK cluster. By calling the function setupParallel we will create a parallel setup for runLPJ. 
 
 ```{r}
 
@@ -256,7 +255,7 @@ The runLPJ  would return something like this:
 
 ## How Rlpj works
 
-Here you will see how a single run takes place. The *runLPJ* does some preliminary taks such as organizing input data into the runDirs. If parallel, it creates the desired cluster. In both cases, runLPJ calls a internal wrapper which agglutinates all single steps to carry one complete call to LPJ-GUESS. Normally, we would call the function, but since we do want to call the LPJ model, we will run the steps that takes in place in a single run.
+Here you will see how a single run takes place. The *runLPJ* does some preliminary taks such as organizing input data into the runDirs. If parallel, it creates the desired cluster. In both cases, runLPJ calls a internal wrapper which agglutinates all single steps to carry one complete call to LPJ-GUESS. Here we will run the steps that take in place in a single run.
 
 ```{r, fig.show='hold'}
 # Lets move to one of the run directories
