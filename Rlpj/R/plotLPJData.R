@@ -1,18 +1,19 @@
 #' @title A plot function for LPJData objects
 #' @description  This function reads data from a LPJData object and plots the
-#'  variables against time. Plots are saved in the output folder, if the save.plots is set to TRUE.
+#'  variables against time. If the save.plots is set to TRUE, plots are saved in the output folder.
 #' @param x a LPJData object.
 #' @param outDir a character string indicating the folder where the plots will be
 #' saved, if save.plot set to TRUE
-#' @param save.plots a boolean indicating whether the plots are saved in the outDir
+#' @param save.plots a boolean indicating whether the plots are saved in the outDir.
+#'  Plots will be saved as pdf
 #' @param typeList a character vector with the outputs to be plotted
 #' @param prefix a character string specifying the prefix to be added to the plots files.
-#' Only relevant if saving plots
+#' Only relevant if saving plots is TRUE
 #' @return plots for data types included in typeList. The grid cells will be plotted independently
 #' @seealso \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 #' @export
 #' @keywords Rlpj
-#' @author Florian Hartig, Ramiro Silveyra Gonzalez
+#' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @examples \dontrun{
 #' plotLPJData(data, typeList = c("aaet", "lai"),
 #'  outDir = "/runDir/outDir", save.plots = FALSE)
@@ -33,7 +34,7 @@ plotLPJData <- function(x=NULL, typeList = NULL, outDir= NULL,
     }
   }
   if (!requireNamespace("zoo", quietly = TRUE)){
-    stop("Can't load required library 'zoo'.")
+    stop("Can't load required library 'zoo'")
   }
 
   data <- x@dataTypes
@@ -83,7 +84,7 @@ plotLPJData <- function(x=NULL, typeList = NULL, outDir= NULL,
             df_subset <- convertTS(df_subset)
           }
           if (save.plots){
-            png(file.path(outDir, paste(prefix, typeList.valid[[i]], ".png", sep="")),width=1000,height=750)
+            pdf(file.path(outDir, paste(prefix, typeList.valid[[i]], ".pdf", sep="")))#width=1000,height=750
             if(length(colnames(df_subset))==1){
               plot(df_subset, main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
                                           "Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
@@ -106,7 +107,7 @@ plotLPJData <- function(x=NULL, typeList = NULL, outDir= NULL,
     }else{
     # something like is zoo
       if (save.plots){
-        png(file.path(outDir, paste(prefix, typeList.valid[[i]], ".png", sep="")),width=1000,height=750)
+        pdf(file.path(outDir, paste(prefix, typeList.valid[[i]], ".pdf", sep="")))#width=1000,height=750
         if(length(colnames(df))==1){
           plot(df, main =paste("Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
         }else{
