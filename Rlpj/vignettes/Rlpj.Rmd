@@ -1,8 +1,9 @@
 ---
 title: "Rlpj Package"
-author: "Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara"
+author: "Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Rlpj Package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,12 +18,12 @@ In this document you will learn how to prepare a parallel setup and how to use t
 
 #### General aspects
 
-The Rlpj package will help you to run LPJ-GUESS in parallel,  but first you will have to prepare your data, so that you can make use the of the package utilities. Specifically, Rlpj requires that *i)* you have already compiled the LPJ model in your computer or home folder in the HPC, and that *ii)* the existence of a directory where the outputs of the model will be saved, lets name it the Main Directory. 
+The Rlpj package will help you to run LPJ-GUESS in parallel,  but first you will have to prepare your data, so that you can make use the of the package utilities. Specifically, Rlpj requires that *i)* you have already compiled the LPJ_GUESS model in your computer or home folder in the HPC, and that *ii)* the existence of a directory where the outputs of the model will be saved, lets name it the Main Directory. 
 
 
 In the Main Directory, the following files must be available:
 
-  - a link to the guess executable (see installing LPJ guess)
+  - a link to the guess executable 
   - a text file with the grids 
   - the model input templates (optional)
 
@@ -318,7 +319,7 @@ Now that we have processed the output data, we can plot the data and see how the
 plotLPJData(x = LPJout, typeList = c("lai") , outDir = outDir, save.plots = FALSE)
 ```
 
-If you have more doubts about the functions, please check the the help files.
+If you have more doubts about the functions, please check the help files.
 
 ```{r, echo=FALSE}
 # And cleand the folder
