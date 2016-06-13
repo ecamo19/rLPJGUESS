@@ -13,7 +13,7 @@
 #'  into time series (default is FALSE)
 #' @return the processed data returned in a S4 Class: LPJData Class
 #' @seealso \linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
-#' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+#' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @note Based on an older code of Joerg Steinkamp
 #' @details To convert the outputs into zoo time series is only supported when running the
 #' model for one grid cell. For running  LPJ-GUESS for several grid cells, please set
@@ -47,10 +47,10 @@ getData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
   if (is.null(x) || !file.exists(x)){
     stop("Please provide a valid directory")
   }
-  if (is.null(typeList == TRUE)){
+  if (is.null(typeList)){
     typeList <- typelist.default
     warning("Output type list has not been provided")
-    warning("Setting type list to default values:\n")
+    warning("Setting type list to default values")
   }
   # checking directory existence
   if (!requireNamespace("zoo", quietly = TRUE)){
@@ -93,53 +93,61 @@ getData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
       # in the end, make the list of class LPJData
       # Add data to LPJout Data class
       for (j in 1:length(typeList.valid)) {
-        data <- read.table(file.path(x, paste( typeList.valid[[j]], ".out", sep="")),header=T)
+        data <- try(read.table(file.path(x, paste( typeList.valid[j], ".out", sep="")),header=T), TRUE)
+        if ('try-error' %in% class(data)){
+          data <- try(data <-readTableHeaderLPJ(file.path(x, paste( typeList.valid[j], ".out", sep=""))), TRUE)
+          if ('try-error' %in% class(data)){
+            stop("Model outputs are not readable")
+          }
+        }
         listData[[typeList.valid[[j]]]] <- data
       }
     }else{
+      for (j in 1:length(typeList.valid)) {
       # Chekc how many grids in output
-      data <- read.table(file.path(x, paste( typeList.valid[[1]], ".out", sep="")),header=T)
-      coordinates <- unique(paste(data$Lat, data$Lon, sep = "_"))
-
-      if(length(coordinates) > 1 ){
-        # Now we stop but eventually we want to do something out of this
-        # Below there is code that would do it
-        # This would also affect plotLPJData
-        stop("Processing is not supported for more than one grid")
-        # if only one grid, simplify the list
-        #      if (length(listData) == 1){
-        # listData <- listData[[1]]
-        # Adding Data to listData
-        # looping over data types, reading files, processing data and adding it to the Data Class
-        # list append data, probably will have to use the name() function to give it the right name
-        # in the end, make the list of class LPJData
-        # Add data to LPJout Data class
-        coordinates <- lapply(coordinates, function(x){as.numeric(unlist(strsplit(x, "_")))})
-        listData <- rep(list(listData), length(coordinates))
-        names(listData) <- paste("grid", coordinates, sep = "_") # will need better named
-        # Adding Data to listData
-        # looping over data types, reading files, processing data and adding it to the Data Class
-        # list append data, probably will have to use the name() function to give it the right name
-        # in the end, make the list of class LPJData
-        #keep <- rep(TRUE, length(coord))
-        #sub_data <- coord[coord>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
-        for (k in 1:length(listData)){
-          data <- data[data$Lat==coordinates[[k]][1] & data$Lon==coordinates[[k]][2],]
-
-          for (j in 1:length(typeList.valid)) {
-            # reading output
-            data <- read.table(file.path(x, paste(typeList.valid[[j]], ".out", sep="")),header=T)
-            data.ts  <- convertTS(data)
-            listData[[k]][[typeList.valid[[j]]]] <- data.ts
+        data <- try(read.table(file.path(x, paste( typeList.valid[j], ".out", sep="")),header=T), TRUE)
+        if ('try-error' %in% class(data)){
+          data <- try(data <-readTableHeaderLPJ(file.path(x, paste( typeList.valid[j], ".out", sep=""))), TRUE)
+          if ('try-error' %in% class(data)){
+            stop("Model outputs are not readable")
           }
         }
+        coordinates <- unique(paste(data$Lat, data$Lon, sep = "_"))
 
-      }else{
-        for (j in 1:length(typeList.valid)) {
-          # reading output
-          data <- read.table(file.path(x, paste(typeList.valid[[j]], ".out", sep="")),header=T)
-          data.ts  <- convertTS(data)
-          listData[[typeList.valid[[j]]]] <- data.ts
+        if(length(coordinates) > 1 ){
+          # Now we stop but eventually we want to do something out of this
+          # Below there is code that would do it
+          # This would also affect plotLPJData
+          stop("Processing is not supported for more than one grid")
+          # if only one grid, simplify the list
+          #      if (length(listData) == 1){
+          # listData <- listData[[1]]
+          # Adding Data to listData
+          # looping over data types, reading files, processing data and adding it to the Data Class
+          # list append data, probably will have to use the name() function to give it the right name
+          # in the end, make the list of class LPJData
+          # Add data to LPJout Data class
+          #coordinates <- lapply(coordinates, function(x){as.numeric(unlist(strsplit(x, "_")))})
+          #listData <- rep(list(listData), length(coordinates))
+          #names(listData) <- paste("grid", coordinates, sep = "_") # will need better named
+          # Adding Data to listData
+          # looping over data types, reading files, processing data and adding it to the Data Class
+          # list append data, probably will have to use the name() function to give it the right name
+          # in the end, make the list of class LPJData
+          #keep <- rep(TRUE, length(coord))
+          #sub_data <- coord[coord>=min(lon.extent) & Lon<=max(lon.extent) & Lat <=max(lat.extent) & Lat>=min(lat.extent))
+          #for (k in 1:length(listData)){
+          #  data <- data[data$Lat==coordinates[[k]][1] & data$Lon==coordinates[[k]][2],]
+
+          #  for (j in 1:length(typeList.valid)) {
+          #    # reading output
+           #   data <- read.table(file.path(x, paste(typeList.valid[[j]], ".out", sep="")),header=T)
+           #   data.ts  <- convertTS(data)
+          #    listData[[k]][[typeList.valid[[j]]]] <- data.ts
+           # }
+          }else{
+            data.ts  <- convertTS(data)
+            listData[[typeList.valid[[j]]]] <- data.ts
         }
       }
     }
