@@ -2,6 +2,7 @@
 #
 # @description This function TODO
 # @param data TODO
+# @author Ramiro Silveyra Gonzalez
 # @return TODO
 convertTS <- function(data = NULL){
   # setting annual true or false
