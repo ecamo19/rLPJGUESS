@@ -8,7 +8,7 @@
 #  to be tested.
 # @return a named list holding the values of the template parameter.
 # @keywords Rlpj
-# @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+# @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 # @examples \dontrun{
 # parameterList <- list(run_emax = 4, run_lambda_max = 1)
 # parameterList.checked <- checkParameters(scale= "global", parameterList)
