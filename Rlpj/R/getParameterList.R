@@ -4,6 +4,7 @@
 #' @param scale a character string indicating whether the parameters are for the global or europe template
 #' @return a list with parameter names and their values
 #' @export
+#' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @examples \dontrun{
 #' parameterList <- getParameterList("global")
 #' }
