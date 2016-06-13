@@ -6,8 +6,8 @@
 \alias{Rlpj-package}
 \title{Overview of the functions in the Rlpj package}
 \description{
-The RLPJ package provides functions to run LPJ-Guess within R.
-It also allows to parallelize the execution of LPJ-Guess on personal laptops
+The RLPJ package provides functions to run LPJ-GUESS within R.
+It also allows to parallelize the execution of LPJ-GUESS on personal laptops
 and on HPC.
 
 The package should be particularly useful for users aiming at integrating LPJ outputs
@@ -19,7 +19,7 @@ information and some examples   (you can open it by running this command:
 }
 \section{I. Run LPJ-Guess}{
   \itemize{
-  \item \code{\link{runLPJ}} To run LPJ-Guess serial/parallel
+  \item \code{\link{runLPJ}} To run LPJ-GUESS serial/parallel
   \item \code{\link{setupLPJParallel}} To create a parallel setup
   \item \code{\link{exitMPI}} To exit MPI clusters
 }

@@ -19,8 +19,8 @@ none
 }
 \description{
 This function reads a template, and replaces parameters with the
-provides parameters list. If any parameter values is not provided, the function will
-set it to the default values. The function assumes that a copy of the template
+provides parameters list. If no parameter values are provided, the function will
+set them to the default values. The function assumes that a copy of the template
  is already placed in the run directory.
 }
 \details{
@@ -39,7 +39,7 @@ writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
 }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig,
 }
 \seealso{
 \code{\link{getTemplate}}, \code{\link{getParameterList}}

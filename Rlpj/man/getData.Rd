@@ -43,7 +43,7 @@ LPJout <- getData( typeList = c("aaet",  "cflux","lai", "nflux"),
 }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \seealso{
 \linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}

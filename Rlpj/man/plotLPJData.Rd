@@ -15,17 +15,18 @@ plotLPJData(x = NULL, typeList = NULL, outDir = NULL,
 \item{outDir}{a character string indicating the folder where the plots will be
 saved, if save.plot set to TRUE}
 
-\item{save.plots}{a boolean indicating whether the plots are saved in the outDir}
+\item{save.plots}{a boolean indicating whether the plots are saved in the outDir.
+Plots will be saved as pdf}
 
 \item{prefix}{a character string specifying the prefix to be added to the plots files.
-Only relevant if saving plots}
+Only relevant if saving plots is TRUE}
 }
 \value{
 plots for data types included in typeList. The grid cells will be plotted independently
 }
 \description{
 This function reads data from a LPJData object and plots the
- variables against time. Plots are saved in the output folder, if the save.plots is set to TRUE.
+ variables against time. If the save.plots is set to TRUE, plots are saved in the output folder.
 }
 \examples{
 \dontrun{
@@ -34,7 +35,7 @@ plotLPJData(data, typeList = c("aaet", "lai"),
 }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \seealso{
 \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}

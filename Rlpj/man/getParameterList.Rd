@@ -21,4 +21,7 @@ It also allows users to see the default values of the templates.
 parameterList <- getParameterList("global")
 }
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara
+}
 

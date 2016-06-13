@@ -17,4 +17,7 @@ This function returns the LPJ-GUESS output type list
 typelist <- getTypeList()
 }
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara
+}
 

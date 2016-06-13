@@ -16,8 +16,7 @@ global_cf, global_cru, europe, europe_cf, europe_cru}
 a template object or template.ins file in the specified folder
 }
 \description{
-This function returns the LPJ-GUESS templates required for the
- writeTemplate function. It also allows users to download the templates.
+This function returns the LPJ-GUESS templates.
 }
 \examples{
 \dontrun{
@@ -26,7 +25,7 @@ getTemplate("global.ins", "/home/LPJTemplates/")
 }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \keyword{Rlpj}
 

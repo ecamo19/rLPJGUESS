@@ -14,17 +14,17 @@ If running on personal computer, type should be SOCK. If running on HPC,
 type should be MPI}
 
 \item{mainDir}{a character string indicating the path to the directory where
-the template and the model link are located and in which the function will create
+the template and the model link are located, and in which the function will create
 the directory structure for the outputs}
 }
 \value{
-a LPJSetup object
+an LPJSetup object
 }
 \description{
-This function first creates a setup for running the LPJ in parallel
+This function first creates a setup for running the LPJ-GUESS in parallel
  based on the provided input parameters. The function assumes a specific initial
  configuration. A folder (mainDir) containing the model templates for LPJ-GUESS
- (optional) and link to the model executable (not for Windows).
+ (optional) and link to the model executable.
 }
 \examples{
 \dontrun{
@@ -47,7 +47,7 @@ mySetup
 }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \seealso{
 \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},

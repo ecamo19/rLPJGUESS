@@ -7,7 +7,7 @@
 callLPJ(mainDir = NULL, runDir = NULL, template2 = NULL, mode = NULL)
 }
 \arguments{
-\item{mainDir}{a character string indicating the path to LPJ}
+\item{mainDir}{a character string indicating the path to LPJ-GUESS executable}
 
 \item{runDir}{a character string indicating the path to the runDirectory}
 
@@ -33,7 +33,7 @@ callLPJ("/home/LPJrun", "/home/LPJrun/runDirectory1", "global_cru.ins")
 }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \keyword{Rlpj}
 

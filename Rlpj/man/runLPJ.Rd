@@ -9,7 +9,7 @@ runLPJ(x = NULL, typeList = NULL, parameterList = NULL, settings = NULL)
 \arguments{
 \item{x}{either a LPJSetup object created with the setupLPJParallel function or a
 character string indicating the path to the directory where
-all input data and template are located and in which the function will create
+the model link and template are located, and in which the function will create
 the directory structure for the outputs}
 
 \item{typeList}{a character vector with the outputs to be analyzed.
@@ -19,7 +19,7 @@ Default value is all outputs}
 
 \item{settings}{additional parameters \itemize{
 \item  gridList a character string providing the name of the text file with
-the grids to be included in the model, e.g gridlist.txt. It must be in the mainDir.
+the grids to be included in the model, e.g, gridlist.txt. It must be in the mainDir.
 Provide only the file name, not the path
 \item mode a character string indicating whether using cru or cf data
 \item scale a character string indicating whether the model runs global or
@@ -58,19 +58,19 @@ If parallel TRUE, ID is ignored and defined by setupLPJParallel
 }}
 }
 \value{
-a object of class LPJData. The LPJData object will be automatically stored as RData
+an object of class LPJData. The LPJData object will be automatically stored as RData
 in a folder in the mainDir. The folder will be named as runInfo plus the date in format %Y_%m_%d_%H%M%S.
 }
 \description{
-This function reads the setup parallel object and creates a
- cluster to which it submits the model wrapper function with its respective
- parameters.
+This function allows to run LPJ-GUESS  the model serial
+or parallel and returns the model outputs as an R object, which is also stored
+as RData.
 }
 \details{
 The runLPJ in parallel assumes the existence of a folder the model templates
- for LPJ-GUESS (optional) and link to the model executable (not for Windows).
-Running the LPJ parallel involves two steps. First, to create a parallel
-setup (\code{\link{setupLPJParallel}}), and second, to actually run in parallel the model
+ for LPJ-GUESS (optional) and link to the model executable.
+Running the LPJ-GUESS in parallel involves two steps. First, to create a parallel
+setup (\code{\link{setupLPJParallel}}), and second, to actually run the model
 (\code{\link{runLPJ}}).  The parallelization requires the package \emph{snow} for SOCK clusters or
 the package \emph{Rmpi} for MPI clusters.
 }
@@ -159,7 +159,7 @@ str(result,1)
  }
 }
 \author{
-Florian Hartig, Ramiro Silveyra Gonzalez
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \seealso{
 \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
