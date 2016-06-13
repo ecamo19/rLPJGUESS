@@ -1,7 +1,7 @@
 #' @title A function to call the LPJ-GUESS modell
 #' @description This function does a system call, passing a template to the LPJ
 #'  model.
-#' @param mainDir a character string indicating the path to LPJ
+#' @param mainDir a character string indicating the path to LPJ-GUESS executable
 #' @param runDir a character string indicating the path to the runDirectory
 #' @param template2 a character string providing the  "specific" model template,
 #'  e.g, global_cf.ins or global_cru.ins. Provide only the file name, not the path.
@@ -9,7 +9,7 @@
 #' @param mode a character string indicating whether using cru or cf data
 #' @return none
 #' @keywords Rlpj
-#' @author Florian Hartig, Ramiro Silveyra Gonzalez
+#' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @note Based an older code of Istem Fer, Uni Potsdam
 #' @examples \dontrun{
 #' callLPJ("/home/LPJrun", "/home/LPJrun/runDirectory1", "global_cru.ins")
