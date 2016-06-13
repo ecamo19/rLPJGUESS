@@ -1,7 +1,7 @@
 #' @title A writing template function for LPJ
 #' @description  This function reads a template, and replaces parameters with the
-#' provides parameters list. If any parameter values is not provided, the function will
-#' set it to the default values. The function assumes that a copy of the template
+#' provides parameters list. If no parameter values are provided, the function will
+#' set them to the default values. The function assumes that a copy of the template
 #'  is already placed in the run directory.
 #' @param template1 a character string providing the general model template,
 #'  e.g, global.ins. Provide only the file name, not the path
@@ -15,7 +15,7 @@
 #' @seealso \code{\link{getTemplate}}, \code{\link{getParameterList}}
 #' @export
 #' @keywords Rlpj
-#' @author Florian Hartig, Ramiro Silveyra Gonzalez, Maurizio Bagnara
+#' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig,
 #' @note Based an older code of Istem Fer, Uni Potsdam
 #' @examples \dontrun{
 #' writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
@@ -28,7 +28,7 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
     stop("Please provide a valid run directory")
   }
   if (is.null(template1) || !file.exists(file.path(runDir, template1))){
-    stop("The provided template  does not exits. Please provide a template name")
+    stop("The provided template does not exits. Please provide a template name")
   }
   if (is.null(parameterList) || !class(parameterList) =="list"){
     stop("Please provide a parameterList")
