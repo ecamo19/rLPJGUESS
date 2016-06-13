@@ -6,6 +6,7 @@
 #  Default value is all outputs.
 # @param settings additional parameters
 # @seealso  \code{\link{runLPJ}}
+# @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 # @return TODO
 createSingleObject <- function(mainDir, typeList, settings){
 
