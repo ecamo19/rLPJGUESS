@@ -57,19 +57,42 @@ runLPJWrapper <- function(runObject){
   # print out info message
   cat(paste("\n\nStarting run ", runObject$runID,  "\n", sep = ""))
   # set the wd
+  previouswd <- getwd()
   setwd(runObject$runDir)
   # write out files
+  runObject$template1Mem <- sub("path_to_output/",
+                                paste(runObject$outDir, "/", sep =""), runObject$template1Mem)
+  for ( j in 1:length(runObject$typeList)) {
+    runObject$template1Mem <- sub(paste("! file", runObject$typeList[j], sep="_"),
+                                  paste("file",  runObject$typeList[j], sep="_") , runObject$template1Mem)
+  }
+
   writeLines(runObject$template1Mem,file.path(runObject$runDir,runObject$template1))
+
+  #runObject$template2Mem <- readLines(file.path(runObject$mainDir,runObject$template2))
+  runObject$template2Mem <- sub("path_to_globalTemplate",
+                                paste(runObject$runDir, "/", runObject$template1, sep=""),
+                                runObject$template2Mem )
+  runObject$template2Mem  <- sub("path_to_gridlist",
+                                 paste(runObject$runDir,"/", runObject$gridList, sep=""),
+                                 runObject$template2Mem )
+  for ( j in 1:length(runObject$filesNames)){
+    runObject$template2Mem  <- sub(runObject$filesNames[[j]][1],
+                                   runObject$filesNames[[j]][2],
+                                   runObject$template2Mem)
+  }
+
   writeLines(runObject$template2Mem,file.path(runObject$runDir,runObject$template2))
-  writeLines(runObject$gridListMem, file.path(runObject$runDir, runObject$gridList))
+  writeLines(runObject$gridListCell, file.path(runObject$runDir, runObject$gridList))
   # writing template
   writeTemplate(runObject$template1, runObject$parameterList,
                   runObject$runDir)
   # calling the model
   callLPJ(runObject$mainDir, runObject$runDir,runObject$template2, runObject$mode)
   # getting data
-  LPJout <- getData(runObject$outDir, runObject$typeList, runObject,
+  LPJout <- getLPJData(runObject$outDir, runObject$typeList, runObject,
                      runObject$processing)
+                    #, runObject$fun)
 
 
   #----------------------------------------------------------------------------#
@@ -88,7 +111,7 @@ runLPJWrapper <- function(runObject){
   runObject$output <- LPJout@dataTypes
   # Sav the run info
   #For example, make a list with all the info provided to runLPJ, and store it with save()
-  save(runObject, file = file.path(runObject$runInfoDir,
+  save(LPJout, file = file.path(runObject$runInfoDir,
                                    paste("runInfo", runObject$runID,".Rdata", sep = "")))
   if (runObject[["plot.data"]] == TRUE){
     plotLPJData(x = LPJout, typeList = runObject$typeList,
@@ -99,6 +122,7 @@ runLPJWrapper <- function(runObject){
   #----------------------------------------------------------------------------#
   # END
   #----------------------------------------------------------------------------#
+  setwd(previouswd)
   return (LPJout)
 }
 
