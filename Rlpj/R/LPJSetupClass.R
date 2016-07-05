@@ -106,18 +106,25 @@ setReplaceMethod(f = "outDir",
                    #validObject(object); object
                  }
 )
-# Extract parts of LPJSetup
-#
-#setMethod(f ="[[",
-#          signature(x = "LPJData", i = "ANY"),
-#          definition = function(x,i,drop){
-#            if(i=="clusterType"){return(x@clusterType)}else {}
-#            if(i=="numCores"){return(x@numCores)}else {}
-#            if(i=="mainDir"){return(x@mainDir)}else {}
-#            if(i=="runDir"){return(x@runDir)}else {}
-#            if(i=="outDir"){return(x@outDir)}else {}
-#          }
-#          )
+#' Extract parts of LPJSetup
+#'
+# @method [, LPJ class objects
+#' @rdname extract-methods
+# @param x a \code{LPJSetup} object
+# @param i a character string indicating the slot name of LPJSetup class object or an LPJ-GUESS output
+# @param j unused
+# @param drop unused
+# @param ... additional arguments (none implemented)
+setMethod("[",
+          signature(x="LPJSetup", i='character', j="ANY", drop="ANY"),
+          definition = function(x, i, j, ..., drop) {
+            if(i=="clusterType"){return(x@clusterType)}else {}
+            if(i=="numCores"){return(x@numCores)}else {}
+            if(i=="mainDir"){return(x@mainDir)}else {}
+            if(i=="runDir"){return(x@runDir)}else {}
+            if(i=="outDir"){return(x@outDir)}else {}
+            }
+          )
 
 setMethod (f= "show",
              signature ="LPJSetup",
