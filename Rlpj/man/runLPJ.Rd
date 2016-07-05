@@ -50,7 +50,11 @@ precipitation input file
  FALSE)
 \item processing a boolean indicating whether output files will be turned into zoo
  time series (default FALSE). This is only supported when running the model
- for one grid cell. For several grid cells, please set processing to FALSE.
+ for one grid cell. For several grid cells, please set processing to FALSE
+\item parallel a character string providing the parallel strategy. If grids, it will
+parallelize grids. If parameters, it will parallelize parameters. If both, it will
+parallelize both grids and parameters. If auto, it will decided the strategy based
+on the provided parameterList and gridList. Default value is auto
 \item delete a boolean indicating whether output files should be deleted after
  processing (default TRUE). Saved plots will not be deleted
 \item runID an integer after which the output directory will be named (default empty).
