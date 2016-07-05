@@ -15,10 +15,12 @@ createSingleObject <- function(mainDir, typeList, settings){
                         file.ndep= NULL, file.temp = NULL, file.prec = NULL,
                         file.insol = NULL, template1 = NULL, template2=NULL,
                         plot.data = FALSE, save.plots = FALSE, processing = FALSE,
-                        delete = TRUE,  runID = "")
+                        delete = TRUE,  runID = "", parallel = "auto")
+  #, fun = NULL) # This would be to allow havin own functions in parallel.
 
   settings <- c(settings[names(settings) %in% names(defaultSettings)],
                 defaultSettings[ !names(defaultSettings) %in% names(settings)])
+
 
   # mode
   if (is.null(settings[["mode"]]) || settings[["mode"]] != "cf" & settings[["mode"]] != "cru"){
@@ -34,6 +36,27 @@ createSingleObject <- function(mainDir, typeList, settings){
   }else{
     settings$typeList <- typeList
   }
+  if ( settings[["parallel"]] != "auto" & settings[["parallel"]] != "grids" & settings[["parallel"]] != "parameters"  & settings[["parallel"]] != "both"){ # this is relevant if getting template
+    stop("Please provide a valid parallel value")
+  }
+#  # will potential provide more parameters
+#  if (!is.null(settings[["fun"]])){
+#
+#    if (class(settings[["fun"]]) == "character"){
+#      if (settings[["fun"]] == "met"){
+#        settings$fun  <- calculateMet
+#      }else{
+#        settings$fun <- NULL
+#      }
+#    }else if(class(settings[["fun"]]) == "function"){
+#      cat("\nAdded user defined fun")
+#    }else{
+#      warning("The prodived fun argument is not provided")
+#      setings$fun <- NULL
+#    }
+#  }
+
+
   # checking template1
   if (is.null(settings[["template1"]])){
     # writing out template and storing name
@@ -48,16 +71,12 @@ createSingleObject <- function(mainDir, typeList, settings){
   if ( is.null(settings[["template2"]])){
     # writing out template and storing name
     settings$template2 <- getTemplate (type = paste(settings[["scale"]],"_", settings[["mode"]], sep = ""),
-                              outputDir = mainDir)
+                                       outputDir = mainDir)
     cat("\n\nUsing package template (template 2)")
     cat("\nSaving package template in the mainDir")
   }else if (!file.exists(file.path(mainDir, settings[["template2"]]))){
     warning ("The provided template (template2) does not exist")
     stop("Please provide a valid template name")
-  }
-  # checking gridlist
-  if ( is.null(settings[["gridList"]]) || !file.exists(file.path(mainDir, settings[["gridList"]]))){
-    stop ("Please provide a valid grid list")
   }
 
   # Pack up all files that user should have provided
@@ -80,13 +99,13 @@ createSingleObject <- function(mainDir, typeList, settings){
   singleObject <- settings[!grepl("file", names(settings))]
   singleObject$filesNames <- files.default
   singleObject$mainDir <- mainDir
-  singleObject$gridListMem <- readLines(file.path(singleObject$mainDir,singleObject$gridList))
   singleObject$runInfoDir <-  file.path(singleObject$mainDir,
                                         paste("runInfo",
                                               format(Sys.time(), "%Y_%m_%d_%H%M%S"),
                                               sep = "_"))
+  singleObject$template1Mem <- readLines(file.path(singleObject$mainDir, singleObject$template1))
+  singleObject$template2Mem <- readLines(file.path(singleObject$mainDir,singleObject$template2))
 
-  #
   return(singleObject)
 }
 
