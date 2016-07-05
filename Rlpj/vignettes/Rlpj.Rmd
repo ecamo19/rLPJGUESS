@@ -301,8 +301,8 @@ list.files(outDir)
 # Normally, you will want to proccess all outputs you have created.
 typeList <- c("aaet","lai", "nonsense")
 # As you noticed, we included a wrong value: nonsense. The function should be able to sort this out.
-# We call the getData function to obtain the processed data
-LPJout <- getData(x = outDir,typeList = typeList,  runInfo=list(runNumber = 1, template1 = "europe.ins", template2="europe_cf.ins", runDir = "runDirectory1"))
+# We call the getLPJData function to obtain the processed data
+LPJout <- getLPJData(x = outDir,typeList = typeList,  runInfo=list(runNumber = 1, template1 = "europe.ins", template2="europe_cf.ins", runDir = "runDirectory1"))
 # You see the fucntion has foudn we gave wrong values
 # The returned object is a S4 Object
 LPJout
