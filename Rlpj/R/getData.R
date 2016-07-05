@@ -20,10 +20,11 @@
 #' processing to FALSE.
 #' @export
 #' @examples \dontrun{
-#' LPJout <- getData( typeList = c("aaet",  "cflux","lai", "nflux"),
+#' LPJout <- getLPJData( typeList = c("aaet",  "cflux","lai", "nflux"),
 #'           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
 #' }
-getData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
+getLPJData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
+                    #, fun = NULL){
   # other options which could be included:
       #lon.extent=c(-180, 180), lat.extent=c(-90, 90),
       #area.weighted=FALSE, year.offset=0 ) {
@@ -64,7 +65,7 @@ getData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
   for (i in 1:length(typeList)){
     if (file.exists(file.path(x, paste(typeList[[i]], ".out", sep="")))){
         if ( file.info( file.path(x, paste(typeList[[i]], ".out", sep="")) )[['size']] == 0){
-        warning( paste("The",  typeList[[i]], ".out is empty!", sep = "") )
+        warning( paste("The ",  typeList[[i]], ".out is empty!", sep = "") )
       }else{
         keep[i] <- TRUE
       }
@@ -82,7 +83,6 @@ getData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
   }
 
     # storing run info
-  #LPJout@runInfo <- runInfo
   #----------------------------------------------------------------------------#
   # OBTAIN OUTPUTS:
   #----------------------------------------------------------------------------#
@@ -155,6 +155,14 @@ getData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
   LPJout <- new(Class="LPJData",
                 runInfo=runInfo,
                 dataTypes=listData)
+
+#  # Calculate additional outputs
+#  if (!is.null(fun)){
+#    cat("\n Apllying own fucntions")
+#    LPJout <- applyFun(LPJout, fun)
+#  }
+
+
   #LPJout@dataTypes <- listData
   return (LPJout)
 }
