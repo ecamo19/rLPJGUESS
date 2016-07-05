@@ -42,7 +42,11 @@
 #'  FALSE)
 #' \item processing a boolean indicating whether output files will be turned into zoo
 #'  time series (default FALSE). This is only supported when running the model
-#'  for one grid cell. For several grid cells, please set processing to FALSE.
+#'  for one grid cell. For several grid cells, please set processing to FALSE
+#' \item parallel a character string providing the parallel strategy. If grids, it will
+#' parallelize grids. If parameters, it will parallelize parameters. If both, it will
+#' parallelize both grids and parameters. If auto, it will decided the strategy based
+#' on the provided parameterList and gridList. Default value is auto
 #' \item delete a boolean indicating whether output files should be deleted after
 #'  processing (default TRUE). Saved plots will not be deleted
 #' \item runID an integer after which the output directory will be named (default empty).
@@ -158,7 +162,6 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
     if(!file.exists(x)){
       stop("Invalid main directory")
     }
-
     # do the settings check
     singleRun <- try(createSingleObject(x, typeList, settings), FALSE)
     if ('try-error' %in% class(singleRun)){
@@ -175,7 +178,6 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
     }else{
       singleRun$parameterList  <- parameterList
     }
-
     dir.create(singleRun$runInfoDir, showWarnings = FALSE)
     # Need to create an output folder named after ID
     singleRun$runDir <- file.path(x, paste("runDirectory", singleRun$runID, sep=""))
@@ -184,27 +186,17 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
     dir.create(singleRun$runDir, showWarnings = FALSE)
     dir.create(singleRun$outDir, showWarnings = FALSE)
     #
-    singleRun$template1Mem <- readLines(file.path(singleRun$mainDir, singleRun$template1))
-    singleRun$template1Mem <- sub("path_to_output/",
-                                  paste(singleRun$outDir, "/", sep =""), singleRun$template1Mem)
-    for ( j in 1:length(singleRun$typeList)) {
-      singleRun$template1Mem <- sub(paste("! file", singleRun$typeList[j], sep="_"),
-                                    paste("file",  singleRun$typeList[j], sep="_") , singleRun$template1Mem)
-    }
+    gridListCell <- readLines(file.path(singleRun$mainDir,singleRun$gridList))
+    gridListCell <- gridListCell[!grepl("!", gridListCell)]
+    singleRun$gridListCell <- gridListCell[!is.na(gridListCell)]
+
+    #singleRun$template1Mem <- readLines(file.path(singleRun$mainDir, singleRun$template1))
     # template 2: the cru or cf template
-    singleRun$template2Mem <- readLines(file.path(singleRun$mainDir,singleRun$template2))
-    singleRun$template2Mem <- sub("path_to_globalTemplate",
-                                  paste(singleRun$runDir, "/", singleRun$template1, sep=""),
-                                  singleRun$template2Mem )
-    singleRun$template2Mem  <- sub("path_to_gridlist",
-                                   paste(singleRun$runDir,"/", singleRun$gridList, sep=""),
-                                   singleRun$template2Mem )
-    for ( j in 1:length(singleRun$filesNames)){
-      singleRun$template2Mem  <- sub(singleRun$filesNames[[j]][1],
-                                     singleRun$filesNames[[j]][2],
-                                     singleRun$template2Mem)
+    #singleRun$template2Mem <- readLines(file.path(singleRun$mainDir,singleRun$template2))
+    result <- try(runLPJWrapper(singleRun), TRUE)
+    if ('try-error' %in% class(result)){
+      stop("Error when running the model")
     }
-    result <- runLPJWrapper(singleRun)
     return(result)
 
   #----------------------------------------------------------------------------#
@@ -215,15 +207,11 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
     if (is.null(settings) || !class(settings) == "list"){
         stop("Invalid settings provided")
       }
-    if ( is.null(parameterList) || !class(parameterList) == "list"){
-        stop("Please provide a valid parameter list")
-      }
     # do the settings check
-    singleRun <- try(createSingleObject(x@mainDir, typeList, settings ), FALSE)
+    singleRun <- try(createSingleObject(x@mainDir, typeList, settings), FALSE)
     if ('try-error' %in% class(singleRun)){
       stop("Invalid settings provided")
     }
-    # setup object has all needed for pallel structure
     # Checking packages availability
     if (!requireNamespace("snow", quietly = TRUE)){
       stop("Can't load required library 'snow', runLPJparallel will now exit")
@@ -244,62 +232,134 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
         }
       }
     }
-    # Check cores with runs
-    if (length(parameterList) < x@numCores){
-      stop("The number of cores requested exceeds the number of runs")
-    }
-    # Need to create an output folder named after ID
-    dir.create(singleRun$runInfoDir, showWarnings = FALSE)
-      # READ SETUP AND CREATE THE RUNPARAMETER
+    # FIGURE OUT HOW MANY PARAMETERS AND GRIDS
     #----------------------------------------------------------------------------#
     cat("\n\nReading the parallel object structure")
-    # Creating list that will hold data. It is faster to first create objects,
-    # and then fill them with values, instead of grow then withing a loop.
-    runDir <- vector("character", length(parameterList))
-    outDir <- vector("character", length(parameterList))
-    # the actual list that will hold the information need for all runs
-    runParameters <- rep(list(), length(parameterList))
+    parallel <- "serial"
+    # parameters
+    if ( is.null(parameterList) || !class(parameterList) == "list"){
+      cat ("\n\nYou have not provided a parameter list")
+      cat ("\nModel will run with default values")
+      parameterList <- getParameterList(singleRun$scale)
+      runsParameters  <- 1
+    }else if (class(parameterList[[1]])== "list"){
+      runsParameters <- length(parameterList)
+    }else if (class(parameterList)== "list"){
+      runsParameters  <- 1
+    }else{
+      stop("Invalid parameterList")
+    }
+    # grids
+    gridListCell <- readLines(file.path(singleRun$mainDir,singleRun$gridList))
+    gridListCell <- gridListCell[!grepl("!", gridListCell)]
+    gridListCell <- gridListCell[!is.na(gridListCell)]
+    runsGrids <- length(gridListCell)
+
+    # Auto detection
+    if (runsGrids == 1){
+      if (runsParameters == 1){
+        stop("Error: Your required parallelization is not feasible")
+      }else{
+        parallel <- "parameters"
+      }
+    }else{
+      if (runsParameters == 1){
+        parallel <- "grids"
+      }else{
+        parallel <- "both"
+      }
+    }
+    # Compare to user request
+    if (singleRun$parallel  != "auto"){
+      if (parallel  == "both"){
+        if (singleRun$parallel == "grids"){
+          warning("Please check the number of cells and/or parameters provided")
+          stop("Error: Your required parallelization is not feasible")
+        }else if (singleRun$parallel == "parameters"){
+          runsGrids <- 1
+          parallel <- singleRun$parallel
+        }else{
+          parallel <- singleRun$parallel
+        }
+      }else if(parallel !=  singleRun$parallel) {
+        warning("Please check the number of cells and/or parameters provided")
+        stop("Error: Your required parallelization is not feasible")
+      }
+    }
+
+
+    #cat("\n");cat("\n");cat(parallel)
+    # Check cores with runs
+    numberRuns <- runsParameters * runsGrids
+    if (numberRuns < x@numCores){
+      stop("The number of cores requested exceeds the number of runs")
+    }
+    # So far so good,
+    # Create an output folder named after ID
+    dir.create(singleRun$runInfoDir, showWarnings = FALSE)
+    # Distirbute directories along runs
+    runDir <- vector("character", numberRuns)
+    outDir <- vector("character", numberRuns)
     for (i in 1:x@numCores) {
-      for (index in seq(i, length(parameterList), x@numCores )){
+      for (index in seq(i, numberRuns, x@numCores )){
         runDir[index] <- x@runDir[i]
         outDir[index] <- x@outDir[i]
       }
     }
-    cat("\nCreating the single run objects")#single run objects
-    progessBar <- txtProgressBar(min = 0, max = length(parameterList), style = 3)
-    for (i in 1:length(parameterList)){
-      setTxtProgressBar(progessBar, i)
-      singleRun$runID <- i
-      singleRun$runDir <- runDir[i]
-      singleRun$outDir <- outDir[i]
-      singleRun$parameterList <- parameterList[[i]]
-      #
-      singleRun$template1Mem <- readLines(file.path(singleRun$mainDir, singleRun$template1))
-      singleRun$template1Mem <- sub("path_to_output/",
-                                    paste(singleRun$outDir, "/", sep =""), singleRun$template1Mem)
-      for ( j in 1:length(singleRun$typeList)) {
-        singleRun$template1Mem <- sub(paste("! file", singleRun$typeList[j], sep="_"),
-                                   paste("file",  singleRun$typeList[j], sep="_") , singleRun$template1Mem)
+    # CREATE SINGLE RUN OBJECTS
+    #----------------------------------------------------------------------------#
+    runParameters <- vector("list", numberRuns)
+    if (parallel == "parameters"){
+      cat("\nParallelization of parameters\n")
+      cat("\nCreating the single run objects")#single run objects
+      progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
+      for (i in 1:numberRuns){
+        setTxtProgressBar(progessBar, i)
+        singleRun$runID <- i
+        singleRun$runDir <- runDir[i]
+        singleRun$outDir <- outDir[i]
+        singleRun$parameterList <- parameterList[[i]]
+        singleRun$gridListCell <- gridListCell
+        singleRun$gridListName <- paste(unlist(strsplit(gridListCell, " ")), collapse = "_")
+        runParameters[[i]] <- singleRun
       }
-      # template 2: the cru or cf template
-      singleRun$template2Mem <- readLines(file.path(singleRun$mainDir,singleRun$template2))
-      singleRun$template2Mem <- sub("path_to_globalTemplate",
-                                    paste(singleRun$runDir, "/", singleRun$template1, sep=""),
-                                    singleRun$template2Mem )
-      singleRun$template2Mem  <- sub("path_to_gridlist",
-                                     paste(singleRun$runDir,"/", singleRun$gridList, sep=""),
-                                     singleRun$template2Mem )
-      for ( j in 1:length(singleRun$filesNames)){
-        singleRun$template2Mem  <- sub(singleRun$filesNames[[j]][1],
-                                       singleRun$filesNames[[j]][2],
-                                       singleRun$template2Mem)
+      close(progessBar)
+    }else if (parallel == "both"){
+      cat("\nParallelization of both parameters and grids\n")
+      cat("\nCreating the single run objects")#single run objects
+      progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
+      for (i in 1:numberRuns){
+        setTxtProgressBar(progessBar, i)
+        singleRun$runID <- i
+        singleRun$runDir <- runDir[i]
+        singleRun$outDir <- outDir[i]
+        singleRun$parameterList <- parameterList[[ceiling(i/length(gridListCell))]]
+        singleRun$gridListCell <- gridListCell[ceiling(i/length(parameterList))]
+        singleRun$gridListName <- paste(unlist(strsplit(gridListCell[ceiling(i/length(parameterList))][i], " ")), collapse = "_")
+        runParameters[[i]] <- singleRun
       }
-      runParameters[[i]] <- singleRun
+      close(progessBar)
+    }else if (parallel == "grids"){
+      cat("\nParallelization of grids\n")
+      cat("\nCreating the single run objects")#single run objects
+      progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
+      singleRun$parameterList <- parameterList
+      for (i in 1:numberRuns){
+        setTxtProgressBar(progessBar, i)
+        singleRun$runID <- i
+        singleRun$runDir <- runDir[i]
+        singleRun$outDir <- outDir[i]
+        singleRun$gridListCell <- gridListCell[i]
+        singleRun$gridListName <- paste(unlist(strsplit(gridListCell[i], " ")), collapse = "_")
+        runParameters[[i]] <- singleRun
+      }
+      close(progessBar)
     }
-    close(progessBar)
+
     # SOCK CLUSTER
     #----------------------------------------------------------------------------#
     # Initialisation of snowfall.
+    #cat("\n");cat("\n");str(runParameters[[1]])
     # Create cluster
     if (x@clusterType =="SOCK"){
       cat( paste ("\nCreating a", x@clusterType, "cluster with",
@@ -312,12 +372,12 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
       # Distribute calculation: will return values as a list object
       cat ("\nSending tasks to the cores\n")
       # Try catch prevent the package for crashing
-      result <- try( snow::clusterMap(cl, runLPJWrapper,  runParameters ), FALSE)
+      result <- try(snow::clusterMap(cl, runLPJWrapper,  runParameters ), TRUE)
       if ('try-error' %in% class(result)){
         stop("Error when running the model")
       }
       #result <- snow::clusterMap(cl, runLPJWrapper,  runParameters )
-      #result <- snow::clusterApply(cl, runParameters, runLPJWrapper )
+      #result <- snow::clusterApply(cl, runParameters, runLPJWrapper )resul
       # Destroy cluster
       snow::stopCluster(cl)
       # deliver data to clusters
