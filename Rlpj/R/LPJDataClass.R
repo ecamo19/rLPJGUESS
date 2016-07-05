@@ -36,44 +36,76 @@ setMethod(f= "initialize",
 
 
 
-setGeneric("runInfo<-", function(object, value) standardGeneric("runInfo<-"))
-setReplaceMethod(f ="runInfo",
-                 signature = "LPJData",
-                 definition = function(object, value){
-                   object@runInfo <- value
-                   #validObject(object); object
-                   }
-                 )
+#' Extract parts of LPJData
+#'
+#' @method [, LPJ class objects
+#' @rdname extract-methods
+#' @param x an \code{LPJData} or an \code{LPJSetup} object
+#' @param i a character string indicating the slot name of an LPJData class object,
+#' an LPJ-GUESS output or a character string indicating the slot name of an LPJSetup
+#'  class object
+#' @param j a character string indicating a sublevel of any slot (only needed if i is provided)
+#' @param drop unused
+#' @param ... additional arguments (none implemented)
+#'
+#'
+setMethod("[",
+          signature(x="LPJData", i='character', j="ANY", drop="ANY"),
+          definition = function(x, i, j, ..., drop) {
+            if(i=="runInfo"){
+              return(x@runInfo)
+            }else if(i=="dataTypes"){
+              return(x@dataTypes)
+            }else{
+              value <-x@dataTypes[[i]]
+              if (is.null(value)){
+                value <-x@runInfo[[i]]
+              }
+              return(value)
+            }
+          }
+          )
 
-setGeneric("dataTypes<-", function(object, value) standardGeneric("dataTypes<-"))
-setReplaceMethod(f = "dataTypes",
-                 signature ="LPJData",
-                 definition = function(object, value){
-                   object@dataTypes <- value
-                   #validObject(object); object
-                   }
-                 )
-# Extract parts of LPJData
-#
-#setMethod(f ="[[",
-#          signature(x = "LPJData", i = "ANY", j="ANY"),
-#          definition = function(x,i,j,drop){
-#            if(i=="runInfo"){return(x@runInfo)}else {}
-#            if(i=="dataTypes"){return(x@dataTypes)}else {}
-#          }
-#          )
+#' Replace parts of LPJData
+#'
+#' @method [<-, LPJ class objects
+#' @rdname replace-methods
+#' @param x an \code{LPJData} object
+#' @param i a character string indicating the LPJ-GUESS output
+#' @param value any value to create or replace and existing
+#' @param j a character string indicating a sublevel of the dataType slot (only needed if i is provided)
+#' @param ... additional arguments (none implemented)
+#'
+#'
+setMethod("[<-",
+          signature(x="LPJData", i='character', j="ANY"),
+          definition = function(x, i, j, ... ) {
+           # if(i=="runInfo"){
+          #    x@runInfo <- value
+          #    return(x)
+          #  }else if(i=="dataTypes"){
+          #    x@dataTypes <- value
+          #    return(x)
+          #  }else{
+              x@dataTypes[[i]] <- value
+              return(x)
+          #  }
+          }
+)
 
 
 setMethod (f= "show",
              signature ="LPJData",
              function(object){
                    cat("class              : LPJData\n")
+                   cat("run ID             : ");cat(object@runInfo$runID); cat("\n")
+                   cat("run directory      : ");cat(object@runInfo$runDir); cat("\n")
                    cat("LPJ template 1     : ");cat(object@runInfo$template1); cat("\n")
                    cat("LPJ template 2     : ");cat(object@runInfo$template2); cat("\n")
-                   cat("grid cells         : ");cat(object@runInfo$gridListMem); cat("\n")
-                   cat("run directory      : ");cat(object@runInfo$runDir); cat("\n")
-                   cat("LPJ model outputs  : "); cat(length(names(object@dataTypes)));cat(" outputs\n")
-                   cat(names(object@dataTypes), sep = "\t", fill = TRUE)
+                   cat("grid cells         : ");cat(length(object@runInfo$gridListCell));cat(" cell(s) \n");cat(object@runInfo$gridListCell, sep = "\n")
+                   cat("LPJ model outputs  : "); cat(length(names(object@dataTypes)));cat(" output(s)\n")
+                   cat(sort(names(object@dataTypes)), sep = "\t", fill = TRUE)
                }
   )
+
 
