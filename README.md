@@ -26,7 +26,7 @@ Or you can install it directly from the download link
 
 ```{r}
 library(devtools)
-install_url("https://github.com/biometry/RLPJ/releases/download/alpha/Rlpj_0.1.1.tar.gz")
+install_url("https://github.com/biometry/RLPJ/releases/download/v0.1.3/Rlpj_0.1.3.tar.gz")
 library(Rlpj)
 ?Rlpj
 ```
