@@ -6,6 +6,8 @@
 # @param scale a character string indicating whether the model runs global or for europe.
 # @param parameterList a named list holding the parameter or combination or parameters
 #  to be tested.
+# @param type serial, parallel, names
+# In this case, parameterList is a vector of names.
 # @return a named list holding the values of the template parameter.
 # @keywords Rlpj
 # @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
@@ -13,28 +15,43 @@
 # parameterList <- list(run_emax = 4, run_lambda_max = 1)
 # parameterList.checked <- checkParameters(scale= "global", parameterList)
 # }
-checkParameters <- function(scale = NULL, parameterList = NULL){
+checkParameters <- function(scale = NULL, parameterList = NULL, type = "normal"){
   # include check
   if ( scale != "global" & scale != "europe"){
     stop("checkParameters: Cannot recognize the template: neither global nor europe")
   }
   # call the default template
-  default <- parameterList.default[[scale]]
+  default <- getParameterList(scale)
   # get names for doing the posterior chekc
-  parameterNames <- names(default)
+  #parameterNames <- names(default)
+
   # check now
   if( is.null(parameterList)){
     # get the defalut template
     parameterList <- default
   }else{
-    # check the provided parameter list
-    # if any paramater is not provided, then added it.
-    for (i in 1:length(parameterNames)){
-      if (is.null(parameterList[[parameterNames[i]]])){
-        parameterList[[parameterNames[i]]] <- default[[parameterNames[i]]]
+    if (type =="names"){
+      # if inverse I am passing only names
+      parameterList <- default[ !names(default) %in% parameterList]
+    }else if (type == "parallel"){
+      parameterList <- parameterList[names(parameterList) %in% names(default) ]
+      if(length(parameterList) == 0){
+        stop("Invalid parameters")
       }
+    }else if (type == "serial"){
+      anyParameter <- parameterList[names(parameterList) %in% names(default) ]
+      if(length(anyParameter) == 0){
+        stop("Invalid parameters")
+      }
+      parameterList <- c(parameterList[names(parameterList) %in% names(default) ],
+                          default[ !names(default) %in% names(parameterList)])
+      #
+
+    }else{
+      stop("Invalid parameters")
     }
   }
+
   return(parameterList)
 }
 
