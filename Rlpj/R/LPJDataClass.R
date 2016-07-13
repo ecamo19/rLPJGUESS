@@ -98,11 +98,15 @@ setMethod (f= "show",
              signature ="LPJData",
              function(object){
                    cat("class              : LPJData\n")
-                   cat("run ID             : ");cat(object@runInfo$runID); cat("\n")
+                   if( length(object@runInfo$runI) > 0){
+                     cat("run ID             : ");cat(object@runInfo$runID); cat("\n")
+                   }
                    cat("run directory      : ");cat(object@runInfo$runDir); cat("\n")
                    cat("LPJ template 1     : ");cat(object@runInfo$template1); cat("\n")
                    cat("LPJ template 2     : ");cat(object@runInfo$template2); cat("\n")
-                   cat("grid cells         : ");cat(length(object@runInfo$gridListCell));cat(" cell(s) \n");cat(object@runInfo$gridListCell, sep = "\n")
+                   if( length(object@runInfo$gridListCell) > 0){
+                     cat("grid cells         : ");cat(length(object@runInfo$gridListCell));cat(" cell(s) \n");cat(object@runInfo$gridListCell, sep = "\n")
+                   }
                    cat("LPJ model outputs  : "); cat(length(names(object@dataTypes)));cat(" output(s)\n")
                    cat(sort(names(object@dataTypes)), sep = "\t", fill = TRUE)
                }
