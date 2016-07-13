@@ -79,37 +79,37 @@ outputdirectory "path_to_output/"
 
 title 'LPJ-GUESS cohort mode - European species'
 
-vegmode "cohort"      ! "cohort", "individual" or "population"
-nyear_spinup 500      ! number of years to spin up the simulation for
-ifcalcsla 1           ! whether ctonto calculate SLA from leaf longevity
+vegmode "run_vegmode"     ! "cohort", "individual" or "population"
+nyear_spinup run_nyear_spinup      ! number of years to spin up the simulation for
+ifcalcsla run_ifcalcsla ! whether ctonto calculate SLA from leaf longevity
                       ! (PFT-specific value can be specified in this file instead)
-ifcalccton 1          ! whether to calculate leaf C:N min from leaf longevity
+ifcalccton run_ifcalccton          ! whether to calculate leaf C:N min from leaf longevity
                       ! (PFT-specific value can be specified in this file instead)
-iffire 1              ! whether to implement fire (1) or not (0)
-npatch 1             ! number of replicate patches to simulate
-patcharea 1000        ! patch area (m2)
-estinterval 1         ! years between establishment events in cohort mode
-ifdisturb 1           ! whether generic patch-destroying disturbances enabled
-distinterval 100      ! average return time for generic patch-destroying disturbances
+iffire run_iffire              ! whether to implement fire (1) or not (0)
+npatch run_npatch             ! number of replicate patches to simulate
+patcharea run_patcharea        ! patch area (m2)
+estinterval run_estinterval         ! years between establishment events in cohort mode
+ifdisturb run_ifdisturb           ! whether generic patch-destroying disturbances enabled
+distinterval run_distinterval      ! average return time for generic patch-destroying disturbances
 					  ! Hickler et al. (2011) used 200
-ifbgestab 1           ! whether background establishment enabled
-ifsme 1               ! whether spatial mass effect enabled
-ifstochestab 1        ! whether establishment stochastic
-ifstochmort 1         ! whether mortality stochastic
-ifcdebt 1             ! whether to allow vegetation C storage (1) or not (0)
-wateruptake "rootdist"! "wcont", "rootdist", "smart" or "speciesspecific",
+ifbgestab run_ifbgestab	! whether background establishment enabled
+ifsme run_ifsme               ! whether spatial mass effect enabled
+ifstochestab run_ifstochestab        ! whether establishment stochastic
+ifstochmort run_ifstochmort         ! whether mortality stochastic
+ifcdebt run_ifcdebt             ! whether to allow vegetation C storage (1) or not (0)
+wateruptake "run_wateruptake"	! "wcont", "rootdist", "smart" or "speciesspecific",
                       ! see documentation for water_uptake()
 
 !///////////////////////////////////////////////////////////////////////////////
 ! PROCESS SETTINGS SPECIFIC TO NITROGEN
 !///////////////////////////////////////////////////////////////////////////////
 
-ifcentury 1				! whether to use CENTURY SOM dynamics (mandatory for N cycling)
-ifnlim 0				! whether plant growth limited by available N
-freenyears 100			! number of years to spin up without N limitation (needed to build up a N pool)
-nfix_a 0.102			! first term in N fixation eqn (Conservative 0.102, Central 0.234, Upper 0.367)
-nfix_b 0.524			! second term in N fixation eqn (Conservative 0.524, Central -0.172, Upper -0.754)
-nrelocfrac 0.5			! fraction of N retranslocated prior to leaf and root shedding
+ifcentury run_ifcentury				! whether to use CENTURY SOM dynamics (mandatory for N cycling)
+ifnlim run_ifnlim				! whether plant growth limited by available N
+freenyears run_freenyears			! number of years to spin up without N limitation (needed to build up a N pool)
+nfix_a run_nfix_a			! first term in N fixation eqn (Conservative 0.102, Central 0.234, Upper 0.367)
+nfix_b run_nfix_b			! second term in N fixation eqn (Conservative 0.524, Central -0.172, Upper -0.754)
+nrelocfrac run_nrelocfrac			! fraction of N retranslocated prior to leaf and root shedding
 
 
 !///////////////////////////////////////////////////////////////////////////////
@@ -121,32 +121,32 @@ save_state 0			! wheter to save a state file
 state_path ""			! directory to put state files in
 
 
-ifsmoothgreffmort 1				! whether to vary mort_greff smoothly with growth efficiency (1)
+ifsmoothgreffmort run_ifsmoothgreffmort				! whether to vary mort_greff smoothly with growth efficiency (1)
 								! or to use the standard step-function (0)
 								! greff_min values below calibrated for the smooth (1) option
-ifdroughtlimitedestab 1			! whether establishment is limited by growing season drought
-ifrainonwetdaysonly 1			! whether to rain on wet days only (1), or to rain a bit every day (0)
-ifbvoc 0              ! whether to include BVOC calculations (1) or not (0)
+ifdroughtlimitedestab run_ifdroughtlimitedestab			! whether establishment is limited by growing season drought
+ifrainonwetdaysonly run_ifrainonwetdaysonly			! whether to rain on wet days only (1), or to rain a bit every day (0)
+ifbvoc run_ifbvoc              ! whether to include BVOC calculations (1) or not (0)
 
 !!!!!!!!!!!! landcover parameters !!!!!!!!!!!!!!
 
-run_landcover 0        ! whether to use (and change) landcover fractions (1) or not (0)
+run_landcover run_run_landcover        ! whether to use (and change) landcover fractions (1) or not (0)
 
-run_urban 0	      ! whether to simulate barren land (1) or not (0)
-run_crop 1	      ! whether to simulate crop vegetation (1) or not (0)
-run_forest 0	      ! whether to simulate managed forest (1) or not (0)
-run_pasture 0	      ! whether to simulate pasture (1) or not (0)
-run_natural 1	      ! whether to simulate natural vegetation (1) or not (0)
-run_peatland 1	      ! whether to simulate peatland (1) or not (0)
+run_urban run_run_urban	      ! whether to simulate barren land (1) or not (0)
+run_crop run_run_crop	      ! whether to simulate crop vegetation (1) or not (0)
+run_forest run_run_forest	      ! whether to simulate managed forest (1) or not (0)
+run_pasture run_run_pasture	      ! whether to simulate pasture (1) or not (0)
+run_natural run_run_pasture	      ! whether to simulate natural vegetation (1) or not (0)
+run_peatland run_run_peatland	      ! whether to simulate peatland (1) or not (0)
 
-lcfrac_fixed 0        	! use landcover fractions (%) below (1) or read from input file (0)
-lc_fixed_urban 0   	! URBAN
-lc_fixed_cropland 50	! CROPLAND
-lc_fixed_pasture 0   	! PASTURE
-lc_fixed_forest 0   	! FOREST
-lc_fixed_natural 25 	! NATURAL
-lc_fixed_peatland 25 	! PEATLAND
-equal_landcover_area 0	! divide gridcell into equal active landcover fractions
+lcfrac_fixed run_lcfrac_fixed        	! use landcover fractions (%) below (1) or read from input file (0)
+lc_fixed_urban run_lc_fixed_urban   	! URBAN
+lc_fixed_cropland run_lc_fixed_cropland	! CROPLAND
+lc_fixed_pasture run_lc_fixed_pasture   	! PASTURE
+lc_fixed_forest run_lc_fixed_forest   	! FOREST
+lc_fixed_natural run_lc_fixed_natural 	! NATURAL
+lc_fixed_peatland run_lc_fixed_peatland 	! PEATLAND
+equal_landcover_area run_equal_landcover_area	! divide gridcell into equal active landcover fractions
 
 !///////////////////////////////////////////////////////////////////////////////////////
 
@@ -159,15 +159,15 @@ group "common" (
 
 	! Parameters common to all PFTs
 
-	lambda_max 	run_lamda_max			! 0.8
-	emax 		run_emax			! 5
-	reprfrac 	run_reprfrac			! 0.1
-	wscal_min 	run_wscal_min			! 0.35
-	drought_tolerance run_drought_tolerance 	! 0.0001
+	lambda_max 	common_lamda_max			! 0.8
+	emax 		common_emax			! 5
+	reprfrac 	common_reprfrac			! 0.1
+	wscal_min 	common_wscal_min			! 0.35
+	drought_tolerance common_drought_tolerance 	! 0.0001
 	! default value - ensures that this has little effect even if
 	! ifdroughtlimitedestab is turned on
-	landcover "natural"
-	turnover_harv_prod run_turnover_harv_prod	! 1
+	landcover "common_landcover"
+	turnover_harv_prod common_turnover_harv_prod	! 1
 )
 
 
@@ -178,7 +178,7 @@ group "tree" (
 	common
 	lifeform "tree"
 	pathway "c3"
-	rootdist 0.6 0.4
+	rootdist tree_rootdist
 	crownarea_max	 tree_crownarea_max	!	40
 	turnover_root	 tree_turnover_root	!	0.7
 	ltor_max	 tree_ltor_max	!	1
@@ -205,7 +205,7 @@ group "shrub" (
 	lifeform "tree"
 	leafphysiognomy "broadleaf"
 	pathway "c3"
-	rootdist 0.6 0.4
+	rootdist shrub_rootdist
 	crownarea_max	 shrub_crownarea_max	!	10
 	turnover_root	 shrub_turnover_root	!	0.7
 	ltor_max	 shrub_ltor_max	!	1
@@ -358,7 +358,7 @@ pft "BES" (
 	shrub
 	boreal_tree
 	shade_intolerant
-	rootdist 0.8 0.2
+	rootdist BES_rootdist
 	phenology "evergreen"
 	crownarea_max	 BES_crownarea_max	!	3
 	k_allom1	 BES_k_allom1	!	20
@@ -588,7 +588,7 @@ pft "Jun_oxy" (
 	shade_intolerant
 	temperate_tree
 	needle_leaved
-	rootdist 0.5 0.5
+	rootdist Jun_oxy_rootdist
 	phenology "evergreen"
 	k_latosa	 Jun_oxy_k_latosa	!	1500
 	crownarea_max	 Jun_oxy_crownarea_max	!	10
@@ -627,7 +627,7 @@ pft "MRS" (
 	shrub				! THdiff: - has k_allom1 as 250
 	shade_intolerant
 	temperate_tree
-	rootdist 0.9 0.1
+	rootdist MRS_rootdist
 	phenology "raingreen"
 	k_latosa	 MRS_k_latosa	!	1500
 ! 	sla	 MRS_sla	!	10
@@ -662,7 +662,7 @@ pft "Pic_abi" (
 	shade_tolerant
 	boreal_tree
 	needle_leaved
-	rootdist 0.8 0.2
+	rootdist Pic_abi_rootdist
 	phenology "evergreen"
 ! 	sla	 Pic_abi_sla	!	9.3
 	gmin	 Pic_abi_gmin	!	0.3
@@ -698,7 +698,7 @@ pft "Pic_sit" (
 	intermediate_shade_tolerant ! Savill's silviculture book
 	boreal_tree
 	needle_leaved
-	rootdist 0.8 0.2			! ThomasH
+	rootdist Pic_sit_rootdist		! ThomasH
 	phenology "evergreen"
 	k_latosa	 Pic_sit_k_latosa	!	4500
 ! 	sla	 Pic_sit_sla	!	9.3
@@ -809,7 +809,7 @@ pft "Pop_tre" (
 	shade_intolerant
 	temperate_tree
 	broad_leaved
-	rootdist 0.7 0.3
+	rootdist Pop_tre_rootdist
 	phenology "summergreen"
 ! 	sla	 Pop_tre_sla	!	24.3
 	gmin	 Pop_tre_gmin	!	0.5
@@ -842,9 +842,8 @@ pft "Que_coc" (
 	shrub				! THdiff: - has k_allom1 as 250
 	intermediate_shade_tolerant
 	temperate_tree
-	rootdist 0.5 0.5
+	rootdist Que_coc_rootdist
 	phenology "evergreen"
-	leaflong 1.5
 	k_latosa	 Que_coc_k_latosa	!	2500
 !	sla	 Que_coc_sla	!	10
 	gmin	 Que_coc_gmin	!	0.5
@@ -878,7 +877,7 @@ pft "Que_ile" (
 	intermediate_shade_tolerant
 	temperate_tree
 	broad_leaved
-	rootdist 0.5 0.5
+	rootdist Que_ile_rootdist
 	phenology "evergreen"
 	k_latosa	 Que_ile_k_latosa	!	3000
 ! 	sla	 Que_ile_sla	!	9.3
@@ -977,7 +976,7 @@ pft "Til_cor" (
 	intermediate_shade_tolerant
 	temperate_tree
 	broad_leaved
-	rootdist 0.8 0.2
+	rootdist Til_cor_rootdist
 	phenology "summergreen"
 ! 	sla	 Til_cor_sla	!	24.3
 	gmin	 Til_cor_gmin	!	0.5
@@ -1040,7 +1039,7 @@ pft "C3_gr" (
 	include  C3_gr_include ! 1
 	grass
 	pathway "c3"
-	rootdist 0.9 0.1
+	rootdist C3_gr_rootdist
 	phenology "any"
 ! 	sla	 C3_gr_sla	!	32.4
 	gmin	 C3_gr_gmin	!	0.5
@@ -1073,7 +1072,7 @@ pft "C4_gr" (
 	include  C4_gr_include ! 1
 	grass
 	pathway "c4"
-	rootdist 0.9 0.1
+	rootdist C4_gr_rootdist
 	phenology "any"
 	gmin	 C4_gr_gmin	!	0.5
 	leaflong	 C4_gr_leaflong	!	0.5
