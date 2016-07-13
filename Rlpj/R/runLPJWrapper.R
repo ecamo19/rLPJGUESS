@@ -85,8 +85,7 @@ runLPJWrapper <- function(runObject){
   writeLines(runObject$template2Mem,file.path(runObject$runDir,runObject$template2))
   writeLines(runObject$gridListCell, file.path(runObject$runDir, runObject$gridList))
   # writing template
-  writeTemplate(runObject$template1, runObject$parameterList,
-                  runObject$runDir)
+  writeTemplate(runObject$template1, runObject$parameterList, runObject$runDir, check = runObject$checkParameters)
   # calling the model
   callLPJ(runObject$mainDir, runObject$runDir,runObject$template2, runObject$mode)
   # getting data
