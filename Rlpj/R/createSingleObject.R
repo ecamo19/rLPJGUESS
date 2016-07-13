@@ -15,12 +15,11 @@ createSingleObject <- function(mainDir, typeList, settings){
                         file.ndep= NULL, file.temp = NULL, file.prec = NULL,
                         file.insol = NULL, template1 = NULL, template2=NULL,
                         plot.data = FALSE, save.plots = FALSE, processing = FALSE,
-                        delete = TRUE,  runID = "", parallel = "auto")
+                        delete = TRUE,  runID = "", parallel = "auto", checkParameters = "serial")
   #, fun = NULL) # This would be to allow havin own functions in parallel.
 
   settings <- c(settings[names(settings) %in% names(defaultSettings)],
                 defaultSettings[ !names(defaultSettings) %in% names(settings)])
-
 
   # mode
   if (is.null(settings[["mode"]]) || settings[["mode"]] != "cf" & settings[["mode"]] != "cru"){

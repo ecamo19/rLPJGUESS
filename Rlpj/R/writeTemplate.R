@@ -7,6 +7,9 @@
 #'  e.g, global.ins. Provide only the file name, not the path
 #' @param parameterList  a named list containing the parameters to be calibrated
 #' @param runDir a character string indicating path to the run directory
+#' @param check a character string indicating how to check the provided parameterList. Default
+#' value is serial. Other possible values are parallel and names. Please only use serial, other options
+#' are handled internally in the parallelization.
 #' @return none
 #' @details The provided template can be either the one provided by the package or
 #' a self edited template. The function assumes a specific coding for writing the
@@ -21,7 +24,7 @@
 #' writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
 #'               "/home/lpjRun/runDirectory1")
 #' }
-writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL){
+writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL, check = "serial"){
 
   # Checking provided parameters
   if (is.null(runDir) || !file.exists(runDir) ){
@@ -37,12 +40,12 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
   if (grepl("global",template1)){
       # Checking paramaterList and if null, setting to default values
       # 256 physiological parameters can be calibrated right now. Exceptions are the fine roots distributions for all PFTs
-      parameterList <- checkParameters(scale= "global", parameterList)
+      parameterList <- checkParameters(scale= "global", parameterList, type = check )
   }else if (grepl("europe", template1)){
       # Checking paramaterList and if null, setting to default values
       # 585 physiological parameters, both general and species-specific, can be calibrated right now.
       # Exceptions are the fine roots distributions for all species and PFTs
-      parameterList <- checkParameters(scale = "europe", parameterList)
+      parameterList <- checkParameters(scale = "europe", parameterList,  type = check)
   }else{
     stop("Cannot recognize the template: neither global nor europe")
   }
@@ -51,7 +54,7 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL)
   # looping over parameters ## Faster
   template <- readLines(file.path(runDir, template1))
   for(i in 1:length(parameterNames))  {
-    template <- sub(parameterNames[i], parameterList[i], template)
+    template <- sub( parameterNames[i], parameterList[[i]], template)
   }
   writeLines(template, file.path(runDir, template1))
 }
