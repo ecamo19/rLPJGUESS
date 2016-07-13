@@ -167,20 +167,33 @@ Now we can define the model outputs and the parameters to be tested. In this exa
 # Only modifying 1 parameter: emax. 
 # The complete list of parameters that can be modified can be found in the "data_raw/createInternalData.R"
 # Chekc parameterList
-parameterDefault <- getParameterList("europe")
-parameterDefault[1:10]
 
-parameterDefault$run_emax
+    # as matrix
+parameterDefault <- getParameterList("europe", list = F)
+parameterDefault[40:50,]
+        # values to test
+parameterList <- as.matrix(seq(1,5, len = 20))
+colnames(parameterList) <- "common_emax"
+head(parameterList)
+        # or transposed 
+parameterList <- t(parameterList)
+head(parameterList)
 
-parameterDefault <- list (run_emax = NULL)
+    # as a list
+parameterDefault <- getParameterList("europe", list= T)
+parameterDefault[40:50]
+
+parameterDefault$common_emax
+
+dummy <- list (common_emax = NULL)
 # I want to test 20 different values for emax. I want therefore to run 20 time the LPJ
 par <- seq(1,5, len = 20)
 print (par)
 # I create the list object with the parameters
 parameterList <- vector("list", length(par))
 for (i in 1:length(par)) {
-  parameterDefault$run_emax <- par[i]
-  parameterList[[i]] <- parameterDefault
+  dummy$common_emax <- par[i]
+  parameterList[[i]] <- dummy
 }
 print(parameterList[c(2:3)])
 
@@ -237,7 +250,7 @@ The runLPJ  would return something like this:
  
     str(result,1)
 
-    List of 6
+    List of 20
 
     $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
 
@@ -264,7 +277,7 @@ runDir <- file.path(mainDir, "runDirectory1")
 list.files(runDir)
 # First step is to write the parameters
 # We will selected only one of the parameters created above
-parameters <- parameterList[[1]]
+parameters <- parameterList[[1]] # NOTE:this a list
 # this we want to write in the template
 parameters
 # Now we call the writeTemplate function
@@ -307,8 +320,8 @@ LPJout <- getLPJData(x = outDir,typeList = typeList,  runInfo=list(runNumber = 1
 # The returned object is a S4 Object
 LPJout
 slotNames(LPJout)
-names(LPJout@dataTypes)
-summary(LPJout@dataTypes$lai)
+names(LPJout["dataTypes"])
+summary(LPJout["lai"])
 ```
 
 Now that we have processed the output data, we can plot the data and see how the variables evolve across the years. The *plotLPJData* function will plot the data as a time series using the zoo library. 
@@ -316,7 +329,7 @@ Now that we have processed the output data, we can plot the data and see how the
 ```{r,fig.show= "hold", fig.keep ='all',  fig.width=7, fig.heigth=16}
 # Now we can plot the object
 # Let say I just want to plot LAI, and I dont want to save the plots
-plotLPJData(x = LPJout, typeList = c("lai") , outDir = outDir, save.plots = FALSE)
+plotLPJData(x = LPJout, typeList = "lai" , outDir = outDir, save.plots = FALSE)
 ```
 
 If you have more doubts about the functions, please check the help files.
