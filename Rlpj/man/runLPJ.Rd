@@ -15,7 +15,10 @@ the directory structure for the outputs}
 \item{typeList}{a character vector with the outputs to be analyzed.
 Default value is all outputs}
 
-\item{parameterList}{a named list containing the parameters to be calibrated}
+\item{parameterList}{either a named list containing the parameters to be calibrated
+or a matrix. If running in parallel, parameter list should be either a list of of list or
+a matrix where each row is a parameter combination and the column names should be named
+after the parameters.}
 
 \item{settings}{additional parameters \itemize{
 \item  gridList a character string providing the name of the text file with

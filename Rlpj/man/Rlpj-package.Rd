@@ -42,7 +42,7 @@ information and some examples   (you can open it by running this command:
 \section{IV. Other functions}{
  \itemize{
  \item \code{\link{callLPJ}} To make a system call for LPJ-GUESS
- \item \code{\link{getData}} To read and process LPJ-GUESS outputs
+ \item \code{\link{getLPJData}} To read and process LPJ-GUESS outputs
  \item \code{\link{writeTemplate}} To write LPJ-GUESS templates
 
 }

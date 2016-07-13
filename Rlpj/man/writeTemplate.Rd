@@ -4,7 +4,8 @@
 \alias{writeTemplate}
 \title{A writing template function for LPJ}
 \usage{
-writeTemplate(template1 = NULL, parameterList = NULL, runDir = NULL)
+writeTemplate(template1 = NULL, parameterList = NULL, runDir = NULL,
+  check = "serial")
 }
 \arguments{
 \item{template1}{a character string providing the general model template,
@@ -13,6 +14,10 @@ e.g, global.ins. Provide only the file name, not the path}
 \item{parameterList}{a named list containing the parameters to be calibrated}
 
 \item{runDir}{a character string indicating path to the run directory}
+
+\item{check}{a character string indicating how to check the provided parameterList. Default
+value is serial. Other possible values are parallel and names. Please only use serial, other options
+are handled internally in the parallelization.}
 }
 \value{
 none

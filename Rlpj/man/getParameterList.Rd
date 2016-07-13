@@ -4,13 +4,16 @@
 \alias{getParameterList}
 \title{A get paremeter list function}
 \usage{
-getParameterList(scale = NULL)
+getParameterList(scale = NULL, list = TRUE)
 }
 \arguments{
 \item{scale}{a character string indicating whether the parameters are for the global or europe template}
+
+\item{list}{a character boolean to specify the returned format. If TRUE the parameter will be returned
+as a list, otherwise as a matrix.}
 }
 \value{
-a list with parameter names and their values
+a list or a matrix with parameter names and their values
 }
 \description{
 This function returns the LPJ-GUESS parameter list required for the writeTemplate function.
