@@ -1,5 +1,5 @@
 #Internal data
-#setwd("/home/trashtos/GitHub/ownBranches/RLPJ/Rlpj")
+setwd("/home/trashtos/GitHub/RLPJ/Rlpj")
 #------------------------------------------------------------------------------#
 #       TEMPLATES
 #------------------------------------------------------------------------------#
@@ -43,18 +43,18 @@ typelist.default <- c("aaet", "agpp", "aiso", "amon", "anpp", "cflux","clitter",
 #------------------------------------------------------------------------------#
 # default parameters
 files.parameters <- list(cf = NULL, cru = NULL)
-files.parameters$cf <- list(file.co2 = c("path_to_co2_1901-2006.txt", NULL),
-                           file.cru = c("path_to_cru_1901_2006.bin", NULL),
-                           file.cru.misc = c("path_to_cru_1901_2006misc.bin", NULL),
-                           file.ndep = c("path_to_GlobalNitrogenDeposition.bin", NULL),
-                           file.temp = c("path_to_temp.nc", NULL),
-                           file.prec = c("path_to_prec.nc", NULL),
-                           file.insol = c("path_to_rad.nc", NULL))
+files.parameters$cf <- list(file.co2 = c("path_to_co2", NULL),
+                           file.cru = c("path_to_cru", NULL),
+                           file.cru.misc = c("path_to_cru_misc", NULL),
+                           file.ndep = c("path_to_ndep", NULL),
+                           file.temp = c("path_to_temp", NULL),
+                           file.prec = c("path_to_prec", NULL),
+                           file.insol = c("path_to_rad", NULL))
 
-files.parameters$cru <- list(file.co2 = c("path_to_co2_1901-2006.txt", NULL),
-                           file.cru = c("path_to_cru_1901_2006.bin", NULL),
-                           file.cru.misc = c("path_to_cru_1901_2006misc.bin", NULL),
-                           file.ndep = c("path_to_GlobalNitrogenDeposition.bin" , NULL))
+files.parameters$cru <- list(file.co2 = c("path_to_co2", NULL),
+                           file.cru = c("path_to_cru", NULL),
+                           file.cru.misc = c("path_to_cru_misc", NULL),
+                           file.ndep = c("path_to_ndep" , NULL))
 
 
 #------------------------------------------------------------------------------#
