@@ -107,11 +107,17 @@ runLPJWrapper <- function(runObject){
   #----------------------------------------------------------------------------#
   # SAVE RUNINFO AND PLOT
   #----------------------------------------------------------------------------#
-  runObject$output <- LPJout@dataTypes
+  #runObject$output <- LPJout@dataTypes
   # Sav the run info
   #For example, make a list with all the info provided to runLPJ, and store it with save()
   save(LPJout, file = file.path(runObject$runInfoDir,
                                    paste("runInfo", runObject$runID,".Rdata", sep = "")))
+  #  # Calculate additional outputs
+  #  if (!is.null(runObject[["fun"]])){
+  #    cat("\n Apllying own functions")
+  #    LPJout <- applyFun(LPJout, fun)
+  #  }
+
   if (runObject[["plot.data"]] == TRUE){
     plotLPJData(x = LPJout, typeList = runObject$typeList,
              outDir = runObject$outDir, save.plots = runObject$save.plots,
