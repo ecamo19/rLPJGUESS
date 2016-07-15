@@ -54,6 +54,8 @@
 #'  processing (default TRUE). Saved plots will not be deleted
 #' \item runID an integer after which the output directory will be named (default empty).
 #' If parallel TRUE, ID is ignored and defined by setupLPJParallel
+#' \item design a named list containing the general parameters for LPJ-GUESS. Seefunction \code{\link{getDesign}}
+#' for default values and examples
 #' }
 #' @return an object of class LPJData. The LPJData object will be automatically stored as RData
 #' in a folder in the mainDir. The folder will be named as runInfo plus the date in format %Y_%m_%d_%H%M%S.
