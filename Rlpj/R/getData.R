@@ -156,14 +156,8 @@ getLPJData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALS
                 runInfo=runInfo,
                 dataTypes=listData)
 
-#  # Calculate additional outputs
-#  if (!is.null(fun)){
-#    cat("\n Apllying own fucntions")
-#    LPJout <- applyFun(LPJout, fun)
-#  }
 
 
-  #LPJout@dataTypes <- listData
   return (LPJout)
 }
 
