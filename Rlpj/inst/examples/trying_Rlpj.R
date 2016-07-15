@@ -30,6 +30,44 @@ settings <- list (gridList = gridList,mode = "cf", scale = "europe",
 #-------------------------------------------------------------------------------#
 result <-   runLPJ(mainDir, settings= settings)
 
+settings$mode  <- "cru"
+result <-   runLPJ(mainDir, settings= settings)
+
+settings$mode  <- "cf"
+design <- getDesign("europe")
+design <- design[1:4]
+
+
+design$run_nyear_spinup  <- 410
+settings$design <- design
+result <-   runLPJ(mainDir, settings= settings)
+
+design$run_ifcalcsla  <- 1
+settings$design <- design
+parameterList <- list("C4_gr_include" = 0)
+result <-   runLPJ(mainDir, settings= settings, parameterList = parameterList)
+
+settings$design <- NULL
+result <-   runLPJ(mainDir, settings= settings)
+
+settings <- list (gridList = gridList,mode = "cru", scale = "europe",
+                  file.co2 = file.co2, file.cru = file.cru, file.cru.misc = file.cru.misc,
+                  file.ndep = file.ndep, file.temp = file.temp, file.prec = file.prec,
+                  file.insol = file.insol, delete = T, plot.data =TRUE,
+                  save.plots=F, processing = F)
+
+result <-   runLPJ(mainDir, settings= settings)
+
+design <- getDesign("europe")
+design <- design[{1:4}]
+
+design$run_nyear_spinup  <- 410
+settings$design <- design
+result <-   runLPJ(mainDir, settings= settings)
+
+#, fun ="met")
+
+
 typeList <- getTypeList()
 
 result <-   runLPJ(mainDir, settings= settings, typeList = typeList)
