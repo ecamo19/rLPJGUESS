@@ -15,7 +15,8 @@ createSingleObject <- function(mainDir, typeList, settings){
                         file.ndep= NULL, file.temp = NULL, file.prec = NULL,
                         file.insol = NULL, template1 = NULL, template2=NULL,
                         plot.data = FALSE, save.plots = FALSE, processing = FALSE,
-                        delete = TRUE,  runID = "", parallel = "auto", checkParameters = "serial")
+                        delete = TRUE,  runID = "", parallel = "auto", checkParameters = "serial",
+                        design = NULL)
   #, fun = NULL) # This would be to allow havin own functions in parallel.
 
   settings <- c(settings[names(settings) %in% names(defaultSettings)],
@@ -78,6 +79,19 @@ createSingleObject <- function(mainDir, typeList, settings){
     stop("Please provide a valid template name")
   }
 
+  # Check the design
+  if(is.null(settings[["design"]])){
+    cat("\n\nUsing standard LPJ-GUESS design")
+    settings$design <- getDesign(settings$scale, list= T )
+  }else if(class(settings[["design"]]) == "list" ){
+    # If something was provided, the complete the list
+    design.default <- getDesign(settings$scale, list= T )
+    settings$design <- c(settings$design[names(settings$design) %in% names(design.default) ],
+                         design.default[ !names(design.default) %in% names(settings$design)])
+  }else{
+    stop("Please provide a valid design")
+  }
+
   # Pack up all files that user should have provided
   # Get the default list from internal data , that contains the characters stings
   # to replace in the template
@@ -102,7 +116,19 @@ createSingleObject <- function(mainDir, typeList, settings){
                                         paste("runInfo",
                                               format(Sys.time(), "%Y_%m_%d_%H%M%S"),
                                               sep = "_"))
+  # Read template one and replace desing
   singleObject$template1Mem <- readLines(file.path(singleObject$mainDir, singleObject$template1))
+
+  designNames<- names(settings$design)
+  for(i in 1:length(settings$design))  {
+    singleObject$template1Mem <- sub(designNames[i], settings$design[[i]], singleObject$template1Mem)
+  }
+  if(settings$design[["run_ifcalcsla"]]==as.character(0)){
+    singleObject$template1Mem <- sub("!sla", "sla", singleObject$template1Mem)
+  }
+
+
+
   singleObject$template2Mem <- readLines(file.path(singleObject$mainDir,singleObject$template2))
 
   return(singleObject)
