@@ -15,6 +15,7 @@ getParameterList <- function(scale = NULL, list =  TRUE){
     stop("Please provide a valid scale: global or europe")
   }
   tmp <- parameterList.default[grep(scale, parameterList.default[, "scale"]), ]
+  tmp <- tmp[grep("parameter", tmp[, "type"]), ]
   tmp <- as.matrix(tmp[, colnames(tmp) %in% c("value")])
   if (list){
     values <- as.list(tmp)
