@@ -62,6 +62,8 @@ on the provided parameterList and gridList. Default value is auto
  processing (default TRUE). Saved plots will not be deleted
 \item runID an integer after which the output directory will be named (default empty).
 If parallel TRUE, ID is ignored and defined by setupLPJParallel
+\item design a named list containing the general parameters for LPJ-GUESS. Seefunction \code{\link{getDesign}}
+for default values and examples
 }}
 }
 \value{
