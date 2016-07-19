@@ -9,6 +9,7 @@
 #' @param mode a character string indicating whether using cru or cf data
 #' @return none
 #' @keywords Rlpj
+#' @export
 #' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @note Based an older code of Istem Fer, Uni Potsdam
 #' @examples \dontrun{
