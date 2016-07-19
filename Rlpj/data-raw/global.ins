@@ -3,7 +3,7 @@
 !// Global PFTs
 !//
 !// LPJ-GUESS 3.0
-!// 
+!//
 !///////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -15,7 +15,7 @@
 outputdirectory "path_to_output/"
 
 ! Prefined yearly output
-! These files may be outcommented if their output is not required. 
+! These files may be outcommented if their output is not required.
 ! file_cmass "cmass.out"
 ! file_anpp "anpp.out"
 ! file_agpp "agpp.out"
@@ -63,7 +63,7 @@ outputdirectory "path_to_output/"
 
 
 !///////////////////////////////////////////////////////////////////////////////////////
-!// RUN PARAMETERS AND OPTIONS 
+!// RUN PARAMETERS AND OPTIONS
 !
 
 ! Settings recognised by Plib
@@ -105,7 +105,7 @@ nrelocfrac run_nrelocfrac			! fraction of N retranslocated prior to leaf and roo
 
 
 !///////////////////////////////////////////////////////////////////////////////
-! SERIALIZATION SETTINGS 
+! SERIALIZATION SETTINGS
 !///////////////////////////////////////////////////////////////////////////////
 !state_year 500			! year to save/start state file (no setting = after spinup)
 restart 0				! wheter to start from a state file
@@ -113,19 +113,19 @@ save_state 0			! wheter to save a state file
 !state_path ""			! directory to put state files in
 
 
-ifsmoothgreffmort run_ifsmoothgreffmort				! whether to vary mort_greff smoothly with growth efficiency (1) 
-								! or to use the standard step-function (0)  
-								! greff_min values below calibrated for the smooth (1) option 
+ifsmoothgreffmort run_ifsmoothgreffmort				! whether to vary mort_greff smoothly with growth efficiency (1)
+								! or to use the standard step-function (0)
+								! greff_min values below calibrated for the smooth (1) option
 ifdroughtlimitedestab run_ifdroughtlimitedestab			! whether establishment is limited by growing season drought
 								! guess2008 - species version has 1
 ifrainonwetdaysonly run_ifrainonwetdaysonly			! whether to rain on wet days only (1), or to rain a bit every day (0)
 ifbvoc run_ifbvoc                     ! whether to include BVOC calculations (1) or not (0)
 
-!!!!!!!!!!!! landcover parameters !!!!!!!!!!!!!!					
+!!!!!!!!!!!! landcover parameters !!!!!!!!!!!!!!
 
-run_landcover run_run_landcover        ! whether to use (and change) landcover fractions (1) or not (0)						
+run_landcover run_run_landcover        ! whether to use (and change) landcover fractions (1) or not (0)
 
-run_urban run_run_urban	      ! whether to simulate barren land (1) or not (0)	
+run_urban run_run_urban	      ! whether to simulate barren land (1) or not (0)
 run_crop run_run_crop	      ! whether to simulate crop vegetation (1) or not (0)
 run_forest run_run_forest	      ! whether to simulate managed forest (1) or not (0)
 run_pasture run_run_pasture	      ! whether to simulate pasture (1) or not (0)
@@ -152,12 +152,12 @@ group "common" (
 
 	! Parameters common to all PFTs
 
-	lambda_max 	common_lamda_max			! 0.8
+	lambda_max 	common_lamdba_max			! 0.8
 	emax 		common_emax			! 5
 	reprfrac 	common_reprfrac			! 0.1
 	wscal_min 	common_wscal_min			! 0.35
-	drought_tolerance common_drought_tolerance 	! 0.0001	
-	! default value - ensures that this has little effect even if  
+	drought_tolerance common_drought_tolerance 	! 0.0001
+	! default value - ensures that this has little effect even if
 	! ifdroughtlimitedestab is turned on
 	landcover "common_landcover"
 	turnover_harv_prod common_turnover_harv_prod	! 1
@@ -169,18 +169,18 @@ group "tree" (
 
 	common
 	lifeform "tree"
-	crownarea_max 	tree_crownarea_max	!50	
-	ltor_max 	tree_ltor_max	!1	
-	turnover_root 	tree_turnover_root	!0.7	
+	crownarea_max 	tree_crownarea_max	!50
+	ltor_max 	tree_ltor_max	!1
+	turnover_root 	tree_turnover_root	!0.7
 	rootdist  tree_rootdist
-	k_allom2 	tree_k_allom2	!60	
-	k_allom3 	tree_k_allom3	!0.67	
-	k_rp	 tree_k_rp	!1.6	
-	wooddens 	tree_wooddens	!200	
-	cton_root 	tree_cton_root	!29	
-	cton_sap 	tree_cton_sap	!330	
-	nuptoroot 	tree_nuptoroot	!0.0028	
-	km_volume 	tree_km_volume	!0.000001477	
+	k_allom2 	tree_k_allom2	!60
+	k_allom3 	tree_k_allom3	!0.67
+	k_rp	 tree_k_rp	!1.6
+	wooddens 	tree_wooddens	!200
+	cton_root 	tree_cton_root	!29
+	cton_sap 	tree_cton_sap	!330
+	nuptoroot 	tree_nuptoroot	!0.0028
+	km_volume 	tree_km_volume	!0.000001477
 	pathway "c3"
 	respcoeff 	tree_respcoeff	!1.0
 	kest_repr 	tree_kest_repr	!200
@@ -196,7 +196,7 @@ group "tree" (
 	turnover_harv_prod 	tree_turnover_harv_prod	!0.04
 )
 
-group "shrub" (	
+group "shrub" (
 	! Unchanged from species version
 	common
 	lifeform "tree"
@@ -215,12 +215,12 @@ group "shrub" (
 	km_volume	 shrub_km_volume	!0.000001477
 	fnstorage	 shrub_fnstorage	!0.3
 	pathway "c3"
-	kest_repr	 shrub_kest_repr	!200	
-	kest_bg	 shrub_kest_bg	!0.1	
-	kest_pres	 shrub_kest_pres	!1	
-	litterme	 shrub_litterme	!0.3	
+	kest_repr	 shrub_kest_repr	!200
+	kest_bg	 shrub_kest_bg	!0.1
+	kest_pres	 shrub_kest_pres	!1
+	litterme	 shrub_litterme	!0.3
 	rootdist shrub_rootdist
-	longevity	 shrub_longevity	!100	
+	longevity	 shrub_longevity	!100
 )
 
 
@@ -245,7 +245,7 @@ group "grass" (
 	km_volume	 grass_km_volume	!0.000001876
 	fnstorage	 grass_fnstorage	!0.3
 	litterme	 grass_litterme	!0.2
-	parff_min	 grass_parff_min	!1000000		! 2500000 i guess2008	
+	parff_min	 grass_parff_min	!1000000		! 2500000 i guess2008
 	fireresist	 grass_fireresist	!0.5		! 1.0 hos Thomas
 	intc	 grass_intc	!0.01
 	ga	 grass_ga	!0.030
@@ -325,20 +325,20 @@ group "tropical" (
 
 	! Parameters common to all tropical trees
 
-	tcmin_surv	 tropical_tcmin_surv	!15.5			
-	tcmin_est	 tropical_tcmin_est	!15.5			
+	tcmin_surv	 tropical_tcmin_surv	!15.5
+	tcmin_est	 tropical_tcmin_est	!15.5
 	tcmax_est	 tropical_tcmax_est	!1000	!no	limit
 	twmin_est	 tropical_twmin_est	!-1000	!no	limit
 	gdd5min_est	 tropical_gdd5min_est	!0	!no	limit
-	pstemp_min	 tropical_pstemp_min	!2			
-	pstemp_low	 tropical_pstemp_low	!25			
-	pstemp_high	 tropical_pstemp_high	!30			
-	pstemp_max	 tropical_pstemp_max	!55			
-	respcoeff	 tropical_respcoeff	!0.15			
+	pstemp_min	 tropical_pstemp_min	!2
+	pstemp_low	 tropical_pstemp_low	!25
+	pstemp_high	 tropical_pstemp_high	!30
+	pstemp_max	 tropical_pstemp_max	!55
+	respcoeff	 tropical_respcoeff	!0.15
 )
 
 
-! greff_min values below calibrated for the smooth (ifsmoothgreffmort 1) option 
+! greff_min values below calibrated for the smooth (ifsmoothgreffmort 1) option
 group "shade_tolerant" (
 	est_max	 ShTol_est_max	!0.05
 	parff_min	 ShTol_parff_min	!350000
@@ -429,19 +429,19 @@ pft "BNS" (
 	shade_intolerant
 	summergreen
 	boreal
-	tcmin_surv	 BNS_tcmin_surv	!-1000	!no	limit				
-	tcmin_est	 BNS_tcmin_est	!-1000	!no	limit				
-	tcmax_est	 BNS_tcmax_est	!-2							
-	twmin_est	 BNS_twmin_est	!-1000	!no	limit				
+	tcmin_surv	 BNS_tcmin_surv	!-1000	!no	limit
+	tcmin_est	 BNS_tcmin_est	!-1000	!no	limit
+	tcmax_est	 BNS_tcmax_est	!-2
+	twmin_est	 BNS_twmin_est	!-1000	!no	limit
 	twminusc	 BNS_twminusc	!43	! AA from TH 03-Nov added this
-	gdd5min_est	 BNS_gdd5min_est	!350							
-	phengdd5ramp	 BNS_phengdd5ramp	!100							
-	longevity	 BNS_longevity	!300							
-	fireresist	 BNS_fireresist	!0.3							
-	eps_iso	 BNS_eps_iso	!8.0							
-	seas_iso	 BNS_seas_iso	!1							
-	eps_mon	 BNS_eps_mon	!4.8							
-	storfrac_mon	 BNS_storfrac_mon	!0.5							
+	gdd5min_est	 BNS_gdd5min_est	!350
+	phengdd5ramp	 BNS_phengdd5ramp	!100
+	longevity	 BNS_longevity	!300
+	fireresist	 BNS_fireresist	!0.3
+	eps_iso	 BNS_eps_iso	!8.0
+	seas_iso	 BNS_seas_iso	!1
+	eps_mon	 BNS_eps_mon	!4.8
+	storfrac_mon	 BNS_storfrac_mon	!0.5
 )
 
 pft "TeNE" (
@@ -457,16 +457,16 @@ pft "TeNE" (
 	leaflong	 TeNE_leaflong	!3
 	turnover_leaf	 TeNE_turnover_leaf	!0.33
 	tcmin_surv	 TeNE_tcmin_surv	!-2 !As in Sitch et al. (2003), a little lower than TeBE
-	tcmin_est	 TeNE_tcmin_est	!-2	!As in Sitch et al. (2003), a little lower than TeBE	
-	tcmax_est	 TeNE_tcmax_est	!10	!Hickler et al.	(2012) have 9 degC for Pin_hal				
-	twmin_est	 TeNE_twmin_est	!5	!low, since	Hickler	et al. (2012) have -1000	for	Jun_oxy			
+	tcmin_est	 TeNE_tcmin_est	!-2	!As in Sitch et al. (2003), a little lower than TeBE
+	tcmax_est	 TeNE_tcmax_est	!10	!Hickler et al.	(2012) have 9 degC for Pin_hal
+	twmin_est	 TeNE_twmin_est	!5	!low, since	Hickler	et al. (2012) have -1000	for	Jun_oxy
 	gdd5min_est	 TeNE_gdd5min_est	!2000	!(Stefans value	900)  2000	!As TeBE, a little lower than Jun_oxy, Pin_hal in europe.ins
-	longevity	 TeNE_longevity	!300	!Hickler	et	al.	-2012	have	350	for	Pin_hal					
-	fireresist	 TeNE_fireresist	!0.3	!Hickler	et	al.	-2012	have	0.2	for	Pin_hal	and	0.4	for	Jun_oxy	
-	eps_iso	 TeNE_eps_iso	!8.0														
-	seas_iso	 TeNE_seas_iso	!0	!?????????????													
-	eps_mon	 TeNE_eps_mon	!4.8	!?????????????													
-	storfrac_mon	 TeNE_storfrac_mon	!0.5	!?????																								
+	longevity	 TeNE_longevity	!300	!Hickler	et	al.	-2012	have	350	for	Pin_hal
+	fireresist	 TeNE_fireresist	!0.3	!Hickler	et	al.	-2012	have	0.2	for	Pin_hal	and	0.4	for	Jun_oxy
+	eps_iso	 TeNE_eps_iso	!8.0
+	seas_iso	 TeNE_seas_iso	!0	!?????????????
+	eps_mon	 TeNE_eps_mon	!4.8	!?????????????
+	storfrac_mon	 TeNE_storfrac_mon	!0.5	!?????
 )
 
 pft "TeBS" (
@@ -525,19 +525,19 @@ pft "TeBE" (
 	shade_tolerant
 	evergreen
 	temperate
-	leaflong	 TeBE_leaflong	!3						
-	turnover_leaf	 TeBE_turnover_leaf	!0.33						
-	tcmin_surv	 TeBE_tcmin_surv	!-1						
-	tcmin_est	 TeBE_tcmin_est	!0						
-	tcmax_est	 TeBE_tcmax_est	!18.8						
-	twmin_est	 TeBE_twmin_est	!5						
-	gdd5min_est	 TeBE_gdd5min_est	!2000						
+	leaflong	 TeBE_leaflong	!3
+	turnover_leaf	 TeBE_turnover_leaf	!0.33
+	tcmin_surv	 TeBE_tcmin_surv	!-1
+	tcmin_est	 TeBE_tcmin_est	!0
+	tcmax_est	 TeBE_tcmax_est	!18.8
+	twmin_est	 TeBE_twmin_est	!5
+	gdd5min_est	 TeBE_gdd5min_est	!2000
 	longevity	 TeBE_longevity	!300	!from TH 07/04/10 was 350 AA
-	fireresist	 TeBE_fireresist	!0.3						
-	eps_iso	 TeBE_eps_iso	!24.0						
-	seas_iso	 TeBE_seas_iso	!0						
-	eps_mon	 TeBE_eps_mon	!1.6						
-	storfrac_mon	 TeBE_storfrac_mon	!0.						
+	fireresist	 TeBE_fireresist	!0.3
+	eps_iso	 TeBE_eps_iso	!24.0
+	seas_iso	 TeBE_seas_iso	!0
+	eps_mon	 TeBE_eps_mon	!1.6
+	storfrac_mon	 TeBE_storfrac_mon	!0.
 )
 
 pft "TrBE" (
@@ -611,20 +611,20 @@ pft "C3G" (
 	include C3G_include ! 1
 	grass
 	pathway "c3"
-	respcoeff	 C3G_respcoeff	!1.0		
-	pstemp_min	 C3G_pstemp_min	!-5		
-	pstemp_low	 C3G_pstemp_low	!10		
-	pstemp_high	 C3G_pstemp_high	!30		
-	pstemp_max	 C3G_pstemp_max	!45		
+	respcoeff	 C3G_respcoeff	!1.0
+	pstemp_min	 C3G_pstemp_min	!-5
+	pstemp_low	 C3G_pstemp_low	!10
+	pstemp_high	 C3G_pstemp_high	!30
+	pstemp_max	 C3G_pstemp_max	!45
 	tcmin_surv	 C3G_tcmin_surv	!-1000	!no	limit
 	tcmin_est	 C3G_tcmin_est	!-1000	!no	limit
 	tcmax_est	 C3G_tcmax_est	!1000	!no	limit
 	twmin_est	 C3G_twmin_est	!-1000	!no	limit
 	gdd5min_est	 C3G_gdd5min_est	!0	!no	limit
-	eps_iso	 C3G_eps_iso	!16.0		
-	seas_iso	 C3G_seas_iso	!1		
-	eps_mon	 C3G_eps_mon	!1.6		
-	storfrac_mon	 C3G_storfrac_mon	!0.5		
+	eps_iso	 C3G_eps_iso	!16.0
+	seas_iso	 C3G_seas_iso	!1
+	eps_mon	 C3G_eps_mon	!1.6
+	storfrac_mon	 C3G_storfrac_mon	!0.5
 )
 
 pft "C4G" (
@@ -634,19 +634,19 @@ pft "C4G" (
 	include C4G_include ! 1
 	grass
 	pathway "c4"
-	respcoeff	 C4G_respcoeff	!0.15		
-	pstemp_min	 C4G_pstemp_min	!6		
-	pstemp_low	 C4G_pstemp_low	!20		
-	pstemp_high	 C4G_pstemp_high	!45		
-	pstemp_max	 C4G_pstemp_max	!55		
-	tcmin_surv	 C4G_tcmin_surv	!15.5		
-	tcmin_est	 C4G_tcmin_est	!15.5		
+	respcoeff	 C4G_respcoeff	!0.15
+	pstemp_min	 C4G_pstemp_min	!6
+	pstemp_low	 C4G_pstemp_low	!20
+	pstemp_high	 C4G_pstemp_high	!45
+	pstemp_max	 C4G_pstemp_max	!55
+	tcmin_surv	 C4G_tcmin_surv	!15.5
+	tcmin_est	 C4G_tcmin_est	!15.5
 	tcmax_est	 C4G_tcmax_est	!1000	!no	limit
 	twmin_est	 C4G_twmin_est	!-1000	!no	limit
 	gdd5min_est	 C4G_gdd5min_est	!0	!no	limit
-	eps_iso	 C4G_eps_iso	!8.0		
-	seas_iso	 C4G_seas_iso	!0		
-	eps_mon	 C4G_eps_mon	!2.4		
-	storfrac_mon	 C4G_storfrac_mon	!0.5		
+	eps_iso	 C4G_eps_iso	!8.0
+	seas_iso	 C4G_seas_iso	!0
+	eps_mon	 C4G_eps_mon	!2.4
+	storfrac_mon	 C4G_storfrac_mon	!0.5
 )
 
