@@ -21,6 +21,10 @@ global	design	run_freenyears	100
 global	parameter	run_nfix_a	0.102
 global	parameter	run_nfix_b	0.524
 global	parameter	run_nrelocfrac	0.5
+global	design	run_state_year	500
+global	design	run_restart	0
+global	design	run_save_state	0
+global	design	run_state_path	
 global	design	run_ifsmoothgreffmort	1
 global	design	run_ifdroughtlimitedestab	1
 global	design	run_ifrainonwetdaysonly	1
@@ -40,7 +44,7 @@ global	design	run_lc_fixed_forest	0
 global	design	run_lc_fixed_natural	25
 global	design	run_lc_fixed_peatland	25
 global	design	run_equal_landcover_area	0
-global	parameter	common_lamda_max	0.8
+global	parameter	common_lambda_max	0.8
 global	parameter	common_emax	5
 global	parameter	common_reprfrac	0.1
 global	parameter	common_wscal_min	0.35
@@ -334,6 +338,10 @@ europe	design	run_freenyears	100
 europe	parameter	run_nfix_a	0.102
 europe	parameter	run_nfix_b	0.524
 europe	parameter	run_nrelocfrac	0.5
+europe	design	run_state_year	500
+europe	design	run_restart	0
+europe	design	run_save_state	0
+europe	design	run_state_path	
 europe	design	run_ifsmoothgreffmort	1
 europe	design	run_ifdroughtlimitedestab	1
 europe	design	run_ifrainonwetdaysonly	1
@@ -353,7 +361,7 @@ europe	design	run_lc_fixed_forest	0
 europe	design	run_lc_fixed_natural	25
 europe	design	run_lc_fixed_peatland	25
 europe	design	run_equal_landcover_area	0
-europe	parameter	common_lamda_max	0.8
+europe	parameter	common_lambda_max	0.8
 europe	parameter	common_emax	5
 europe	parameter	common_reprfrac	0.1
 europe	parameter	common_wscal_min	0.35

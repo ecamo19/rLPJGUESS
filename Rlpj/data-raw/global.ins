@@ -107,10 +107,10 @@ nrelocfrac run_nrelocfrac			! fraction of N retranslocated prior to leaf and roo
 !///////////////////////////////////////////////////////////////////////////////
 ! SERIALIZATION SETTINGS
 !///////////////////////////////////////////////////////////////////////////////
-!state_year 500			! year to save/start state file (no setting = after spinup)
-restart 0				! wheter to start from a state file
-save_state 0			! wheter to save a state file
-!state_path ""			! directory to put state files in
+state_year run_state_year			! year to save/start state file (no setting = after spinup)
+restart run_restart				! wheter to start from a state file
+save_state run_save_state			! wheter to save a state file
+state_path "run_state_path"			! directory to put state files in
 
 
 ifsmoothgreffmort run_ifsmoothgreffmort				! whether to vary mort_greff smoothly with growth efficiency (1)
@@ -152,7 +152,7 @@ group "common" (
 
 	! Parameters common to all PFTs
 
-	lambda_max 	common_lamdba_max			! 0.8
+	lambda_max 	common_lambda_max			! 0.8
 	emax 		common_emax			! 5
 	reprfrac 	common_reprfrac			! 0.1
 	wscal_min 	common_wscal_min			! 0.35
