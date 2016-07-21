@@ -1,984 +1,984 @@
-scale	type	name	value
-global	design	run_vegmode	cohort
-global	design	run_nyear_spinup	500
-global	design	run_ifcalcsla	1
-global	design	run_ifcalccton	1
-global	design	run_iffire	1
-global	design	run_npatch	1
-global	design	run_patcharea	1000
-global	design	run_estinterval	5
-global	design	run_ifdisturb	1
-global	design	run_distinterval	100
-global	design	run_ifbgestab	1
-global	design	run_ifsme	1
-global	design	run_ifstochestab	1
-global	design	run_ifstochmort	1
-global	design	run_ifcdebt	1
-global	design	run_wateruptake	rootdist
-global	design	run_ifcentury	1
-global	design	run_ifnlim	0
-global	design	run_freenyears	100
-global	parameter	run_nfix_a	0.102
-global	parameter	run_nfix_b	0.524
-global	parameter	run_nrelocfrac	0.5
-global	design	run_state_year	500
-global	design	run_restart	0
-global	design	run_save_state	0
-global	design	run_state_path	
-global	design	run_ifsmoothgreffmort	1
-global	design	run_ifdroughtlimitedestab	1
-global	design	run_ifrainonwetdaysonly	1
-global	design	run_ifbvoc	0
-global	design	run_run_landcover	0
-global	design	run_run_urban	0
-global	design	run_run_crop	1
-global	design	run_run_forest	0
-global	design	run_run_pasture	0
-global	design	run_run_natural	0
-global	design	run_run_peatland	1
-global	design	run_lcfrac_fixed	0
-global	design	run_lc_fixed_urban	0
-global	design	run_lc_fixed_cropland	50
-global	design	run_lc_fixed_pasture	0
-global	design	run_lc_fixed_forest	0
-global	design	run_lc_fixed_natural	25
-global	design	run_lc_fixed_peatland	25
-global	design	run_equal_landcover_area	0
-global	parameter	common_lambda_max	0.8
-global	parameter	common_emax	5
-global	parameter	common_reprfrac	0.1
-global	parameter	common_wscal_min	0.35
-global	parameter	common_drought_tolerance	0.0001
-global	parameter	common_landcover	natural
-global	parameter	common_turnover_harv_prod	1
-global	parameter	tree_crownarea_max	50
-global	parameter	tree_ltor_max	1
-global	parameter	tree_turnover_root	0.7
-global	parameter	tree_rootdist	0.6 0.4
-global	parameter	tree_k_allom2	60
-global	parameter	tree_k_allom3	0.67
-global	parameter	tree_k_rp	1.6
-global	parameter	tree_wooddens	200
-global	parameter	tree_cton_root	29
-global	parameter	tree_cton_sap	330
-global	parameter	tree_nuptoroot	0.0028
-global	parameter	tree_km_volume	0.000001477
-global	parameter	tree_respcoeff	1
-global	parameter	tree_kest_repr	200
-global	parameter	tree_kest_bg	0.1
-global	parameter	tree_kest_pres	1
-global	parameter	tree_k_chilla	0
-global	parameter	tree_k_chillb	100
-global	parameter	tree_k_chillk	0.05
-global	parameter	tree_litterme	0.3
-global	parameter	tree_harv_eff	0.7
-global	parameter	tree_res_outtake	0.75
-global	parameter	tree_harvest_slow_frac	0.33
-global	parameter	tree_turnover_harv_prod	0.04
-global	parameter	shrub_crownarea_max	10
-global	parameter	shrub_ltor_max	1
-global	parameter	shrub_k_allom1	100
-global	parameter	shrub_k_allom2	5
-global	parameter	shrub_k_allom3	0.67
-global	parameter	shrub_k_rp	1.6
-global	parameter	shrub_wooddens	250
-global	parameter	shrub_cton_leaf_min	16
-global	parameter	shrub_cton_root	29
-global	parameter	shrub_cton_sap	330
-global	parameter	shrub_nuptoroot	0.0028
-global	parameter	shrub_km_volume	0.000001477
-global	parameter	shrub_fnstorage	0.3
-global	parameter	shrub_kest_repr	200
-global	parameter	shrub_kest_bg	0.1
-global	parameter	shrub_kest_pres	1
-global	parameter	shrub_litterme	0.3
-global	parameter	shrub_rootdist	0.6 0.4
-global	parameter	shrub_longevity	100
-global	parameter	grass_ltor_max	0.5
-global	parameter	grass_rootdist	0.9 0.1
-global	parameter	grass_gmin	0.5
-global	parameter	grass_phengdd5ramp	100
-global	parameter	grass_leaflong	0.5
-global	parameter	grass_turnover_leaf	1
-global	parameter	grass_turnover_root	0.7
-global	parameter	grass_cton_leaf_min	16
-global	parameter	grass_cton_root	29
-global	parameter	grass_nuptoroot	0.00551
-global	parameter	grass_km_volume	0.000001876
-global	parameter	grass_fnstorage	0.3
-global	parameter	grass_litterme	0.2
-global	parameter	grass_parff_min	1000000
-global	parameter	grass_fireresist	0.5
-global	parameter	grass_intc	0.01
-global	parameter	grass_ga	0.03
-global	parameter	broadleaf_cton_leaf_min	16
-global	parameter	broadleaf_k_allom1	250
-global	parameter	broadleaf_k_latosa	6000
-global	parameter	broadleaf_gmin	0.5
-global	parameter	broadleaf_intc	0.02
-global	parameter	broadleaf_ga	0.04
-global	parameter	needleleaf_cton_leaf_min	28
-global	parameter	needleleaf_k_allom1	150
-global	parameter	needleleaf_k_latosa	5000
-global	parameter	needleleaf_gmin	0.3
-global	parameter	needleleaf_intc	0.06
-global	parameter	needleleaf_ga	0.14
-global	parameter	evergreen_fnstorage	0.05
-global	parameter	evergreen_phengdd5ramp	0
-global	parameter	summergreen_fnstorage	0.15
-global	parameter	summergreen_phengdd5ramp	200
-global	parameter	summergreen_leaflong	0.5
-global	parameter	summergreen_turnover_leaf	1
-global	parameter	boreal_pstemp_min	-4
-global	parameter	boreal_pstemp_low	10
-global	parameter	boreal_pstemp_high	25
-global	parameter	boreal_pstemp_max	38
-global	parameter	boreal_respcoeff	1
-global	parameter	temperate_pstemp_min	-2
-global	parameter	temperate_pstemp_low	15
-global	parameter	temperate_pstemp_high	25
-global	parameter	temperate_pstemp_max	38
-global	parameter	temperate_respcoeff	1
-global	parameter	tropical_tcmin_surv	15.5
-global	parameter	tropical_tcmin_est	15.5
-global	parameter	tropical_tcmax_est	1000
-global	parameter	tropical_twmin_est	-1000
-global	parameter	tropical_gdd5min_est	0
-global	parameter	tropical_pstemp_min	2
-global	parameter	tropical_pstemp_low	25
-global	parameter	tropical_pstemp_high	30
-global	parameter	tropical_pstemp_max	55
-global	parameter	tropical_respcoeff	0.15
-global	parameter	ShTol_est_max	0.05
-global	parameter	ShTol_parff_min	350000
-global	parameter	ShTol_alphar	3
-global	parameter	ShTol_greff_min	0.04
-global	parameter	ShTol_turnover_sap	0.05
-global	parameter	IntShTol_est_max	0.15
-global	parameter	IntShTol_parff_min	2000000
-global	parameter	IntShTol_alphar	7
-global	parameter	IntShTol_greff_min	0.06
-global	parameter	IntShTol_turnover_sap	0.075
-global	parameter	ShIntol_est_max	0.2
-global	parameter	ShIntol_parff_min	2500000
-global	parameter	ShIntol_alphar	10
-global	parameter	ShIntol_greff_min	0.08
-global	parameter	ShIntol_turnover_sap	0.1
-global	parameter	BNE_include	1
-global	parameter	BNE_leaflong	3
-global	parameter	BNE_turnover_leaf	0.33
-global	parameter	BNE_tcmin_surv	-31
-global	parameter	BNE_tcmin_est	-30
-global	parameter	BNE_tcmax_est	-1
-global	parameter	BNE_twmin_est	5
-global	parameter	BNE_gdd5min_est	500
-global	parameter	BNE_longevity	500
-global	parameter	BNE_fireresist	0.3
-global	parameter	BNE_eps_iso	8
-global	parameter	BNE_seas_iso	0
-global	parameter	BNE_eps_mon	4.8
-global	parameter	BNE_storfrac_mon	0.5
-global	parameter	BINE_include	1
-global	parameter	BINE_leaflong	3
-global	parameter	BINE_turnover_leaf	0.33
-global	parameter	BINE_tcmin_surv	-31
-global	parameter	BINE_tcmin_est	-30
-global	parameter	BINE_tcmax_est	-1
-global	parameter	BINE_twmin_est	5
-global	parameter	BINE_gdd5min_est	500
-global	parameter	BINE_longevity	500
-global	parameter	BINE_fireresist	0.3
-global	parameter	BINE_eps_iso	8
-global	parameter	BINE_seas_iso	0
-global	parameter	BINE_eps_mon	4.8
-global	parameter	BINE_storfrac_mon	0.5
-global	parameter	BNS_include	1
-global	parameter	BNS_tcmin_surv	-1000
-global	parameter	BNS_tcmin_est	-1000
-global	parameter	BNS_tcmax_est	-2
-global	parameter	BNS_twmin_est	-1000
-global	parameter	BNS_twminusc	43
-global	parameter	BNS_gdd5min_est	350
-global	parameter	BNS_phengdd5ramp	100
-global	parameter	BNS_longevity	300
-global	parameter	BNS_fireresist	0.3
-global	parameter	BNS_eps_iso	8
-global	parameter	BNS_seas_iso	1
-global	parameter	BNS_eps_mon	4.8
-global	parameter	BNS_storfrac_mon	0.5
-global	parameter	TeNE_include	1
-global	parameter	TeNE_leaflong	3
-global	parameter	TeNE_turnover_leaf	0.33
-global	parameter	TeNE_tcmin_surv	-2
-global	parameter	TeNE_tcmin_est	-2
-global	parameter	TeNE_tcmax_est	10
-global	parameter	TeNE_twmin_est	5
-global	parameter	TeNE_gdd5min_est	2000
-global	parameter	TeNE_longevity	300
-global	parameter	TeNE_fireresist	0.3
-global	parameter	TeNE_eps_iso	8
-global	parameter	TeNE_seas_iso	0
-global	parameter	TeNE_eps_mon	4.8
-global	parameter	TeNE_storfrac_mon	0.5
-global	parameter	TeBS_include	1
-global	parameter	TeBS_tcmin_surv	-14
-global	parameter	TeBS_tcmin_est	-13
-global	parameter	TeBS_tcmax_est	6
-global	parameter	TeBS_twmin_est	5
-global	parameter	TeBS_gdd5min_est	1100
-global	parameter	TeBS_longevity	400
-global	parameter	TeBS_fireresist	0.1
-global	parameter	TeBS_eps_iso	45
-global	parameter	TeBS_seas_iso	1
-global	parameter	TeBS_eps_mon	1.6
-global	parameter	TeBS_storfrac_mon	0
-global	parameter	IBS_include	1
-global	parameter	IBS_tcmin_surv	-30
-global	parameter	IBS_tcmin_est	-30
-global	parameter	IBS_tcmax_est	7
-global	parameter	IBS_twmin_est	-1000
-global	parameter	IBS_gdd5min_est	350
-global	parameter	IBS_longevity	300
-global	parameter	IBS_fireresist	0.1
-global	parameter	IBS_eps_iso	45
-global	parameter	IBS_seas_iso	1
-global	parameter	IBS_eps_mon	1.6
-global	parameter	IBS_storfrac_mon	0
-global	parameter	TeBE_include	1
-global	parameter	TeBE_leaflong	3
-global	parameter	TeBE_turnover_leaf	0.33
-global	parameter	TeBE_tcmin_surv	-1
-global	parameter	TeBE_tcmin_est	0
-global	parameter	TeBE_tcmax_est	18.8
-global	parameter	TeBE_twmin_est	5
-global	parameter	TeBE_gdd5min_est	2000
-global	parameter	TeBE_longevity	300
-global	parameter	TeBE_fireresist	0.3
-global	parameter	TeBE_eps_iso	24
-global	parameter	TeBE_seas_iso	0
-global	parameter	TeBE_eps_mon	1.6
-global	parameter	TeBE_storfrac_mon	0
-global	parameter	TrBE_include	1
-global	parameter	TrBE_leaflong	2
-global	parameter	TrBE_turnover_leaf	0.5
-global	parameter	TrBE_longevity	500
-global	parameter	TrBE_fireresist	0.1
-global	parameter	TrBE_eps_iso	24
-global	parameter	TrBE_seas_iso	0
-global	parameter	TrBE_eps_mon	0.8
-global	parameter	TrBE_storfrac_mon	0
-global	parameter	TrIBE_include	1
-global	parameter	TrIBE_leaflong	2
-global	parameter	TrIBE_turnover_leaf	0.5
-global	parameter	TrIBE_longevity	200
-global	parameter	TrIBE_fireresist	0.1
-global	parameter	TrIBE_eps_iso	24
-global	parameter	TrIBE_seas_iso	0
-global	parameter	TrIBE_eps_mon	0.8
-global	parameter	TrIBE_storfrac_mon	0
-global	parameter	TrBR_include	1
-global	parameter	TrBR_fnstorage	0.15
-global	parameter	TrBR_leaflong	0.5
-global	parameter	TrBR_turnover_leaf	1
-global	parameter	TrBR_longevity	400
-global	parameter	TrBR_fireresist	0.3
-global	parameter	TrBR_eps_iso	45
-global	parameter	TrBR_seas_iso	0
-global	parameter	TrBR_eps_mon	2.4
-global	parameter	TrBR_storfrac_mon	0
-global	parameter	C3G_include	1
-global	parameter	C3G_respcoeff	1
-global	parameter	C3G_pstemp_min	-5
-global	parameter	C3G_pstemp_low	10
-global	parameter	C3G_pstemp_high	30
-global	parameter	C3G_pstemp_max	45
-global	parameter	C3G_tcmin_surv	-1000
-global	parameter	C3G_tcmin_est	-1000
-global	parameter	C3G_tcmax_est	1000
-global	parameter	C3G_twmin_est	-1000
-global	parameter	C3G_gdd5min_est	0
-global	parameter	C3G_eps_iso	16
-global	parameter	C3G_seas_iso	1
-global	parameter	C3G_eps_mon	1.6
-global	parameter	C3G_storfrac_mon	0.5
-global	parameter	C4G_include	1
-global	parameter	C4G_respcoeff	0.15
-global	parameter	C4G_pstemp_min	6
-global	parameter	C4G_pstemp_low	20
-global	parameter	C4G_pstemp_high	45
-global	parameter	C4G_pstemp_max	55
-global	parameter	C4G_tcmin_surv	15.5
-global	parameter	C4G_tcmin_est	15.5
-global	parameter	C4G_tcmax_est	1000
-global	parameter	C4G_twmin_est	-1000
-global	parameter	C4G_gdd5min_est	0
-global	parameter	C4G_eps_iso	8
-global	parameter	C4G_seas_iso	0
-global	parameter	C4G_eps_mon	2.4
-global	parameter	C4G_storfrac_mon	0.5
-europe	design	run_vegmode	cohort
-europe	design	run_nyear_spinup	500
-europe	design	run_ifcalcsla	1
-europe	design	run_ifcalccton	1
-europe	design	run_iffire	1
-europe	design	run_npatch	1
-europe	design	run_patcharea	1000
-europe	design	run_estinterval	1
-europe	design	run_ifdisturb	1
-europe	design	run_distinterval	100
-europe	design	run_ifbgestab	1
-europe	design	run_ifsme	1
-europe	design	run_ifstochestab	1
-europe	design	run_ifstochmort	1
-europe	design	run_ifcdebt	1
-europe	design	run_wateruptake	rootdist
-europe	design	run_ifcentury	1
-europe	design	run_ifnlim	0
-europe	design	run_freenyears	100
-europe	parameter	run_nfix_a	0.102
-europe	parameter	run_nfix_b	0.524
-europe	parameter	run_nrelocfrac	0.5
-europe	design	run_state_year	500
-europe	design	run_restart	0
-europe	design	run_save_state	0
-europe	design	run_state_path	
-europe	design	run_ifsmoothgreffmort	1
-europe	design	run_ifdroughtlimitedestab	1
-europe	design	run_ifrainonwetdaysonly	1
-europe	design	run_ifbvoc	0
-europe	design	run_run_landcover	0
-europe	design	run_run_urban	0
-europe	design	run_run_crop	1
-europe	design	run_run_forest	0
-europe	design	run_run_pasture	0
-europe	design	run_run_natural	0
-europe	design	run_run_peatland	1
-europe	design	run_lcfrac_fixed	0
-europe	design	run_lc_fixed_urban	0
-europe	design	run_lc_fixed_cropland	50
-europe	design	run_lc_fixed_pasture	0
-europe	design	run_lc_fixed_forest	0
-europe	design	run_lc_fixed_natural	25
-europe	design	run_lc_fixed_peatland	25
-europe	design	run_equal_landcover_area	0
-europe	parameter	common_lambda_max	0.8
-europe	parameter	common_emax	5
-europe	parameter	common_reprfrac	0.1
-europe	parameter	common_wscal_min	0.35
-europe	parameter	common_drought_tolerance	0.0001
-europe	parameter	common_landcover	natural
-europe	parameter	common_turnover_harv_prod	1
-europe	parameter	tree_rootdist	0.6 0.4
-europe	parameter	tree_crownarea_max	40
-europe	parameter	tree_turnover_root	0.7
-europe	parameter	tree_ltor_max	1
-europe	parameter	tree_k_allom2	40
-europe	parameter	tree_k_allom3	0.67
-europe	parameter	tree_k_rp	1.6
-europe	parameter	tree_wooddens	200
-europe	parameter	tree_cton_root	29
-europe	parameter	tree_cton_sap	330
-europe	parameter	tree_nuptoroot	0.0028
-europe	parameter	tree_km_volume	0.000001477
-europe	parameter	tree_kest_repr	200
-europe	parameter	tree_kest_bg	0.1
-europe	parameter	tree_kest_pres	1
-europe	parameter	tree_litterme	0.3
-europe	parameter	tree_harv_eff	0.7
-europe	parameter	tree_res_outtake	0.75
-europe	parameter	tree_harvest_slow_frac	0.33
-europe	parameter	tree_turnover_harv_prod	0.04
-europe	parameter	shrub_rootdist	0.6 0.4
-europe	parameter	shrub_crownarea_max	10
-europe	parameter	shrub_turnover_root	0.7
-europe	parameter	shrub_ltor_max	1
-europe	parameter	shrub_k_allom1	100
-europe	parameter	shrub_k_allom2	5
-europe	parameter	shrub_k_allom3	0.67
-europe	parameter	shrub_k_rp	1.6
-europe	parameter	shrub_wooddens	250
-europe	parameter	shrub_cton_root	29
-europe	parameter	shrub_cton_sap	330
-europe	parameter	shrub_nuptoroot	0.0028
-europe	parameter	shrub_km_volume	0.000001477
-europe	parameter	shrub_fnstorage	0.3
-europe	parameter	shrub_kest_repr	200
-europe	parameter	shrub_kest_bg	0.1
-europe	parameter	shrub_kest_pres	1
-europe	parameter	shrub_litterme	0.3
-europe	parameter	shrub_longevity	100
-europe	parameter	needlelleaf_k_allom1	150
-europe	parameter	needlelleaf_k_latosa	4000
-europe	parameter	needlelleaf_ga	0.14
-europe	parameter	broadleaf_k_allom1	250
-europe	parameter	broadleaf_k_latosa	5000
-europe	parameter	broadleaf_leaflong	0.5
-europe	parameter	broadleaf_turnover_leaf	1
-europe	parameter	broadleaf_ga	0.04
-europe	parameter	grass_ltor_max	0.5
-europe	parameter	grass_cton_root	29
-europe	parameter	grass_nuptoroot	0.00551
-europe	parameter	grass_km_volume	0.000001876
-europe	parameter	grass_fnstorage	0.3
-europe	parameter	grass_respcoeff	1
-europe	parameter	grass_litterme	0.2
-europe	parameter	grass_ga	0.03
-europe	parameter	IntShTol_est_max	0.15
-europe	parameter	IntShTol_parff_min	2000000
-europe	parameter	IntShTol_alphar	7
-europe	parameter	IntShTol_greff_min	0.06
-europe	parameter	IntShTol_turnover_sap	0.075
-europe	parameter	ShTol_est_max	0.05
-europe	parameter	ShTol_parff_min	350000
-europe	parameter	ShTol_alphar	3
-europe	parameter	ShTol_greff_min	0.04
-europe	parameter	ShTol_turnover_sap	0.05
-europe	parameter	ShIntol_est_max	0.2
-europe	parameter	ShIntol_parff_min	2500000
-europe	parameter	ShIntol_alphar	10
-europe	parameter	ShIntol_greff_min	0.08
-europe	parameter	ShIntol_turnover_sap	0.1
-europe	parameter	boreal_respcoeff	1
-europe	parameter	boreal_pstemp_min	-4
-europe	parameter	boreal_pstemp_low	10
-europe	parameter	boreal_pstemp_high	25
-europe	parameter	boreal_pstemp_max	38
-europe	parameter	temperate_respcoeff	1
-europe	parameter	temperate_pstemp_min	-2
-europe	parameter	temperate_pstemp_low	15
-europe	parameter	temperate_pstemp_high	25
-europe	parameter	temperate_pstemp_max	38
-europe	parameter	Abi_alb_include	1
-europe	parameter	Abi_alb_sla	9.3
-europe	parameter	Abi_alb_gmin	0.3
-europe	parameter	Abi_alb_fnstorage	0.05
-europe	parameter	Abi_alb_leaflong	3
-europe	parameter	Abi_alb_turnover_leaf	0.33
-europe	parameter	Abi_alb_phengdd5ramp	0
-europe	parameter	Abi_alb_tcmin_surv	-2
-europe	parameter	Abi_alb_tcmin_est	-2
-europe	parameter	Abi_alb_tcmax_est	2
-europe	parameter	Abi_alb_twmin_est	6
-europe	parameter	Abi_alb_gdd5min_est	1600
-europe	parameter	Abi_alb_k_chilla	0
-europe	parameter	Abi_alb_k_chillb	100
-europe	parameter	Abi_alb_k_chillk	0.05
-europe	parameter	Abi_alb_fireresist	0.1
-europe	parameter	Abi_alb_intc	0.06
-europe	parameter	Abi_alb_longevity	350
-europe	parameter	Abi_alb_drought_tolerance	0.35
-europe	parameter	Abi_alb_eps_iso	0.05
-europe	parameter	Abi_alb_seas_iso	0
-europe	parameter	Abi_alb_eps_mon	1.8
-europe	parameter	Abi_alb_storfrac_mon	0.5
-europe	parameter	BES_include	1
-europe	parameter	BES_rootdist	0.8 0.2
-europe	parameter	BES_crownarea_max	3
-europe	parameter	BES_k_allom1	20
-europe	parameter	BES_k_allom2	5
-europe	parameter	BES_k_latosa	500
-europe	parameter	BES_sla	9.3
-europe	parameter	BES_gmin	0.3
-europe	parameter	BES_leaflong	2
-europe	parameter	BES_turnover_leaf	0.5
-europe	parameter	BES_turnover_sap	0.05
-europe	parameter	BES_phengdd5ramp	0
-europe	parameter	BES_tcmin_surv	-1000
-europe	parameter	BES_tcmin_est	-1000
-europe	parameter	BES_tcmax_est	-1
-europe	parameter	BES_twmin_est	-1000
-europe	parameter	BES_gdd5min_est	200
-europe	parameter	BES_longevity	50
-europe	parameter	BES_k_chilla	0
-europe	parameter	BES_k_chillb	100
-europe	parameter	BES_k_chillk	0.05
-europe	parameter	BES_fireresist	0.1
-europe	parameter	BES_intc	0.06
-europe	parameter	BES_drought_tolerance	0.25
-europe	parameter	BES_eps_iso	2
-europe	parameter	BES_seas_iso	0
-europe	parameter	BES_eps_mon	4
-europe	parameter	BES_storfrac_mon	0.5
-europe	parameter	BES_ga	0.04
-europe	parameter	Bet_pen_include	1
-europe	parameter	Bet_pen_sla	24.3
-europe	parameter	Bet_pen_gmin	0.5
-europe	parameter	Bet_pen_fnstorage	0.15
-europe	parameter	Bet_pen_phengdd5ramp	200
-europe	parameter	Bet_pen_tcmin_surv	-30
-europe	parameter	Bet_pen_tcmin_est	-30
-europe	parameter	Bet_pen_tcmax_est	7
-europe	parameter	Bet_pen_twmin_est	5
-europe	parameter	Bet_pen_gdd5min_est	700
-europe	parameter	Bet_pen_k_chilla	0
-europe	parameter	Bet_pen_k_chillb	350
-europe	parameter	Bet_pen_k_chillk	0.05
-europe	parameter	Bet_pen_fireresist	0.1
-europe	parameter	Bet_pen_intc	0.02
-europe	parameter	Bet_pen_longevity	200
-europe	parameter	Bet_pen_drought_tolerance	0.42
-europe	parameter	Bet_pen_eps_iso	0.2
-europe	parameter	Bet_pen_seas_iso	1
-europe	parameter	Bet_pen_eps_mon	6
-europe	parameter	Bet_pen_storfrac_mon	0
-europe	parameter	Bet_pub_include	1
-europe	parameter	Bet_pub_sla	24.3
-europe	parameter	Bet_pub_gmin	0.5
-europe	parameter	Bet_pub_fnstorage	0.15
-europe	parameter	Bet_pub_phengdd5ramp	200
-europe	parameter	Bet_pub_tcmin_surv	-30
-europe	parameter	Bet_pub_tcmin_est	-30
-europe	parameter	Bet_pub_tcmax_est	3
-europe	parameter	Bet_pub_twmin_est	5
-europe	parameter	Bet_pub_gdd5min_est	350
-europe	parameter	Bet_pub_k_chilla	0
-europe	parameter	Bet_pub_k_chillb	350
-europe	parameter	Bet_pub_k_chillk	0.05
-europe	parameter	Bet_pub_fireresist	0.1
-europe	parameter	Bet_pub_intc	0.02
-europe	parameter	Bet_pub_longevity	200
-europe	parameter	Bet_pub_drought_tolerance	0.5
-europe	parameter	Bet_pub_eps_iso	0
-europe	parameter	Bet_pub_seas_iso	1
-europe	parameter	Bet_pub_eps_mon	1
-europe	parameter	Bet_pub_storfrac_mon	0
-europe	parameter	Car_bet_include	1
-europe	parameter	Car_bet_sla	24.3
-europe	parameter	Car_bet_gmin	0.5
-europe	parameter	Car_bet_fnstorage	0.15
-europe	parameter	Car_bet_phengdd5ramp	200
-europe	parameter	Car_bet_tcmin_surv	-8
-europe	parameter	Car_bet_tcmin_est	-8
-europe	parameter	Car_bet_tcmax_est	5
-europe	parameter	Car_bet_twmin_est	5
-europe	parameter	Car_bet_gdd5min_est	1200
-europe	parameter	Car_bet_k_chilla	0
-europe	parameter	Car_bet_k_chillb	600
-europe	parameter	Car_bet_k_chillk	0.05
-europe	parameter	Car_bet_fireresist	0.1
-europe	parameter	Car_bet_intc	0.02
-europe	parameter	Car_bet_longevity	350
-europe	parameter	Car_bet_drought_tolerance	0.33
-europe	parameter	Car_bet_eps_iso	0
-europe	parameter	Car_bet_seas_iso	1
-europe	parameter	Car_bet_eps_mon	0.08
-europe	parameter	Car_bet_storfrac_mon	0
-europe	parameter	Cor_ave_include	1
-europe	parameter	Cor_ave_crownarea_max	15
-europe	parameter	Cor_ave_k_latosa	4000
-europe	parameter	Cor_ave_sla	12
-europe	parameter	Cor_ave_gmin	0.5
-europe	parameter	Cor_ave_fnstorage	0.15
-europe	parameter	Cor_ave_phengdd5ramp	200
-europe	parameter	Cor_ave_tcmin_surv	-11
-europe	parameter	Cor_ave_tcmin_est	-11
-europe	parameter	Cor_ave_tcmax_est	7
-europe	parameter	Cor_ave_twmin_est	5
-europe	parameter	Cor_ave_gdd5min_est	800
-europe	parameter	Cor_ave_k_chilla	0
-europe	parameter	Cor_ave_k_chillb	350
-europe	parameter	Cor_ave_k_chillk	0.05
-europe	parameter	Cor_ave_fireresist	0.1
-europe	parameter	Cor_ave_intc	0.02
-europe	parameter	Cor_ave_longevity	100
-europe	parameter	Cor_ave_drought_tolerance	0.3
-europe	parameter	Cor_ave_eps_iso	0
-europe	parameter	Cor_ave_seas_iso	1
-europe	parameter	Cor_ave_eps_mon	0
-europe	parameter	Cor_ave_storfrac_mon	0
-europe	parameter	Fag_syl_include	1
-europe	parameter	Fag_syl_sla	24.3
-europe	parameter	Fag_syl_gmin	0.5
-europe	parameter	Fag_syl_fnstorage	0.15
-europe	parameter	Fag_syl_phengdd5ramp	200
-europe	parameter	Fag_syl_tcmin_surv	-3.5
-europe	parameter	Fag_syl_tcmin_est	-3.5
-europe	parameter	Fag_syl_tcmax_est	6
-europe	parameter	Fag_syl_twmin_est	5
-europe	parameter	Fag_syl_gdd5min_est	1500
-europe	parameter	Fag_syl_k_chilla	0
-europe	parameter	Fag_syl_k_chillb	600
-europe	parameter	Fag_syl_k_chillk	0.05
-europe	parameter	Fag_syl_fireresist	0.1
-europe	parameter	Fag_syl_intc	0.02
-europe	parameter	Fag_syl_longevity	500
-europe	parameter	Fag_syl_drought_tolerance	0.3
-europe	parameter	Fag_syl_eps_iso	0
-europe	parameter	Fag_syl_seas_iso	1
-europe	parameter	Fag_syl_eps_mon	10
-europe	parameter	Fag_syl_storfrac_mon	0
-europe	parameter	Fra_exc_include	1
-europe	parameter	Fra_exc_sla	24.3
-europe	parameter	Fra_exc_gmin	0.5
-europe	parameter	Fra_exc_fnstorage	0.15
-europe	parameter	Fra_exc_phengdd5ramp	200
-europe	parameter	Fra_exc_tcmin_surv	-16
-europe	parameter	Fra_exc_tcmin_est	-16
-europe	parameter	Fra_exc_tcmax_est	6
-europe	parameter	Fra_exc_twmin_est	5
-europe	parameter	Fra_exc_gdd5min_est	1100
-europe	parameter	Fra_exc_k_chilla	0
-europe	parameter	Fra_exc_k_chillb	100
-europe	parameter	Fra_exc_k_chillk	0.05
-europe	parameter	Fra_exc_fireresist	0.1
-europe	parameter	Fra_exc_intc	0.02
-europe	parameter	Fra_exc_longevity	350
-europe	parameter	Fra_exc_drought_tolerance	0.4
-europe	parameter	Fra_exc_eps_iso	0
-europe	parameter	Fra_exc_seas_iso	1
-europe	parameter	Fra_exc_eps_mon	0
-europe	parameter	Fra_exc_storfrac_mon	0
-europe	parameter	Jun_oxy_include	1
-europe	parameter	Jun_oxy_rootdist	0.5 0.5
-europe	parameter	Jun_oxy_k_latosa	1500
-europe	parameter	Jun_oxy_crownarea_max	10
-europe	parameter	Jun_oxy_sla	10
-europe	parameter	Jun_oxy_gmin	0.5
-europe	parameter	Jun_oxy_fnstorage	0.05
-europe	parameter	Jun_oxy_leaflong	1.5
-europe	parameter	Jun_oxy_turnover_leaf	0.6667
-europe	parameter	Jun_oxy_phengdd5ramp	0
-europe	parameter	Jun_oxy_tcmin_surv	0
-europe	parameter	Jun_oxy_tcmin_est	1
-europe	parameter	Jun_oxy_tcmax_est	1000
-europe	parameter	Jun_oxy_twmin_est	-1000
-europe	parameter	Jun_oxy_gdd5min_est	2200
-europe	parameter	Jun_oxy_k_chilla	0
-europe	parameter	Jun_oxy_k_chillb	100
-europe	parameter	Jun_oxy_k_chillk	0.05
-europe	parameter	Jun_oxy_fireresist	0.4
-europe	parameter	Jun_oxy_intc	0.02
-europe	parameter	Jun_oxy_longevity	200
-europe	parameter	Jun_oxy_drought_tolerance	0.01
-europe	parameter	Jun_oxy_eps_iso	0
-europe	parameter	Jun_oxy_seas_iso	0
-europe	parameter	Jun_oxy_eps_mon	2
-europe	parameter	Jun_oxy_storfrac_mon	0.5
-europe	parameter	MRS_include	1
-europe	parameter	MRS_rootdist	0.9 0.1
-europe	parameter	MRS_k_latosa	1500
-europe	parameter	MRS_sla	10
-europe	parameter	MRS_gmin	0.5
-europe	parameter	MRS_leaflong	0.5
-europe	parameter	MRS_turnover_leaf	1
-europe	parameter	MRS_phengdd5ramp	0
-europe	parameter	MRS_tcmin_surv	0
-europe	parameter	MRS_tcmin_est	1
-europe	parameter	MRS_tcmax_est	1000
-europe	parameter	MRS_twmin_est	-1000
-europe	parameter	MRS_gdd5min_est	2200
-europe	parameter	MRS_k_chilla	0
-europe	parameter	MRS_k_chillb	100
-europe	parameter	MRS_k_chillk	0.05
-europe	parameter	MRS_fireresist	0.3
-europe	parameter	MRS_intc	0.02
-europe	parameter	MRS_longevity	100
-europe	parameter	MRS_drought_tolerance	0.01
-europe	parameter	MRS_eps_iso	2
-europe	parameter	MRS_seas_iso	0
-europe	parameter	MRS_eps_mon	4
-europe	parameter	MRS_storfrac_mon	0.5
-europe	parameter	MRS_ga	0.04
-europe	parameter	Pic_abi_include	1
-europe	parameter	Pic_abi_rootdist	0.8 0.2
-europe	parameter	Pic_abi_sla	9.3
-europe	parameter	Pic_abi_gmin	0.3
-europe	parameter	Pic_abi_fnstorage	0.05
-europe	parameter	Pic_abi_leaflong	3
-europe	parameter	Pic_abi_turnover_leaf	0.33
-europe	parameter	Pic_abi_phengdd5ramp	0
-europe	parameter	Pic_abi_tcmin_surv	-30
-europe	parameter	Pic_abi_tcmin_est	-30
-europe	parameter	Pic_abi_tcmax_est	-1.5
-europe	parameter	Pic_abi_twmin_est	5
-europe	parameter	Pic_abi_gdd5min_est	600
-europe	parameter	Pic_abi_k_chilla	0
-europe	parameter	Pic_abi_k_chillb	100
-europe	parameter	Pic_abi_k_chillk	0.05
-europe	parameter	Pic_abi_fireresist	0.1
-europe	parameter	Pic_abi_intc	0.06
-europe	parameter	Pic_abi_longevity	500
-europe	parameter	Pic_abi_drought_tolerance	0.43
-europe	parameter	Pic_abi_eps_iso	0.5
-europe	parameter	Pic_abi_seas_iso	0
-europe	parameter	Pic_abi_eps_mon	6
-europe	parameter	Pic_abi_storfrac_mon	0.5
-europe	parameter	Pic_sit_include	1
-europe	parameter	Pic_sit_rootdist	0.8 0.2
-europe	parameter	Pic_sit_k_latosa	4500
-europe	parameter	Pic_sit_sla	9.3
-europe	parameter	Pic_sit_gmin	0.3
-europe	parameter	Pic_sit_fnstorage	0.05
-europe	parameter	Pic_sit_leaflong	4
-europe	parameter	Pic_sit_turnover_leaf	0.25
-europe	parameter	Pic_sit_phengdd5ramp	0
-europe	parameter	Pic_sit_tcmin_surv	-18
-europe	parameter	Pic_sit_tcmin_est	-17
-europe	parameter	Pic_sit_tcmax_est	5.5
-europe	parameter	Pic_sit_twmin_est	-1000
-europe	parameter	Pic_sit_gdd5min_est	450
-europe	parameter	Pic_sit_k_chilla	0
-europe	parameter	Pic_sit_k_chillb	100
-europe	parameter	Pic_sit_k_chillk	0.05
-europe	parameter	Pic_sit_fireresist	0.1
-europe	parameter	Pic_sit_intc	0.06
-europe	parameter	Pic_sit_longevity	700
-europe	parameter	Pic_sit_drought_tolerance	0.5
-europe	parameter	Pic_sit_eps_iso	0
-europe	parameter	Pic_sit_seas_iso	0
-europe	parameter	Pic_sit_eps_mon	0
-europe	parameter	Pic_sit_storfrac_mon	0.5
-europe	parameter	Pin_syl_include	1
-europe	parameter	Pin_syl_k_latosa	3000
-europe	parameter	Pin_syl_sla	9.3
-europe	parameter	Pin_syl_gmin	0.3
-europe	parameter	Pin_syl_fnstorage	0.05
-europe	parameter	Pin_syl_leaflong	2
-europe	parameter	Pin_syl_turnover_leaf	0.5
-europe	parameter	Pin_syl_phengdd5ramp	0
-europe	parameter	Pin_syl_tcmin_surv	-30
-europe	parameter	Pin_syl_tcmin_est	-30
-europe	parameter	Pin_syl_tcmax_est	-1
-europe	parameter	Pin_syl_twmin_est	5
-europe	parameter	Pin_syl_gdd5min_est	500
-europe	parameter	Pin_syl_k_chilla	0
-europe	parameter	Pin_syl_k_chillb	100
-europe	parameter	Pin_syl_k_chillk	0.05
-europe	parameter	Pin_syl_fireresist	0.2
-europe	parameter	Pin_syl_intc	0.06
-europe	parameter	Pin_syl_longevity	350
-europe	parameter	Pin_syl_drought_tolerance	0.25
-europe	parameter	Pin_syl_eps_iso	0
-europe	parameter	Pin_syl_seas_iso	0
-europe	parameter	Pin_syl_eps_mon	4
-europe	parameter	Pin_syl_storfrac_mon	0.5
-europe	parameter	Pin_hal_include	1
-europe	parameter	Pin_hal_k_latosa	3000
-europe	parameter	Pin_hal_sla	9.3
-europe	parameter	Pin_hal_gmin	0.3
-europe	parameter	Pin_hal_fnstorage	0.05
-europe	parameter	Pin_hal_leaflong	2
-europe	parameter	Pin_hal_turnover_leaf	0.5
-europe	parameter	Pin_hal_phengdd5ramp	0
-europe	parameter	Pin_hal_tcmin_surv	3
-europe	parameter	Pin_hal_tcmin_est	3
-europe	parameter	Pin_hal_tcmax_est	9
-europe	parameter	Pin_hal_twmin_est	21
-europe	parameter	Pin_hal_gdd5min_est	3000
-europe	parameter	Pin_hal_k_chilla	0
-europe	parameter	Pin_hal_k_chillb	100
-europe	parameter	Pin_hal_k_chillk	0.05
-europe	parameter	Pin_hal_fireresist	0.2
-europe	parameter	Pin_hal_intc	0.06
-europe	parameter	Pin_hal_longevity	350
-europe	parameter	Pin_hal_drought_tolerance	0.05
-europe	parameter	Pin_hal_eps_iso	0
-europe	parameter	Pin_hal_seas_iso	0
-europe	parameter	Pin_hal_eps_mon	10
-europe	parameter	Pin_hal_storfrac_mon	0.5
-europe	parameter	Pop_tre_include	1
-europe	parameter	Pop_tre_rootdist	0.7 0.3
-europe	parameter	Pop_tre_sla	24.3
-europe	parameter	Pop_tre_gmin	0.5
-europe	parameter	Pop_tre_fnstorage	0.15
-europe	parameter	Pop_tre_phengdd5ramp	200
-europe	parameter	Pop_tre_tcmin_surv	-31
-europe	parameter	Pop_tre_tcmin_est	-30
-europe	parameter	Pop_tre_tcmax_est	6
-europe	parameter	Pop_tre_twmin_est	-1000
-europe	parameter	Pop_tre_gdd5min_est	500
-europe	parameter	Pop_tre_k_chilla	0
-europe	parameter	Pop_tre_k_chillb	350
-europe	parameter	Pop_tre_k_chillk	0.05
-europe	parameter	Pop_tre_fireresist	0.2
-europe	parameter	Pop_tre_intc	0.02
-europe	parameter	Pop_tre_longevity	160
-europe	parameter	Pop_tre_drought_tolerance	0.4
-europe	parameter	Pop_tre_eps_iso	20
-europe	parameter	Pop_tre_seas_iso	1
-europe	parameter	Pop_tre_eps_mon	4
-europe	parameter	Pop_tre_storfrac_mon	0
-europe	parameter	Que_coc_include	1
-europe	parameter	Que_coc_rootdist	0.5 0.5
-europe	parameter	Que_coc_k_latosa	2500
-europe	parameter	Que_coc_sla	10
-europe	parameter	Que_coc_gmin	0.5
-europe	parameter	Que_coc_leaflong	1.5
-europe	parameter	Que_coc_turnover_leaf	0.6667
-europe	parameter	Que_coc_phengdd5ramp	0
-europe	parameter	Que_coc_tcmin_surv	0
-europe	parameter	Que_coc_tcmin_est	0
-europe	parameter	Que_coc_tcmax_est	11
-europe	parameter	Que_coc_twmin_est	21
-europe	parameter	Que_coc_gdd5min_est	2200
-europe	parameter	Que_coc_k_chilla	0
-europe	parameter	Que_coc_k_chillb	100
-europe	parameter	Que_coc_k_chillk	0.05
-europe	parameter	Que_coc_fireresist	0.3
-europe	parameter	Que_coc_intc	0.02
-europe	parameter	Que_coc_longevity	350
-europe	parameter	Que_coc_drought_tolerance	0.1
-europe	parameter	Que_coc_eps_iso	0.1
-europe	parameter	Que_coc_seas_iso	0
-europe	parameter	Que_coc_eps_mon	10
-europe	parameter	Que_coc_storfrac_mon	0
-europe	parameter	Que_coc_ga	0.04
-europe	parameter	Que_ile_include	1
-europe	parameter	Que_ile_rootdist	0.5 0.5
-europe	parameter	Que_ile_k_latosa	3000
-europe	parameter	Que_ile_sla	9.3
-europe	parameter	Que_ile_gmin	0.5
-europe	parameter	Que_ile_fnstorage	0.05
-europe	parameter	Que_ile_leaflong	2
-europe	parameter	Que_ile_turnover_leaf	0.5
-europe	parameter	Que_ile_phengdd5ramp	0
-europe	parameter	Que_ile_tcmin_surv	3
-europe	parameter	Que_ile_tcmin_est	3
-europe	parameter	Que_ile_tcmax_est	7
-europe	parameter	Que_ile_twmin_est	5
-europe	parameter	Que_ile_gdd5min_est	1800
-europe	parameter	Que_ile_k_chilla	0
-europe	parameter	Que_ile_k_chillb	100
-europe	parameter	Que_ile_k_chillk	0.05
-europe	parameter	Que_ile_fireresist	0.3
-europe	parameter	Que_ile_intc	0.02
-europe	parameter	Que_ile_longevity	350
-europe	parameter	Que_ile_drought_tolerance	0.1
-europe	parameter	Que_ile_eps_iso	0.05
-europe	parameter	Que_ile_seas_iso	0
-europe	parameter	Que_ile_eps_mon	16
-europe	parameter	Que_ile_storfrac_mon	0
-europe	parameter	Que_pub_include	1
-europe	parameter	Que_pub_sla	24.3
-europe	parameter	Que_pub_gmin	0.5
-europe	parameter	Que_pub_fnstorage	0.15
-europe	parameter	Que_pub_phengdd5ramp	200
-europe	parameter	Que_pub_tcmin_surv	-6
-europe	parameter	Que_pub_tcmin_est	-5
-europe	parameter	Que_pub_tcmax_est	6
-europe	parameter	Que_pub_twmin_est	-1000
-europe	parameter	Que_pub_gdd5min_est	1900
-europe	parameter	Que_pub_k_chilla	0
-europe	parameter	Que_pub_k_chillb	100
-europe	parameter	Que_pub_k_chillk	0.05
-europe	parameter	Que_pub_fireresist	0.2
-europe	parameter	Que_pub_intc	0.02
-europe	parameter	Que_pub_longevity	500
-europe	parameter	Que_pub_drought_tolerance	0.2
-europe	parameter	Que_pub_eps_iso	50
-europe	parameter	Que_pub_seas_iso	1
-europe	parameter	Que_pub_eps_mon	0
-europe	parameter	Que_pub_storfrac_mon	0
-europe	parameter	Que_rob_include	1
-europe	parameter	Que_rob_sla	24.3
-europe	parameter	Que_rob_gmin	0.5
-europe	parameter	Que_rob_fnstorage	0.15
-europe	parameter	Que_rob_phengdd5ramp	200
-europe	parameter	Que_rob_tcmin_surv	-10
-europe	parameter	Que_rob_tcmin_est	-9
-europe	parameter	Que_rob_tcmax_est	6
-europe	parameter	Que_rob_twmin_est	5
-europe	parameter	Que_rob_gdd5min_est	1100
-europe	parameter	Que_rob_k_chilla	0
-europe	parameter	Que_rob_k_chillb	100
-europe	parameter	Que_rob_k_chillk	0.05
-europe	parameter	Que_rob_fireresist	0.2
-europe	parameter	Que_rob_intc	0.02
-europe	parameter	Que_rob_longevity	500
-europe	parameter	Que_rob_drought_tolerance	0.25
-europe	parameter	Que_rob_eps_iso	40
-europe	parameter	Que_rob_seas_iso	1
-europe	parameter	Que_rob_eps_mon	0
-europe	parameter	Que_rob_storfrac_mon	0
-europe	parameter	Til_cor_include	1
-europe	parameter	Til_cor_rootdist	0.8 0.2
-europe	parameter	Til_cor_sla	24.3
-europe	parameter	Til_cor_gmin	0.5
-europe	parameter	Til_cor_fnstorage	0.15
-europe	parameter	Til_cor_phengdd5ramp	200
-europe	parameter	Til_cor_tcmin_surv	-12
-europe	parameter	Til_cor_tcmin_est	-11
-europe	parameter	Til_cor_tcmax_est	5
-europe	parameter	Til_cor_twmin_est	5
-europe	parameter	Til_cor_gdd5min_est	1100
-europe	parameter	Til_cor_k_chilla	0
-europe	parameter	Til_cor_k_chillb	600
-europe	parameter	Til_cor_k_chillk	0.05
-europe	parameter	Til_cor_fireresist	0.1
-europe	parameter	Til_cor_intc	0.02
-europe	parameter	Til_cor_longevity	350
-europe	parameter	Til_cor_drought_tolerance	0.33
-europe	parameter	Til_cor_eps_iso	0
-europe	parameter	Til_cor_seas_iso	1
-europe	parameter	Til_cor_eps_mon	0
-europe	parameter	Til_cor_storfrac_mon	0
-europe	parameter	Ulm_gla_include	1
-europe	parameter	Ulm_gla_sla	24.3
-europe	parameter	Ulm_gla_gmin	0.5
-europe	parameter	Ulm_gla_fnstorage	0.15
-europe	parameter	Ulm_gla_phengdd5ramp	200
-europe	parameter	Ulm_gla_tcmin_surv	-10.5
-europe	parameter	Ulm_gla_tcmin_est	-9.5
-europe	parameter	Ulm_gla_tcmax_est	6
-europe	parameter	Ulm_gla_twmin_est	5
-europe	parameter	Ulm_gla_gdd5min_est	850
-europe	parameter	Ulm_gla_k_chilla	0
-europe	parameter	Ulm_gla_k_chillb	100
-europe	parameter	Ulm_gla_k_chillk	0.05
-europe	parameter	Ulm_gla_fireresist	0.1
-europe	parameter	Ulm_gla_intc	0.02
-europe	parameter	Ulm_gla_longevity	350
-europe	parameter	Ulm_gla_drought_tolerance	0.4
-europe	parameter	Ulm_gla_eps_iso	0
-europe	parameter	Ulm_gla_seas_iso	1
-europe	parameter	Ulm_gla_eps_mon	0
-europe	parameter	Ulm_gla_storfrac_mon	0
-europe	parameter	C3_gr_include	1
-europe	parameter	C3_gr_rootdist	0.9 0.1
-europe	parameter	C3_gr_sla	32.4
-europe	parameter	C3_gr_gmin	0.5
-europe	parameter	C3_gr_leaflong	0.5
-europe	parameter	C3_gr_turnover_leaf	1
-europe	parameter	C3_gr_turnover_root	0.7
-europe	parameter	C3_gr_phengdd5ramp	100
-europe	parameter	C3_gr_pstemp_min	-5
-europe	parameter	C3_gr_pstemp_low	10
-europe	parameter	C3_gr_pstemp_high	30
-europe	parameter	C3_gr_pstemp_max	45
-europe	parameter	C3_gr_tcmin_surv	-1000
-europe	parameter	C3_gr_tcmin_est	-1000
-europe	parameter	C3_gr_tcmax_est	1000
-europe	parameter	C3_gr_twmin_est	-1000
-europe	parameter	C3_gr_gdd5min_est	0
-europe	parameter	C3_gr_parff_min	2000000
-europe	parameter	C3_gr_fireresist	0.5
-europe	parameter	C3_gr_intc	0.01
-europe	parameter	C3_gr_drought_tolerance	0.01
-europe	parameter	C3_gr_eps_iso	0
-europe	parameter	C3_gr_seas_iso	1
-europe	parameter	C3_gr_eps_mon	1
-europe	parameter	C3_gr_storfrac_mon	0.5
-europe	parameter	C4_gr_include	1
-europe	parameter	C4_gr_rootdist	0.9 0.1
-europe	parameter	C4_gr_gmin	0.5
-europe	parameter	C4_gr_leaflong	0.5
-europe	parameter	C4_gr_turnover_leaf	1
-europe	parameter	C4_gr_turnover_root	0.7
-europe	parameter	C4_gr_phengdd5ramp	100
-europe	parameter	C4_gr_pstemp_min	6
-europe	parameter	C4_gr_pstemp_low	20
-europe	parameter	C4_gr_pstemp_high	45
-europe	parameter	C4_gr_pstemp_max	55
-europe	parameter	C4_gr_tcmin_surv	15.5
-europe	parameter	C4_gr_tcmin_est	15.5
-europe	parameter	C4_gr_tcmax_est	1000
-europe	parameter	C4_gr_twmin_est	-1000
-europe	parameter	C4_gr_gdd5min_est	0
-europe	parameter	C4_gr_parff_min	1000000
-europe	parameter	C4_gr_fireresist	0.5
-europe	parameter	C4_gr_intc	0.01
-europe	parameter	C4_gr_drought_tolerance	0.01
-europe	parameter	C4_gr_eps_iso	0
-europe	parameter	C4_gr_seas_iso	1
-europe	parameter	C4_gr_eps_mon	1
-europe	parameter	C4_gr_storfrac_mon	0.5
+scale,type,name,value
+global,design,run_vegmode,cohort
+global,design,run_nyear_spinup,500
+global,design,run_ifcalcsla,1
+global,design,run_ifcalccton,1
+global,design,run_iffire,1
+global,design,run_npatch,1
+global,design,run_patcharea,1000
+global,design,run_estinterval,5
+global,design,run_ifdisturb,1
+global,design,run_distinterval,100
+global,design,run_ifbgestab,1
+global,design,run_ifsme,1
+global,design,run_ifstochestab,1
+global,design,run_ifstochmort,1
+global,design,run_ifcdebt,1
+global,design,run_wateruptake,rootdist
+global,design,run_ifcentury,1
+global,design,run_ifnlim,0
+global,design,run_freenyears,100
+global,parameter,run_nfix_a,0.102
+global,parameter,run_nfix_b,0.524
+global,parameter,run_nrelocfrac,0.5
+global,design,run_state_year,500
+global,design,run_restart,0
+global,design,run_save_state,0
+global,design,run_state_path,
+global,design,run_ifsmoothgreffmort,1
+global,design,run_ifdroughtlimitedestab,1
+global,design,run_ifrainonwetdaysonly,1
+global,design,run_ifbvoc,0
+global,design,run_run_landcover,0
+global,design,run_run_urban,0
+global,design,run_run_crop,1
+global,design,run_run_forest,0
+global,design,run_run_pasture,0
+global,design,run_run_natural,0
+global,design,run_run_peatland,1
+global,design,run_lcfrac_fixed,0
+global,design,run_lc_fixed_urban,0
+global,design,run_lc_fixed_cropland,50
+global,design,run_lc_fixed_pasture,0
+global,design,run_lc_fixed_forest,0
+global,design,run_lc_fixed_natural,25
+global,design,run_lc_fixed_peatland,25
+global,design,run_equal_landcover_area,0
+global,parameter,common_lambda_max,0.8
+global,parameter,common_emax,5
+global,parameter,common_reprfrac,0.1
+global,parameter,common_wscal_min,0.35
+global,parameter,common_drought_tolerance,0.0001
+global,parameter,common_landcover,natural
+global,parameter,common_turnover_harv_prod,1
+global,parameter,tree_crownarea_max,50
+global,parameter,tree_ltor_max,1
+global,parameter,tree_turnover_root,0.7
+global,parameter,tree_rootdist,0.6 0.4
+global,parameter,tree_k_allom2,60
+global,parameter,tree_k_allom3,0.67
+global,parameter,tree_k_rp,1.6
+global,parameter,tree_wooddens,200
+global,parameter,tree_cton_root,29
+global,parameter,tree_cton_sap,330
+global,parameter,tree_nuptoroot,0.0028
+global,parameter,tree_km_volume,0.000001477
+global,parameter,tree_respcoeff,1
+global,parameter,tree_kest_repr,200
+global,parameter,tree_kest_bg,0.1
+global,parameter,tree_kest_pres,1
+global,parameter,tree_k_chilla,0
+global,parameter,tree_k_chillb,100
+global,parameter,tree_k_chillk,0.05
+global,parameter,tree_litterme,0.3
+global,parameter,tree_harv_eff,0.7
+global,parameter,tree_res_outtake,0.75
+global,parameter,tree_harvest_slow_frac,0.33
+global,parameter,tree_turnover_harv_prod,0.04
+global,parameter,shrub_crownarea_max,10
+global,parameter,shrub_ltor_max,1
+global,parameter,shrub_k_allom1,100
+global,parameter,shrub_k_allom2,5
+global,parameter,shrub_k_allom3,0.67
+global,parameter,shrub_k_rp,1.6
+global,parameter,shrub_wooddens,250
+global,parameter,shrub_cton_leaf_min,16
+global,parameter,shrub_cton_root,29
+global,parameter,shrub_cton_sap,330
+global,parameter,shrub_nuptoroot,0.0028
+global,parameter,shrub_km_volume,0.000001477
+global,parameter,shrub_fnstorage,0.3
+global,parameter,shrub_kest_repr,200
+global,parameter,shrub_kest_bg,0.1
+global,parameter,shrub_kest_pres,1
+global,parameter,shrub_litterme,0.3
+global,parameter,shrub_rootdist,0.6 0.4
+global,parameter,shrub_longevity,100
+global,parameter,grass_ltor_max,0.5
+global,parameter,grass_rootdist,0.9 0.1
+global,parameter,grass_gmin,0.5
+global,parameter,grass_phengdd5ramp,100
+global,parameter,grass_leaflong,0.5
+global,parameter,grass_turnover_leaf,1
+global,parameter,grass_turnover_root,0.7
+global,parameter,grass_cton_leaf_min,16
+global,parameter,grass_cton_root,29
+global,parameter,grass_nuptoroot,0.00551
+global,parameter,grass_km_volume,0.000001876
+global,parameter,grass_fnstorage,0.3
+global,parameter,grass_litterme,0.2
+global,parameter,grass_parff_min,1000000
+global,parameter,grass_fireresist,0.5
+global,parameter,grass_intc,0.01
+global,parameter,grass_ga,0.03
+global,parameter,broadleaf_cton_leaf_min,16
+global,parameter,broadleaf_k_allom1,250
+global,parameter,broadleaf_k_latosa,6000
+global,parameter,broadleaf_gmin,0.5
+global,parameter,broadleaf_intc,0.02
+global,parameter,broadleaf_ga,0.04
+global,parameter,needleleaf_cton_leaf_min,28
+global,parameter,needleleaf_k_allom1,150
+global,parameter,needleleaf_k_latosa,5000
+global,parameter,needleleaf_gmin,0.3
+global,parameter,needleleaf_intc,0.06
+global,parameter,needleleaf_ga,0.14
+global,parameter,evergreen_fnstorage,0.05
+global,parameter,evergreen_phengdd5ramp,0
+global,parameter,summergreen_fnstorage,0.15
+global,parameter,summergreen_phengdd5ramp,200
+global,parameter,summergreen_leaflong,0.5
+global,parameter,summergreen_turnover_leaf,1
+global,parameter,boreal_pstemp_min,-4
+global,parameter,boreal_pstemp_low,10
+global,parameter,boreal_pstemp_high,25
+global,parameter,boreal_pstemp_max,38
+global,parameter,boreal_respcoeff,1
+global,parameter,temperate_pstemp_min,-2
+global,parameter,temperate_pstemp_low,15
+global,parameter,temperate_pstemp_high,25
+global,parameter,temperate_pstemp_max,38
+global,parameter,temperate_respcoeff,1
+global,parameter,tropical_tcmin_surv,15.5
+global,parameter,tropical_tcmin_est,15.5
+global,parameter,tropical_tcmax_est,1000
+global,parameter,tropical_twmin_est,-1000
+global,parameter,tropical_gdd5min_est,0
+global,parameter,tropical_pstemp_min,2
+global,parameter,tropical_pstemp_low,25
+global,parameter,tropical_pstemp_high,30
+global,parameter,tropical_pstemp_max,55
+global,parameter,tropical_respcoeff,0.15
+global,parameter,ShTol_est_max,0.05
+global,parameter,ShTol_parff_min,350000
+global,parameter,ShTol_alphar,3
+global,parameter,ShTol_greff_min,0.04
+global,parameter,ShTol_turnover_sap,0.05
+global,parameter,ShMed_est_max,0.15
+global,parameter,ShMed_parff_min,2000000
+global,parameter,ShMed_alphar,7
+global,parameter,ShMed_greff_min,0.06
+global,parameter,ShMed_turnover_sap,0.075
+global,parameter,ShIntol_est_max,0.2
+global,parameter,ShIntol_parff_min,2500000
+global,parameter,ShIntol_alphar,10
+global,parameter,ShIntol_greff_min,0.08
+global,parameter,ShIntol_turnover_sap,0.1
+global,parameter,BNE_include,1
+global,parameter,BNE_leaflong,3
+global,parameter,BNE_turnover_leaf,0.33
+global,parameter,BNE_tcmin_surv,-31
+global,parameter,BNE_tcmin_est,-30
+global,parameter,BNE_tcmax_est,-1
+global,parameter,BNE_twmin_est,5
+global,parameter,BNE_gdd5min_est,500
+global,parameter,BNE_longevity,500
+global,parameter,BNE_fireresist,0.3
+global,parameter,BNE_eps_iso,8
+global,parameter,BNE_seas_iso,0
+global,parameter,BNE_eps_mon,4.8
+global,parameter,BNE_storfrac_mon,0.5
+global,parameter,BINE_include,1
+global,parameter,BINE_leaflong,3
+global,parameter,BINE_turnover_leaf,0.33
+global,parameter,BINE_tcmin_surv,-31
+global,parameter,BINE_tcmin_est,-30
+global,parameter,BINE_tcmax_est,-1
+global,parameter,BINE_twmin_est,5
+global,parameter,BINE_gdd5min_est,500
+global,parameter,BINE_longevity,500
+global,parameter,BINE_fireresist,0.3
+global,parameter,BINE_eps_iso,8
+global,parameter,BINE_seas_iso,0
+global,parameter,BINE_eps_mon,4.8
+global,parameter,BINE_storfrac_mon,0.5
+global,parameter,BNS_include,1
+global,parameter,BNS_tcmin_surv,-1000
+global,parameter,BNS_tcmin_est,-1000
+global,parameter,BNS_tcmax_est,-2
+global,parameter,BNS_twmin_est,-1000
+global,parameter,BNS_twminusc,43
+global,parameter,BNS_gdd5min_est,350
+global,parameter,BNS_phengdd5ramp,100
+global,parameter,BNS_longevity,300
+global,parameter,BNS_fireresist,0.3
+global,parameter,BNS_eps_iso,8
+global,parameter,BNS_seas_iso,1
+global,parameter,BNS_eps_mon,4.8
+global,parameter,BNS_storfrac_mon,0.5
+global,parameter,TeNE_include,1
+global,parameter,TeNE_leaflong,3
+global,parameter,TeNE_turnover_leaf,0.33
+global,parameter,TeNE_tcmin_surv,-2
+global,parameter,TeNE_tcmin_est,-2
+global,parameter,TeNE_tcmax_est,10
+global,parameter,TeNE_twmin_est,5
+global,parameter,TeNE_gdd5min_est,2000
+global,parameter,TeNE_longevity,300
+global,parameter,TeNE_fireresist,0.3
+global,parameter,TeNE_eps_iso,8
+global,parameter,TeNE_seas_iso,0
+global,parameter,TeNE_eps_mon,4.8
+global,parameter,TeNE_storfrac_mon,0.5
+global,parameter,TeBS_include,1
+global,parameter,TeBS_tcmin_surv,-14
+global,parameter,TeBS_tcmin_est,-13
+global,parameter,TeBS_tcmax_est,6
+global,parameter,TeBS_twmin_est,5
+global,parameter,TeBS_gdd5min_est,1100
+global,parameter,TeBS_longevity,400
+global,parameter,TeBS_fireresist,0.1
+global,parameter,TeBS_eps_iso,45
+global,parameter,TeBS_seas_iso,1
+global,parameter,TeBS_eps_mon,1.6
+global,parameter,TeBS_storfrac_mon,0
+global,parameter,IBS_include,1
+global,parameter,IBS_tcmin_surv,-30
+global,parameter,IBS_tcmin_est,-30
+global,parameter,IBS_tcmax_est,7
+global,parameter,IBS_twmin_est,-1000
+global,parameter,IBS_gdd5min_est,350
+global,parameter,IBS_longevity,300
+global,parameter,IBS_fireresist,0.1
+global,parameter,IBS_eps_iso,45
+global,parameter,IBS_seas_iso,1
+global,parameter,IBS_eps_mon,1.6
+global,parameter,IBS_storfrac_mon,0
+global,parameter,TeBE_include,1
+global,parameter,TeBE_leaflong,3
+global,parameter,TeBE_turnover_leaf,0.33
+global,parameter,TeBE_tcmin_surv,-1
+global,parameter,TeBE_tcmin_est,0
+global,parameter,TeBE_tcmax_est,18.8
+global,parameter,TeBE_twmin_est,5
+global,parameter,TeBE_gdd5min_est,2000
+global,parameter,TeBE_longevity,300
+global,parameter,TeBE_fireresist,0.3
+global,parameter,TeBE_eps_iso,24
+global,parameter,TeBE_seas_iso,0
+global,parameter,TeBE_eps_mon,1.6
+global,parameter,TeBE_storfrac_mon,0
+global,parameter,TrBE_include,1
+global,parameter,TrBE_leaflong,2
+global,parameter,TrBE_turnover_leaf,0.5
+global,parameter,TrBE_longevity,500
+global,parameter,TrBE_fireresist,0.1
+global,parameter,TrBE_eps_iso,24
+global,parameter,TrBE_seas_iso,0
+global,parameter,TrBE_eps_mon,0.8
+global,parameter,TrBE_storfrac_mon,0
+global,parameter,TrIBE_include,1
+global,parameter,TrIBE_leaflong,2
+global,parameter,TrIBE_turnover_leaf,0.5
+global,parameter,TrIBE_longevity,200
+global,parameter,TrIBE_fireresist,0.1
+global,parameter,TrIBE_eps_iso,24
+global,parameter,TrIBE_seas_iso,0
+global,parameter,TrIBE_eps_mon,0.8
+global,parameter,TrIBE_storfrac_mon,0
+global,parameter,TrBR_include,1
+global,parameter,TrBR_fnstorage,0.15
+global,parameter,TrBR_leaflong,0.5
+global,parameter,TrBR_turnover_leaf,1
+global,parameter,TrBR_longevity,400
+global,parameter,TrBR_fireresist,0.3
+global,parameter,TrBR_eps_iso,45
+global,parameter,TrBR_seas_iso,0
+global,parameter,TrBR_eps_mon,2.4
+global,parameter,TrBR_storfrac_mon,0
+global,parameter,C3G_include,1
+global,parameter,C3G_respcoeff,1
+global,parameter,C3G_pstemp_min,-5
+global,parameter,C3G_pstemp_low,10
+global,parameter,C3G_pstemp_high,30
+global,parameter,C3G_pstemp_max,45
+global,parameter,C3G_tcmin_surv,-1000
+global,parameter,C3G_tcmin_est,-1000
+global,parameter,C3G_tcmax_est,1000
+global,parameter,C3G_twmin_est,-1000
+global,parameter,C3G_gdd5min_est,0
+global,parameter,C3G_eps_iso,16
+global,parameter,C3G_seas_iso,1
+global,parameter,C3G_eps_mon,1.6
+global,parameter,C3G_storfrac_mon,0.5
+global,parameter,C4G_include,1
+global,parameter,C4G_respcoeff,0.15
+global,parameter,C4G_pstemp_min,6
+global,parameter,C4G_pstemp_low,20
+global,parameter,C4G_pstemp_high,45
+global,parameter,C4G_pstemp_max,55
+global,parameter,C4G_tcmin_surv,15.5
+global,parameter,C4G_tcmin_est,15.5
+global,parameter,C4G_tcmax_est,1000
+global,parameter,C4G_twmin_est,-1000
+global,parameter,C4G_gdd5min_est,0
+global,parameter,C4G_eps_iso,8
+global,parameter,C4G_seas_iso,0
+global,parameter,C4G_eps_mon,2.4
+global,parameter,C4G_storfrac_mon,0.5
+europe,design,run_vegmode,cohort
+europe,design,run_nyear_spinup,500
+europe,design,run_ifcalcsla,1
+europe,design,run_ifcalccton,1
+europe,design,run_iffire,1
+europe,design,run_npatch,1
+europe,design,run_patcharea,1000
+europe,design,run_estinterval,1
+europe,design,run_ifdisturb,1
+europe,design,run_distinterval,100
+europe,design,run_ifbgestab,1
+europe,design,run_ifsme,1
+europe,design,run_ifstochestab,1
+europe,design,run_ifstochmort,1
+europe,design,run_ifcdebt,1
+europe,design,run_wateruptake,rootdist
+europe,design,run_ifcentury,1
+europe,design,run_ifnlim,0
+europe,design,run_freenyears,100
+europe,parameter,run_nfix_a,0.102
+europe,parameter,run_nfix_b,0.524
+europe,parameter,run_nrelocfrac,0.5
+europe,design,run_state_year,500
+europe,design,run_restart,0
+europe,design,run_save_state,0
+europe,design,run_state_path,
+europe,design,run_ifsmoothgreffmort,1
+europe,design,run_ifdroughtlimitedestab,1
+europe,design,run_ifrainonwetdaysonly,1
+europe,design,run_ifbvoc,0
+europe,design,run_run_landcover,0
+europe,design,run_run_urban,0
+europe,design,run_run_crop,1
+europe,design,run_run_forest,0
+europe,design,run_run_pasture,0
+europe,design,run_run_natural,0
+europe,design,run_run_peatland,1
+europe,design,run_lcfrac_fixed,0
+europe,design,run_lc_fixed_urban,0
+europe,design,run_lc_fixed_cropland,50
+europe,design,run_lc_fixed_pasture,0
+europe,design,run_lc_fixed_forest,0
+europe,design,run_lc_fixed_natural,25
+europe,design,run_lc_fixed_peatland,25
+europe,design,run_equal_landcover_area,0
+europe,parameter,common_lambda_max,0.8
+europe,parameter,common_emax,5
+europe,parameter,common_reprfrac,0.1
+europe,parameter,common_wscal_min,0.35
+europe,parameter,common_drought_tolerance,0.0001
+europe,parameter,common_landcover,natural
+europe,parameter,common_turnover_harv_prod,1
+europe,parameter,tree_rootdist,0.6 0.4
+europe,parameter,tree_crownarea_max,40
+europe,parameter,tree_turnover_root,0.7
+europe,parameter,tree_ltor_max,1
+europe,parameter,tree_k_allom2,40
+europe,parameter,tree_k_allom3,0.67
+europe,parameter,tree_k_rp,1.6
+europe,parameter,tree_wooddens,200
+europe,parameter,tree_cton_root,29
+europe,parameter,tree_cton_sap,330
+europe,parameter,tree_nuptoroot,0.0028
+europe,parameter,tree_km_volume,0.000001477
+europe,parameter,tree_kest_repr,200
+europe,parameter,tree_kest_bg,0.1
+europe,parameter,tree_kest_pres,1
+europe,parameter,tree_litterme,0.3
+europe,parameter,tree_harv_eff,0.7
+europe,parameter,tree_res_outtake,0.75
+europe,parameter,tree_harvest_slow_frac,0.33
+europe,parameter,tree_turnover_harv_prod,0.04
+europe,parameter,shrub_rootdist,0.6 0.4
+europe,parameter,shrub_crownarea_max,10
+europe,parameter,shrub_turnover_root,0.7
+europe,parameter,shrub_ltor_max,1
+europe,parameter,shrub_k_allom1,100
+europe,parameter,shrub_k_allom2,5
+europe,parameter,shrub_k_allom3,0.67
+europe,parameter,shrub_k_rp,1.6
+europe,parameter,shrub_wooddens,250
+europe,parameter,shrub_cton_root,29
+europe,parameter,shrub_cton_sap,330
+europe,parameter,shrub_nuptoroot,0.0028
+europe,parameter,shrub_km_volume,0.000001477
+europe,parameter,shrub_fnstorage,0.3
+europe,parameter,shrub_kest_repr,200
+europe,parameter,shrub_kest_bg,0.1
+europe,parameter,shrub_kest_pres,1
+europe,parameter,shrub_litterme,0.3
+europe,parameter,shrub_longevity,100
+europe,parameter,needlelleaf_k_allom1,150
+europe,parameter,needlelleaf_k_latosa,4000
+europe,parameter,needlelleaf_ga,0.14
+europe,parameter,broadleaf_k_allom1,250
+europe,parameter,broadleaf_k_latosa,5000
+europe,parameter,broadleaf_leaflong,0.5
+europe,parameter,broadleaf_turnover_leaf,1
+europe,parameter,broadleaf_ga,0.04
+europe,parameter,grass_ltor_max,0.5
+europe,parameter,grass_cton_root,29
+europe,parameter,grass_nuptoroot,0.00551
+europe,parameter,grass_km_volume,0.000001876
+europe,parameter,grass_fnstorage,0.3
+europe,parameter,grass_respcoeff,1
+europe,parameter,grass_litterme,0.2
+europe,parameter,grass_ga,0.03
+europe,parameter,ShMed_est_max,0.15
+europe,parameter,ShMed_parff_min,2000000
+europe,parameter,ShMed_alphar,7
+europe,parameter,ShMed_greff_min,0.06
+europe,parameter,ShMed_turnover_sap,0.075
+europe,parameter,ShTol_est_max,0.05
+europe,parameter,ShTol_parff_min,350000
+europe,parameter,ShTol_alphar,3
+europe,parameter,ShTol_greff_min,0.04
+europe,parameter,ShTol_turnover_sap,0.05
+europe,parameter,ShIntol_est_max,0.2
+europe,parameter,ShIntol_parff_min,2500000
+europe,parameter,ShIntol_alphar,10
+europe,parameter,ShIntol_greff_min,0.08
+europe,parameter,ShIntol_turnover_sap,0.1
+europe,parameter,boreal_respcoeff,1
+europe,parameter,boreal_pstemp_min,-4
+europe,parameter,boreal_pstemp_low,10
+europe,parameter,boreal_pstemp_high,25
+europe,parameter,boreal_pstemp_max,38
+europe,parameter,temperate_respcoeff,1
+europe,parameter,temperate_pstemp_min,-2
+europe,parameter,temperate_pstemp_low,15
+europe,parameter,temperate_pstemp_high,25
+europe,parameter,temperate_pstemp_max,38
+europe,parameter,Abi_alb_include,1
+europe,parameter,Abi_alb_sla,9.3
+europe,parameter,Abi_alb_gmin,0.3
+europe,parameter,Abi_alb_fnstorage,0.05
+europe,parameter,Abi_alb_leaflong,3
+europe,parameter,Abi_alb_turnover_leaf,0.33
+europe,parameter,Abi_alb_phengdd5ramp,0
+europe,parameter,Abi_alb_tcmin_surv,-2
+europe,parameter,Abi_alb_tcmin_est,-2
+europe,parameter,Abi_alb_tcmax_est,2
+europe,parameter,Abi_alb_twmin_est,6
+europe,parameter,Abi_alb_gdd5min_est,1600
+europe,parameter,Abi_alb_k_chilla,0
+europe,parameter,Abi_alb_k_chillb,100
+europe,parameter,Abi_alb_k_chillk,0.05
+europe,parameter,Abi_alb_fireresist,0.1
+europe,parameter,Abi_alb_intc,0.06
+europe,parameter,Abi_alb_longevity,350
+europe,parameter,Abi_alb_drought_tolerance,0.35
+europe,parameter,Abi_alb_eps_iso,0.05
+europe,parameter,Abi_alb_seas_iso,0
+europe,parameter,Abi_alb_eps_mon,1.8
+europe,parameter,Abi_alb_storfrac_mon,0.5
+europe,parameter,BES_include,1
+europe,parameter,BES_rootdist,0.8 0.2
+europe,parameter,BES_crownarea_max,3
+europe,parameter,BES_k_allom1,20
+europe,parameter,BES_k_allom2,5
+europe,parameter,BES_k_latosa,500
+europe,parameter,BES_sla,9.3
+europe,parameter,BES_gmin,0.3
+europe,parameter,BES_leaflong,2
+europe,parameter,BES_turnover_leaf,0.5
+europe,parameter,BES_turnover_sap,0.05
+europe,parameter,BES_phengdd5ramp,0
+europe,parameter,BES_tcmin_surv,-1000
+europe,parameter,BES_tcmin_est,-1000
+europe,parameter,BES_tcmax_est,-1
+europe,parameter,BES_twmin_est,-1000
+europe,parameter,BES_gdd5min_est,200
+europe,parameter,BES_longevity,50
+europe,parameter,BES_k_chilla,0
+europe,parameter,BES_k_chillb,100
+europe,parameter,BES_k_chillk,0.05
+europe,parameter,BES_fireresist,0.1
+europe,parameter,BES_intc,0.06
+europe,parameter,BES_drought_tolerance,0.25
+europe,parameter,BES_eps_iso,2
+europe,parameter,BES_seas_iso,0
+europe,parameter,BES_eps_mon,4
+europe,parameter,BES_storfrac_mon,0.5
+europe,parameter,BES_ga,0.04
+europe,parameter,Bet_pen_include,1
+europe,parameter,Bet_pen_sla,24.3
+europe,parameter,Bet_pen_gmin,0.5
+europe,parameter,Bet_pen_fnstorage,0.15
+europe,parameter,Bet_pen_phengdd5ramp,200
+europe,parameter,Bet_pen_tcmin_surv,-30
+europe,parameter,Bet_pen_tcmin_est,-30
+europe,parameter,Bet_pen_tcmax_est,7
+europe,parameter,Bet_pen_twmin_est,5
+europe,parameter,Bet_pen_gdd5min_est,700
+europe,parameter,Bet_pen_k_chilla,0
+europe,parameter,Bet_pen_k_chillb,350
+europe,parameter,Bet_pen_k_chillk,0.05
+europe,parameter,Bet_pen_fireresist,0.1
+europe,parameter,Bet_pen_intc,0.02
+europe,parameter,Bet_pen_longevity,200
+europe,parameter,Bet_pen_drought_tolerance,0.42
+europe,parameter,Bet_pen_eps_iso,0.2
+europe,parameter,Bet_pen_seas_iso,1
+europe,parameter,Bet_pen_eps_mon,6
+europe,parameter,Bet_pen_storfrac_mon,0
+europe,parameter,Bet_pub_include,1
+europe,parameter,Bet_pub_sla,24.3
+europe,parameter,Bet_pub_gmin,0.5
+europe,parameter,Bet_pub_fnstorage,0.15
+europe,parameter,Bet_pub_phengdd5ramp,200
+europe,parameter,Bet_pub_tcmin_surv,-30
+europe,parameter,Bet_pub_tcmin_est,-30
+europe,parameter,Bet_pub_tcmax_est,3
+europe,parameter,Bet_pub_twmin_est,5
+europe,parameter,Bet_pub_gdd5min_est,350
+europe,parameter,Bet_pub_k_chilla,0
+europe,parameter,Bet_pub_k_chillb,350
+europe,parameter,Bet_pub_k_chillk,0.05
+europe,parameter,Bet_pub_fireresist,0.1
+europe,parameter,Bet_pub_intc,0.02
+europe,parameter,Bet_pub_longevity,200
+europe,parameter,Bet_pub_drought_tolerance,0.5
+europe,parameter,Bet_pub_eps_iso,0
+europe,parameter,Bet_pub_seas_iso,1
+europe,parameter,Bet_pub_eps_mon,1
+europe,parameter,Bet_pub_storfrac_mon,0
+europe,parameter,Car_bet_include,1
+europe,parameter,Car_bet_sla,24.3
+europe,parameter,Car_bet_gmin,0.5
+europe,parameter,Car_bet_fnstorage,0.15
+europe,parameter,Car_bet_phengdd5ramp,200
+europe,parameter,Car_bet_tcmin_surv,-8
+europe,parameter,Car_bet_tcmin_est,-8
+europe,parameter,Car_bet_tcmax_est,5
+europe,parameter,Car_bet_twmin_est,5
+europe,parameter,Car_bet_gdd5min_est,1200
+europe,parameter,Car_bet_k_chilla,0
+europe,parameter,Car_bet_k_chillb,600
+europe,parameter,Car_bet_k_chillk,0.05
+europe,parameter,Car_bet_fireresist,0.1
+europe,parameter,Car_bet_intc,0.02
+europe,parameter,Car_bet_longevity,350
+europe,parameter,Car_bet_drought_tolerance,0.33
+europe,parameter,Car_bet_eps_iso,0
+europe,parameter,Car_bet_seas_iso,1
+europe,parameter,Car_bet_eps_mon,0.08
+europe,parameter,Car_bet_storfrac_mon,0
+europe,parameter,Cor_ave_include,1
+europe,parameter,Cor_ave_crownarea_max,15
+europe,parameter,Cor_ave_k_latosa,4000
+europe,parameter,Cor_ave_sla,12
+europe,parameter,Cor_ave_gmin,0.5
+europe,parameter,Cor_ave_fnstorage,0.15
+europe,parameter,Cor_ave_phengdd5ramp,200
+europe,parameter,Cor_ave_tcmin_surv,-11
+europe,parameter,Cor_ave_tcmin_est,-11
+europe,parameter,Cor_ave_tcmax_est,7
+europe,parameter,Cor_ave_twmin_est,5
+europe,parameter,Cor_ave_gdd5min_est,800
+europe,parameter,Cor_ave_k_chilla,0
+europe,parameter,Cor_ave_k_chillb,350
+europe,parameter,Cor_ave_k_chillk,0.05
+europe,parameter,Cor_ave_fireresist,0.1
+europe,parameter,Cor_ave_intc,0.02
+europe,parameter,Cor_ave_longevity,100
+europe,parameter,Cor_ave_drought_tolerance,0.3
+europe,parameter,Cor_ave_eps_iso,0
+europe,parameter,Cor_ave_seas_iso,1
+europe,parameter,Cor_ave_eps_mon,0
+europe,parameter,Cor_ave_storfrac_mon,0
+europe,parameter,Fag_syl_include,1
+europe,parameter,Fag_syl_sla,24.3
+europe,parameter,Fag_syl_gmin,0.5
+europe,parameter,Fag_syl_fnstorage,0.15
+europe,parameter,Fag_syl_phengdd5ramp,200
+europe,parameter,Fag_syl_tcmin_surv,-3.5
+europe,parameter,Fag_syl_tcmin_est,-3.5
+europe,parameter,Fag_syl_tcmax_est,6
+europe,parameter,Fag_syl_twmin_est,5
+europe,parameter,Fag_syl_gdd5min_est,1500
+europe,parameter,Fag_syl_k_chilla,0
+europe,parameter,Fag_syl_k_chillb,600
+europe,parameter,Fag_syl_k_chillk,0.05
+europe,parameter,Fag_syl_fireresist,0.1
+europe,parameter,Fag_syl_intc,0.02
+europe,parameter,Fag_syl_longevity,500
+europe,parameter,Fag_syl_drought_tolerance,0.3
+europe,parameter,Fag_syl_eps_iso,0
+europe,parameter,Fag_syl_seas_iso,1
+europe,parameter,Fag_syl_eps_mon,10
+europe,parameter,Fag_syl_storfrac_mon,0
+europe,parameter,Fra_exc_include,1
+europe,parameter,Fra_exc_sla,24.3
+europe,parameter,Fra_exc_gmin,0.5
+europe,parameter,Fra_exc_fnstorage,0.15
+europe,parameter,Fra_exc_phengdd5ramp,200
+europe,parameter,Fra_exc_tcmin_surv,-16
+europe,parameter,Fra_exc_tcmin_est,-16
+europe,parameter,Fra_exc_tcmax_est,6
+europe,parameter,Fra_exc_twmin_est,5
+europe,parameter,Fra_exc_gdd5min_est,1100
+europe,parameter,Fra_exc_k_chilla,0
+europe,parameter,Fra_exc_k_chillb,100
+europe,parameter,Fra_exc_k_chillk,0.05
+europe,parameter,Fra_exc_fireresist,0.1
+europe,parameter,Fra_exc_intc,0.02
+europe,parameter,Fra_exc_longevity,350
+europe,parameter,Fra_exc_drought_tolerance,0.4
+europe,parameter,Fra_exc_eps_iso,0
+europe,parameter,Fra_exc_seas_iso,1
+europe,parameter,Fra_exc_eps_mon,0
+europe,parameter,Fra_exc_storfrac_mon,0
+europe,parameter,Jun_oxy_include,1
+europe,parameter,Jun_oxy_rootdist,0.5 0.5
+europe,parameter,Jun_oxy_k_latosa,1500
+europe,parameter,Jun_oxy_crownarea_max,10
+europe,parameter,Jun_oxy_sla,10
+europe,parameter,Jun_oxy_gmin,0.5
+europe,parameter,Jun_oxy_fnstorage,0.05
+europe,parameter,Jun_oxy_leaflong,1.5
+europe,parameter,Jun_oxy_turnover_leaf,0.6667
+europe,parameter,Jun_oxy_phengdd5ramp,0
+europe,parameter,Jun_oxy_tcmin_surv,0
+europe,parameter,Jun_oxy_tcmin_est,1
+europe,parameter,Jun_oxy_tcmax_est,1000
+europe,parameter,Jun_oxy_twmin_est,-1000
+europe,parameter,Jun_oxy_gdd5min_est,2200
+europe,parameter,Jun_oxy_k_chilla,0
+europe,parameter,Jun_oxy_k_chillb,100
+europe,parameter,Jun_oxy_k_chillk,0.05
+europe,parameter,Jun_oxy_fireresist,0.4
+europe,parameter,Jun_oxy_intc,0.02
+europe,parameter,Jun_oxy_longevity,200
+europe,parameter,Jun_oxy_drought_tolerance,0.01
+europe,parameter,Jun_oxy_eps_iso,0
+europe,parameter,Jun_oxy_seas_iso,0
+europe,parameter,Jun_oxy_eps_mon,2
+europe,parameter,Jun_oxy_storfrac_mon,0.5
+europe,parameter,MRS_include,1
+europe,parameter,MRS_rootdist,0.9 0.1
+europe,parameter,MRS_k_latosa,1500
+europe,parameter,MRS_sla,10
+europe,parameter,MRS_gmin,0.5
+europe,parameter,MRS_leaflong,0.5
+europe,parameter,MRS_turnover_leaf,1
+europe,parameter,MRS_phengdd5ramp,0
+europe,parameter,MRS_tcmin_surv,0
+europe,parameter,MRS_tcmin_est,1
+europe,parameter,MRS_tcmax_est,1000
+europe,parameter,MRS_twmin_est,-1000
+europe,parameter,MRS_gdd5min_est,2200
+europe,parameter,MRS_k_chilla,0
+europe,parameter,MRS_k_chillb,100
+europe,parameter,MRS_k_chillk,0.05
+europe,parameter,MRS_fireresist,0.3
+europe,parameter,MRS_intc,0.02
+europe,parameter,MRS_longevity,100
+europe,parameter,MRS_drought_tolerance,0.01
+europe,parameter,MRS_eps_iso,2
+europe,parameter,MRS_seas_iso,0
+europe,parameter,MRS_eps_mon,4
+europe,parameter,MRS_storfrac_mon,0.5
+europe,parameter,MRS_ga,0.04
+europe,parameter,Pic_abi_include,1
+europe,parameter,Pic_abi_rootdist,0.8 0.2
+europe,parameter,Pic_abi_sla,9.3
+europe,parameter,Pic_abi_gmin,0.3
+europe,parameter,Pic_abi_fnstorage,0.05
+europe,parameter,Pic_abi_leaflong,3
+europe,parameter,Pic_abi_turnover_leaf,0.33
+europe,parameter,Pic_abi_phengdd5ramp,0
+europe,parameter,Pic_abi_tcmin_surv,-30
+europe,parameter,Pic_abi_tcmin_est,-30
+europe,parameter,Pic_abi_tcmax_est,-1.5
+europe,parameter,Pic_abi_twmin_est,5
+europe,parameter,Pic_abi_gdd5min_est,600
+europe,parameter,Pic_abi_k_chilla,0
+europe,parameter,Pic_abi_k_chillb,100
+europe,parameter,Pic_abi_k_chillk,0.05
+europe,parameter,Pic_abi_fireresist,0.1
+europe,parameter,Pic_abi_intc,0.06
+europe,parameter,Pic_abi_longevity,500
+europe,parameter,Pic_abi_drought_tolerance,0.43
+europe,parameter,Pic_abi_eps_iso,0.5
+europe,parameter,Pic_abi_seas_iso,0
+europe,parameter,Pic_abi_eps_mon,6
+europe,parameter,Pic_abi_storfrac_mon,0.5
+europe,parameter,Pic_sit_include,1
+europe,parameter,Pic_sit_rootdist,0.8 0.2
+europe,parameter,Pic_sit_k_latosa,4500
+europe,parameter,Pic_sit_sla,9.3
+europe,parameter,Pic_sit_gmin,0.3
+europe,parameter,Pic_sit_fnstorage,0.05
+europe,parameter,Pic_sit_leaflong,4
+europe,parameter,Pic_sit_turnover_leaf,0.25
+europe,parameter,Pic_sit_phengdd5ramp,0
+europe,parameter,Pic_sit_tcmin_surv,-18
+europe,parameter,Pic_sit_tcmin_est,-17
+europe,parameter,Pic_sit_tcmax_est,5.5
+europe,parameter,Pic_sit_twmin_est,-1000
+europe,parameter,Pic_sit_gdd5min_est,450
+europe,parameter,Pic_sit_k_chilla,0
+europe,parameter,Pic_sit_k_chillb,100
+europe,parameter,Pic_sit_k_chillk,0.05
+europe,parameter,Pic_sit_fireresist,0.1
+europe,parameter,Pic_sit_intc,0.06
+europe,parameter,Pic_sit_longevity,700
+europe,parameter,Pic_sit_drought_tolerance,0.5
+europe,parameter,Pic_sit_eps_iso,0
+europe,parameter,Pic_sit_seas_iso,0
+europe,parameter,Pic_sit_eps_mon,0
+europe,parameter,Pic_sit_storfrac_mon,0.5
+europe,parameter,Pin_syl_include,1
+europe,parameter,Pin_syl_k_latosa,3000
+europe,parameter,Pin_syl_sla,9.3
+europe,parameter,Pin_syl_gmin,0.3
+europe,parameter,Pin_syl_fnstorage,0.05
+europe,parameter,Pin_syl_leaflong,2
+europe,parameter,Pin_syl_turnover_leaf,0.5
+europe,parameter,Pin_syl_phengdd5ramp,0
+europe,parameter,Pin_syl_tcmin_surv,-30
+europe,parameter,Pin_syl_tcmin_est,-30
+europe,parameter,Pin_syl_tcmax_est,-1
+europe,parameter,Pin_syl_twmin_est,5
+europe,parameter,Pin_syl_gdd5min_est,500
+europe,parameter,Pin_syl_k_chilla,0
+europe,parameter,Pin_syl_k_chillb,100
+europe,parameter,Pin_syl_k_chillk,0.05
+europe,parameter,Pin_syl_fireresist,0.2
+europe,parameter,Pin_syl_intc,0.06
+europe,parameter,Pin_syl_longevity,350
+europe,parameter,Pin_syl_drought_tolerance,0.25
+europe,parameter,Pin_syl_eps_iso,0
+europe,parameter,Pin_syl_seas_iso,0
+europe,parameter,Pin_syl_eps_mon,4
+europe,parameter,Pin_syl_storfrac_mon,0.5
+europe,parameter,Pin_hal_include,1
+europe,parameter,Pin_hal_k_latosa,3000
+europe,parameter,Pin_hal_sla,9.3
+europe,parameter,Pin_hal_gmin,0.3
+europe,parameter,Pin_hal_fnstorage,0.05
+europe,parameter,Pin_hal_leaflong,2
+europe,parameter,Pin_hal_turnover_leaf,0.5
+europe,parameter,Pin_hal_phengdd5ramp,0
+europe,parameter,Pin_hal_tcmin_surv,3
+europe,parameter,Pin_hal_tcmin_est,3
+europe,parameter,Pin_hal_tcmax_est,9
+europe,parameter,Pin_hal_twmin_est,21
+europe,parameter,Pin_hal_gdd5min_est,3000
+europe,parameter,Pin_hal_k_chilla,0
+europe,parameter,Pin_hal_k_chillb,100
+europe,parameter,Pin_hal_k_chillk,0.05
+europe,parameter,Pin_hal_fireresist,0.2
+europe,parameter,Pin_hal_intc,0.06
+europe,parameter,Pin_hal_longevity,350
+europe,parameter,Pin_hal_drought_tolerance,0.05
+europe,parameter,Pin_hal_eps_iso,0
+europe,parameter,Pin_hal_seas_iso,0
+europe,parameter,Pin_hal_eps_mon,10
+europe,parameter,Pin_hal_storfrac_mon,0.5
+europe,parameter,Pop_tre_include,1
+europe,parameter,Pop_tre_rootdist,0.7 0.3
+europe,parameter,Pop_tre_sla,24.3
+europe,parameter,Pop_tre_gmin,0.5
+europe,parameter,Pop_tre_fnstorage,0.15
+europe,parameter,Pop_tre_phengdd5ramp,200
+europe,parameter,Pop_tre_tcmin_surv,-31
+europe,parameter,Pop_tre_tcmin_est,-30
+europe,parameter,Pop_tre_tcmax_est,6
+europe,parameter,Pop_tre_twmin_est,-1000
+europe,parameter,Pop_tre_gdd5min_est,500
+europe,parameter,Pop_tre_k_chilla,0
+europe,parameter,Pop_tre_k_chillb,350
+europe,parameter,Pop_tre_k_chillk,0.05
+europe,parameter,Pop_tre_fireresist,0.2
+europe,parameter,Pop_tre_intc,0.02
+europe,parameter,Pop_tre_longevity,160
+europe,parameter,Pop_tre_drought_tolerance,0.4
+europe,parameter,Pop_tre_eps_iso,20
+europe,parameter,Pop_tre_seas_iso,1
+europe,parameter,Pop_tre_eps_mon,4
+europe,parameter,Pop_tre_storfrac_mon,0
+europe,parameter,Que_coc_include,1
+europe,parameter,Que_coc_rootdist,0.5 0.5
+europe,parameter,Que_coc_k_latosa,2500
+europe,parameter,Que_coc_sla,10
+europe,parameter,Que_coc_gmin,0.5
+europe,parameter,Que_coc_leaflong,1.5
+europe,parameter,Que_coc_turnover_leaf,0.6667
+europe,parameter,Que_coc_phengdd5ramp,0
+europe,parameter,Que_coc_tcmin_surv,0
+europe,parameter,Que_coc_tcmin_est,0
+europe,parameter,Que_coc_tcmax_est,11
+europe,parameter,Que_coc_twmin_est,21
+europe,parameter,Que_coc_gdd5min_est,2200
+europe,parameter,Que_coc_k_chilla,0
+europe,parameter,Que_coc_k_chillb,100
+europe,parameter,Que_coc_k_chillk,0.05
+europe,parameter,Que_coc_fireresist,0.3
+europe,parameter,Que_coc_intc,0.02
+europe,parameter,Que_coc_longevity,350
+europe,parameter,Que_coc_drought_tolerance,0.1
+europe,parameter,Que_coc_eps_iso,0.1
+europe,parameter,Que_coc_seas_iso,0
+europe,parameter,Que_coc_eps_mon,10
+europe,parameter,Que_coc_storfrac_mon,0
+europe,parameter,Que_coc_ga,0.04
+europe,parameter,Que_ile_include,1
+europe,parameter,Que_ile_rootdist,0.5 0.5
+europe,parameter,Que_ile_k_latosa,3000
+europe,parameter,Que_ile_sla,9.3
+europe,parameter,Que_ile_gmin,0.5
+europe,parameter,Que_ile_fnstorage,0.05
+europe,parameter,Que_ile_leaflong,2
+europe,parameter,Que_ile_turnover_leaf,0.5
+europe,parameter,Que_ile_phengdd5ramp,0
+europe,parameter,Que_ile_tcmin_surv,3
+europe,parameter,Que_ile_tcmin_est,3
+europe,parameter,Que_ile_tcmax_est,7
+europe,parameter,Que_ile_twmin_est,5
+europe,parameter,Que_ile_gdd5min_est,1800
+europe,parameter,Que_ile_k_chilla,0
+europe,parameter,Que_ile_k_chillb,100
+europe,parameter,Que_ile_k_chillk,0.05
+europe,parameter,Que_ile_fireresist,0.3
+europe,parameter,Que_ile_intc,0.02
+europe,parameter,Que_ile_longevity,350
+europe,parameter,Que_ile_drought_tolerance,0.1
+europe,parameter,Que_ile_eps_iso,0.05
+europe,parameter,Que_ile_seas_iso,0
+europe,parameter,Que_ile_eps_mon,16
+europe,parameter,Que_ile_storfrac_mon,0
+europe,parameter,Que_pub_include,1
+europe,parameter,Que_pub_sla,24.3
+europe,parameter,Que_pub_gmin,0.5
+europe,parameter,Que_pub_fnstorage,0.15
+europe,parameter,Que_pub_phengdd5ramp,200
+europe,parameter,Que_pub_tcmin_surv,-6
+europe,parameter,Que_pub_tcmin_est,-5
+europe,parameter,Que_pub_tcmax_est,6
+europe,parameter,Que_pub_twmin_est,-1000
+europe,parameter,Que_pub_gdd5min_est,1900
+europe,parameter,Que_pub_k_chilla,0
+europe,parameter,Que_pub_k_chillb,100
+europe,parameter,Que_pub_k_chillk,0.05
+europe,parameter,Que_pub_fireresist,0.2
+europe,parameter,Que_pub_intc,0.02
+europe,parameter,Que_pub_longevity,500
+europe,parameter,Que_pub_drought_tolerance,0.2
+europe,parameter,Que_pub_eps_iso,50
+europe,parameter,Que_pub_seas_iso,1
+europe,parameter,Que_pub_eps_mon,0
+europe,parameter,Que_pub_storfrac_mon,0
+europe,parameter,Que_rob_include,1
+europe,parameter,Que_rob_sla,24.3
+europe,parameter,Que_rob_gmin,0.5
+europe,parameter,Que_rob_fnstorage,0.15
+europe,parameter,Que_rob_phengdd5ramp,200
+europe,parameter,Que_rob_tcmin_surv,-10
+europe,parameter,Que_rob_tcmin_est,-9
+europe,parameter,Que_rob_tcmax_est,6
+europe,parameter,Que_rob_twmin_est,5
+europe,parameter,Que_rob_gdd5min_est,1100
+europe,parameter,Que_rob_k_chilla,0
+europe,parameter,Que_rob_k_chillb,100
+europe,parameter,Que_rob_k_chillk,0.05
+europe,parameter,Que_rob_fireresist,0.2
+europe,parameter,Que_rob_intc,0.02
+europe,parameter,Que_rob_longevity,500
+europe,parameter,Que_rob_drought_tolerance,0.25
+europe,parameter,Que_rob_eps_iso,40
+europe,parameter,Que_rob_seas_iso,1
+europe,parameter,Que_rob_eps_mon,0
+europe,parameter,Que_rob_storfrac_mon,0
+europe,parameter,Til_cor_include,1
+europe,parameter,Til_cor_rootdist,0.8 0.2
+europe,parameter,Til_cor_sla,24.3
+europe,parameter,Til_cor_gmin,0.5
+europe,parameter,Til_cor_fnstorage,0.15
+europe,parameter,Til_cor_phengdd5ramp,200
+europe,parameter,Til_cor_tcmin_surv,-12
+europe,parameter,Til_cor_tcmin_est,-11
+europe,parameter,Til_cor_tcmax_est,5
+europe,parameter,Til_cor_twmin_est,5
+europe,parameter,Til_cor_gdd5min_est,1100
+europe,parameter,Til_cor_k_chilla,0
+europe,parameter,Til_cor_k_chillb,600
+europe,parameter,Til_cor_k_chillk,0.05
+europe,parameter,Til_cor_fireresist,0.1
+europe,parameter,Til_cor_intc,0.02
+europe,parameter,Til_cor_longevity,350
+europe,parameter,Til_cor_drought_tolerance,0.33
+europe,parameter,Til_cor_eps_iso,0
+europe,parameter,Til_cor_seas_iso,1
+europe,parameter,Til_cor_eps_mon,0
+europe,parameter,Til_cor_storfrac_mon,0
+europe,parameter,Ulm_gla_include,1
+europe,parameter,Ulm_gla_sla,24.3
+europe,parameter,Ulm_gla_gmin,0.5
+europe,parameter,Ulm_gla_fnstorage,0.15
+europe,parameter,Ulm_gla_phengdd5ramp,200
+europe,parameter,Ulm_gla_tcmin_surv,-10.5
+europe,parameter,Ulm_gla_tcmin_est,-9.5
+europe,parameter,Ulm_gla_tcmax_est,6
+europe,parameter,Ulm_gla_twmin_est,5
+europe,parameter,Ulm_gla_gdd5min_est,850
+europe,parameter,Ulm_gla_k_chilla,0
+europe,parameter,Ulm_gla_k_chillb,100
+europe,parameter,Ulm_gla_k_chillk,0.05
+europe,parameter,Ulm_gla_fireresist,0.1
+europe,parameter,Ulm_gla_intc,0.02
+europe,parameter,Ulm_gla_longevity,350
+europe,parameter,Ulm_gla_drought_tolerance,0.4
+europe,parameter,Ulm_gla_eps_iso,0
+europe,parameter,Ulm_gla_seas_iso,1
+europe,parameter,Ulm_gla_eps_mon,0
+europe,parameter,Ulm_gla_storfrac_mon,0
+europe,parameter,C3_gr_include,1
+europe,parameter,C3_gr_rootdist,0.9 0.1
+europe,parameter,C3_gr_sla,32.4
+europe,parameter,C3_gr_gmin,0.5
+europe,parameter,C3_gr_leaflong,0.5
+europe,parameter,C3_gr_turnover_leaf,1
+europe,parameter,C3_gr_turnover_root,0.7
+europe,parameter,C3_gr_phengdd5ramp,100
+europe,parameter,C3_gr_pstemp_min,-5
+europe,parameter,C3_gr_pstemp_low,10
+europe,parameter,C3_gr_pstemp_high,30
+europe,parameter,C3_gr_pstemp_max,45
+europe,parameter,C3_gr_tcmin_surv,-1000
+europe,parameter,C3_gr_tcmin_est,-1000
+europe,parameter,C3_gr_tcmax_est,1000
+europe,parameter,C3_gr_twmin_est,-1000
+europe,parameter,C3_gr_gdd5min_est,0
+europe,parameter,C3_gr_parff_min,2000000
+europe,parameter,C3_gr_fireresist,0.5
+europe,parameter,C3_gr_intc,0.01
+europe,parameter,C3_gr_drought_tolerance,0.01
+europe,parameter,C3_gr_eps_iso,0
+europe,parameter,C3_gr_seas_iso,1
+europe,parameter,C3_gr_eps_mon,1
+europe,parameter,C3_gr_storfrac_mon,0.5
+europe,parameter,C4_gr_include,1
+europe,parameter,C4_gr_rootdist,0.9 0.1
+europe,parameter,C4_gr_gmin,0.5
+europe,parameter,C4_gr_leaflong,0.5
+europe,parameter,C4_gr_turnover_leaf,1
+europe,parameter,C4_gr_turnover_root,0.7
+europe,parameter,C4_gr_phengdd5ramp,100
+europe,parameter,C4_gr_pstemp_min,6
+europe,parameter,C4_gr_pstemp_low,20
+europe,parameter,C4_gr_pstemp_high,45
+europe,parameter,C4_gr_pstemp_max,55
+europe,parameter,C4_gr_tcmin_surv,15.5
+europe,parameter,C4_gr_tcmin_est,15.5
+europe,parameter,C4_gr_tcmax_est,1000
+europe,parameter,C4_gr_twmin_est,-1000
+europe,parameter,C4_gr_gdd5min_est,0
+europe,parameter,C4_gr_parff_min,1000000
+europe,parameter,C4_gr_fireresist,0.5
+europe,parameter,C4_gr_intc,0.01
+europe,parameter,C4_gr_drought_tolerance,0.01
+europe,parameter,C4_gr_eps_iso,0
+europe,parameter,C4_gr_seas_iso,1
+europe,parameter,C4_gr_eps_mon,1
+europe,parameter,C4_gr_storfrac_mon,0.5
