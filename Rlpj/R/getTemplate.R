@@ -11,7 +11,7 @@
 #' template <- getTemplate("global.ins")
 #' getTemplate("global.ins", "/home/LPJTemplates/")
 #' }
-getTemplate <- function(type = NULL, outputDir = NULL){
+getTemplate <- function(type, outputDir = NULL){
   if (is.null(type) || type != "global" & type != "global_cf" & type != "global_cru"
       &  type != "europe" &  type != "europe_cf" &  type != "europe_cru"){
     stop("Invalid template type")

@@ -18,8 +18,7 @@
 #' plotLPJData(data, typeList = c("aaet", "lai"),
 #'  outDir = "/runDir/outDir", save.plots = FALSE)
 #' }
-plotLPJData <- function(x=NULL, typeList = NULL, outDir= NULL,
-                     save.plots = FALSE, prefix = ""){
+plotLPJData <- function(x, typeList = NULL, outDir= NULL, save.plots = FALSE, prefix = ""){
 
   # checking input parameters
   if (is.null(x)){
