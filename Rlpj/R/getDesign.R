@@ -9,17 +9,16 @@
 #' @examples \dontrun{
 #' parameterList <- getParameterList("global")
 #' }
-getDesign <- function(scale = NULL, list =  TRUE){
+getDesign <- function(scale, list =  F){
   if ( is.null(scale) || scale != "global" & scale != "europe"){
     stop("Please provide a valid scale: global or europe")
   }
-  tmp <- parameterList.default[grep(scale, parameterList.default[, "scale"]), ]
-  tmp <- tmp[grep("design", tmp[, "type"]), ]
-  tmp <- as.matrix(tmp[, colnames(tmp) %in% c("value")])
+  tmp <- design.default[[scale]]
   if (list){
-    values <- as.list(tmp)
-    names(values) <- rownames(tmp)
-    tmp <- values
+    tmp.names <- rownames(tmp)
+    tmp <- as.vector(tmp, mode = "list")
+    names(tmp) <- tmp.names
   }
+
   return(tmp)
 }
