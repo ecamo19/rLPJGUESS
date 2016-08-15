@@ -85,10 +85,13 @@ runLPJWrapper <- function(runObject){
   writeLines(runObject$template2Mem,file.path(runObject$runDir,runObject$template2))
   writeLines(runObject$gridListCell, file.path(runObject$runDir, runObject$gridList))
   # writing template
+  #cat("\n\n Writing template")
   writeTemplate(runObject$template1, runObject$parameterList, runObject$runDir, check = runObject$checkParameters)
   # calling the model
+  #cat("\n\n Call LPJ")
   callLPJ(runObject$mainDir, runObject$runDir,runObject$template2, runObject$mode)
   # getting data
+  #cat("\n\n GetData")
   LPJout <- getLPJData(runObject$outDir, runObject$typeList, runObject,
                      runObject$processing)
                     #, runObject$fun)
@@ -98,7 +101,7 @@ runLPJWrapper <- function(runObject){
   # CLEAN UP RUNDIR
   #----------------------------------------------------------------------------#
   # delete all files
-  if ( runObject$delete == TRUE){
+  if (runObject$delete){
     files.delete <- list.files(runObject$runDir, full.names = TRUE, recursive = TRUE)
     #files.delete <- files.delete[!grepl("runInfo", files.delete)]
     files.delete <- files.delete[!grepl("png", files.delete)]
@@ -110,15 +113,18 @@ runLPJWrapper <- function(runObject){
   #runObject$output <- LPJout@dataTypes
   # Sav the run info
   #For example, make a list with all the info provided to runLPJ, and store it with save()
-  save(LPJout, file = file.path(runObject$runInfoDir,
-                                   paste("runInfo", runObject$runID,".Rdata", sep = "")))
+  if (runObject$save){
+    save(LPJout, file = file.path(runObject$runInfoDir,
+                                  paste("runInfo", runObject$runID,".RData", sep = "")))
+  }
+
   #  # Calculate additional outputs
   #  if (!is.null(runObject[["fun"]])){
   #    cat("\n Apllying own functions")
   #    LPJout <- applyFun(LPJout, fun)
   #  }
 
-  if (runObject[["plot.data"]] == TRUE){
+  if (runObject$plot.data){
     plotLPJData(x = LPJout, typeList = runObject$typeList,
              outDir = runObject$outDir, save.plots = runObject$save.plots,
              prefix = paste("run",runObject$runID, "_", sep=""))
