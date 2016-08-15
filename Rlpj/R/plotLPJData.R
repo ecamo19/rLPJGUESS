@@ -85,7 +85,7 @@ plotLPJData <- function(x, typeList = NULL, outDir= NULL, save.plots = FALSE, pr
             pdf(file.path(outDir, paste(prefix, typeList.valid[[i]], ".pdf", sep="")))#width=1000,height=750
             if(length(colnames(values))==1){
               plot(values, main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
-                                          "Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
+                                          "Variable:", typeList.valid[[i]]),xlab="Years")
             }else{
               plot(values, main =paste("Grid", coordinates[[k]][1], coordinates[[k]][2],
                                           "Variable:", typeList.valid[[i]]),xlab="Years")
@@ -105,7 +105,7 @@ plotLPJData <- function(x, typeList = NULL, outDir= NULL, save.plots = FALSE, pr
         plot(values, main =paste("Variable:", typeList.valid[[i]]),xlab="Years")
         dev.off()
       }else{
-        plot(values,  main =paste("Variable:", typeList.valid[[i]]),xlab="Years", ylab="NULL")
+        plot(values,  main =paste("Variable:", typeList.valid[[i]]),xlab="Years")
       }
     }
   }
