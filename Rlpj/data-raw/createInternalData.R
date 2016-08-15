@@ -72,13 +72,39 @@ files.parameters$cru <- list(file.co2 = c("path_to_co2", NULL),
 # Objects in R/sysdata.rda are not exported (they shouldn’t be), so they don’t need to be documented.
 # They’re only available inside your package.
 
-parameterList.default <-  as.matrix(read.table("./data-raw/LPJParameters.csv", header = T, sep = "\t"))
-rownames(parameterList.default) <- parameterList.default[, "name"]
-parameterList.default <-parameterList.default[,c("scale", "type",  "value")]
+dummyFather <-  read.table("./data-raw/LPJParameters.csv", header = T, sep = ",")
+
+design.default <- list()
+dummy <- dummyFather[grep("design", dummyFather[, "type"]), ]
+dummy[, "value"] <- as.character(dummy[, "value"])
+
+design.default$global <- as.matrix(dummy[ dummy$scale=="global", "value"])
+rownames(design.default$global) <- dummy[dummy$scale=="global", "name"]
+
+design.default$europe <- as.matrix(dummy[ dummy$scale=="europe", "value"])
+rownames(design.default$europe) <- dummy[dummy$scale=="europe", "name"]
+rm(dummy)
+
+parameterList.default <- list()
+dummy <- dummyFather[grep("parameter", dummyFather[, "type"]), ]
+dummy[, "value"] <- as.numeric(as.character(dummy[, "value"]))
+
+parameterList.default$global <- as.matrix(dummy[ dummy$scale=="global", "value"])
+rownames(parameterList.default$global) <- dummy[dummy$scale=="global", "name"]
+
+parameterList.default$europe <- as.matrix(dummy[ dummy$scale=="europe", "value"])
+rownames(parameterList.default$europe) <- dummy[dummy$scale=="europe", "name"]
+
+rm(dummyFather)
+
+
+
 
 #----------------------------------------------------------------------------------------------#-
 # Put the data in the package
 
 
-devtools::use_data(parameterList.default, files.parameters, typelist.default, templates, internal = TRUE, overwrite = TRUE)
+devtools::use_data(parameterList.default, design.default,
+                   files.parameters, typelist.default, templates,
+                   internal = TRUE, overwrite = TRUE)
 
