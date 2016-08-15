@@ -15,8 +15,8 @@ createSingleObject <- function(mainDir, typeList, settings){
                         file.ndep= NULL, file.temp = NULL, file.prec = NULL,
                         file.insol = NULL, template1 = NULL, template2=NULL,
                         plot.data = FALSE, save.plots = FALSE, processing = FALSE,
-                        delete = TRUE,  runID = "", parallel = "auto", checkParameters = "serial",
-                        design = NULL)
+                        delete = TRUE, save= TRUE, runID = "", parallel = "auto",
+                        checkParameters = "serial", design = NULL)
   #, fun = NULL) # This would be to allow havin own functions in parallel.
 
   settings <- c(settings[names(settings) %in% names(defaultSettings)],
@@ -67,7 +67,7 @@ createSingleObject <- function(mainDir, typeList, settings){
     warning ("The provided template (template1) does not exist")
     stop("Please provide a valid template name")
   }
-  # checkign template 2: either cru or cf
+  # checking template 2: either cru or cf
   if ( is.null(settings[["template2"]])){
     # writing out template and storing name
     settings$template2 <- getTemplate (type = paste(settings[["scale"]],"_", settings[["mode"]], sep = ""),
@@ -77,19 +77,6 @@ createSingleObject <- function(mainDir, typeList, settings){
   }else if (!file.exists(file.path(mainDir, settings[["template2"]]))){
     warning ("The provided template (template2) does not exist")
     stop("Please provide a valid template name")
-  }
-
-  # Check the design
-  if(is.null(settings[["design"]])){
-    cat("\n\nUsing standard LPJ-GUESS design")
-    settings$design <- getDesign(settings$scale, list= T )
-  }else if(class(settings[["design"]]) == "list" ){
-    # If something was provided, the complete the list
-    design.default <- getDesign(settings$scale, list= T )
-    settings$design <- c(settings$design[names(settings$design) %in% names(design.default) ],
-                         design.default[ !names(design.default) %in% names(settings$design)])
-  }else{
-    stop("Please provide a valid design")
   }
 
   # Pack up all files that user should have provided
@@ -109,6 +96,7 @@ createSingleObject <- function(mainDir, typeList, settings){
       files.default[[files.names[i]]][2] <- files[[files.names[i]]]
     }
   }
+
   singleObject <- settings[!grepl("file", names(settings))]
   singleObject$filesNames <- files.default
   singleObject$mainDir <- mainDir
@@ -119,15 +107,16 @@ createSingleObject <- function(mainDir, typeList, settings){
   # Read template one and replace desing
   singleObject$template1Mem <- readLines(file.path(singleObject$mainDir, singleObject$template1))
 
-  designNames<- names(settings$design)
+  # Check the design
+  settings$design <- checkDesign(settings$scale , settings$design)
+
+  designNames <- names(settings$design)
   for(i in 1:length(settings$design))  {
     singleObject$template1Mem <- sub(designNames[i], settings$design[[i]], singleObject$template1Mem)
   }
   if(settings$design[["run_ifcalcsla"]]==as.character(0)){
     singleObject$template1Mem <- sub("!sla", "sla", singleObject$template1Mem)
   }
-
-
 
   singleObject$template2Mem <- readLines(file.path(singleObject$mainDir,singleObject$template2))
 
