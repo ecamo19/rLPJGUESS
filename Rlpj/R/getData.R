@@ -23,7 +23,7 @@
 #' LPJout <- getLPJData( typeList = c("aaet",  "cflux","lai", "nflux"),
 #'           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
 #' }
-getLPJData <- function(x=NULL, typeList = NULL,  runInfo=NULL, processing = FALSE){
+getLPJData <- function(x, typeList = NULL,  runInfo=NULL, processing = FALSE){
                     #, fun = NULL){
   # other options which could be included:
       #lon.extent=c(-180, 180), lat.extent=c(-90, 90),
