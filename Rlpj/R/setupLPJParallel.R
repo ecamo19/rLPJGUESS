@@ -36,7 +36,7 @@
 #'      /some/absolute/path/mainDir/runDirectory3
 
 #'}
-setupLPJParallel <- function(numCores=NULL, clusterType = NULL, mainDir=NULL)
+setupLPJParallel <- function(numCores, clusterType, mainDir)
   {
   #----------------------------------------------------------------------------#
   # CHECK INPUTS AND EXIT IF ANY ERROR
