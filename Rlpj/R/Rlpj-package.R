@@ -25,6 +25,7 @@
 #'  \item \code{\link{getTemplate}} To obtain the in-package stored model templates
 #'  \item \code{\link{getParameterList}} To obtain the in-package stored parameter default values
 #'  \item \code{\link{getTypeList}} To obtain the default output model types
+#'  \item \code{\link{getRunInfo}} To recover data or parameters from the runInfoDir
 #' }
 #'
 #' @section IV. Other functions: \itemize{
