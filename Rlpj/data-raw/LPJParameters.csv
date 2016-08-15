@@ -49,12 +49,12 @@ global,parameter,common_emax,5
 global,parameter,common_reprfrac,0.1
 global,parameter,common_wscal_min,0.35
 global,parameter,common_drought_tolerance,0.0001
-global,parameter,common_landcover,natural
+global,design,common_landcover,natural
 global,parameter,common_turnover_harv_prod,1
 global,parameter,tree_crownarea_max,50
 global,parameter,tree_ltor_max,1
 global,parameter,tree_turnover_root,0.7
-global,parameter,tree_rootdist,0.6 0.4
+global,parameter,tree_rootdist,0.6
 global,parameter,tree_k_allom2,60
 global,parameter,tree_k_allom3,0.67
 global,parameter,tree_k_rp,1.6
@@ -92,10 +92,10 @@ global,parameter,shrub_kest_repr,200
 global,parameter,shrub_kest_bg,0.1
 global,parameter,shrub_kest_pres,1
 global,parameter,shrub_litterme,0.3
-global,parameter,shrub_rootdist,0.6 0.4
+global,parameter,shrub_rootdist,0.6
 global,parameter,shrub_longevity,100
 global,parameter,grass_ltor_max,0.5
-global,parameter,grass_rootdist,0.9 0.1
+global,parameter,grass_rootdist,0.9
 global,parameter,grass_gmin,0.5
 global,parameter,grass_phengdd5ramp,100
 global,parameter,grass_leaflong,0.5
@@ -366,9 +366,9 @@ europe,parameter,common_emax,5
 europe,parameter,common_reprfrac,0.1
 europe,parameter,common_wscal_min,0.35
 europe,parameter,common_drought_tolerance,0.0001
-europe,parameter,common_landcover,natural
+europe,design,common_landcover,natural
 europe,parameter,common_turnover_harv_prod,1
-europe,parameter,tree_rootdist,0.6 0.4
+europe,parameter,tree_rootdist,0.6
 europe,parameter,tree_crownarea_max,40
 europe,parameter,tree_turnover_root,0.7
 europe,parameter,tree_ltor_max,1
@@ -388,7 +388,7 @@ europe,parameter,tree_harv_eff,0.7
 europe,parameter,tree_res_outtake,0.75
 europe,parameter,tree_harvest_slow_frac,0.33
 europe,parameter,tree_turnover_harv_prod,0.04
-europe,parameter,shrub_rootdist,0.6 0.4
+europe,parameter,shrub_rootdist,0.6
 europe,parameter,shrub_crownarea_max,10
 europe,parameter,shrub_turnover_root,0.7
 europe,parameter,shrub_ltor_max,1
@@ -472,7 +472,7 @@ europe,parameter,Abi_alb_seas_iso,0
 europe,parameter,Abi_alb_eps_mon,1.8
 europe,parameter,Abi_alb_storfrac_mon,0.5
 europe,parameter,BES_include,1
-europe,parameter,BES_rootdist,0.8 0.2
+europe,parameter,BES_rootdist,0.8
 europe,parameter,BES_crownarea_max,3
 europe,parameter,BES_k_allom1,20
 europe,parameter,BES_k_allom2,5
@@ -629,7 +629,7 @@ europe,parameter,Fra_exc_seas_iso,1
 europe,parameter,Fra_exc_eps_mon,0
 europe,parameter,Fra_exc_storfrac_mon,0
 europe,parameter,Jun_oxy_include,1
-europe,parameter,Jun_oxy_rootdist,0.5 0.5
+europe,parameter,Jun_oxy_rootdist,0.5
 europe,parameter,Jun_oxy_k_latosa,1500
 europe,parameter,Jun_oxy_crownarea_max,10
 europe,parameter,Jun_oxy_sla,10
@@ -655,7 +655,7 @@ europe,parameter,Jun_oxy_seas_iso,0
 europe,parameter,Jun_oxy_eps_mon,2
 europe,parameter,Jun_oxy_storfrac_mon,0.5
 europe,parameter,MRS_include,1
-europe,parameter,MRS_rootdist,0.9 0.1
+europe,parameter,MRS_rootdist,0.9
 europe,parameter,MRS_k_latosa,1500
 europe,parameter,MRS_sla,10
 europe,parameter,MRS_gmin,0.5
@@ -680,7 +680,7 @@ europe,parameter,MRS_eps_mon,4
 europe,parameter,MRS_storfrac_mon,0.5
 europe,parameter,MRS_ga,0.04
 europe,parameter,Pic_abi_include,1
-europe,parameter,Pic_abi_rootdist,0.8 0.2
+europe,parameter,Pic_abi_rootdist,0.8
 europe,parameter,Pic_abi_sla,9.3
 europe,parameter,Pic_abi_gmin,0.3
 europe,parameter,Pic_abi_fnstorage,0.05
@@ -704,7 +704,7 @@ europe,parameter,Pic_abi_seas_iso,0
 europe,parameter,Pic_abi_eps_mon,6
 europe,parameter,Pic_abi_storfrac_mon,0.5
 europe,parameter,Pic_sit_include,1
-europe,parameter,Pic_sit_rootdist,0.8 0.2
+europe,parameter,Pic_sit_rootdist,0.8
 europe,parameter,Pic_sit_k_latosa,4500
 europe,parameter,Pic_sit_sla,9.3
 europe,parameter,Pic_sit_gmin,0.3
@@ -777,7 +777,7 @@ europe,parameter,Pin_hal_seas_iso,0
 europe,parameter,Pin_hal_eps_mon,10
 europe,parameter,Pin_hal_storfrac_mon,0.5
 europe,parameter,Pop_tre_include,1
-europe,parameter,Pop_tre_rootdist,0.7 0.3
+europe,parameter,Pop_tre_rootdist,0.7
 europe,parameter,Pop_tre_sla,24.3
 europe,parameter,Pop_tre_gmin,0.5
 europe,parameter,Pop_tre_fnstorage,0.15
@@ -799,7 +799,7 @@ europe,parameter,Pop_tre_seas_iso,1
 europe,parameter,Pop_tre_eps_mon,4
 europe,parameter,Pop_tre_storfrac_mon,0
 europe,parameter,Que_coc_include,1
-europe,parameter,Que_coc_rootdist,0.5 0.5
+europe,parameter,Que_coc_rootdist,0.5
 europe,parameter,Que_coc_k_latosa,2500
 europe,parameter,Que_coc_sla,10
 europe,parameter,Que_coc_gmin,0.5
@@ -824,7 +824,7 @@ europe,parameter,Que_coc_eps_mon,10
 europe,parameter,Que_coc_storfrac_mon,0
 europe,parameter,Que_coc_ga,0.04
 europe,parameter,Que_ile_include,1
-europe,parameter,Que_ile_rootdist,0.5 0.5
+europe,parameter,Que_ile_rootdist,0.5
 europe,parameter,Que_ile_k_latosa,3000
 europe,parameter,Que_ile_sla,9.3
 europe,parameter,Que_ile_gmin,0.5
@@ -891,7 +891,7 @@ europe,parameter,Que_rob_seas_iso,1
 europe,parameter,Que_rob_eps_mon,0
 europe,parameter,Que_rob_storfrac_mon,0
 europe,parameter,Til_cor_include,1
-europe,parameter,Til_cor_rootdist,0.8 0.2
+europe,parameter,Til_cor_rootdist,0.8
 europe,parameter,Til_cor_sla,24.3
 europe,parameter,Til_cor_gmin,0.5
 europe,parameter,Til_cor_fnstorage,0.15
@@ -934,7 +934,7 @@ europe,parameter,Ulm_gla_seas_iso,1
 europe,parameter,Ulm_gla_eps_mon,0
 europe,parameter,Ulm_gla_storfrac_mon,0
 europe,parameter,C3_gr_include,1
-europe,parameter,C3_gr_rootdist,0.9 0.1
+europe,parameter,C3_gr_rootdist,0.9
 europe,parameter,C3_gr_sla,32.4
 europe,parameter,C3_gr_gmin,0.5
 europe,parameter,C3_gr_leaflong,0.5
@@ -959,7 +959,7 @@ europe,parameter,C3_gr_seas_iso,1
 europe,parameter,C3_gr_eps_mon,1
 europe,parameter,C3_gr_storfrac_mon,0.5
 europe,parameter,C4_gr_include,1
-europe,parameter,C4_gr_rootdist,0.9 0.1
+europe,parameter,C4_gr_rootdist,0.9
 europe,parameter,C4_gr_gmin,0.5
 europe,parameter,C4_gr_leaflong,0.5
 europe,parameter,C4_gr_turnover_leaf,1
