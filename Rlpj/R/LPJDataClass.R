@@ -108,7 +108,7 @@ setMethod (f= "show",
                      cat("grid cells         : ");cat(length(object@runInfo$gridListCell));cat(" cell(s) \n");cat(object@runInfo$gridListCell, sep = "\n")
                    }
                    cat("LPJ model outputs  : "); cat(length(names(object@dataTypes)));cat(" output(s)\n")
-                   cat(sort(names(object@dataTypes)), sep = "\t", fill = TRUE)
+                   cat(sort(names(object@dataTypes)), sep = ", ", fill = TRUE)
                }
   )
 
