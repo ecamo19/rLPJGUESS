@@ -4,7 +4,7 @@
 \alias{getDesign}
 \title{A get design function}
 \usage{
-getDesign(scale = NULL, list = TRUE)
+getDesign(scale, list = F)
 }
 \arguments{
 \item{scale}{a character string indicating whether the parameters are for the global or europe template}

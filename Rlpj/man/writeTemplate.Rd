@@ -4,8 +4,7 @@
 \alias{writeTemplate}
 \title{A writing template function for LPJ}
 \usage{
-writeTemplate(template1 = NULL, parameterList = NULL, runDir = NULL,
-  check = "serial")
+writeTemplate(template1, parameterList, runDir, check = "serial")
 }
 \arguments{
 \item{template1}{a character string providing the general model template,
@@ -16,8 +15,7 @@ e.g, global.ins. Provide only the file name, not the path}
 \item{runDir}{a character string indicating path to the run directory}
 
 \item{check}{a character string indicating how to check the provided parameterList. Default
-value is serial. Other possible values are parallel and names. Please only use serial, other options
-are handled internally in the parallelization.}
+value is serial. Other possible value is parallel.}
 }
 \value{
 none
@@ -29,13 +27,18 @@ set them to the default values. The function assumes that a copy of the template
  is already placed in the run directory.
 }
 \details{
-The provided template can be either the one provided by the package or
-a self edited template. The function assumes a specific coding for writing the
-parameters values. For this reason, we recommend to use the package templates.
-If using self edited templates, please take the package templates as a reference.
+If check is serial, it will return the complete and checked parameterList.
+If parallel, it would only check the provided parameters. Please only use serial,
+other options are handled internally in the parallelization.
 }
 \note{
 Based an older code of Istem Fer, Uni Potsdam
+}
+\section{Warning}{
+  The provided template can be either one provided by the package or
+a self edited template. The function assumes a specific coding for writing the
+parameters values. For this reason, we recommend to use the package templates.
+If using self edited templates, please take the package templates as a reference.
 }
 \examples{
 \dontrun{

@@ -4,7 +4,7 @@
 \alias{setupLPJParallel}
 \title{The function to create a setup for parallel runs of the LPJ-GUESS}
 \usage{
-setupLPJParallel(numCores = NULL, clusterType = NULL, mainDir = NULL)
+setupLPJParallel(numCores, clusterType, mainDir)
 }
 \arguments{
 \item{numCores}{a integer specifying number of cores of the cluster}

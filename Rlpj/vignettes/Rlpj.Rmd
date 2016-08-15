@@ -106,12 +106,9 @@ After the steps above, we are ready to call runLPJ. LPJ-GUESS is, however, not p
 package, and thus, we will skip runLPJ here. Anyway, we should procceed as follows
 
 ```{r}
-
-
 # ---- The call ------------------------#
 #result <-   runLPJ(mainDir,  settings= settings)
 # ---- The call ------------------------#
-
 ```
 The above call will run the model wiht the default values for global_cf template. We can specify other values 
 for the model parameters and also choose what model output we want to create. In the next section, we will do when 

@@ -4,21 +4,13 @@
 \alias{runLPJ}
 \title{The function to run the LPJ-GUESS in parallel}
 \usage{
-runLPJ(x = NULL, typeList = NULL, parameterList = NULL, settings = NULL)
+runLPJ(x, settings, typeList = NULL, parameterList = NULL)
 }
 \arguments{
 \item{x}{either a LPJSetup object created with the setupLPJParallel function or a
 character string indicating the path to the directory where
 the model link and template are located, and in which the function will create
 the directory structure for the outputs}
-
-\item{typeList}{a character vector with the outputs to be analyzed.
-Default value is all outputs}
-
-\item{parameterList}{either a named list containing the parameters to be calibrated
-or a matrix. If running in parallel, parameter list should be either a list of of list or
-a matrix where each row is a parameter combination and the column names should be named
-after the parameters.}
 
 \item{settings}{additional parameters \itemize{
 \item  gridList a character string providing the name of the text file with
@@ -60,11 +52,21 @@ parallelize both grids and parameters. If auto, it will decided the strategy bas
 on the provided parameterList and gridList. Default value is auto
 \item delete a boolean indicating whether output files should be deleted after
  processing (default TRUE). Saved plots will not be deleted
+\item save a boolean indicating whether function outputs should be saved as RData
+into an output directory named (runInfoDir_DATE). Default is TRUE
 \item runID an integer after which the output directory will be named (default empty).
 If parallel TRUE, ID is ignored and defined by setupLPJParallel
 \item design a named list containing the general parameters for LPJ-GUESS. Seefunction \code{\link{getDesign}}
 for default values and examples
 }}
+
+\item{typeList}{a character vector with the outputs to be analyzed.
+Default value is all outputs}
+
+\item{parameterList}{either a named list containing the parameters to be calibrated
+or a matrix. If running in parallel, parameter list should be either a list of of list or
+a matrix where each row is a parameter combination and the column names should be named
+after the parameters.}
 }
 \value{
 an object of class LPJData. The LPJData object will be automatically stored as RData

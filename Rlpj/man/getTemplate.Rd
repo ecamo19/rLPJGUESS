@@ -4,7 +4,7 @@
 \alias{getTemplate}
 \title{A get template function}
 \usage{
-getTemplate(type = NULL, outputDir = NULL)
+getTemplate(type, outputDir = NULL)
 }
 \arguments{
 \item{type}{a character string indicating the template name: global,

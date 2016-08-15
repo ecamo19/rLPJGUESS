@@ -4,8 +4,8 @@
 \alias{plotLPJData}
 \title{A plot function for LPJData objects}
 \usage{
-plotLPJData(x = NULL, typeList = NULL, outDir = NULL,
-  save.plots = FALSE, prefix = "")
+plotLPJData(x, typeList = NULL, outDir = NULL, save.plots = FALSE,
+  prefix = "")
 }
 \arguments{
 \item{x}{a LPJData object.}

@@ -4,8 +4,7 @@
 \alias{getLPJData}
 \title{A function to process LPJ-GUESS outputs}
 \usage{
-getLPJData(x = NULL, typeList = NULL, runInfo = NULL,
-  processing = FALSE)
+getLPJData(x, typeList = NULL, runInfo = NULL, processing = FALSE)
 }
 \arguments{
 \item{x}{a character string indicating path to the output files}

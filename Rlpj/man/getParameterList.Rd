@@ -4,7 +4,7 @@
 \alias{getParameterList}
 \title{A get paremeter list function}
 \usage{
-getParameterList(scale = NULL, list = TRUE)
+getParameterList(scale, list = TRUE)
 }
 \arguments{
 \item{scale}{a character string indicating whether the parameters are for the global or europe template}

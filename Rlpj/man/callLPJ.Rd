@@ -4,7 +4,7 @@
 \alias{callLPJ}
 \title{A function to call the LPJ-GUESS modell}
 \usage{
-callLPJ(mainDir = NULL, runDir = NULL, template2 = NULL, mode = NULL)
+callLPJ(mainDir, runDir, template2, mode)
 }
 \arguments{
 \item{mainDir}{a character string indicating the path to LPJ-GUESS executable}
