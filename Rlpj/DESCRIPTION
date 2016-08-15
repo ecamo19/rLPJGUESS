@@ -1,6 +1,6 @@
 Package: Rlpj
 Title: A R package that wraps the LPJ-GUESS 3.1 model
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: c(person("Florian", "Hartig", , "florian.hartig@biom.uni-freiburg.de", role = c("aut")),
             person("Maurizio", "Bagnara", , "maurizio.bagnara@biom.uni-freiburg.de", role = c("aut", "cre")),
             person("Ramiro", "Silveyra Gonzalez", , "rasilgon@gmail.com", role = c("aut")))
