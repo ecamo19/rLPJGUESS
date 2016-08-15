@@ -15,7 +15,7 @@
 #' @examples \dontrun{
 #' callLPJ("/home/LPJrun", "/home/LPJrun/runDirectory1", "global_cru.ins")
 #' }
-callLPJ <- function(mainDir = NULL, runDir = NULL, template2 = NULL, mode = NULL){
+callLPJ <- function(mainDir, runDir , template2, mode){
   #----------------------------------------------------------------------------#
   # CHECK INPUTS AND EXIT IF ANY ERROR
   #----------------------------------------------------------------------------#
