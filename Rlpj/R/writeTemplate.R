@@ -8,13 +8,15 @@
 #' @param parameterList  a named list containing the parameters to be calibrated
 #' @param runDir a character string indicating path to the run directory
 #' @param check a character string indicating how to check the provided parameterList. Default
-#' value is serial. Other possible values are parallel and names. Please only use serial, other options
-#' are handled internally in the parallelization.
+#' value is serial. Other possible value is parallel.
 #' @return none
-#' @details The provided template can be either the one provided by the package or
+#' @section Warning:  The provided template can be either one provided by the package or
 #' a self edited template. The function assumes a specific coding for writing the
 #' parameters values. For this reason, we recommend to use the package templates.
 #' If using self edited templates, please take the package templates as a reference.
+#' @details  If check is serial, it will return the complete and checked parameterList.
+#' If parallel, it would only check the provided parameters. Please only use serial,
+#' other options are handled internally in the parallelization.
 #' @seealso \code{\link{getTemplate}}, \code{\link{getParameterList}}
 #' @export
 #' @keywords Rlpj
@@ -24,7 +26,7 @@
 #' writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
 #'               "/home/lpjRun/runDirectory1")
 #' }
-writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL, check = "serial"){
+writeTemplate <- function(template1, parameterList, runDir, check = "serial"){
 
   # Checking provided parameters
   if (is.null(runDir) || !file.exists(runDir) ){
@@ -49,6 +51,7 @@ writeTemplate <- function(template1 = NULL, parameterList = NULL, runDir = NULL,
   }else{
     stop("Cannot recognize the template: neither global nor europe")
   }
+  parameterList <- checkParameters.rootDist(parameterList)
   # getting parameters names
   parameterNames <- names(parameterList)
   # looping over parameters ## Faster
