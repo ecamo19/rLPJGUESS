@@ -52,6 +52,8 @@
 #' on the provided parameterList and gridList. Default value is auto
 #' \item delete a boolean indicating whether output files should be deleted after
 #'  processing (default TRUE). Saved plots will not be deleted
+#' \item save a boolean indicating whether function outputs should be saved as RData
+#' into an output directory named (runInfoDir_DATE). Default is TRUE
 #' \item runID an integer after which the output directory will be named (default empty).
 #' If parallel TRUE, ID is ignored and defined by setupLPJParallel
 #' \item design a named list containing the general parameters for LPJ-GUESS. Seefunction \code{\link{getDesign}}
@@ -105,7 +107,6 @@
 #'
 #'
 #' # Single  Run
-
 #'  result <-  runLPJ(mainDir, settings= settings)
 #'  result
 #'      class              : LPJData
@@ -152,7 +153,7 @@
 #'
 #'  }
 
-runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
+runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
 
   if (is.null(x)){
     stop("Please provide a valid value for x")
@@ -161,51 +162,33 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
   #----------------------------------------------------------------------------#
   # SERIAL RUNLPJ
   #----------------------------------------------------------------------------#
-    if (is.null(settings) || !class(settings) == "list"){
-        stop("Invalid settings provided")
-    }
-    if(!file.exists(x)){
-      stop("Invalid main directory")
-    }
+    if (is.null(settings) || !class(settings) == "list"){ stop("Invalid settings provided")  }
+
+    if(!file.exists(x)){stop("Invalid main directory") }
+
     # do the settings check
     singleRun <- try(createSingleObject(x, typeList, settings), FALSE)
-    if ('try-error' %in% class(singleRun)){
-      stop("Invalid settings provided")
+    if ('try-error' %in% class(singleRun)){ stop("Invalid settings provided")  }
+
+    # Check the parameters
+    parameterList <- try(checkParameters.matrix(singleRun$scale, parameterList), FALSE)
+    if ('try-error' %in% class(parameterList)){ stop("Invalid parameterList provided")  }
+
+    singleRun$parameterList  <-  parameterList
+
+    # Need to create an output folder named after ID
+    if (singleRun$save){
+      dir.create(singleRun$runInfoDir, showWarnings = FALSE)
     }
 
-    if ( is.null(parameterList)){
-      cat ("\n\nYou have not provided a parameter list")
-      cat ("\nModel will run with default values")
-      singleRun$parameterList <- getParameterList(singleRun$scale)
-    }else if(class(parameterList) == "matrix"){
-      if (is.null(colnames(parameterList))){
-        if(is.null(rownames(parameterList))){
-          stop("Matrix should have parameter names as column or row names")
-        }else{
-          values <- as.list(parameterList)
-          names(values)  <- rownames(parameterList)
-          singleRun$parameterList <- values
-          rm(values)
-        }
-      }else{
-        values <- as.list(parameterList)
-        names(values)  <- colnames(parameterList)
-        singleRun$parameterList <- values
-        rm(values)
-      }
-    }else if(!class(parameterList) == "list"){
-      stop("Please provide a valid parameter list")
-    }else{
-      singleRun$parameterList  <- parameterList
-    }
-    dir.create(singleRun$runInfoDir, showWarnings = FALSE)
-    # Need to create an output folder named after ID
+    # Create runDir
     singleRun$runDir <- file.path(x, paste("runDirectory", singleRun$runID, sep=""))
     singleRun$outDir <- file.path(x, paste("runDirectory", singleRun$runID, sep=""),
                                   paste("outDirectory", singleRun$runID, sep=""))
     dir.create(singleRun$runDir, showWarnings = FALSE)
     dir.create(singleRun$outDir, showWarnings = FALSE)
-    #
+
+    # Read in the templates and gridcell
     gridListCell <- readLines(file.path(singleRun$mainDir,singleRun$gridList))
     gridListCell <- gridListCell[!grepl("!", gridListCell)]
     singleRun$gridListCell <- gridListCell[!is.na(gridListCell)]
@@ -224,9 +207,8 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
   #----------------------------------------------------------------------------#
   }else if(class(x) == "LPJSetup"){
 
-    if (is.null(settings) || !class(settings) == "list"){
-        stop("Invalid settings provided")
-      }
+    if (is.null(settings) || !class(settings) == "list"){ stop("Invalid settings provided") }
+
     # do the settings check
     singleRun <- try(createSingleObject(x@mainDir, typeList, settings), FALSE)
     if ('try-error' %in% class(singleRun)){
@@ -252,77 +234,76 @@ runLPJ <-  function(x=NULL, typeList=NULL, parameterList=NULL, settings = NULL){
         }
       }
     }
-    # CREATE THE RUN PARAMETERS
-    #----------------------------------------------------------------------------#
-    cat("\n\nReading the parallel object structure")
-    c # do the settings check
-    runParameters <- try(createRunParameters(x, singleRun, parameterList), FALSE)
-    if ('try-error' %in% class(runParameters)){
-      stop("Invalid settings provided")
-    }
+  # CREATE THE RUN PARAMETERS
+  #----------------------------------------------------------------------------#
+  cat("\n\nReading the parallel object structure")
+  # do the settings check
+  runParameters <- try(createRunParameters(x, singleRun, parameterList), FALSE)
+  if ('try-error' %in% class(runParameters)){
+    stop("Invalid settings provided")
+  }
+  # SOCK CLUSTER
+  #----------------------------------------------------------------------------#
+  # Initialisation of snowfall.
+  #cat("\n");cat("\n");str(runParameters[[1]])
+  # Create cluster
+  if (x@clusterType =="SOCK"){
+    cat( paste ("\nCreating a", x@clusterType, "cluster with",
+                x@numCores, " cores", sep = " " ))
+    cl <-  snow::makeSOCKcluster(x@numCores)
+    # Exporting needed data and loading required
+    # packages on workers. --> If daa is loaded firs it can be exporte to all workers
+    snow::clusterEvalQ(cl, library(Rlpj))
+    snow::clusterEvalQ(cl, "runParameters")
+    # Distribute calculation: will return values as a list object
+    cat ("\nSending tasks to the cores\n")
+    # Try catch prevent the package for crashing
+    # the implemented try catch in snow is not satisfactory
+    #result <- try(snow::clusterMap(cl, runLPJWrapper,  runParameters ), FALSE)
+    #if ('try-error' %in% class(result)){
+    #  stop("Error when running the model")
+    #}
+    result <- snow::clusterMap(cl, runLPJWrapper,  runParameters )
+    #result <- snow::clusterApply(cl, runParameters, runLPJWrapper )resul
+    # Destroy cluster
+    snow::stopCluster(cl)
+    # deliver data to clusters
+    # Snow's close command, shuts down and quits from script
 
-    # SOCK CLUSTER
-    #----------------------------------------------------------------------------#
-    # Initialisation of snowfall.
-    #cat("\n");cat("\n");str(runParameters[[1]])
-    # Create cluster
-    if (x@clusterType =="SOCK"){
-      cat( paste ("\nCreating a", x@clusterType, "cluster with",
+  # MPI CLUSTER
+  #----------------------------------------------------------------------------#
+  }else if (x@clusterType =="MPI"){
+    # Use Rmpi to spawn and close the slaves
+    # Broadcast the data to the slaves and
+    # Using own MPISapply with mpi.parsSapply. mpi.parSapply takes a list
+    # "cores", so that there is one task for each core.
+    # Then each core is aware of how many task he has to carry and applies
+    # MPISapply on its tasks. Result is a list of list, thus, it must be
+    # unlisted
+    # needlog avoids fork call
+    if(is.loaded ("mpi_initialize")){
+      if (Rmpi::mpi.comm.size() < 1 ){
+        cat( paste ("\nCreating a", x@clusterType, "cluster with",
+                    x@numCores, "cores", sep = " " ))
+        cat("\nPlease call exit_mpi at the end of you script")
+        Rmpi::mpi.spawn.Rslaves(nslaves = x@numCores, needlog = FALSE)
+      }else{
+        cat(paste("\nUsing the existing", x@clusterType, "cluster with",
                   x@numCores, " cores", sep = " " ))
-      cl <-  snow::makeSOCKcluster(x@numCores)
-      # Exporting needed data and loading required
-      # packages on workers. --> If daa is loaded firs it can be exporte to all workers
-      snow::clusterEvalQ(cl, library(Rlpj))
-      snow::clusterEvalQ(cl, "runParameters")
-      # Distribute calculation: will return values as a list object
-      cat ("\nSending tasks to the cores\n")
-      # Try catch prevent the package for crashing
-      # the implemented try catch in snow is not satisfactory
-      result <- try(snow::clusterMap(cl, runLPJWrapper,  runParameters ), FALSE)
-      if ('try-error' %in% class(result)){
-        stop("Error when running the model")
       }
-      #result <- snow::clusterMap(cl, runLPJWrapper,  runParameters )
-      #result <- snow::clusterApply(cl, runParameters, runLPJWrapper )resul
-      # Destroy cluster
-      snow::stopCluster(cl)
-      # deliver data to clusters
-      # Snow's close command, shuts down and quits from script
-
-    # MPI CLUSTER
-    #----------------------------------------------------------------------------#
-    }else if (x@clusterType =="MPI"){
-      # Use Rmpi to spawn and close the slaves
-      # Broadcast the data to the slaves and
-      # Using own MPISapply with mpi.parsSapply. mpi.parSapply takes a list
-      # "cores", so that there is one task for each core.
-      # Then each core is aware of how many task he has to carry and applies
-      # MPISapply on its tasks. Result is a list of list, thus, it must be
-      # unlisted
-      # needlog avoids fork call
-      if(is.loaded ("mpi_initialize")){
-        if (Rmpi::mpi.comm.size() < 1 ){
-          cat( paste ("\nCreating a", x@clusterType, "cluster with",
-                      x@numCores, "cores", sep = " " ))
-          cat("\nPlease call exit_mpi at the end of you script")
-          Rmpi::mpi.spawn.Rslaves(nslaves = x@numCores, needlog = FALSE)
-        }else{
-          cat(paste("\nUsing the existing", x@clusterType, "cluster with",
-                    x@numCores, " cores", sep = " " ))
-        }
-      }
-      cores <- rep(x@numCores, x@numCores)
-      Rmpi::mpi.bcast.Robj2slave(cores)
-      Rmpi::mpi.bcast.Robj2slave(runParameters)
-      Rmpi::mpi.bcast.cmd(library(Rlpj))
-    # try-catch does not help in mpi. Rmpi hanldes itself
-     # result <- try( Rmpi::mpi.parSapply(cores, MPISapply, runParameters = runParameters), FALSE)
-     # if ('try-error' %in% class(result)){
-     #   stop("Error when running the model")
-     #  }
-      result <- Rmpi::mpi.parSapply(cores, MPISapply, runParameters = runParameters)
     }
-    # END
+    cores <- rep(x@numCores, x@numCores)
+    Rmpi::mpi.bcast.Robj2slave(cores)
+    Rmpi::mpi.bcast.Robj2slave(runParameters)
+    Rmpi::mpi.bcast.cmd(library(Rlpj))
+  # try-catch does not help in mpi. Rmpi hanldes itself
+   # result <- try( Rmpi::mpi.parSapply(cores, MPISapply, runParameters = runParameters), FALSE)
+   # if ('try-error' %in% class(result)){
+   #   stop("Error when running the model")
+   #  }
+    result <- Rmpi::mpi.parSapply(cores, MPISapply, runParameters = runParameters)
+  }
+  # END
   #----------------------------------------------------------------------------#
   return(unlist(result))
   }else{
