@@ -236,7 +236,7 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
     }
   # CREATE THE RUN PARAMETERS
   #----------------------------------------------------------------------------#
-  cat("\n\nReading the parallel object structure")
+  message("\n\nReading the parallel object structure")
   # do the settings check
   runParameters <- try(createRunParameters(x, singleRun, parameterList), FALSE)
   if ('try-error' %in% class(runParameters)){
@@ -245,10 +245,10 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
   # SOCK CLUSTER
   #----------------------------------------------------------------------------#
   # Initialisation of snowfall.
-  #cat("\n");cat("\n");str(runParameters[[1]])
+  #message("\n");message("\n");str(runParameters[[1]])
   # Create cluster
   if (x@clusterType =="SOCK"){
-    cat( paste ("\nCreating a", x@clusterType, "cluster with",
+    message( paste ("\nCreating a", x@clusterType, "cluster with",
                 x@numCores, " cores", sep = " " ))
     cl <-  snow::makeSOCKcluster(x@numCores)
     # Exporting needed data and loading required
@@ -283,12 +283,12 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
     # needlog avoids fork call
     if(is.loaded ("mpi_initialize")){
       if (Rmpi::mpi.comm.size() < 1 ){
-        cat( paste ("\nCreating a", x@clusterType, "cluster with",
+        message( paste ("\nCreating a", x@clusterType, "cluster with",
                     x@numCores, "cores", sep = " " ))
-        cat("\nPlease call exit_mpi at the end of you script")
+        message("\nPlease call exit_mpi at the end of you script")
         Rmpi::mpi.spawn.Rslaves(nslaves = x@numCores, needlog = FALSE)
       }else{
-        cat(paste("\nUsing the existing", x@clusterType, "cluster with",
+        message(paste("\nUsing the existing", x@clusterType, "cluster with",
                   x@numCores, " cores", sep = " " ))
       }
     }

@@ -46,7 +46,7 @@ callLPJ <- function(mainDir, runDir , template2, mode){
                     file.path(runDir, template2), sep = " ")
   }
   # here I try-catch?
-  cat("Calling LPJ-GUESS\n")
-  cat(paste(submit, "\n", sep = ""))
+  message("Calling LPJ-GUESS\n")
+  message(submits)
   try(system (submit, intern = TRUE), FALSE)
 }

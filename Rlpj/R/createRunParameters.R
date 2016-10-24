@@ -90,8 +90,8 @@ createRunParameters <- function(x, singleRun, parameterList){
   #----------------------------------------------------------------------------#
   runParameters <- vector("list", numberRuns)
   if (parallel == "parameters"){
-    cat("\nParallelization of parameters\n")
-    cat("\nCreating the single run objects")#single run objects
+    message("Parallelization of parameters")
+    message("Creating the single run objects")#single run objects
     progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
     for (i in 1:numberRuns){
       setTxtProgressBar(progessBar, i)
@@ -105,8 +105,8 @@ createRunParameters <- function(x, singleRun, parameterList){
     }
     close(progessBar)
   }else if (parallel == "both"){
-    cat("\nParallelization of both parameters and grids\n")
-    cat("\nCreating the single run objects")#single run objects
+    message("Parallelization of both parameters and grids")
+    message("Creating the single run objects")#single run objects
     progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
     for (i in 1:numberRuns){
       setTxtProgressBar(progessBar, i)
@@ -120,8 +120,8 @@ createRunParameters <- function(x, singleRun, parameterList){
     }
     close(progessBar)
   }else if (parallel == "grids"){
-    cat("\nParallelization of grids\n")
-    cat("\nCreating the single run objects")#single run objects\
+    message("Parallelization of grids")
+    message("Creating the single run objects")#single run objects\
     progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
     singleRun$parameterList <- parameterList
     for (i in 1:numberRuns){

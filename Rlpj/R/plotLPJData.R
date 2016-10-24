@@ -42,8 +42,7 @@ plotLPJData <- function(x, typeList = NULL, outDir= NULL, save.plots = FALSE, pr
 
   if (is.null(typeList) || !class(typeList) == "character"){
 
-    cat("\nNo typeList has been provided")
-    cat("\nPlotting all data")
+    message("No typeList has been provided. Plotting all data")
     typeList.valid <- typeList.available
   }else{
     keep <- rep(FALSE, length(typeList))

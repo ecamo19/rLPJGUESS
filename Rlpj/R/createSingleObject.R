@@ -31,8 +31,8 @@ createSingleObject <- function(mainDir, typeList, settings){
   }
   if (is.null(typeList) || !class(typeList) == "character"){
     settings$typeList <-  typelist.default
-    cat("\n\nOutput typeList has not been provided")
-    cat("\nSetting typeList to default values")
+    message("\n\nOutput typeList has not been provided")
+    message("\nSetting typeList to default values")
   }else{
     settings$typeList <- typeList
   }
@@ -49,7 +49,7 @@ createSingleObject <- function(mainDir, typeList, settings){
 #        settings$fun <- NULL
 #      }
 #    }else if(class(settings[["fun"]]) == "function"){
-#      cat("\nAdded user defined fun")
+#      message("\nAdded user defined fun")
 #    }else{
 #      warning("The prodived fun argument is not provided")
 #      setings$fun <- NULL
@@ -61,8 +61,8 @@ createSingleObject <- function(mainDir, typeList, settings){
   if (is.null(settings[["template1"]])){
     # writing out template and storing name
     settings$template1 <- getTemplate (settings[["scale"]], outputDir = mainDir)
-    cat("\n\nUsing package template (template 1)")
-    cat("\nSaving package template in the mainDir")
+    message("\n\nUsing package template (template 1)")
+    message("\nSaving package template in the mainDir")
   }else if (!file.exists(file.path(mainDir, settings[["template1"]]))){
     warning ("The provided template (template1) does not exist")
     stop("Please provide a valid template name")
@@ -72,8 +72,8 @@ createSingleObject <- function(mainDir, typeList, settings){
     # writing out template and storing name
     settings$template2 <- getTemplate (type = paste(settings[["scale"]],"_", settings[["mode"]], sep = ""),
                                        outputDir = mainDir)
-    cat("\n\nUsing package template (template 2)")
-    cat("\nSaving package template in the mainDir")
+    message("\n\nUsing package template (template 2)")
+    message("\nSaving package template in the mainDir")
   }else if (!file.exists(file.path(mainDir, settings[["template2"]]))){
     warning ("The provided template (template2) does not exist")
     stop("Please provide a valid template name")

@@ -55,7 +55,7 @@ runLPJWrapper <- function(runObject){
   # checking directory existence
   # starting the function itself
   # print out info message
-  cat(paste("\n\nStarting run ", runObject$runID,  "\n", sep = ""))
+  message(paste("\n\nStarting run ", runObject$runID,  "\n", sep = ""))
   # set the wd
   previouswd <- getwd()
   setwd(runObject$runDir)
@@ -85,13 +85,13 @@ runLPJWrapper <- function(runObject){
   writeLines(runObject$template2Mem,file.path(runObject$runDir,runObject$template2))
   writeLines(runObject$gridListCell, file.path(runObject$runDir, runObject$gridList))
   # writing template
-  #cat("\n\n Writing template")
+  #message("\n\n Writing template")
   writeTemplate(runObject$template1, runObject$parameterList, runObject$runDir, check = runObject$checkParameters)
   # calling the model
-  #cat("\n\n Call LPJ")
+  #message("\n\n Call LPJ")
   callLPJ(runObject$mainDir, runObject$runDir,runObject$template2, runObject$mode)
   # getting data
-  #cat("\n\n GetData")
+  #message("\n\n GetData")
   LPJout <- getLPJData(runObject$outDir, runObject$typeList, runObject,
                      runObject$processing)
                     #, runObject$fun)
@@ -120,7 +120,7 @@ runLPJWrapper <- function(runObject){
 
   #  # Calculate additional outputs
   #  if (!is.null(runObject[["fun"]])){
-  #    cat("\n Apllying own functions")
+  #    message("\n Apllying own functions")
   #    LPJout <- applyFun(LPJout, fun)
   #  }
 
@@ -129,7 +129,7 @@ runLPJWrapper <- function(runObject){
              outDir = runObject$outDir, save.plots = runObject$save.plots,
              prefix = paste("run",runObject$runID, "_", sep=""))
   }
-  cat(paste("\nFinished run ", runObject$runID,  "\n", sep = ""))
+  message(paste("\nFinished run ", runObject$runID,  "\n", sep = ""))
   #----------------------------------------------------------------------------#
   # END
   #----------------------------------------------------------------------------#

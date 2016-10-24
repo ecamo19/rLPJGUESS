@@ -16,10 +16,10 @@
 exitMPI <- function(){
   if (is.loaded("mpi_initialize")){
     if (Rmpi::mpi.comm.size(comm =1) > 1){
-      cat("\nPlease use mpi.close.Rslaves() to close slaves")
+      message("Please use mpi.close.Rslaves() to close slaves")
       Rmpi::mpi.close.Rslaves(comm=1, dellog = FALSE)
     }
   }
-  print("\nPlease use mpi.quit() to quit R")
+  message("Please use mpi.quit() to quit R")
   Rmpi::mpi.finalize() # Dont need to specify type
 }

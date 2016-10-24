@@ -80,16 +80,16 @@ setMethod("[",
 setMethod("[<-",
           signature(x="LPJData", i='character', j="ANY"),
           definition = function(x, i, j, ... ) {
-           # if(i=="runInfo"){
-          #    x@runInfo <- value
-          #    return(x)
-          #  }else if(i=="dataTypes"){
-          #    x@dataTypes <- value
-          #    return(x)
-          #  }else{
-              x@dataTypes[[i]] <- value
+          if(i=="runInfo"){
+              x@runInfo <- value
               return(x)
-          #  }
+          }else if(i=="dataTypes"){
+              x@dataTypes <- value
+              return(x)
+          }else{
+              x@dataTypes[i] <- value
+              return(x)
+            }
           }
 )
 
