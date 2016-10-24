@@ -47,6 +47,6 @@ callLPJ <- function(mainDir, runDir , template2, mode){
   }
   # here I try-catch?
   message("Calling LPJ-GUESS\n")
-  message(submits)
+  message(submit)
   try(system (submit, intern = TRUE), FALSE)
 }
