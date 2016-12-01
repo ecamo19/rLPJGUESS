@@ -13,8 +13,11 @@ createSingleObject <- function(mainDir, typeList, settings){
   defaultSettings <- list(gridList= NULL, scale = NULL, mode = NULL,
                         file.co2 = NULL, file.cru = NULL, file.cru.misc = NULL,
                         file.ndep= NULL, file.temp = NULL, file.prec = NULL,
-                        file.insol = NULL, template1 = NULL, template2=NULL,
-                        plot.data = FALSE, save.plots = FALSE, processing = FALSE,
+                        file.insol = NULL, file.wetdays = NULL, file.minTemp = NULL,
+                        file.maxTemp = NULL, variable.ndep= NULL, variable.temp = NULL,
+                        variable.prec = NULL, variable.insol = NULL, variable.wetdays = NULL,
+                        variable.minTemp = NULL, variable.maxTemp = NULL, template1 = NULL,
+                        template2=NULL, plot.data = FALSE, save.plots = FALSE, processing = FALSE,
                         delete = TRUE, save= TRUE, runID = "", parallel = "auto",
                         checkParameters = "serial", design = NULL)
   #, fun = NULL) # This would be to allow havin own functions in parallel.
@@ -31,8 +34,8 @@ createSingleObject <- function(mainDir, typeList, settings){
   }
   if (is.null(typeList) || !class(typeList) == "character"){
     settings$typeList <-  typelist.default
-    message("\n\nOutput typeList has not been provided")
-    message("\nSetting typeList to default values")
+    message("Output typeList has not been provided")
+    message("Setting typeList to default values")
   }else{
     settings$typeList <- typeList
   }
@@ -61,8 +64,8 @@ createSingleObject <- function(mainDir, typeList, settings){
   if (is.null(settings[["template1"]])){
     # writing out template and storing name
     settings$template1 <- getTemplate (settings[["scale"]], outputDir = mainDir)
-    message("\n\nUsing package template (template 1)")
-    message("\nSaving package template in the mainDir")
+    message("Using package template (template 1)")
+    message("Saving package template in the mainDir")
   }else if (!file.exists(file.path(mainDir, settings[["template1"]]))){
     warning ("The provided template (template1) does not exist")
     stop("Please provide a valid template name")
@@ -72,8 +75,8 @@ createSingleObject <- function(mainDir, typeList, settings){
     # writing out template and storing name
     settings$template2 <- getTemplate (type = paste(settings[["scale"]],"_", settings[["mode"]], sep = ""),
                                        outputDir = mainDir)
-    message("\n\nUsing package template (template 2)")
-    message("\nSaving package template in the mainDir")
+    message("Using package template (template 2)")
+    message("Saving package template in the mainDir")
   }else if (!file.exists(file.path(mainDir, settings[["template2"]]))){
     warning ("The provided template (template2) does not exist")
     stop("Please provide a valid template name")
@@ -89,16 +92,31 @@ createSingleObject <- function(mainDir, typeList, settings){
   files.names <- names(files.default)
   for (i in 1:length(files.names)){
     if (is.null(files[[files.names[i]]])){
-      stop(paste("The", files.names[i], "has not been provided", sep = " "))
+      warning(paste("The", files.names[i], "has not been provided", sep = " "))
     }else if(!file.exists(files[[files.names[i]]])){
-      stop(paste("The", files.names[i], "does not exist", sep = " "))
+      warning(paste("The", files.names[i], "does not exist", sep = " "))
     }else{
       files.default[[files.names[i]]][2] <- files[[files.names[i]]]
     }
   }
+  #files.default <- files.default[keep]
+
+  variables <- settings[grepl("variable", names(settings))]
+  variables.default <-   variables.parameters[[settings[["mode"]]]]
+  variables.names <- names(variables.default)
+  for (i in 1:length(variables.names)){
+    if (is.null(variables[[variables.names[i]]])){
+      warning(paste("The", variables.names[i], "has not been provided", sep = " "))
+    }else{
+      variables.default[[variables.names[i]]][2] <- variables[[variables.names[i]]]
+    }
+  }
+  #variables.default <- variables.default[keep]
 
   singleObject <- settings[!grepl("file", names(settings))]
+  singleObject <- singleObject[!grepl("variable", names(singleObject))]
   singleObject$filesNames <- files.default
+  singleObject$variablesNames <- variables.default
   singleObject$mainDir <- mainDir
   singleObject$runInfoDir <-  file.path(singleObject$mainDir,
                                         paste("runInfo",
