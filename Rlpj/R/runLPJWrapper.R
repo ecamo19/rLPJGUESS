@@ -55,7 +55,7 @@ runLPJWrapper <- function(runObject){
   # checking directory existence
   # starting the function itself
   # print out info message
-  message(paste("\n\nStarting run ", runObject$runID,  "\n", sep = ""))
+  message(paste("Starting run ", runObject$runID, sep = ""))
   # set the wd
   previouswd <- getwd()
   setwd(runObject$runDir)
@@ -70,16 +70,32 @@ runLPJWrapper <- function(runObject){
   writeLines(runObject$template1Mem,file.path(runObject$runDir,runObject$template1))
 
   #runObject$template2Mem <- readLines(file.path(runObject$mainDir,runObject$template2))
-  runObject$template2Mem <- sub("path_to_globalTemplate",
+  runObject$template2Mem <- gsub("path_to_globalTemplate",
                                 paste(runObject$runDir, "/", runObject$template1, sep=""),
                                 runObject$template2Mem )
-  runObject$template2Mem  <- sub("path_to_gridlist",
+  runObject$template2Mem  <- gsub("_file_gridlist_",
                                  paste(runObject$runDir,"/", runObject$gridList, sep=""),
                                  runObject$template2Mem )
   for ( j in 1:length(runObject$filesNames)){
-    runObject$template2Mem  <- sub(runObject$filesNames[[j]][1],
-                                   runObject$filesNames[[j]][2],
-                                   runObject$template2Mem)
+    if (is.na(runObject$filesNames[[j]][2])){
+      runObject$template2Mem  <- gsub(paste("\\<",runObject$filesNames[[j]][1], "\\>", sep=""),
+                                      "",runObject$template2Mem)
+    }else{
+      runObject$template2Mem  <- gsub(paste("\\<",runObject$filesNames[[j]][1], "\\>", sep=""),
+                                      runObject$filesNames[[j]][2],
+                                      runObject$template2Mem)
+    }
+  }
+  for ( j in 1:length(runObject$variablesNames)){
+    if (!is.na(runObject$variablesNames[[j]][2])){
+      runObject$template2Mem[grep(paste("\\<",runObject$variablesNames[[j]][1], "\\>", sep=""),
+                                  runObject$template2Mem, value=F)]  <- gsub("! param", "param",
+                                      grep(paste("\\<",runObject$variablesNames[[j]][1], "\\>", sep=""),
+                                           runObject$template2Mem, value=T))
+      runObject$template2Mem  <- gsub(paste("\\<",runObject$variablesNames[[j]][1], "\\>", sep=""),
+                                      runObject$variablesNames[[j]][2],
+                                      runObject$template2Mem)
+    }
   }
 
   writeLines(runObject$template2Mem,file.path(runObject$runDir,runObject$template2))
@@ -129,7 +145,7 @@ runLPJWrapper <- function(runObject){
              outDir = runObject$outDir, save.plots = runObject$save.plots,
              prefix = paste("run",runObject$runID, "_", sep=""))
   }
-  message(paste("\nFinished run ", runObject$runID,  "\n", sep = ""))
+  message(paste("Finished run ", runObject$runID, sep = ""))
   #----------------------------------------------------------------------------#
   # END
   #----------------------------------------------------------------------------#
