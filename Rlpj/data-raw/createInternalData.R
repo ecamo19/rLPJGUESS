@@ -42,19 +42,37 @@ typelist.default <- c("aaet", "agpp", "aiso", "amon", "anpp", "cflux","clitter",
 #       FILES
 #------------------------------------------------------------------------------#
 # default parameters
-files.parameters <- list(cf = NULL, cru = NULL)
-files.parameters$cf <- list(file.co2 = c("path_to_co2", NULL),
-                           file.cru = c("path_to_cru", NULL),
-                           file.cru.misc = c("path_to_cru_misc", NULL),
-                           file.ndep = c("path_to_ndep", NULL),
-                           file.temp = c("path_to_temp", NULL),
-                           file.prec = c("path_to_prec", NULL),
-                           file.insol = c("path_to_rad", NULL))
+files.parameters <- list(cf = NA, cru = NA)
+files.parameters$cf <- list(file.co2 = c("_file_co2_", NA),
+                           file.cru = c("_file_cru_", NA),
+                           file.cru.misc = c("_file_cru_misc_", NA),
+                           file.ndep = c("_file_ndep_", NA),
+                           file.temp = c("_file_temp_", NA),
+                           file.prec = c("_file_prec_", NA),
+                           file.insol = c("_file_insol_", NA),
+                           file.wetdays = c("_file_wetdays_", NA),
+                           file.minTemp = c("_file_min_temp_", NA),
+                           file.maxTemp = c("_file_max_temp_", NA))
 
-files.parameters$cru <- list(file.co2 = c("path_to_co2", NULL),
-                           file.cru = c("path_to_cru", NULL),
-                           file.cru.misc = c("path_to_cru_misc", NULL),
-                           file.ndep = c("path_to_ndep" , NULL))
+files.parameters$cru <- list(file.co2 = c("_file_co2_", NA),
+                           file.cru = c("_file_cru_", NA),
+                           file.cru.misc = c("_file_cru_misc_", NA),
+                           file.ndep = c("_file_ndep_" , NA))
+
+
+variables.parameters <- list(cf = NA, cru = NA)
+variables.parameters$cf <- list(variable.ndep = c("_variable_ndep_", NA),
+                            variable.temp = c("_variable_temp_", NA),
+                            variable.prec = c("_variable_prec_", NA),
+                            variable.insol = c("_variable_insol_", NA),
+                            variable.wetdays = c("_variable_wetdays_", NA),
+                            variable.minTemp = c("variable_min_temp", NA),
+                            variable.maxTemp = c("variable_max_temp", NA))
+
+variables.parameters$cru <- list(variable.co2 = c("_variable_co2_", NA),
+                             variable.cru = c("_variable_cru_", NA),
+                             variable.cru.misc = c("_variable_cru_misc_", NA),
+                             variable.ndep = c("_variable_ndep_" , NA))
 
 
 #------------------------------------------------------------------------------#
@@ -104,7 +122,7 @@ rm(dummyFather)
 # Put the data in the package
 
 
-devtools::use_data(parameterList.default, design.default,
+devtools::use_data(parameterList.default, design.default,variables.parameters,
                    files.parameters, typelist.default, templates,
                    internal = TRUE, overwrite = TRUE)
 
