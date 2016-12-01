@@ -122,10 +122,10 @@ createRunParameters <- function(x, singleRun, parameterList){
   }else if (parallel == "grids"){
     message("Parallelization of grids")
     message("Creating the single run objects")#single run objects\
-    progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
+    #progessBar <- txtProgressBar(min = 0, max = numberRuns, style = 3)
     singleRun$parameterList <- parameterList
     for (i in 1:numberRuns){
-      setTxtProgressBar(progessBar, i)
+      #setTxtProgressBar(progessBar, i)
       singleRun$runID <- i
       singleRun$runDir <- runDir[i]
       singleRun$outDir <- outDir[i]
@@ -133,7 +133,7 @@ createRunParameters <- function(x, singleRun, parameterList){
       singleRun$gridListName <- paste(unlist(strsplit(gridListCell[i], " ")), collapse = "_")
       runParameters[[i]] <- singleRun
     }
-    close(progessBar)
+    #close(progessBar)
   }
   return(runParameters)
 }
