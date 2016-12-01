@@ -32,6 +32,26 @@
 #' precipitation input file
 #' \item file.insol a character string providing the absolute path to the
 #'  insolation input file
+#' \item file.wetdays a character string providing the absolute path to the
+#'  wetdays input file
+#' \item file.minTemp a character string providing the absolute path to the
+#'  minimum temperature input file
+#' \item file.maxTemp a character string providing the absolute path to the
+#'  maximum temperature input file
+#' \item variable.ndep a character string providing the variable name of the
+#' nitrogen deposition input file
+#' \item variable.temp a character string providing the variable name of the
+#' temperature input file
+#' \item variable.prec a character string providing the variable name of the
+#' precipitacion input file
+#' \item variable.insol a character string providing the variable name of the
+#' insolation input file
+#' \item variable.wetdays a character string providing the variable name of the
+#' wetdays input file
+#' \item variable.minTemp a character string providing the variable name of the
+#' minimum temperature input file
+#' \item variable.maxTemp a character string providing the variable name of the
+#' maximum temperature input file
 #' \item template1  character string providing the general model template,
 #'  e.g, global.ins. It must be in the mainDir. Provide only the file name,
 #'   not the path. If not provided, package templates will be used
@@ -248,7 +268,7 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
   #message("\n");message("\n");str(runParameters[[1]])
   # Create cluster
   if (x@clusterType =="SOCK"){
-    message( paste ("\nCreating a", x@clusterType, "cluster with",
+    message( paste ("Creating a", x@clusterType, "cluster with",
                 x@numCores, " cores", sep = " " ))
     cl <-  snow::makeSOCKcluster(x@numCores)
     # Exporting needed data and loading required
@@ -256,7 +276,7 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
     snow::clusterEvalQ(cl, library(Rlpj))
     snow::clusterEvalQ(cl, "runParameters")
     # Distribute calculation: will return values as a list object
-    cat ("\nSending tasks to the cores\n")
+    message ("Sending tasks to the cores")
     # Try catch prevent the package for crashing
     # the implemented try catch in snow is not satisfactory
     #result <- try(snow::clusterMap(cl, runLPJWrapper,  runParameters ), FALSE)
@@ -283,12 +303,12 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
     # needlog avoids fork call
     if(is.loaded ("mpi_initialize")){
       if (Rmpi::mpi.comm.size() < 1 ){
-        message( paste ("\nCreating a", x@clusterType, "cluster with",
+        message( paste ("Creating a", x@clusterType, "cluster with",
                     x@numCores, "cores", sep = " " ))
-        message("\nPlease call exit_mpi at the end of you script")
+        message("Please call exit_mpi at the end of you script")
         Rmpi::mpi.spawn.Rslaves(nslaves = x@numCores, needlog = FALSE)
       }else{
-        message(paste("\nUsing the existing", x@clusterType, "cluster with",
+        message(paste("Using the existing", x@clusterType, "cluster with",
                   x@numCores, " cores", sep = " " ))
       }
     }
