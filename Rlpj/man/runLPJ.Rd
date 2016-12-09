@@ -32,6 +32,26 @@ for europe
 precipitation input file
 \item file.insol a character string providing the absolute path to the
  insolation input file
+\item file.wetdays a character string providing the absolute path to the
+ wetdays input file
+\item file.minTemp a character string providing the absolute path to the
+ minimum temperature input file
+\item file.maxTemp a character string providing the absolute path to the
+ maximum temperature input file
+\item variable.ndep a character string providing the variable name of the
+nitrogen deposition input file
+\item variable.temp a character string providing the variable name of the
+temperature input file
+\item variable.prec a character string providing the variable name of the
+precipitacion input file
+\item variable.insol a character string providing the variable name of the
+insolation input file
+\item variable.wetdays a character string providing the variable name of the
+wetdays input file
+\item variable.minTemp a character string providing the variable name of the
+minimum temperature input file
+\item variable.maxTemp a character string providing the variable name of the
+maximum temperature input file
 \item template1  character string providing the general model template,
  e.g, global.ins. It must be in the mainDir. Provide only the file name,
   not the path. If not provided, package templates will be used
