@@ -23,7 +23,8 @@
 #'
 #' @section III. Utility functions: \itemize{
 #'  \item \code{\link{getTemplate}} To obtain the in-package stored model templates
-#'  \item \code{\link{getParameterList}} To obtain the in-package stored parameter default values
+#'  \item \code{\link{getParameterList}} To obtain the parameter default values
+#'  \item \code{\link{getDesign}} To obtain the default desgin
 #'  \item \code{\link{getTypeList}} To obtain the default output model types
 #'  \item \code{\link{getRunInfo}} To recover data or parameters from the runInfoDir
 #' }
