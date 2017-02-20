@@ -336,6 +336,7 @@ If you have more doubts about the functions, please check the help files.
 files <- list.files(mainDir)
 files <- files[!grepl("grid", files)]
 files <- files[!grepl("example", files)]
+files <- files[!grepl("LPJParameters_calibrate", files)]
 unlink(file.path(mainDir, files), recursive = TRUE)
 #do.call(file.remove,list( grep("runDirectory",list.files(mainDir) )) )
 ```
