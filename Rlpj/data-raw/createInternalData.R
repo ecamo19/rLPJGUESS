@@ -61,8 +61,7 @@ files.parameters$cru <- list(file.co2 = c("_file_co2_", NA),
 
 
 variables.parameters <- list(cf = NA, cru = NA)
-variables.parameters$cf <- list(variable.ndep = c("_variable_ndep_", NA),
-                            variable.temp = c("_variable_temp_", NA),
+variables.parameters$cf <- list(variable.temp = c("_variable_temp_", NA),
                             variable.prec = c("_variable_prec_", NA),
                             variable.insol = c("_variable_insol_", NA),
                             variable.wetdays = c("_variable_wetdays_", NA),
