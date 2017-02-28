@@ -10,10 +10,18 @@ file.cru <- "/home/trashtos/GitHub/lpjRun/crudata/cru_1901_2006.bin"
 file.cru.misc <- "/home/trashtos/GitHub/lpjRun/crudata/cru_1901_2006misc.bin"
 file.ndep <- "/home/trashtos/GitHub/lpjRun/crudata/GlobalNitrogenDeposition.bin"
 
+
+
+
 # if you are using the global_cf.ins file you neet to specify the site specific input files as well
 file.temp <- "/home/trashtos/GitHub/lpjRun/inputLPJ/temp.nc"
 file.prec <- "/home/trashtos/GitHub/lpjRun/inputLPJ/prec.nc"
 file.insol <- "/home/trashtos/GitHub/lpjRun/inputLPJ/rad.nc"
+variable.temp <- "temp"
+variable.prec <-"prec"
+variable.insol <- "rad"
+
+
 mainDir <- "/home/trashtos/GitHub/lpjRun"
 gridList <- "gridlist_geb.txt"
 
@@ -22,19 +30,28 @@ do.call(file.remove, list(toremove))
 settings <- list (gridList = gridList,mode = "cf", scale = "europe",
                   file.co2 = file.co2, file.cru = file.cru, file.cru.misc = file.cru.misc,
                   file.ndep = file.ndep, file.temp = file.temp, file.prec = file.prec,
-                  file.insol = file.insol, delete = F, plot.data =TRUE,
+                  file.insol = file.insol, variable.temp = variable.temp, variable.prec = variable.prec,
+                  variable.insol = variable.insol,save = F, delete = F, plot.data =TRUE,
                   save.plots=F, processing = F)
+
                   #, fun ="met")
 #-------------------------------------------------------------------------------#
 #         SERIAL
 #-------------------------------------------------------------------------------#
+result <-   runLPJ(mainDir, settings= settings)
+result <-   try(runLPJ(mainDir, settings= settings), silent = T)
+
+suppressMessages(result <-   runLPJ(mainDir, settings= settings))
+print(result)
+
+settings$save <- F
 result <-   runLPJ(mainDir, settings= settings)
 
 settings$mode  <- "cru"
 result <-   runLPJ(mainDir, settings= settings)
 
 settings$mode  <- "cf"
-design <- getDesign("europe")
+design <- getDesign("europe", list = T)
 design <- design[1:4]
 
 
@@ -50,20 +67,12 @@ result <-   runLPJ(mainDir, settings= settings, parameterList = parameterList)
 settings$design <- NULL
 result <-   runLPJ(mainDir, settings= settings)
 
-settings <- list (gridList = gridList,mode = "cru", scale = "europe",
-                  file.co2 = file.co2, file.cru = file.cru, file.cru.misc = file.cru.misc,
-                  file.ndep = file.ndep, file.temp = file.temp, file.prec = file.prec,
-                  file.insol = file.insol, delete = T, plot.data =TRUE,
-                  save.plots=F, processing = F)
-
-result <-   runLPJ(mainDir, settings= settings)
-
-design <- getDesign("europe")
+design <- getDesign("europe", list =T)
 design <- design[{1:4}]
 
 design$run_nyear_spinup  <- 410
 settings$design <- design
-result <-   runLPJ(mainDir, settings= settings)
+result <-  runLPJ(mainDir, settings= settings)
 
 #, fun ="met")
 
@@ -88,6 +97,7 @@ settings$plot.data <- F
 # Create some paramaters to test modell.
 # Number of runs is proportional to number of parameter set you are testing
 parameterDefault <- list (Que_rob_gdd5min_est=NULL)
+#parameterDefault <- getParameterList("europe", list = T)
 # I want to test 6 different values for emax.
 # I want therefore to run 20 time the LPJ
 par <- seq(500, 3000, len = 3)
@@ -107,8 +117,8 @@ result <-   runLPJ(mySetup,  settings= settings, parameterList = parameterList)
 proc.time() - proc1
 
 
-parameterList <- as.matrix(unlist(parameterList))
-colnames(parameterList) <- rownames(parameterList)[1]
+parameterList <- as.matrix(par)
+colnames(parameterList) <- "Que_rob_gdd5min_est"
 rownames(parameterList) <- NULL
 
 
