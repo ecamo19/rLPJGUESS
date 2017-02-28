@@ -38,8 +38,6 @@
 #'  minimum temperature input file
 #' \item file.maxTemp a character string providing the absolute path to the
 #'  maximum temperature input file
-#' \item variable.ndep a character string providing the variable name of the
-#' nitrogen deposition input file
 #' \item variable.temp a character string providing the variable name of the
 #' temperature input file
 #' \item variable.prec a character string providing the variable name of the
