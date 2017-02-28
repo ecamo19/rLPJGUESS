@@ -14,7 +14,7 @@ createSingleObject <- function(mainDir, typeList, settings){
                         file.co2 = NULL, file.cru = NULL, file.cru.misc = NULL,
                         file.ndep= NULL, file.temp = NULL, file.prec = NULL,
                         file.insol = NULL, file.wetdays = NULL, file.minTemp = NULL,
-                        file.maxTemp = NULL, variable.ndep= NULL, variable.temp = NULL,
+                        file.maxTemp = NULL, variable.temp = NULL,
                         variable.prec = NULL, variable.insol = NULL, variable.wetdays = NULL,
                         variable.minTemp = NULL, variable.maxTemp = NULL, template1 = NULL,
                         template2=NULL, plot.data = FALSE, save.plots = FALSE, processing = FALSE,
