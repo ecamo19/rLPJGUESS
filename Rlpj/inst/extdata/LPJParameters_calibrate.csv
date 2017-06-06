@@ -47,7 +47,7 @@ Fag_syl_sla,fixed,Specific leaf area (m2/kgC),24.3,,,,,Not if proportional to lo
 Fag_syl_gmin,calibrate,Canopy conductance not assoc with photosynthesis (mm/s),0.5,0,1,0.42,0.58,0.5,,,0.5,0.22/0.42,0.38/0-58,0.3/0.5,0.2,0.8,0.5,0.35,0.65,arbitrary,Zaehle and Stich 2005; Pappas et al. 2013,
 Fag_syl_fnstorage,calibrate,Fraction of sapwood (root for herbaceous pfts) that can be used as a nitrogen longterm storage scalar,0.15,0,1,,,,,,,,,,0.01,0.5,0.15,0.0875,0.2125,arbitrary,,
 Fag_syl_phengdd5ramp,calibrate,GDD on 5 deg C base to attain full leaf cover,200,,,,,,,,200,,,,100,300,200,149.975,250.025,default,,
-Fag_syl_tcmin_surv,calibrate,Min 20-year coldest month mean temp for survival (deg C),-3.5,,,,,,,,-18,,,,-1,-6,-4,-5.0025,-2.9975,arbitrary,,
+Fag_syl_tcmin_surv,calibrate,Min 20-year coldest month mean temp for survival (deg C),-3.5,,,,,,,,-18,,,,-6,-1,-4,-5.0025,-2.9975,arbitrary,,
 Fag_syl_tcmin_est,calibrate,Min 20-year coldest month mean temp for establishment (deg C),-3.5,,,,,,,,,,,,-6,-1,-3.5,-4.4,-2.6,arbitrary,,
 Fag_syl_tcmax_est,calibrate,Max 20-year coldest month mean temp for establishment (deg C),6,,,,,,,,,,,,3,9,6,4.475,7.525,arbitrary,,
 Fag_syl_twmin_est,calibrate,Min warmest month mean temp for establishment (deg C),5,,,,,,,,,,,,2,8,5,3.725,6.275,arbitrary,,

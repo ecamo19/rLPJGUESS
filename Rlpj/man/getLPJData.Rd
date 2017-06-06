@@ -42,10 +42,9 @@ LPJout <- getLPJData( typeList = c("aaet",  "cflux","lai", "nflux"),
           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
 }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \seealso{
 \linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 }
-
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
+}

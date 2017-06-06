@@ -36,4 +36,3 @@ callLPJ("/home/LPJrun", "/home/LPJrun/runDirectory1", "global_cru.ins")
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \keyword{Rlpj}
-
