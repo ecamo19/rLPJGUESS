@@ -591,7 +591,7 @@ europe,parameter,Fag_syl_sla,24.3
 europe,parameter,Fag_syl_gmin,0.5
 europe,parameter,Fag_syl_fnstorage,0.15
 europe,parameter,Fag_syl_phengdd5ramp,200
-europe,parameter,Fag_syl_tcmin_surv,-3.5
+europe,parameter,Fag_syl_tcmin_surv,-4.0
 europe,parameter,Fag_syl_tcmin_est,-3.5
 europe,parameter,Fag_syl_tcmax_est,6
 europe,parameter,Fag_syl_twmin_est,5
