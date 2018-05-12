@@ -4,7 +4,7 @@ A R package that wraps the LPJ-GUESS model
 
 #### Installing Rlpj
 
-It is highly recommended to install the "zoo" package before installing Rlpj, in order to facilitate the handling of the results. Moreover, Rpj relies on two packages for parallelization:
+It is highly recommended to install the "zoo" package before installing Rlpj, in order to facilitate the handling of the results. Moreover, Rlpj relies on two packages for parallelization:
 
 - snow (for SOCK cluster, if you use PC/laptop)
 - Rmpi (for MPI clusters)
