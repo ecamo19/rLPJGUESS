@@ -1,3 +1,6 @@
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Build Status](https://travis-ci.org/biometry/RLPJ.svg?branch=master)](https://travis-ci.org/biometry/RLPJ)
+
 # Rlpj
 
 A R package that wraps the LPJ-GUESS model
@@ -29,7 +32,19 @@ install_url("https://github.com/biometry/RLPJ/releases/download/v0.1.3/Rlpj_0.1.
 library(Rlpj)
 ?Rlpj
 ```
-You may want to check if the link above is really the latest stable realease. 
+
+### Development release 
+
+If you want to install the current (development) version from this repository, run
+
+```{r}
+devtools::install_github(repo = "biometry/RLPJ", subdir = "Rlpj", 
+dependencies = T, build_vignettes = T)
+```
+Below the status of the automatic Travis CI tests on the master branch 
+
+[![Build Status](https://travis-ci.org/biometry/RLPJ.svg?branch=master)](https://travis-ci.org/biometry/RLPJ)
+
 
 #### Build the package yourself 
 
