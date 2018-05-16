@@ -13,6 +13,10 @@ sudo: false
 # We also need sudo for r_binary_packages listed below.
 # sudo: required
 
+env:
+  global:
+    - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
 # This only works if sudo = false.
 cache: packages
 
