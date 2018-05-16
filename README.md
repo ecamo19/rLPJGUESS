@@ -28,7 +28,8 @@ Or you can install it directly from the download link
 
 ```{r}
 library(devtools)
-install_url("https://github.com/biometry/RLPJ/releases/download/v0.1.3/Rlpj_0.1.3.tar.gz")
+install_url("https://github.com/biometry/RLPJ/releases/download/v0.1.3/Rlpj_0.1.3.tar.gz", 
+dependencies = T, build_vignettes = T)
 library(Rlpj)
 ?Rlpj
 ```
