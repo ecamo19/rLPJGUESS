@@ -3,17 +3,7 @@
 
 # Rlpj
 
-A R package that wraps the LPJ-GUESS model
-
-### Installing Rlpj
-
-Rlpj depends on the "zoo" package, in order to facilitate the handling of the results. Moreover, Rlpj relies on two additional packages for parallelization:
-
-- snow (for SOCK cluster, if you use PC/laptop)
-- Rmpi (for MPI clusters)
-
-Rlpj depends on package "snow". Installing "Rmpi" might be complicated, and it is not strictly required: If you are thinking of using Rlpj on a laptop or workstation, you will be dealing with SOCK clusters and you do not need Rmpi.
-
+A R package that wraps the [LPJ-GUESS model](http://iis4.nateko.lu.se/lpj-guess/)
 
 ### Recommended installation
 
@@ -33,6 +23,13 @@ dependencies = T, build_vignettes = T)
 library(Rlpj)
 ?Rlpj
 ```
+
+**Note**: Rlpj relies on two packages for parallelization:
+
+- snow (for SOCK cluster, if you use PC/laptop)
+- Rmpi (for MPI clusters)
+
+Installing "Rmpi" might be complicated, and it is not strictly required: If you are thinking of using Rlpj on a laptop or workstation, you will be dealing with SOCK clusters and you do not need Rmpi.
 
 ### Development release 
 
