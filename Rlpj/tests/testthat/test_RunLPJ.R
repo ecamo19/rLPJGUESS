@@ -1,10 +1,20 @@
-
 context("Test basic")
-
-
 set.seed(1)
-
 library(Rlpj)
+
+
+# Here place all the general test that don't require to evaluate the model code
+
+
+test_that("runLPJ Tests - general", {
+  #result <-   runLPJ(mainDir, settings= settings)
+  #outputTypes <- names(result["dataTypes"])
+  # runtests
+  #checkOutputsTypes(outputTypes)
+
+})
+
+
 # We need to specify the path of each input file inside the mainDir:
 file.co2<-"/home/trashtos/GitHub/lpjRun/crudata/co2_1901-2013_FAKE.txt"
 file.cru <- "/home/trashtos/GitHub/lpjRun/crudata/cru_1901_2006.bin"
@@ -36,12 +46,20 @@ checkOutputsTypes <- function(outputTypes){
   expect_false(length(defaultTypes[!defaultTypes %in% outputTypes]) > 0)
 }
 
-# Test whether not passing outputTypes returns all outputTypes
-# And the are not empty
-test_that("single run returns all outputs", {
-  result <-   runLPJ(mainDir, settings= settings)
-  outputTypes <- names(result["dataTypes"])
+
+test_that("runLPJ Tests - binaries", {
+
+  skip_on_travis()
+
+  skip_on_cran()
+
+  #result <-   runLPJ(mainDir, settings= settings)
+  #outputTypes <- names(result["dataTypes"])
   # runtests
-  checkOutputsTypes(outputTypes)
+  #checkOutputsTypes(outputTypes)
 
 })
+
+
+
+
