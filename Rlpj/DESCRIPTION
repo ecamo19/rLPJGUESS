@@ -14,8 +14,9 @@ Imports:
 Suggests:
     knitr,
     Rmpi,
-    rmarkdown
-License: file LICENSE
+    rmarkdown,
+    testthat
+License: GPL-3
 LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
