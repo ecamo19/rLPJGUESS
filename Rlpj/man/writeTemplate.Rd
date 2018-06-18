@@ -40,17 +40,17 @@ a self edited template. The function assumes a specific coding for writing the
 parameters values. For this reason, we recommend to use the package templates.
 If using self edited templates, please take the package templates as a reference.
 }
-
 \examples{
 \dontrun{
 writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
               "/home/lpjRun/runDirectory1")
 }
 }
-\seealso{
-\code{\link{getTemplate}}, \code{\link{getParameterList}}
-}
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig,
 }
+\seealso{
+\code{\link{getTemplate}}, \code{\link{getParameterList}}
+}
 \keyword{Rlpj}
+

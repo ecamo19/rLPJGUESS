@@ -21,10 +21,11 @@ package manual for futher advise on using mpi.finalize and mpi.quit.
 exitMPI()
  }
 }
-\seealso{
-\url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf}
-}
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
+\seealso{
+\url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf}
+}
 \keyword{Rlpj}
+

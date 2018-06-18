@@ -114,7 +114,6 @@ a self edited templates. The function assumes a specific coding for writing the
 parameters values. For this reason, we recommend to use the package templates.
 If using self edited templates, please take the package templates as a reference (\code{\link{getTemplate}})
 }
-
 \examples{
 \dontrun{
 
@@ -188,13 +187,14 @@ str(result,1)
 
  }
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
+}
 \seealso{
 \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
  \url{https://cran.r-project.org/web/packages/snow/snow.pdf},
  \code{\link{setupLPJParallel}}, \code{\link{exitMPI}}, \linkS4class{LPJData},
  \linkS4class{LPJSetup}
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \keyword{Rlpj}
+

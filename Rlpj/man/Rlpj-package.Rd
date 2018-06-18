@@ -2,8 +2,8 @@
 % Please edit documentation in R/Rlpj-package.R
 \docType{package}
 \name{Rlpj-package}
-\alias{Rlpj}
-\alias{Rlpj-package}
+\alias{rLPJGUESS}
+\alias{rLPJGUESS-package}
 \title{Overview of the functions in the Rlpj package}
 \description{
 The RLPJ package provides functions to run LPJ-GUESS within R.
@@ -49,10 +49,10 @@ information and some examples   (you can open it by running this command:
 
 }
 }
-
 \author{
 Except where indicated otherwise, the functions in this package were
  written by Ramiro Silveyra Gonzalez, Maurizio Bagnara and Florian Hartig
 }
 \keyword{LPJ-Guess}
 \keyword{package}
+
