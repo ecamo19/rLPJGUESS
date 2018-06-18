@@ -4,7 +4,7 @@
 # @param userParallel user parallel request
 # @param number of grids
 # @param parameters number of parameter combinations
-# @keywords Rlpj
+# @keywords rLPJGUESS
 # @author Ramiro Silveyra Gonzalez
 # @examples \dontrun{
 # parameterList <- list(run_emax = 4, run_lambda_max = 1)

@@ -12,7 +12,7 @@
 #' @return plots for data types included in typeList. The grid cells will be plotted independently
 #' @seealso \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 #' @export
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @examples \dontrun{
 #' plotLPJData(data, typeList = c("aaet", "lai"),

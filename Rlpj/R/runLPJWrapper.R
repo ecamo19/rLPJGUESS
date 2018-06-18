@@ -9,7 +9,7 @@
 # @return a a data class object with the slots runInfo and dataTypes. The runInfo
 # slot contains the provided run information and parameters; the dataTypes holds
 # the processed output data from the run.
-# @keywords Rlpj
+# @keywords rLPJGUESS
 # @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 # @note Based an older code of Istem Fer, Uni Potsdam
 # @examples \dontrun{

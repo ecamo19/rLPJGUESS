@@ -6,7 +6,7 @@
 #' @param x a character string indicating path to the output files
 #' @param typeList  a character vector with the outputs to be analyzed.
 #'  Default value is all
-#' @param runInfo a named list with the information of the LPJ run
+#' @param runInfo a named list with the information of the LPJ-GUESS run
 #' The runInfo it will be stored by the function as RData along with
 #' the processed outputs of the model (optional)
 #' @param processing a boolean indicating whether output files will be turned

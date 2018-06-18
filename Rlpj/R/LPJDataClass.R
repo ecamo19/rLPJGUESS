@@ -7,7 +7,7 @@
 #' \item  runInfo contains a list with the information used to run the model such as templates and parameters
 #' \item  dataTypes contains a list with the model outputs
 #' }
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @export
 #' @author Ramiro Silveyra Gonzalez
 setClass("LPJData",

@@ -15,7 +15,7 @@
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
 #' @export
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @examples \dontrun{
 #' mainDir <- "/some/absolute/path/mainDir"

@@ -8,7 +8,7 @@
 # @param dlon longitudinal extent
 # @param ellipse TRUE (polar and equatorial radius differ) or
 # FALSE (default, polar and equatorial radius are the same)
-# @keywords RLpj
+# @keywords rLPJGUESS
 # @return Returns the area in square meters along a vetor of latitudes by equal
 #  longitude distance. Vector of gridcell area is m^2
 # @note Based on an older code of Joerg Steinkamp

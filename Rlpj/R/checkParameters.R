@@ -9,7 +9,7 @@
 # @param type serial, parallel
 # In this case, parameterList is a vector of names.
 # @return a named list holding the values of the template parameter.
-# @keywords Rlpj
+# @keywords rLPJGUESS
 # @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 # @examples \dontrun{
 # parameterList <- list(run_emax = 4, run_lambda_max = 1)

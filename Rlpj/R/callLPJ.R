@@ -8,7 +8,7 @@
 #'  If not provided, package templates will be used
 #' @param mode a character string indicating whether using cru or cf data
 #' @return none
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @export
 #' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @note Based an older code of Istem Fer, Uni Potsdam

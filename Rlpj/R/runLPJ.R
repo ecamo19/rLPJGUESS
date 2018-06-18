@@ -97,7 +97,7 @@
 #'  \code{\link{setupLPJParallel}}, \code{\link{exitMPI}}, \linkS4class{LPJData},
 #'  \linkS4class{LPJSetup}
 #' @export
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @examples \dontrun{
 #'
@@ -161,12 +161,12 @@
 #' result <- runLPJ(mySetup, settings= settings, parameterList = parameterList)
 #' str(result,1)
 #'    List of 6
-#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
-#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
-#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
-#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
-#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
-#'    $ :Formal class 'LPJData' [package "Rlpj"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+#'    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
 #'
 #'
 #'  }
@@ -271,7 +271,7 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
     cl <-  snow::makeSOCKcluster(x@numCores)
     # Exporting needed data and loading required
     # packages on workers. --> If daa is loaded firs it can be exporte to all workers
-    snow::clusterEvalQ(cl, library(Rlpj))
+    snow::clusterEvalQ(cl, library(rLPJGUESS))
     snow::clusterEvalQ(cl, "runParameters")
     # Distribute calculation: will return values as a list object
     message ("Sending tasks to the cores")
@@ -313,7 +313,7 @@ runLPJ <-  function(x, settings, typeList=NULL, parameterList=NULL){
     cores <- rep(x@numCores, x@numCores)
     Rmpi::mpi.bcast.Robj2slave(cores)
     Rmpi::mpi.bcast.Robj2slave(runParameters)
-    Rmpi::mpi.bcast.cmd(library(Rlpj))
+    Rmpi::mpi.bcast.cmd(library(rLPJGUESS))
   # try-catch does not help in mpi. Rmpi hanldes itself
    # result <- try( Rmpi::mpi.parSapply(cores, MPISapply, runParameters = runParameters), FALSE)
    # if ('try-error' %in% class(result)){

@@ -5,7 +5,7 @@
 #' @param outputDir a character string indicating path to the output directory  (optional)
 #' @return a template object or template.ins file in the specified folder
 #' @export
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @examples \dontrun{
 #' template <- getTemplate("global.ins")

@@ -1,4 +1,4 @@
-#' @title A writing template function for LPJ
+#' @title A writing template function for LPJ-GUESS
 #' @description  This function reads a template, and replaces parameters with the
 #' provides parameters list. If no parameter values are provided, the function will
 #' set them to the default values. The function assumes that a copy of the template
@@ -19,7 +19,7 @@
 #' other options are handled internally in the parallelization.
 #' @seealso \code{\link{getTemplate}}, \code{\link{getParameterList}}
 #' @export
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig,
 #' @note Based an older code of Istem Fer, Uni Potsdam
 #' @examples \dontrun{

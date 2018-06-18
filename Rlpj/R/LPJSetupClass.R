@@ -14,7 +14,7 @@
 #' \item  outDir a character string indicating the path to the directory where
 #'  the model outputs will be saved
 #' }
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @export
 #' @author Ramiro Silveyra Gonzalez
 setClass("LPJSetup",

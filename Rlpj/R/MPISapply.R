@@ -1,4 +1,4 @@
-# @title The function to run the LPJ in parallel
+# @title The function to run the LPJ_GUESS in parallel
 # @description This function tells each core which are its tasks and makes the
 # core run the runLPJwrapper on them using sapply
 # @param numcores a integer specifying number of cores of the cluster

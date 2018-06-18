@@ -6,7 +6,7 @@
 # @param scale a character string indicating whether the model runs global or for europe.
 # @param design a named list or matrix holding the design
 # @return a named list holding the designr.
-# @keywords Rlpj
+# @keywords rLPJGUESS
 # @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 # @examples \dontrun{
 #

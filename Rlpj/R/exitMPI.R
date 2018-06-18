@@ -2,7 +2,7 @@
 #' @description This function will close slaves and finalize mpi.
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf}
 #' @export
-#' @keywords Rlpj
+#' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @details The exitMPI should be use when working on MPI clusters. It must be
 #' called at the end of you script. Be aware that when mpi is exited, it will be
