@@ -1,10 +1,11 @@
-Package: Rlpj
+Package: rLPJGUESS
 Title: A R package that wraps the LPJ-GUESS 3.1 model
 Version: 1.0.1
 Authors@R: c(person("Florian", "Hartig", , "florian.hartig@biom.uni-freiburg.de", role = c("aut")),
             person("Maurizio", "Bagnara", , "maurizio.bagnara@biom.uni-freiburg.de", role = c("aut", "cre")),
             person("Ramiro", "Silveyra Gonzalez", , "rasilgon@gmail.com", role = c("aut")))
-Description: The RLPJ package provides functions to run LPJ-Guess within R. It also allows to parallelize the model execution on personal laptops and on HPC.
+Description: The RLPJ package provides functions to run LPJ-Guess within R. It
+    also allows to parallelize the model execution on personal laptops and on HPC.
 Depends:
     R (>= 3.1.0)
 Imports:
@@ -19,4 +20,4 @@ Suggests:
 License: GPL-3
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 5.0.1
