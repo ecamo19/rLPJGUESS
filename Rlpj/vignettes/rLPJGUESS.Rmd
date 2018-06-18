@@ -1,11 +1,11 @@
 ---
-title: "Rlpj Package"
+title: "rLPJGUESS Package"
 author: "Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Rlpj Package}
+  %\VignetteIndexEntry{rLPJGUESS Package}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -68,7 +68,7 @@ Lets choose a mainDir and have a look at it. Remember that the mainDir should co
 # clearing local environment
 rm(list=ls())
 # Loading the library
-library(Rlpj)
+library(rLPJGUESS)
 
 # The main dir in this case is within the package
 mainDir <- system.file("extdata", package = "Rlpj")
