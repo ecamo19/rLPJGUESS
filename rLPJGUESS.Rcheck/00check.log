@@ -1,0 +1,9 @@
+* using log directory ‘/home/ramiro/Github/RLPJ/rLPJGUESS.Rcheck’
+* using R version 3.3.2 (2016-10-31)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘rLPJGUESS/DESCRIPTION’ ... OK
+* this is package ‘rLPJGUESS’ version ‘1.1.0’
+* checking package namespace information ... OK
+* checking package dependencies ...
