@@ -4,7 +4,7 @@ Version: 1.1.0
 Authors@R: c(person("Florian", "Hartig", , "florian.hartig@biom.uni-freiburg.de", role = c("aut")),
             person("Maurizio", "Bagnara", , "maurizio.bagnara@biom.uni-freiburg.de", role = c("aut", "cre")),
             person("Ramiro", "Silveyra Gonzalez", , "rasilgon@gmail.com", role = c("aut")))
-Description: The RLPJ package provides functions to run LPJ-Guess within R. It
+Description: The rLPJGUESS package provides functions to run LPJ-GUESS within R. It
     also allows to parallelize the model execution on personal laptops and on HPC.
 Depends:
     R (>= 3.1.0)
