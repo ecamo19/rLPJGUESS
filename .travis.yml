@@ -1,5 +1,5 @@
 before_install:
- - cd Rlpj
+ - cd rLPJGUESS
 
 language: r
 
