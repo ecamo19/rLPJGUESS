@@ -1,5 +1,5 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Build Status](https://travis-ci.org/biometry/RLPJ.svg?branch=master)](https://travis-ci.org/biometry/RLPJ)
+[![Build Status](https://travis-ci.org/biometry/rLPJGUESS.svg?branch=master)](https://travis-ci.org/biometry/rLPJGUESS)
 
 # rLPJGUESS
 
@@ -41,7 +41,7 @@ dependencies = T, build_vignettes = T)
 ```
 Below the status of the automatic Travis CI tests on the master branch 
 
-[![Build Status](https://travis-ci.org/biometry/RLPJ.svg?branch=master)](https://travis-ci.org/biometry/RLPJ)
+[![Build Status](https://travis-ci.org/biometry/rLPJGUESS.svg?branch=master)](https://travis-ci.org/biometry/rLPJGUESS)
 
 
 ### Build the package yourself 
