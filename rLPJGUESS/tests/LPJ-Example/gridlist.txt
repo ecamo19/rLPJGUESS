@@ -1,0 +1,2 @@
+! grid_ID  Location(spaces are ok)
+0	Erfurt
