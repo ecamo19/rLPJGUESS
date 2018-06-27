@@ -34,11 +34,10 @@ plotLPJData(data, typeList = c("aaet", "lai"),
  outDir = "/runDir/outDir", save.plots = FALSE)
 }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \seealso{
 \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
+}
 \keyword{rLPJGUESS}
-

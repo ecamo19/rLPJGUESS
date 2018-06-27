@@ -28,4 +28,3 @@ Extract parts of LPJData
 
 Extract parts of LPJSetup
 }
-

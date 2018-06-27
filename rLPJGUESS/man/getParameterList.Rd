@@ -27,4 +27,3 @@ parameterList <- getParameterList("global")
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara
 }
-

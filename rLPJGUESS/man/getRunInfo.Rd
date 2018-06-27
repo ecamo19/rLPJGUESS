@@ -34,4 +34,3 @@ parameters <- getRunInfo(result, parameters =T)
 \author{
 Ramiro Silveyra Gonzalez
 }
-

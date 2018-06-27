@@ -28,4 +28,3 @@ getTemplate("global.ins", "/home/LPJTemplates/")
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \keyword{rLPJGUESS}
-
