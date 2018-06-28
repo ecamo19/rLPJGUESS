@@ -1,4 +1,4 @@
-﻿[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/biometry/rLPJGUESS.svg?branch=master)](https://travis-ci.org/biometry/rLPJGUESS)
 
 # rLPJGUESS
@@ -36,7 +36,7 @@ Installing "Rmpi" might be complicated, and it is not strictly required: If you 
 If you want to install the current (development) version from this repository, run
 
 ```{r}
-devtools::install_github(repo = "biometry/RLPJ", subdir = "rLPJGUESS", 
+devtools::install_github(repo = "biometry/rLPJGUESS", subdir = "rLPJGUESS", 
 dependencies = T, build_vignettes = T)
 ```
 Below the status of the automatic Travis CI tests on the master branch 
