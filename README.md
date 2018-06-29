@@ -7,7 +7,7 @@ A R package that wraps the [LPJ-GUESS model](http://iis4.nateko.lu.se/lpj-guess/
 
 ### Recommended installation
 
-Install the latest stable release from https://github.com/biometry/RLPJ/releases.
+Install the latest stable release from https://github.com/biometry/rLPJGUESS/releases.
 
 You can download the binary and install it as follows
 
