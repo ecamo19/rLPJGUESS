@@ -3,20 +3,6 @@ set.seed(1)
 library(rLPJGUESS)
 
 
-
-
-checkSetupObject <- function(setupObject, numCores, mainDir, clusterType){
-  # Test if setupLPJParallel returns the setup object as requested
-  # Test the class
-  testthat::expect_true(class(setupObject)=="LPJSetup")
-  # Test the attributes
-  testthat::expect_true(setupObject["clusterType"]==clusterType)
-  testthat::expect_true(setupObject["numCores"]==numCores)
-  testthat::expect_true(setupObject["mainDir"]==mainDir)
-
-}
-
-
 testthat::test_that("writeTemplate writes the desired value", {
 
   scale <- "global"
@@ -39,4 +25,8 @@ testthat::test_that("writeTemplate writes the desired value", {
   testthat::expect_false(identical(beforeParameter, afterParameter))
   # desired value should be present
   testthat::expect_true(grepl(parameter$common_emax, afterParameter))
+  # delete template from the folder
+  unlink(file.path(mainDir, paste(scale, ".ins", sep="")), recursive = TRUE)
+
+
 })
