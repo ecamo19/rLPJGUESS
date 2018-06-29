@@ -19,6 +19,7 @@ a template object or template.ins file in the specified folder
 This function returns the LPJ-GUESS templates.
 }
 \examples{
+\dontrun{
 # Get templates as r objects
 template <- getTemplate("global")
 head(template)
@@ -35,8 +36,6 @@ head(template)
 
 
 # Get templates written in a folder
-\dontrun{
-
 getTemplate("global","/home/LPJTemplates/")
 getTemplate("global_cf","/home/LPJTemplates/")
 getTemplate("global_cru","/home/LPJTemplates/")
