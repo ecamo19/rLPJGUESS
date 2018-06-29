@@ -19,7 +19,7 @@ settings <- list (gridList = gridList,mode = "cf", scale = "global",
                file.co2 = file.co2, file.cru = file.cru,
                file.cru.misc = file.cru.misc, file.ndep = file.ndep,
                file.temp = file.temp, file.prec = file.prec,
-               file.insol = file.insol, delete = F)
+               file.insol = file.insol, delete = FALSE)
 
 
 # Single  Run
