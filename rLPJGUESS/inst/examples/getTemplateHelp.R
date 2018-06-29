@@ -1,3 +1,4 @@
+\dontrun{
 # Get templates as r objects
 template <- getTemplate("global")
 head(template)
@@ -14,8 +15,6 @@ head(template)
 
 
 # Get templates written in a folder
-\dontrun{
-
 getTemplate("global","/home/LPJTemplates/")
 getTemplate("global_cf","/home/LPJTemplates/")
 getTemplate("global_cru","/home/LPJTemplates/")
