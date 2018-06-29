@@ -1,0 +1,5 @@
+\dontrun{
+LPJsetup
+
+LPJsetup["numCores"]
+}
