@@ -22,7 +22,15 @@ a S4 class object with five slots
 This is a S4 class object to store the configuration for parallel
 runs to be used by runLPJ.
 }
+\examples{
+\dontrun{
+LPJsetup
+
+LPJsetup["numCores"]
+}
+}
 \author{
 Ramiro Silveyra Gonzalez
 }
 \keyword{rLPJGUESS}
+

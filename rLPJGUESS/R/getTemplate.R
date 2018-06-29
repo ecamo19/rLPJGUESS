@@ -7,10 +7,7 @@
 #' @export
 #' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-#' @examples \dontrun{
-#' template <- getTemplate("global.ins")
-#' getTemplate("global.ins", "/home/LPJTemplates/")
-#' }
+#' @example /inst/examples/getTemplateHelp.R
 getTemplate <- function(type, outputDir = NULL){
   if (is.null(type) || type != "global" & type != "global_cf" & type != "global_cru"
       &  type != "europe" &  type != "europe_cf" &  type != "europe_cru"){

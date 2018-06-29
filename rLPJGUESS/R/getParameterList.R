@@ -7,9 +7,7 @@
 #' @return a list or a matrix with parameter names and their values
 #' @export
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara
-#' @examples \dontrun{
-#' parameterList <- getParameterList("global")
-#' }
+#' @example /inst/examples/getParameterListHelp.R
 getParameterList <- function(scale, list =  TRUE){
   if ( is.null(scale) || scale != "global" & scale != "europe"){
     stop("Please provide a valid scale: global or europe")

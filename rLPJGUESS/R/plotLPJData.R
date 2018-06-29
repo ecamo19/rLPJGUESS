@@ -14,10 +14,7 @@
 #' @export
 #' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-#' @examples \dontrun{
-#' plotLPJData(data, typeList = c("aaet", "lai"),
-#'  outDir = "/runDir/outDir", save.plots = FALSE)
-#' }
+#' @example /inst/examples/plotLPJDataHelp.R
 plotLPJData <- function(x, typeList = NULL, outDir= NULL, save.plots = FALSE, prefix = ""){
 
   # checking input parameters

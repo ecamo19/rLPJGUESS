@@ -22,10 +22,7 @@
 #' @keywords rLPJGUESS
 #' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig,
 #' @note Based an older code of Istem Fer, Uni Potsdam
-#' @examples \dontrun{
-#' writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
-#'               "/home/lpjRun/runDirectory1")
-#' }
+#' @example /inst/examples/writeTemplateHelp.R
 writeTemplate <- function(template1, parameterList, runDir, check = "serial"){
 
   # Checking provided parameters

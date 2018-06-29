@@ -10,9 +10,7 @@
 #' The function is a wrapper of mpi.finalize from the Rmpi package. Check the
 #' package manual for futher advise on using mpi.finalize and mpi.quit.
 #'
-#' @examples \dontrun{
-#' exitMPI()
-#'  }
+#' @example /inst/examples/exitMPIHelp.R
 exitMPI <- function(){
   if (is.loaded("mpi_initialize")){
     if (Rmpi::mpi.comm.size(comm =1) > 1){

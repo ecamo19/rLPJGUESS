@@ -30,14 +30,14 @@ This function reads data from a LPJData object and plots the
 }
 \examples{
 \dontrun{
-plotLPJData(data, typeList = c("aaet", "lai"),
- outDir = "/runDir/outDir", save.plots = FALSE)
+plotLPJData(data, typeList = c("aaet", "lai"), outDir = "/runDir/outDir", save.plots = FALSE)
 }
-}
-\seealso{
-\url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
+\seealso{
+\url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
+}
 \keyword{rLPJGUESS}
+

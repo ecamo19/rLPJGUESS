@@ -14,7 +14,23 @@ a S4 class object with two slots \itemize{
 This is a S4 class object to store both the LPJ-GUESS outputs
 and the information that was passed to LPJ-GUESS.
 }
+\examples{
+\dontrun{
+LPJData
+
+LPJData["dataTypes"]
+
+LPJData["lai"]
+
+
+LPJData["runInfo"]
+
+LPJData["template1"]
+LPJData["template1Mem"]
+}
+}
 \author{
 Ramiro Silveyra Gonzalez
 }
 \keyword{rLPJGUESS}
+

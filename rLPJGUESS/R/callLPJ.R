@@ -12,9 +12,7 @@
 #' @export
 #' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @note Based an older code of Istem Fer, Uni Potsdam
-#' @examples \dontrun{
-#' callLPJ("/home/LPJrun", "/home/LPJrun/runDirectory1", "global_cru.ins")
-#' }
+#' @example /inst/examples/callLPJHelp.R
 callLPJ <- function(mainDir, runDir , template2, mode){
   #----------------------------------------------------------------------------#
   # CHECK INPUTS AND EXIT IF ANY ERROR

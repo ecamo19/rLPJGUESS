@@ -16,6 +16,7 @@
 #' }
 #' @keywords rLPJGUESS
 #' @export
+#' @example /inst/examples/LPJSetupClassHelp.R
 #' @author Ramiro Silveyra Gonzalez
 setClass("LPJSetup",
          representation(

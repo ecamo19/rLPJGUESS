@@ -28,9 +28,9 @@ parameters <- getRunInfo("/some/absolute/path/runInfo_2016_08_11_121507", parame
 
 # recover only the parameters from the result
 parameters <- getRunInfo(result, parameters =T)
-
 }
 }
 \author{
 Ramiro Silveyra Gonzalez
 }
+

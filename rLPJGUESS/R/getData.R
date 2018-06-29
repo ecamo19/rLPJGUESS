@@ -19,10 +19,7 @@
 #' model for one grid cell. For running  LPJ-GUESS for several grid cells, please set
 #' processing to FALSE.
 #' @export
-#' @examples \dontrun{
-#' LPJout <- getLPJData( typeList = c("aaet",  "cflux","lai", "nflux"),
-#'           "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
-#' }
+#' @example /inst/examples/getDataHelp.R
 getLPJData <- function(x, typeList = NULL,  runInfo=NULL, processing = FALSE){
                     #, fun = NULL){
   # other options which could be included:

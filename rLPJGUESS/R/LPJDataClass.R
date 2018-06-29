@@ -9,6 +9,7 @@
 #' }
 #' @keywords rLPJGUESS
 #' @export
+#' @example /inst/examples/LPJDataClassHelp.R
 #' @author Ramiro Silveyra Gonzalez
 setClass("LPJData",
          representation(

@@ -113,10 +113,8 @@ a self edited templates. The function assumes a specific coding for writing the
 parameters values. For this reason, we recommend to use the package templates.
 If using self edited templates, please take the package templates as a reference (\code{\link{getTemplate}})
 }
-
 \examples{
 \dontrun{
-
 file.co2<-"/some/absolute/path/crudata/co2_1901-2013.txt"
 file.cru <- "/some/absolute/path/crudata/cru_1901_2006.bin"
 file.cru.misc <- "/some/absolute/path/crudata/cru_1901_2006misc.bin"
@@ -134,25 +132,25 @@ list.files(mainDir)
 
 # General settings
 settings <- list (gridList = gridList,mode = "cf", scale = "global",
-                file.co2 = file.co2, file.cru = file.cru,
-                file.cru.misc = file.cru.misc, file.ndep = file.ndep,
-                file.temp = file.temp, file.prec = file.prec,
-                file.insol = file.insol, delete = F)
+               file.co2 = file.co2, file.cru = file.cru,
+               file.cru.misc = file.cru.misc, file.ndep = file.ndep,
+               file.temp = file.temp, file.prec = file.prec,
+               file.insol = file.insol, delete = F)
 
 
 # Single  Run
- result <-  runLPJ(mainDir, settings= settings)
- result
-     class              : LPJData
-     LPJ template 1     : global.ins
-     LPJ template 2     : global_cf.ins
-     grid cells         : 99  Somewhere
-     run directory      : /some/absolute/path/mainDir/runDirectory
-     LPJ model outputs  : 39 outputs
-     aaet agpp aiso amon anpp cflux clitter cmass cpool cton_leaf dens
-     firert fpc speciesheight lai maet mevap mgpp mintercep miso mlai mmon
-     mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
-     nlitter nmass npool nsources nuptake runoff vmaxnlim
+result <-  runLPJ(mainDir, settings= settings)
+result
+    class              : LPJData
+    LPJ template 1     : global.ins
+    LPJ template 2     : global_cf.ins
+    grid cells         : 99  Somewhere
+    run directory      : /some/absolute/path/mainDir/runDirectory
+    LPJ model outputs  : 39 outputs
+    aaet agpp aiso amon anpp cflux clitter cmass cpool cton_leaf dens
+    firert fpc speciesheight lai maet mevap mgpp mintercep miso mlai mmon
+    mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
+    nlitter nmass npool nsources nuptake runoff vmaxnlim
 
 
 #  Parallel Run
@@ -165,27 +163,30 @@ par <- seq(1,5, len = 6)
 # Create the list object with the parameters
 parameterList <- vector("list", length(par))
 for (i in 1:length(par)) {
-   parameterDefault$run_emax <- par[i]
-   parameterList[[i]] <- parameterDefault
- }
+  parameterDefault$run_emax <- par[i]
+  parameterList[[i]] <- parameterDefault
+}
 
 # Call setupParallel
 mySetup  <- setupLPJParallel(3, "SOCK", "cf",
-                             mainDir = "/some/absolute/path/mainDir")
+                            mainDir = "/some/absolute/path/mainDir")
 
 # Call runLPJ
 result <- runLPJ(mySetup, settings= settings, parameterList = parameterList)
 str(result,1)
-   List of 6
-   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
-   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
-   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
-   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
-   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
-   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+  List of 6
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
 
 
- }
+}
+}
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \seealso{
 \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
@@ -193,7 +194,5 @@ str(result,1)
  \code{\link{setupLPJParallel}}, \code{\link{exitMPI}}, \linkS4class{LPJData},
  \linkS4class{LPJSetup}
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \keyword{rLPJGUESS}
+

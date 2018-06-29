@@ -3,9 +3,7 @@
 #' @return a character vector with the default output types
 #' @export
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara
-#' @examples \dontrun{
-#' typelist <- getTypeList()
-#' }
+#' @example /inst/examples/getTypeListHelp.R
 getTypeList <- function(){
   tmp <- typelist.default
   return(tmp)

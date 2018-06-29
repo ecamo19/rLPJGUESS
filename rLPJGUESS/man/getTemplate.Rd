@@ -19,12 +19,35 @@ a template object or template.ins file in the specified folder
 This function returns the LPJ-GUESS templates.
 }
 \examples{
+# Get templates as r objects
+template <- getTemplate("global")
+head(template)
+template <- getTemplate("global_cf")
+head(template)
+template <- getTemplate("global_cru")
+head(template)
+template <- getTemplate("europe")
+head(template)
+template <- getTemplate("europe_cf")
+head(template)
+template <- getTemplate("europe_cru")
+head(template)
+
+
+# Get templates written in a folder
 \dontrun{
-template <- getTemplate("global.ins")
-getTemplate("global.ins", "/home/LPJTemplates/")
+
+getTemplate("global","/home/LPJTemplates/")
+getTemplate("global_cf","/home/LPJTemplates/")
+getTemplate("global_cru","/home/LPJTemplates/")
+getTemplate("europe","/home/LPJTemplates/")
+getTemplate("europe_cf","/home/LPJTemplates/")
+getTemplate("europe_cru", "/home/LPJTemplates/")
+)
 }
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \keyword{rLPJGUESS}
+

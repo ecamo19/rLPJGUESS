@@ -49,7 +49,6 @@ information and some examples   (you can open it by running this command:
 
 }
 }
-
 \author{
 Except where indicated otherwise, the functions in this package were
  written by Ramiro Silveyra Gonzalez, Maurizio Bagnara and Florian Hartig
@@ -57,3 +56,4 @@ Except where indicated otherwise, the functions in this package were
 \keyword{LPJ-GUESS,}
 \keyword{package}
 \keyword{rLPJGUESS}
+

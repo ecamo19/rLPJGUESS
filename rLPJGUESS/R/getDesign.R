@@ -6,9 +6,7 @@
 #' @return a list or a matrix with design parameter names and their values
 #' @export
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara
-#' @examples \dontrun{
-#' parameterList <- getParameterList("global")
-#' }
+#' @example /inst/examples/getDesignHelp.R
 getDesign <- function(scale, list =  F){
   if ( is.null(scale) || scale != "global" & scale != "europe"){
     stop("Please provide a valid scale: global or europe")

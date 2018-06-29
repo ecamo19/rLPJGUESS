@@ -19,10 +19,12 @@ a list or a matrix with design parameter names and their values
 This function returns the LPJ-GUESS default design for running the model
 }
 \examples{
-\dontrun{
-parameterList <- getParameterList("global")
-}
+design <- getDesign("global")
+str(design)
+
+design
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara
 }
+

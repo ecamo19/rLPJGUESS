@@ -20,10 +20,16 @@ This function returns the LPJ-GUESS parameter list required for the writeTemplat
 It also allows users to see the default values of the templates.
 }
 \examples{
-\dontrun{
-parameterList <- getParameterList("global")
-}
+parameterList <- getParameterList("global", list = T)
+head(parameterList)
+tail(parameterList)
+
+
+parameterList <- getParameterList("global", list = F)
+head(parameterList)
+tail(parameterList)
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara
 }
+
