@@ -9,7 +9,7 @@ testthat::test_that("writeTemplate writes the desired value", {
   parameter <- list()
   parameter$common_emax <- 1
   # Is different from default value
-  testthat::expect_false(parameter$common_emax==getParameterList(scale, list = T)$common_emax)
+  testthat::expect_false(parameter$common_emax==getParameterList(scale, list = TRUE)$common_emax)
   # put the template in the folder
   mainDir <- "../LPJ-Example"
   getTemplate(scale, mainDir)
