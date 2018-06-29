@@ -26,7 +26,7 @@ testthat::test_that("writeTemplate writes the desired value", {
   # desired value should be present
   testthat::expect_true(grepl(parameter$common_emax, afterParameter))
   # delete template from the folder
-  unlink(file.path(mainDir, paste(scale, ".ins", sep="")), recursive = TRUE)
+  unlink(file.path(mainDir, paste(scale, ".ins", sep="")))
 
 
 })
