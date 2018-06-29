@@ -10,11 +10,11 @@ library(rLPJGUESS)
 checkSetupObject <- function(setupObject, numCores, mainDir, clusterType){
   # Test if setupLPJParallel returns the setup object as requested
        # Test the class
-  expect_true(class(setupObject)=="LPJSetup")
+  testthat::expect_true(class(setupObject)=="LPJSetup")
       # Test the attributes
-  expect_true(setupObject["clusterType"]==clusterType)
-  expect_true(setupObject["numCores"]==numCores)
-  expect_true(setupObject["mainDir"]==mainDir)
+  testthat::expect_true(setupObject["clusterType"]==clusterType)
+  testthat::expect_true(setupObject["numCores"]==numCores)
+  testthat::expect_true(setupObject["mainDir"]==mainDir)
 
 }
 
@@ -24,7 +24,6 @@ testthat::test_that("setupLPJParallel attributes", {
 
   numCores <- 3
   clusterType <- "SOCK"
-  # mainDir <- normalizePath("./tests/LPJ-Example")
   mainDir <- mainDir <- "../LPJ-Example"
   list.files(mainDir)
   setupObject <- setupLPJParallel(numCores, clusterType, mainDir)
@@ -66,7 +65,6 @@ testthat::test_that("setupLPJParallel creates directories and stores them", {
 
   numCores <- 3
   clusterType <- "SOCK"
-  # mainDir <- normalizePath("./tests/LPJ-Example")
   mainDir <- mainDir <- "../LPJ-Example"
   list.files(mainDir)
 
