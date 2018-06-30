@@ -6,7 +6,7 @@ More in detail:
 
 - in the LPJrunTest folder, you will find the weather input data (.nc 
 files, not empty) to run the model, the location file (gridlist.txt, not 
-empty), and the model executable (the one provided here is an empty executable for testing only, users are responsible for compiling the source code of LPJ-GUESS in their system and replacing this executable with their own). 
+empty), and the model executable (the working version of my computer). 
 You will have to re-create an empty executable called "guess" if you 
 work on a mac, the package will look specifically for that.
 
