@@ -11,8 +11,10 @@
 #' @param mainDir a character string indicating the path to the directory where
 #'  the template and the model link are located, and in which the function will create
 #'  the directory structure for the outputs
-#' @return an LPJSetup object
-#' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
+#' @return an \linkS4class{LPJSetup} object
+#' @details Please note that the requested number of cores should not be larger
+#' than the number of aimed model runs.
+#' @seealso \code{\link{runLPJ}},  \linkS4class{LPJSetup}, \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
 #' @export
 #' @keywords rLPJGUESS
