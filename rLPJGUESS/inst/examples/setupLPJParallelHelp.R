@@ -1,19 +1,38 @@
 \dontrun{
-mainDir <- "/some/absolute/path/mainDir"
- list.files(mainDir)
- [1] "guess" or "guesscmd.exe"  # link to the model executable
- [2] "gridlist.txt"      # list of gridcells
- [3] "global.ins"        # template1 (optional)
- [4] "global_cru.ins"    # template2 (optional)
+# 20 different parameters or parameters conbinations to test (the number must be larger than the number of cores)
+  # as a matrix
+parameterList <- as.matrix(seq(1,5, len = 20))
+colnames(parameterList) <- "common_emax"
+  # as a list
+dummy <- list (common_emax = NULL)
+par <- seq(1,5, len = 20)
+parameterList <- vector("list", length(par))
+for (i in 1:length(par)) {
+  dummy$common_emax <- par[i]
+  parameterList[[i]] <- dummy
+}
 
+
+# Create a parallel setup for MPI cluster
+mySetup <- setupLPJParallel(numCores= 20, clusterType = "MPI", mainDir=mainDir)
+
+# Create a parallel setup for SOCK cluster
 mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
-mySetup
-      class              : LPJSetup
-      cluster type       : SOCK
-      number of cores    : 3
-      output directories :
-      /some/absolute/path/mainDir/runDirectory1
-      /some/absolute/path/mainDir/runDirectory2
-      /some/absolute/path/mainDir/runDirectory3
+
+# Run LPJ-GUESS in parallel
+result <- runLPJ(x = mySetup,  settings= settings, parameterList = parameterList )
+
+# After running runLPJ (20 simulations)
+str(result,1)
+
+  List of 20
+
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+  [...]
+
+
 
 }
