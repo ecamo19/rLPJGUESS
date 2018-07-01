@@ -1,11 +1,11 @@
 #' @title A get runInfo data
-#' @description  This function reads the runLPj outputs stored in the runInfoDir
-#' and returns as a list, with the same structure as the runLPJ outputs. Additionally,
-#' allows to retrieve the parameters from the runInfoDir files or the runLPJ outputs.
+#' @description  This function reads the \code{\link{runLPJ}} outputs stored in the runInfo file. Additionally,
+#' allows to retrieve the parameters from the runInfoDir files.
 #' @param x a character string indicating the absolute path to the runInfoDir folder or
-#' a R object produced by runLPJ
+#' a R object produced by \code{\link{runLPJ}}
 #' @param parameters a character boolean to specify whether to return the parameters
-#' instead of the LPJData objects
+#' instead of the \linkS4class{LPJData} objects
+#' @seealso \code{\link{runLPJ}}, \linkS4class{LPJData}
 #' @export
 #' @author Ramiro Silveyra Gonzalez
 #' @example /inst/examples/getRunInfoHelp.R
@@ -54,7 +54,7 @@ readRunInfo <- function(x){
   if (length(outputs)==0 || !grepl("RData", outputs) & !grepl("Rdata", outputs) ){stop("runDirInfo folder is empty")}
 
   result <- try(lapply(outputs, function(x){
-                LPJout <- loadRData
+                LPJout <- loadRData(x)
               }), F)
   if ('try-error' %in% class(result)){ stop("Invalid runDirInfo folder")  }
 
