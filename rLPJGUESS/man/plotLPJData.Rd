@@ -8,7 +8,7 @@ plotLPJData(x, typeList = NULL, outDir = NULL, save.plots = FALSE,
   prefix = "")
 }
 \arguments{
-\item{x}{a LPJData object.}
+\item{x}{a \linkS4class{LPJData} object}
 
 \item{typeList}{a character vector with the outputs to be plotted}
 
@@ -16,28 +16,75 @@ plotLPJData(x, typeList = NULL, outDir = NULL, save.plots = FALSE,
 saved, if save.plot set to TRUE}
 
 \item{save.plots}{a boolean indicating whether the plots are saved in the outDir.
-Plots will be saved as pdf}
+Plots will be saved as pdf.}
 
 \item{prefix}{a character string specifying the prefix to be added to the plots files.
 Only relevant if saving plots is TRUE}
 }
 \value{
-plots for data types included in typeList. The grid cells will be plotted independently
+time series plots for the data types included in typeList.
+The grid cells will be plotted independently.
 }
 \description{
-This function reads data from a LPJData object and plots the
+This function reads data from a \linkS4class{LPJData} object and plots the
  variables against time. If the save.plots is set to TRUE, plots are saved in the output folder.
+}
+\details{
+Please note that this function is integrated in \code{\link{runLPJ}}.
+The call to \code{\link{runLPJ}} can plot straigthaway the outputs (see examples below).
 }
 \examples{
 \dontrun{
-plotLPJData(data, typeList = c("aaet", "lai"), outDir = "/runDir/outDir", save.plots = FALSE)
+### Plot LPJData object  ###
+
+# After runLPJ
+result <-   runLPJ(mainDir,  settings= settings)
+plotLPJData(result, save.plots = FALSE)
+
+# After getLPJData
+result <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = TRUE)
+result <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = FALSE)
+plotLPJData(result, save.plots = FALSE)
+
+
+# Plot specific outputs
+plotLPJData(result, typeList = c("aaet", "lai"), save.plots = FALSE)
+
+# Save plots
+plotLPJData(result,  outDir = "/runDir/outDir", save.plots = TRUE)
+
+
+### Plot from runLPJ  ###
+LPJsettings <- list(file.co2 = file.path(mainDir, "crudata", "co2_1765-2500_RCP3.txt"),
+                    file.cru = file.path(mainDir, "crudata", "cru_1901_2006.bin"),
+                    file.cru.misc = file.path(mainDir, "crudata", "cru_1901_2006misc.bin"),
+                    file.ndep = file.path(mainDir, "crudata", "GlobalNitrogenDeposition.bin"),
+                    file.temp = file.path(mainDir, "temp.nc"),
+                    file.prec = file.path(mainDir, "prec.nc"),
+                    file.insol = file.path(mainDir, "rad.nc"),
+                    variable.temp = "temp", variable.insol = "rad",
+                    variable.prec = "prec", delete = FALSE, save = FALSE, processing = TRUE,
+                    plot.data = FALSE, save.plots = FALSE, scale = scaleLPJ, mode = "cf",
+                    gridList = "gridlist.txt")
+
+# Activate plot option
+LPJsettings$plot.data <- TRUE
+
+# Save plots
+LPJsettings$plot.data <- TRUE
+LPJsettings$save.plots <- TRUE
+
+# runLPJ and plot
+results <- runLPJ(x = mainDur, settings = LPJsettings)
+
 }
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \seealso{
-\url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
+\code{\link{runLPJ}}, \linkS4class{LPJData},
+ \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 }
 \keyword{rLPJGUESS}
 

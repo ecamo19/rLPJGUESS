@@ -19,19 +19,36 @@ a list or a matrix with parameter names and their values
 This function returns the LPJ-GUESS parameter list required for the writeTemplate function.
 It also allows users to see the default values of the templates.
 }
+\details{
+To obtain the parameters used in previous runs, see \code{\link{getRunInfo}}.
+}
 \examples{
 \dontrun{
-parameterList <- getParameterList("global", list = T)
-head(parameterList)
-tail(parameterList)
+# Get the default parameters as a list
+parameterList <- getParameterList("global", list = TRUE)
+parameterList <- getParameterList("europe", list = TRUE)
+
+# Modify any parameter
+parameterList$common_emax <- 1
+parameterList[["common_emax"]] <- 1
 
 
-parameterList <- getParameterList("global", list = F)
-head(parameterList)
-tail(parameterList)
+# Get the default parameters as a matrix
+parameterList <- getParameterList("global", list = FALSE)
+parameterList <- getParameterList("europe", list = FALSE)
+
+# Modify any parameter
+parameterList["common_emax",] <- 1
+
+# Call runLPJ with the desired parameter
+result <-  runLPJ(x=mainDir, settings=settings, parameterList = parameterList)
+
 }
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara
+}
+\seealso{
+\code{\link{runLPJ}}, \code{\link{getRunInfo}}
 }
 

@@ -27,7 +27,9 @@ set them to the default values. The function assumes that a copy of the template
  is already placed in the run directory.
 }
 \details{
-If check is serial, it will return the complete and checked parameterList.
+Please note that this function is integrated in \code{\link{runLPJ}}.
+
+Check: If check is serial, it will return the complete and checked parameterList.
 If parallel, it would only check the provided parameters. Please only use serial,
 other options are handled internally in the parallelization.
 }
@@ -42,8 +44,12 @@ If using self edited templates, please take the package templates as a reference
 }
 \examples{
 \dontrun{
-writeTemplate("global.ins", list(run_lamda_max = 0.5, run_emax= 5),
-               "/home/lpjRun/runDirectory1")
+# Define the parametes to be written
+parameterList <- list(run_lamda_max = 0.5, run_emax= 5)
+
+# write the template
+writeTemplate(template1 = "global.ins", parameterList = parameterList,
+              runDir = "/some/absolute/path/mainDir/runDirectory", check = "serial")
 }
 }
 \author{
