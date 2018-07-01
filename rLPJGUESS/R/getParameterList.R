@@ -6,6 +6,8 @@
 #' as a list, otherwise as a matrix.
 #' @return a list or a matrix with parameter names and their values
 #' @export
+#' @details To obtain the parameters used in previous runs, see \code{\link{getRunInfo}}.
+#' @seealso \code{\link{runLPJ}}, \code{\link{getRunInfo}}
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara
 #' @example /inst/examples/getParameterListHelp.R
 getParameterList <- function(scale, list =  TRUE){
