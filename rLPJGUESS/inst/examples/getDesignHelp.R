@@ -18,10 +18,10 @@ LPJsettings <- list(file.co2 = file.path(mainDir, "crudata", "co2_1765-2500_RCP3
 # Define the design for the simulation:  number of patches simulated,
 # disturbances, and other simulation options
 
-  # Obtain the standard design
+# Obtain the standard design
 designLPJ <- getDesign(scaleLPJ, list = TRUE)
 
-  # Modify the desired options
+# Modify the desired options
 designLPJ$run_vegmode <- "cohort"
 designLPJ$run_ifcentury <- 0
 designLPJ$run_iffire <- 0
