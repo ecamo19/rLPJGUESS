@@ -1,7 +1,7 @@
 #' @title A function to process LPJ-GUESS outputs
 #' @description This function reads the ASCII outputs produced by LPJ-GUESS.
 #' It takes a list of output types (typeList) and finds them in the specified path.
-#' The data is stored in a data class object: LPJData. If processing is TRUE,
+#' The data is stored in a data class object: \linkS4class{LPJData}. If processing is TRUE,
 #' the data will be stored as zoo time series. Ohterwise, as data frames.
 #' @param x a character string indicating path to the output files
 #' @param typeList  a character vector with the outputs to be analyzed.
@@ -11,12 +11,14 @@
 #' the processed outputs of the model (optional)
 #' @param processing a boolean indicating whether output files will be turned
 #'  into time series (default is FALSE)
-#' @return the processed data returned in a S4 Class: LPJData Class
+#' @return the processed data returned in a S4 Class: \linkS4class{LPJData} class
+#' @details Please note that this function is integrated in \code{\link{runLPJ}},
+#' which alread returns the data as a \linkS4class{LPJData} object.
 #' @seealso \linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 #' @note Based on an older code of Joerg Steinkamp
 #' @details To convert the outputs into zoo time series is only supported when running the
-#' model for one grid cell. For running  LPJ-GUESS for several grid cells, please set
+#' model for one grid cell. When running  LPJ-GUESS for several grid cells, please set
 #' processing to FALSE.
 #' @export
 #' @example /inst/examples/getDataHelp.R
