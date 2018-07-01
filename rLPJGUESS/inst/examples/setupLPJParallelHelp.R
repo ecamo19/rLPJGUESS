@@ -1,5 +1,5 @@
 \dontrun{
-# 20 different parameters or parameters conbinations to test (the number must be larger than the number of cores)
+# 20 different parameters or parameters conbinations to test
   # as a matrix
 parameterList <- as.matrix(seq(1,5, len = 20))
 colnames(parameterList) <- "common_emax"
@@ -14,9 +14,11 @@ for (i in 1:length(par)) {
 
 
 # Create a parallel setup for MPI cluster
+# Number of cores must be equal or larger than the parameter combinations
 mySetup <- setupLPJParallel(numCores= 20, clusterType = "MPI", mainDir=mainDir)
 
 # Create a parallel setup for SOCK cluster
+# Number of cores must be equal or larger than the parameter combinations
 mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
 
 # Run LPJ-GUESS in parallel

@@ -7,8 +7,10 @@ LPJsettings <- list(file.co2 = file.path(mainDir, "crudata", "co2_1765-2500_RCP3
                     file.cru = file.path(mainDir, "crudata", "cru_1901_2006.bin"),
                     file.cru.misc = file.path(mainDir, "crudata", "cru_1901_2006misc.bin"),
                     file.ndep = file.path(mainDir, "crudata", "GlobalNitrogenDeposition.bin"),
-                    file.temp = file.path(mainDir, "temp.nc"), file.prec = file.path(mainDir, "prec.nc"),
-                    file.insol = file.path(mainDir, "rad.nc"), variable.temp = "temp", variable.insol = "rad",
+                    file.temp = file.path(mainDir, "temp.nc"),
+                    file.prec = file.path(mainDir, "prec.nc"),
+                    file.insol = file.path(mainDir, "rad.nc"),
+                    variable.temp = "temp", variable.insol = "rad",
                     variable.prec = "prec", delete = FALSE, save = FALSE, processing = TRUE,
                     plot.data = FALSE, save.plots = FALSE, scale = scaleLPJ, mode = "cf",
                     gridList = "gridlist.txt")
