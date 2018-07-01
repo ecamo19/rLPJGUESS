@@ -1,21 +1,21 @@
 #' @title The function to run the LPJ-GUESS in parallel
-#' @description This function allows to run LPJ-GUESS  the model serial
-#' or parallel and returns the model outputs as an R object, which is also stored
-#' as RData.
+#' @description This function allows to run the LPJ-GUESS model serial
+#' or parallel. It returns the model outputs as a \linkS4class{LPJData} object,
+#'  which can also be stored as RData.
 #' @param x either a LPJSetup object created with the setupLPJParallel function or a
 #'  character string indicating the path to the directory where
 #'  the model link and template are located, and in which the function will create
-#'  the directory structure for the outputs
+#'  the directory structure for the outputs.
 #' @param parameterList either a named list containing the parameters to be calibrated
 #' or a matrix. If running in parallel, parameter list should be either a list of of list or
 #' a matrix where each row is a parameter combination and the column names should be named
-#' after the parameters.
+#' after the parameters. See  fucntion \code{\link{getParameterList}}) for default values.
 #' @param typeList a character vector with the outputs to be analyzed.
-#' Default value is all outputs
+#' Default value is all outputs.
 #' @param settings additional parameters \itemize{
 #' \item  gridList a character string providing the name of the text file with
 #' the grids to be included in the model, e.g, gridlist.txt. It must be in the mainDir.
-#' Provide only the file name, not the path
+#' Provide only the file name, not the path.
 #' \item mode a character string indicating whether using cru or cf data
 #' \item scale a character string indicating whether the model runs global or
 #' for europe
@@ -51,42 +51,50 @@
 #' maximum temperature input file
 #' \item template1  character string providing the general model template,
 #'  e.g, global.ins. It must be in the mainDir. Provide only the file name,
-#'   not the path. If not provided, package templates will be used
+#'   not the path. If not provided, package templates will be used.
 #' \item template2 a character string providing the  "specific" model template,
 #'  e.g, global_cf.ins or global_cru.ins. It must be in the mainDir. Provide
 #'  only the file name, not the path. If not provided, package templates will be
-#'   used
+#'   used.
 #' \item plot.data  a boolean indicating whether the ouput data will be plotted
 #'  (default FALSE)
 #' \item save.plots  a boolean indicating whether the plots will be saved (default
 #'  FALSE)
 #' \item processing a boolean indicating whether output files will be turned into zoo
 #'  time series (default FALSE). This is only supported when running the model
-#'  for one grid cell. For several grid cells, please set processing to FALSE
+#'  for one grid cell. For several grid cells, please set processing to FALSE.
 #' \item parallel a character string providing the parallel strategy. If grids, it will
 #' parallelize grids. If parameters, it will parallelize parameters. If both, it will
 #' parallelize both grids and parameters. If auto, it will decided the strategy based
 #' on the provided parameterList and gridList. Default value is auto
 #' \item delete a boolean indicating whether output files should be deleted after
-#'  processing (default TRUE). Saved plots will not be deleted
+#'  processing (default TRUE). Saved plots will not be deleted.
 #' \item save a boolean indicating whether function outputs should be saved as RData
-#' into an output directory named (runInfoDir_DATE). Default is TRUE
+#' into an output directory named (runInfoDir_DATE). Default is TRUE.
 #' \item runID an integer after which the output directory will be named (default empty).
-#' If parallel TRUE, ID is ignored and defined by setupLPJParallel
-#' \item design a named list containing the general parameters for LPJ-GUESS. Seefunction \code{\link{getDesign}}
-#' for default values and examples
+#' If parallel TRUE, ID is ignored and defined by setupLPJParallel.
+#' \item design a named list containing the general parameters for LPJ-GUESS.
+#' See function \code{\link{getDesign}} for default values and examples.
 #' }
-#' @return an object of class LPJData. The LPJData object will be automatically stored as RData
-#' in a folder in the mainDir. The folder will be named as runInfo plus the date in format %Y_%m_%d_%H%M%S.
+#' @return an object of class \linkS4class{LPJData} The \linkS4class{LPJData} object
+#'  will be automatically stored as RData in a folder in the mainDir. The folder
+#'  will be named as runInfo plus the date in format %Y_%m_%d_%H%M%S.
 #' @export
-#' @section Warning: When using MPI clusters, please call the function \code{\link{exitMPI}}
+#' @section Model templates:
+#' It is not mandatory to provide the model templates. The package contais model templates
+#' (see \code{\link{getTemplate}}) and will write them with the specified information
+#'  (input files, design, parameters).
+#' If you decided to provide templates to \code{\link{runLPJ}}, you can either use
+#'  the package ones or a self edited templates. The package assumes a specific
+#'  coding for writing the parameters values, design options and input files paths.
+#'  For this reason, we recommend to use the package templates.
+#' Yet, if you want to use self edited templates, please take the package templates
+#'  as a reference (see \code{\link{getTemplate}}).
+#' @section Warning:
+#' When using MPI clusters, please call the function \code{\link{exitMPI}}
 #' before terminating your R session.
-#' @section Model templates:  The provided templates can be either the ones provided by the package or
-#' a self edited templates. The function assumes a specific coding for writing the
-#' parameters values. For this reason, we recommend to use the package templates.
-#' If using self edited templates, please take the package templates as a reference (\code{\link{getTemplate}})
 #' @details The runLPJ in parallel assumes the existence of a folder the model templates
-#'  for LPJ-GUESS (optional) and link to the model executable.
+#'  for LPJ-GUESS (optional) and link to the model executable: mainDir.
 #' Running the LPJ-GUESS in parallel involves two steps. First, to create a parallel
 #' setup (\code{\link{setupLPJParallel}}), and second, to actually run the model
 #' (\code{\link{runLPJ}}).  The parallelization requires the package \emph{snow} for SOCK clusters or
@@ -94,7 +102,7 @@
 #' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf},
 #'  \code{\link{setupLPJParallel}}, \code{\link{exitMPI}}, \linkS4class{LPJData},
-#'  \linkS4class{LPJSetup}
+#'  \linkS4class{LPJSetup}, \code{\link{getParameterList}}, \code{\link{getDesign}}
 #' @export
 #' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
