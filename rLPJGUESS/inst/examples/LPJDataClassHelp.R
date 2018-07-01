@@ -1,6 +1,5 @@
 \dontrun{
 ### Serial run ###
-
 # After running rLPJ or getLPJData
 result <-   runLPJ(mainDir,  settings= settings)
 
@@ -18,6 +17,28 @@ result <-   runLPJ(mainDir,  settings= settings)
     mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
     nlitter nmass npool nsources nuptake runoff vmaxnlim
 
+### Parallel run ###
+# After running runLPJ (20 simulations)
+str(result,1)
+
+    List of 20
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    [...]
+
+
+## LPJData options
 # Access the model outputs
 result["dataTypes"]
 
