@@ -1,4 +1,15 @@
 \dontrun{
+### Settings and options ###
+
+# main directory
+mainDir <- "/some/absolute/path/mainDir"
+list.files(mainDir)
+  [1] "guess" or "guesscmd.exe"  # link to the model executable
+  [2] "gridlist.txt"      # list of gridcells
+  [3] "global.ins"        # template1 (optional)
+  [4] "global_cru.ins"    # template2 (optional)
+
+# Input files
 file.co2<-"/some/absolute/path/crudata/co2_1901-2013.txt"
 file.cru <- "/some/absolute/path/crudata/cru_1901_2006.bin"
 file.cru.misc <- "/some/absolute/path/crudata/cru_1901_2006misc.bin"
@@ -7,13 +18,6 @@ file.temp <- "/some/absolute/path/cfdata/temp.nc"
 file.prec <- "/some/absolute/path/cfdata/prec.nc"
 file.insol <- "/some/absolute/path/cfdata/rad.nc"
 
-mainDir <- "/some/absolute/path/mainDir"
-list.files(mainDir)
-[1] "guess" or "guesscmd.exe"  # link to the model executable
-[2] "gridlist.txt"      # list of gridcells
-[3] "global.ins"        # template1 (optional)
-[4] "global_cru.ins"    # template2 (optional)
-
 # General settings
 settings <- list (gridList = gridList,mode = "cf", scale = "global",
                file.co2 = file.co2, file.cru = file.cru,
@@ -21,9 +25,21 @@ settings <- list (gridList = gridList,mode = "cf", scale = "global",
                file.temp = file.temp, file.prec = file.prec,
                file.insol = file.insol, delete = FALSE)
 
+# (Optional) Modify design
+  # Obtain the standard design
+designLPJ <- getDesign(scaleLPJ, list = TRUE)
 
-# Single  Run
-result <-  runLPJ(mainDir, settings= settings)
+  # Modify the desired options
+designLPJ$run_vegmode <- "cohort"
+designLPJ$run_ifcentury <- 0
+designLPJ$run_iffire <- 0
+designLPJ$run_ifnlim <- 0
+
+  # Add to settings
+settings$design <- designLPJ
+
+### Single  Run ###
+result <-  runLPJ(x=mainDir, settings=settings)
 result
     class              : LPJData
     LPJ template 1     : global.ins
@@ -37,7 +53,8 @@ result
     nlitter nmass npool nsources nuptake runoff vmaxnlim
 
 
-#  Parallel Run
+### Parallel Run ###
+
 # Create some paramaters to test the model.
 # Number of runs is proportional to number of parameter being testet
 parameterDefault <- list (run_emax = NULL)
@@ -52,11 +69,10 @@ for (i in 1:length(par)) {
 }
 
 # Call setupParallel
-mySetup  <- setupLPJParallel(3, "SOCK", "cf",
-                            mainDir = "/some/absolute/path/mainDir")
+mySetup <- setupLPJParallel(numCores=3, clusterType="SOCK", mainDir=mainDir)
 
 # Call runLPJ
-result <- runLPJ(mySetup, settings= settings, parameterList = parameterList)
+result <- runLPJ(x=mySetup, settings=settings, parameterList=parameterList)
 str(result,1)
   List of 6
   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
