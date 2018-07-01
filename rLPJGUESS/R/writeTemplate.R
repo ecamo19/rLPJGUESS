@@ -14,9 +14,12 @@
 #' a self edited template. The function assumes a specific coding for writing the
 #' parameters values. For this reason, we recommend to use the package templates.
 #' If using self edited templates, please take the package templates as a reference.
-#' @details  If check is serial, it will return the complete and checked parameterList.
+#' @details  Please note that this function is integrated in \code{\link{runLPJ}}.
+#'
+#' Check: If check is serial, it will return the complete and checked parameterList.
 #' If parallel, it would only check the provided parameters. Please only use serial,
 #' other options are handled internally in the parallelization.
+#'
 #' @seealso \code{\link{getTemplate}}, \code{\link{getParameterList}}
 #' @export
 #' @keywords rLPJGUESS
