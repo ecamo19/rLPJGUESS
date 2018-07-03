@@ -1,12 +1,13 @@
 Package: rLPJGUESS
 Title: A R package that wraps the LPJ-GUESS 3.1 model
-Version: 1.1.0
+Version: 1.1.1
+Date: 2018-07-03
 Authors@R: c(person("Florian", "Hartig", , "florian.hartig@biom.uni-freiburg.de", role = c("aut")),
             person("Maurizio", "Bagnara", , "maurizio.bagnara@biom.uni-freiburg.de", role = c("aut", "cre")),
             person("Ramiro", "Silveyra Gonzalez", , "rasilgon@gmail.com", role = c("aut")))
 Description: The rLPJGUESS package provides functions to run LPJ-GUESS within
     R. It also allows to parallelize the model execution on personal laptops and on
-    HPC.
+    HPC clusters.
 Depends:
     R (>= 3.1.0)
 Imports:
