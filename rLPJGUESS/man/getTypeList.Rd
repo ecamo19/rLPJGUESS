@@ -13,10 +13,10 @@ a character vector with the default output types
 This function returns the LPJ-GUESS output type list
 }
 \examples{
-\dontrun{
 typelist <- getTypeList()
-}
+typelist
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara
 }
+

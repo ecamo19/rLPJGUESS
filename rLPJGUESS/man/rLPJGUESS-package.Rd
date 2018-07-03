@@ -37,7 +37,7 @@ information and some examples   (you can open it by running this command:
  \item \code{\link{getParameterList}} To obtain the parameter default values
  \item \code{\link{getDesign}} To obtain the default desgin
  \item \code{\link{getTypeList}} To obtain the default output model types
- \item \code{\link{getRunInfo}} To recover data or parameters from the runInfoDir
+ \item \code{\link{getRunInfo}} To recover data or parameters from the runInfo file
 }
 }
 
@@ -50,6 +50,14 @@ information and some examples   (you can open it by running this command:
 }
 }
 
+\section{V. S4 classes}{
+ \itemize{
+ \item \linkS4class{LPJData} To store both LPJ-GUESS outputs
+and run information
+ \item  \linkS4class{LPJSetup} To store the configuration for parallel
+runs
+}
+}
 \author{
 Except where indicated otherwise, the functions in this package were
  written by Ramiro Silveyra Gonzalez, Maurizio Bagnara and Florian Hartig
@@ -57,3 +65,4 @@ Except where indicated otherwise, the functions in this package were
 \keyword{LPJ-GUESS,}
 \keyword{package}
 \keyword{rLPJGUESS}
+

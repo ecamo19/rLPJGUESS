@@ -11,31 +11,15 @@
 #' @param mainDir a character string indicating the path to the directory where
 #'  the template and the model link are located, and in which the function will create
 #'  the directory structure for the outputs
-#' @return an LPJSetup object
-#' @seealso  \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
+#' @return an \linkS4class{LPJSetup} object
+#' @details Please note that the requested number of cores should not be larger
+#' than the number of aimed model runs.
+#' @seealso \code{\link{runLPJ}},  \linkS4class{LPJSetup}, \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
 #'  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
 #' @export
 #' @keywords rLPJGUESS
 #' @author  Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-#' @examples \dontrun{
-#' mainDir <- "/some/absolute/path/mainDir"
-#' list.files(mainDir)
-#' [1] "guess" or "guesscmd.exe"  # link to the model executable
-#' [2] "gridlist.txt"      # list of gridcells
-#' [3] "global.ins"        # template1 (optional)
-#' [4] "global_cru.ins"    # template2 (optional)
-#'
-#' mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
-#' mySetup
-#'      class              : LPJSetup
-#'      cluster type       : SOCK
-#'      number of cores    : 3
-#'      output directories :
-#'      /some/absolute/path/mainDir/runDirectory1
-#'      /some/absolute/path/mainDir/runDirectory2
-#'      /some/absolute/path/mainDir/runDirectory3
-
-#'}
+#' @example /inst/examples/setupLPJParallelHelp.R
 setupLPJParallel <- function(numCores, clusterType, mainDir)
   {
   #----------------------------------------------------------------------------#

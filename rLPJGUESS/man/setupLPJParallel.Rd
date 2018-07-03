@@ -18,7 +18,7 @@ the template and the model link are located, and in which the function will crea
 the directory structure for the outputs}
 }
 \value{
-an LPJSetup object
+an \linkS4class{LPJSetup} object
 }
 \description{
 This function first creates a setup for running the LPJ-GUESS in parallel
@@ -26,31 +26,58 @@ This function first creates a setup for running the LPJ-GUESS in parallel
  configuration. A folder (mainDir) containing the model templates for LPJ-GUESS
  (optional) and link to the model executable.
 }
+\details{
+Please note that the requested number of cores should not be larger
+than the number of aimed model runs.
+}
 \examples{
 \dontrun{
-mainDir <- "/some/absolute/path/mainDir"
-list.files(mainDir)
-[1] "guess" or "guesscmd.exe"  # link to the model executable
-[2] "gridlist.txt"      # list of gridcells
-[3] "global.ins"        # template1 (optional)
-[4] "global_cru.ins"    # template2 (optional)
+# 20 different parameters or parameters conbinations to test
+  # as a matrix
+parameterList <- as.matrix(seq(1,5, len = 20))
+colnames(parameterList) <- "common_emax"
+  # as a list
+dummy <- list (common_emax = NULL)
+par <- seq(1,5, len = 20)
+parameterList <- vector("list", length(par))
+for (i in 1:length(par)) {
+  dummy$common_emax <- par[i]
+  parameterList[[i]] <- dummy
+}
 
+
+# Create a parallel setup for MPI cluster
+# Number of cores must be equal or larger than the parameter combinations
+mySetup <- setupLPJParallel(numCores= 20, clusterType = "MPI", mainDir=mainDir)
+
+# Create a parallel setup for SOCK cluster
+# Number of cores must be equal or larger than the parameter combinations
 mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
-mySetup
-     class              : LPJSetup
-     cluster type       : SOCK
-     number of cores    : 3
-     output directories :
-     /some/absolute/path/mainDir/runDirectory1
-     /some/absolute/path/mainDir/runDirectory2
-     /some/absolute/path/mainDir/runDirectory3
+
+# Run LPJ-GUESS in parallel
+result <- runLPJ(x = mySetup,  settings= settings, parameterList = parameterList )
+
+# After running runLPJ (20 simulations)
+str(result,1)
+
+  List of 20
+
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+  $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+  [...]
+
+
+
 }
-}
-\seealso{
-\url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
- \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
+\seealso{
+\code{\link{runLPJ}},  \linkS4class{LPJSetup}, \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
+ \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
+}
 \keyword{rLPJGUESS}
+

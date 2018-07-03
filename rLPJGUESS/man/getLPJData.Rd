@@ -20,17 +20,20 @@ the processed outputs of the model (optional)}
 into time series (default is FALSE)}
 }
 \value{
-the processed data returned in a S4 Class: LPJData Class
+the processed data returned in a S4 Class: \linkS4class{LPJData} class
 }
 \description{
 This function reads the ASCII outputs produced by LPJ-GUESS.
 It takes a list of output types (typeList) and finds them in the specified path.
-The data is stored in a data class object: LPJData. If processing is TRUE,
+The data is stored in a data class object: \linkS4class{LPJData}. If processing is TRUE,
 the data will be stored as zoo time series. Ohterwise, as data frames.
 }
 \details{
+Please note that this function is integrated in \code{\link{runLPJ}},
+which alread returns the data as a \linkS4class{LPJData} object.
+
 To convert the outputs into zoo time series is only supported when running the
-model for one grid cell. For running  LPJ-GUESS for several grid cells, please set
+model for one grid cell. When running  LPJ-GUESS for several grid cells, please set
 processing to FALSE.
 }
 \note{
@@ -38,13 +41,30 @@ Based on an older code of Joerg Steinkamp
 }
 \examples{
 \dontrun{
-LPJout <- getLPJData( typeList = c("aaet",  "cflux","lai", "nflux"),
-          "~/path/to/output/files", runInfo = list(parameter1 = 0.5, grid = 1))
-}
-}
-\seealso{
-\linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
+#  Specify folder where the ASCII outputs produced by LPJ-GUESS files are located
+outDir <- "/some/absolute/path/runDirectory/outDirectory"
+list.files(outDir)
+
+# Any specific output you are interest in
+typeList <- c("aaet","lai")
+
+# What information should be associated to the data
+runInfo <-  list(parameters = 0.5, grid = 1)
+
+# Call the function and obtain the outputs as LPJData and
+  # stored as zoo time series
+LPJout <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = TRUE)
+  # stored as data.frame
+LPJout <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = FALSE)
+
+# Plot the data
+plotLPJData(LPJout)
+  }
 }
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
+\seealso{
+\linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
+}
+

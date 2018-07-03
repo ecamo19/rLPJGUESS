@@ -1,23 +1,24 @@
 #' @title A plot function for LPJData objects
-#' @description  This function reads data from a LPJData object and plots the
+#' @description  This function reads data from a \linkS4class{LPJData} object and plots the
 #'  variables against time. If the save.plots is set to TRUE, plots are saved in the output folder.
-#' @param x a LPJData object.
+#' @param x a \linkS4class{LPJData} object
 #' @param outDir a character string indicating the folder where the plots will be
 #' saved, if save.plot set to TRUE
 #' @param save.plots a boolean indicating whether the plots are saved in the outDir.
-#'  Plots will be saved as pdf
+#'  Plots will be saved as pdf.
 #' @param typeList a character vector with the outputs to be plotted
 #' @param prefix a character string specifying the prefix to be added to the plots files.
 #' Only relevant if saving plots is TRUE
-#' @return plots for data types included in typeList. The grid cells will be plotted independently
-#' @seealso \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
+#' @return time series plots for the data types included in typeList.
+#' The grid cells will be plotted independently.
+#' @details Please note that this function is integrated in \code{\link{runLPJ}}.
+#' The call to \code{\link{runLPJ}} can plot straigthaway the outputs (see examples below).
+#' @seealso \code{\link{runLPJ}}, \linkS4class{LPJData},
+#'  \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 #' @export
 #' @keywords rLPJGUESS
 #' @author Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-#' @examples \dontrun{
-#' plotLPJData(data, typeList = c("aaet", "lai"),
-#'  outDir = "/runDir/outDir", save.plots = FALSE)
-#' }
+#' @example /inst/examples/plotLPJDataHelp.R
 plotLPJData <- function(x, typeList = NULL, outDir= NULL, save.plots = FALSE, prefix = ""){
 
   # checking input parameters

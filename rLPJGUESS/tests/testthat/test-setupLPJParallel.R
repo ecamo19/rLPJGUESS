@@ -20,11 +20,11 @@ checkSetupObject <- function(setupObject, numCores, mainDir, clusterType){
 
 
 
-testthat::test_that("setupLPJParallel attributes", {
+testthat::test_that("setupLPJParallel attributes are correct", {
 
   numCores <- 3
   clusterType <- "SOCK"
-  mainDir <- mainDir <- "../LPJ-Example"
+  mainDir <- "../LPJ-Example"
   list.files(mainDir)
   setupObject <- setupLPJParallel(numCores, clusterType, mainDir)
 
@@ -65,7 +65,7 @@ testthat::test_that("setupLPJParallel creates directories and stores them", {
 
   numCores <- 3
   clusterType <- "SOCK"
-  mainDir <- mainDir <- "../LPJ-Example"
+  mainDir <- "../LPJ-Example"
   list.files(mainDir)
 
   setupObject <- setupLPJParallel(numCores, clusterType, mainDir)

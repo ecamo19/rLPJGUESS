@@ -8,15 +8,14 @@ getRunInfo(x, parameters = F)
 }
 \arguments{
 \item{x}{a character string indicating the absolute path to the runInfoDir folder or
-a R object produced by runLPJ}
+a R object produced by \code{\link{runLPJ}}}
 
 \item{parameters}{a character boolean to specify whether to return the parameters
-instead of the LPJData objects}
+instead of the \linkS4class{LPJData} objects}
 }
 \description{
-This function reads the runLPj outputs stored in the runInfoDir
-and returns as a list, with the same structure as the runLPJ outputs. Additionally,
-allows to retrieve the parameters from the runInfoDir files or the runLPJ outputs.
+This function reads the \code{\link{runLPJ}} outputs stored in the runInfo file. Additionally,
+allows to retrieve the parameters from the runInfoDir files.
 }
 \examples{
 \dontrun{
@@ -24,13 +23,16 @@ allows to retrieve the parameters from the runInfoDir files or the runLPJ output
 result <- getRunInfo("/some/absolute/path/runInfo_2016_08_11_121507")
 
 # recover only the paramaters from the runInfo folder
-parameters <- getRunInfo("/some/absolute/path/runInfo_2016_08_11_121507", parameters =T)
+parameters <- getRunInfo("/some/absolute/path/runInfo_2016_08_11_121507", parameters =TRUE)
 
 # recover only the parameters from the result
-parameters <- getRunInfo(result, parameters =T)
-
+parameters <- getRunInfo(result, parameters =TRUE)
 }
 }
 \author{
 Ramiro Silveyra Gonzalez
 }
+\seealso{
+\code{\link{runLPJ}}, \linkS4class{LPJData}
+}
+
