@@ -1,0 +1,382 @@
+---
+title: "rLPJGUESS Package"
+author: "Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rLPJGUESS Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+The rLPJGUESS package is thought to ease the parallelization of the LPJ-GUESS 3.1 in High Computer Performance Environments (HPC). The package is a collection of tools that will allow you to create a parallel setup and run in parallel not only the LPJ-GUESS 3.1 model, but also the processing of the model outputs. The package can be also used for parallel runs on personal computers.
+
+In this document you will learn how to prepare a parallel setup and how to use the different functions of rLPJGUESS. The code is open to further improvements and modifications, feel free to adapt it to your needs.
+
+## Overview
+
+#### General aspects
+
+The rLPJGUESS package will help you to run LPJ-GUESS 3.1 in parallel,  but first you will have to prepare your data, so that you can make use the of the package utilities. Specifically, rLPJGUESS requires that *i)* you have already compiled the LPJ-GUESS 3.1 model in your computer or home folder in the HPC, and that *ii)* the existence of a directory where the outputs of the model will be saved, a sort of main directory. 
+
+
+In the main directory (*mainDir*), the following files must be available:
+
+  - a link to the guess executable 
+  - a text file with the grids 
+  - the model input templates (optional)
+
+with a structure like this:
+
+  $ cd ./mainDir
+  
+  $ ls   
+  
+          guess / guesscmd.exe   # link to the model executable (not for Windows)
+          gridlist.txt           # list of grid cells
+          global.ins             # model template  (optional)
+          global_cru.ins         # model template  (optional) 
+  or
+          global_cf.ins          # model template  (optional)
+
+
+
+The model templates are included within the package as part of the system data. They have been edited with some reference values, but you might want to change then. The function *getTemplate* allows to obtain templates from the package. To learn more about how to writing parameters in the template, check out the *writeParameters* function and the *getParameterList*. 
+
+
+#### Running LPJ-GUESS in parallel
+
+Running the LPJ-GUESS parallel involves two steps. First, to create a parallel setup (**setupParallel**), and second, to actually run the model (**runLPJ**) in parallel.  The parallelization requires the package *snow* for SOCK cluster and for MPI cluster, the *Rmpi* package.
+
+The **setupParallel** function will help you at creating a directory structure for storing your model outputs and arranging the model templates for each run. Calling the setupParallel returns a list object that contains all information needed to run the LPJ-GUESS in parallel.
+
+The **runLPJ** function reads the setup parallel object and creates a cluster to it which submits the model call with its respective parameters. 
+
+
+
+## An Example of using rLPJGUESS
+
+Here you will see an example of how to use the rLPJGUESS package. We will not run the LPJ-GUESS itself because the model is not included in the package. However, we will make use of *almost* all package functions.
+
+
+#### First steps
+
+
+Lets choose a main directory (*mainDir*) and have a look at it. Remember that the mainDir should contain a link to your guess executable and file with list of grid cells.
+
+1. Clear the local environment and load the library
+
+```{r}
+rm(list=ls())
+library(rLPJGUESS)
+```
+
+
+2. Set the mainDir. In this case, it is within the package.
+
+```{r}
+mainDir <- system.file("extdata", package = "rLPJGUESS")
+list.files(mainDir) 
+```
+
+3. Now specicify the paths to the input data. They must be absolute paths.
+
+```{r, fig.show='hold'}
+file_co2 <-"/some/absolute/path/crudata/co2_1901-2006.txt"
+file_cru <- "/some/absolute/path/crudata/cru_1901_2006.bin"
+file_cru_misc <- "/some/absolute/path/crudata/cru_1901_2006misc.bin"
+file_ndep <- "/some/absolute/path/crudata/GlobalNitrogenDeposition.bin"
+```
+
+Note: If running the cf mode, the following files must be specified as well.
+```{r, fig.show='hold'}
+file_temp <- "/some/absolute/path/cfdata/temp.nc"
+file_prec <- "/some/absolute/path/cfdata/prec.nc"
+file_insol <- "/some/absolute/path/cfdata/rad.nc"
+```
+
+5. Specify the file contain the grids for the model run. This file should be placed in **mainDir**.
+
+```{r, fig.show='hold'}
+gridList <- "gridlist.txt"
+```
+
+4. Set options for **runLPJ**.
+
+```{r, fig.show='hold'}
+settings <- list (gridList = gridList,mode = "cf", scale = "global",
+                  file.co2 = file_co2, file.cru = file_cru, file.cru.misc = file_cru_misc,
+                  file.ndep = file_ndep, file.temp = file_temp, file.prec = file_prec,
+                  file_insol = file_insol)
+```
+
+#### A serial run
+
+After the steps above, we are ready to call **runLPJ**. LPJ-GUESS is, however, not part of this 
+package, and thus, we will skip **runLPJ** here. Anyway, we should procceed as follows
+
+```{r, eval=F}
+result <-   runLPJ(mainDir,  settings= settings)
+```
+The above call will run the model wiht the default values for global_cf template. We can specify other values 
+for the model parameters and also choose what model output we want to create. In the next section, we will do so for parallel runs of **runLPJ**.
+
+The output is a **LPJData** object holding the information on the model run and the data outputs.
+
+    result
+  
+      class              : LPJData
+      run directory      : /some/absolute/paht/runDirectory
+      LPJ template 1     : global.ins
+      LPJ template 2     : global_cf.ins
+      grid cells         : 1 cell(s)
+      0  Somewhere
+      LPJ model outputs  : 39 output(s)
+      aaet agpp aiso amon anpp cflux clitter cmass cpool cton_leaf dens      
+      firert fpc speciesheight lai maet mevap mgpp mintercep miso mlai mmon
+      mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
+      nlitter nmass npool nsources nuptake runoff vmaxnlim
+
+
+#### A parallel run
+
+Because we are running this on a personal laptop, we will choose a low number cores and create a SOCK cluster. In a HPC enviroment, you can go for MPI clusters.
+
+By calling the function **setupParallel** we will create a parallel setup for **runLPJ**. 
+
+```{r}
+options(error=traceback)
+mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
+mySetup
+```
+
+If we check the mainDir, we see that there are new folders. 
+```{r}
+list.files(mainDir) 
+```
+
+ Within the the runDir folders, there is also a outDir folder to temporary store the model outputs. 
+
+```{r}
+runDir <- file.path(mainDir, "runDirectory1")
+list.files(runDir)
+```
+
+Now we can define the model outputs and the parameters to be tested. In this example, we will test several values for 
+*emax* for europe. To see what are the default values for europe, we can use the **getParameterList** function.
+
+```{r}
+parameterDefault <- getParameterList("europe", list = F)
+parameterDefault[40:50,]
+```
+
+We can also access the paramater as a list (list= T), instead of a matrix (list = F).
+```{r}
+parameterDefault <- getParameterList("europe", list = T)
+```
+
+Let's check the default value for *emax*.
+
+```{r}
+parameterDefault$common_emax
+```
+
+
+We can create some test values for *emax*. As for **getParameterList**, the values can be arranged in a matrix
+```{r}
+parameterList <- as.matrix(seq(1,5, len = 20))
+colnames(parameterList) <- "common_emax"
+head(parameterList)
+```
+
+or in a list.
+```{r}
+dummy <- list (common_emax = NULL)
+par <- seq(1,5, len = 20)
+parameterList <- vector("list", length(par))
+for (i in 1:length(par)) {
+  dummy$common_emax <- par[i]
+  parameterList[[i]] <- dummy
+}
+print(parameterList[2:3])
+```
+
+Once the parameters are defined, we can specify which outputs we are interested in.
+```{r}
+typeList <- c("aaet", "nuptake")
+```
+
+
+Now we are ready to call the **runLPJ** . Because LPJ-GUESS is not part of this 
+package, we will skip this step. The call to **runLPJ** would look like the one below.
+
+
+```{r, eval=F}
+result <-   runLPJ(mySetup,  settings= settings, parameterList = parameterList )
+```
+
+**runLPJ**  would return something like this:
+
+    Output typeList has not been provided
+
+    Setting typeList to default values
+    
+
+    Using package template (template 1)
+
+    Saving package template in the mainDir
+    
+
+    Using package template (template 2)
+
+    Saving package template in the mainDir
+    
+
+    Checking conditions
+
+    Reading the parallel object structure
+
+    |==============================================================| 100%
+
+    Creating a SOCK cluster with 3 cores
+
+    Sending tasks to the cores
+
+
+    Processing ended!
+
+ The output of **runLPJ** is a list with as many objects as parameter values we wanted to test. In this case 20 parameter values.
+ 
+    str(result,1)
+
+    List of 20
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+
+    $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+    
+    [...]
+
+
+
+
+## How rLPJGUESS works
+
+Here you will see how a single run takes place. The **runLPJ** does some preliminary taks such as organizing input data into the runDirs. If parallel, it creates the desired cluster. In both cases, **runLPJ** calls a internal wrapper (**runLPJwrapper**) which agglutinates all single steps to carry one complete call to LPJ-GUESS. Here we will run the steps that take in place in a single run.
+
+1. Lets move one of the run directories.
+
+```{r}
+runDir <- file.path(mainDir, "runDirectory1")
+list.files(runDir)
+```
+
+2. The frst step is to write the parameters. We will selected only one of the parameters created above.
+
+```{r}
+parameters <- parameterList[[1]] 
+parameters
+```
+
+
+We can read the template to check how it looks like. In concrete, the parameters we want to change.
+
+```{r}
+template <- getTemplate("europe", runDir)
+list.files(runDir)
+template <- readLines(file.path(runDir, "europe.ins"))
+template [c(156:166)]
+```
+
+3. Now we call the **writeTemplate** function and write the template.
+
+```{r}
+writeTemplate(template1 = "europe.ins", parameterList = parameters, runDir = runDir)
+```
+
+
+
+and check the changes. We should see that all parameter values but emax have been written with the default values.
+```{r}
+template <- readLines(file.path(runDir, "europe.ins"))
+template [c(156:166)]
+```
+
+4. Next step is to call the model. The function that internally calls LPJ-GUESS is **callLPJ**.
+```{r, eval=F}
+callLPJ(mainDir, runDir, template, mode)
+```
+
+Assuming that we would have run the LPJ, we should see in the outDirectory the output files, as specified in the template. In this example, we do not run the LPJ and thus, we do not create any output data. But some output data examples are provided in the folder *extdata/exampleOutputs*.  In the lines below, we will read the outputs, process and plot them.
+
+5. Lets check the example output data.
+
+```{r}
+outDir <- system.file("extdata/exampleOutputs", package = "rLPJGUESS")
+list.files(outDir)
+```
+
+6. If we were interested only in some of the outputs, lets say *aaet* and *lai*, we can do this:
+
+```{r}
+typeList <- c("aaet","lai")
+```
+
+7. Then we call the **getLPJData** function to obtain the processed data.
+
+```{r}
+LPJout <- getLPJData(x = outDir,typeList = typeList,  runInfo=list(runNumber = 1, template1 = "europe.ins", template2="europe_cf.ins", runDir = "runDirectory1"))
+LPJout
+```
+
+8. The **LPJData** class has two slots. 
+```{r}
+slotNames(LPJout)
+```
+In *runInfo* we can find all information used to run the model, 
+```{r}
+names(LPJout["runInfo"])
+```
+while in *dataTypes*, the data.
+```{r}
+names(LPJout["dataTypes"])
+summary(LPJout["lai"])
+```
+
+The **LPJData** class is subsettable. So we can type this 
+```{r, eval=F}
+LPJout["runDir"]
+```
+or this to access the information/data stored.
+```{r}
+summary(LPJout["lai"])
+```
+
+Now that we have processed the output data, we can plot the data and see how the variables evolve across the years. The **plotLPJData** function will plot the data as a time series using the zoo library. For this example we could plot the *lai* data.
+
+```{r,fig.show= "hold", fig.keep ='all',  fig.width=7, fig.heigth=16}
+plotLPJData(x = LPJout, typeList = "lai" , outDir = outDir, save.plots = FALSE)
+```
+
+## Any question?
+
+If you have any doubts about the functions, please check the help files.
+
+```{r, echo=FALSE}
+files <- list.files(mainDir)
+files <- files[!grepl("grid", files)]
+files <- files[!grepl("example", files)]
+files <- files[!grepl("LPJParameters_calibrate", files)]
+unlink(file.path(mainDir, files), recursive = TRUE)
+```
+  
+  

@@ -1,0 +1,22 @@
+LPJData-class           A LPJData class object
+LPJSetup-class          A LPJSetup class object
+[,LPJData,character-method
+                        Extract parts of LPJData
+[<-,LPJData,character-method
+                        Replace parts of LPJData
+callLPJ                 A function to call the LPJ-GUESS modell
+exitMPI                 The function to close MPI connection on
+                        cluster.
+getDesign               A get design function
+getLPJData              A function to process LPJ-GUESS outputs
+getParameterList        A get parameter list function
+getRunInfo              A get runInfo data
+getTemplate             A get template function
+getTypeList             A get type list function
+plotLPJData             A plot function for LPJData objects
+rLPJGUESS-package       Overview of the functions in the rLPJGUESS
+                        package
+runLPJ                  The function to run the LPJ-GUESS in parallel
+setupLPJParallel        The function to create a setup for parallel
+                        runs of the LPJ-GUESS
+writeTemplate           A writing template function for LPJ-GUESS

@@ -1,0 +1,755 @@
+
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "rLPJGUESS"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> base::assign(".ExTimings", "rLPJGUESS-Ex.timings", pos = 'CheckExEnv')
+> base::cat("name\tuser\tsystem\telapsed\n", file=base::get(".ExTimings", pos = 'CheckExEnv'))
+> base::assign(".format_ptime",
++ function(x) {
++   if(!is.na(x[4L])) x[1L] <- x[1L] + x[4L]
++   if(!is.na(x[5L])) x[2L] <- x[2L] + x[5L]
++   options(OutDec = '.')
++   format(x[1L:3L], digits = 7L)
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('rLPJGUESS')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("LPJData-class")
+> ### * LPJData-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: LPJData-class
+> ### Title: A LPJData class object
+> ### Aliases: LPJData-class
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ### Serial run ###
+> ##D # After running rLPJ or getLPJData
+> ##D result <-   runLPJ(mainDir,  settings= settings)
+> ##D 
+> ##D   result
+> ##D 
+> ##D     class              : LPJData
+> ##D     run directory      : /some/absolute/paht/runDirectory
+> ##D     LPJ template 1     : global.ins
+> ##D     LPJ template 2     : global_cf.ins
+> ##D     grid cells         : 1 cell(s)
+> ##D     0  Somewhere
+> ##D     LPJ model outputs  : 39 output(s)
+> ##D     aaet agpp aiso amon anpp cflux clitter cmass cpool cton_leaf dens
+> ##D     firert fpc speciesheight lai maet mevap mgpp mintercep miso mlai mmon
+> ##D     mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
+> ##D     nlitter nmass npool nsources nuptake runoff vmaxnlim
+> ##D 
+> ##D ### Parallel run ###
+> ##D # After running runLPJ (20 simulations)
+> ##D str(result,1)
+> ##D 
+> ##D     List of 20
+> ##D 
+> ##D     $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D     $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D     $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D     $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D     $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D     $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D     [...]
+> ##D 
+> ##D 
+> ##D ## LPJData options
+> ##D # Access the model outputs
+> ##D result["dataTypes"]
+> ##D 
+> ##D # Access speficic outputs
+> ##D result["lai"]
+> ##D 
+> ##D # Acces the runInfo
+> ##D result["runInfo"]
+> ##D 
+> ##D # Access specific runInfo like template name
+> ##D result["template1"]
+> ##D 
+> ##D # Access specific runInfo like template content
+> ##D result["template1Mem"]
+> ##D 
+> ##D # Check what other information is available in each slot
+> ##D names(result["runInfo"])
+> ##D names(result["dataTypes"])
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("LPJData-class", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("LPJSetup-class")
+> ### * LPJSetup-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: LPJSetup-class
+> ### Title: A LPJSetup class object
+> ### Aliases: LPJSetup-class
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Create a parallel setup for MPI cluster
+> ##D mySetup <- setupLPJParallel(numCores= 20, clusterType = "MPI", mainDir=mainDir)
+> ##D 
+> ##D # Create a parallel setup for SOCK cluster
+> ##D mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
+> ##D 
+> ##D # Run LPJ-GUESS in parallel
+> ##D result <-   runLPJ(x = mySetup,  settings= settings, parameterList = parameterList )
+> ##D 
+> ##D 
+> ##D # Accessing information
+> ##D mySetup["clusterType"]
+> ##D mySetup["numCores"]
+> ##D mySetup["mainDir"]
+> ##D mySetup["runDir"]
+> ##D mySetup["outDir"]
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("LPJSetup-class", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("callLPJ")
+> ### * callLPJ
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: callLPJ
+> ### Title: A function to call the LPJ-GUESS modell
+> ### Aliases: callLPJ
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # main directory
+> ##D mainDir <- "/some/absolute/path/mainDir"
+> ##D list.files(mainDir)
+> ##D [1] "guess" or "guesscmd.exe"  # link to the model executable
+> ##D [2] "gridlist.txt"      # list of gridcells
+> ##D [3] "global.ins"        # template1 (optional)
+> ##D [4] "global_cru.ins"    # template2 (optional)
+> ##D 
+> ##D # The run directory that is whithin the mainDir
+> ##D runDir <- "/some/absolute/path/mainDir/runDirectory"
+> ##D 
+> ##D ## mode cru ##
+> ##D # The template2 of the model what is within the runDirectoy.
+> ##D template2 <- "global_cru.ins"
+> ##D template2 <- "europe_cru.ins"
+> ##D 
+> ##D # Call the model
+> ##D callLPJ(mainDir = mainDir, runDir = runDir, template2 = template2, mode = "cru")
+> ##D 
+> ##D ## mode cf ##
+> ##D # The template2 of the model what is within the runDirectoy.
+> ##D template2 <- "global_cf.ins"
+> ##D template2 <- "europe_cf.ins"
+> ##D 
+> ##D # Call the model
+> ##D callLPJ(mainDir = mainDir, runDir = runDir, template2 = template2, mode = "cf")
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("callLPJ", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("exitMPI")
+> ### * exitMPI
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: exitMPI
+> ### Title: The function to close MPI connection on cluster.
+> ### Aliases: exitMPI
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ##### MPI CLUSTER ######
+> ##D # Create a parallel setup for MPI cluster
+> ##D mySetup <- setupLPJParallel(numCores= 20, clusterType = "MPI", mainDir=mainDir)
+> ##D mySetup
+> ##D # 20 different parameters to test (the number must be larger than the number of cores)
+> ##D   # as a matrix
+> ##D parameterList <- as.matrix(seq(1,5, len = 20))
+> ##D colnames(parameterList) <- "common_emax"
+> ##D   # as a list
+> ##D dummy <- list (common_emax = NULL)
+> ##D par <- seq(1,5, len = 20)
+> ##D parameterList <- vector("list", length(par))
+> ##D for (i in 1:length(par)) {
+> ##D   dummy$common_emax <- par[i]
+> ##D   parameterList[[i]] <- dummy
+> ##D }
+> ##D 
+> ##D # Run the model
+> ##D result <-   runLPJ(mySetup,  settings= settings, parameterList = parameterList )
+> ##D 
+> ##D # At the end of the script call exitMPI()
+> ##D exitMPI()
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("exitMPI", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getDesign")
+> ### * getDesign
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getDesign
+> ### Title: A get design function
+> ### Aliases: getDesign
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Select the model scale
+> ##D scaleLPJ <- "europe"
+> ##D 
+> ##D # Create the general settings
+> ##D LPJsettings <- list(file.co2 = file.path(mainDir, "crudata", "co2_1765-2500_RCP3.txt"),
+> ##D                     file.cru = file.path(mainDir, "crudata", "cru_1901_2006.bin"),
+> ##D                     file.cru.misc = file.path(mainDir, "crudata", "cru_1901_2006misc.bin"),
+> ##D                     file.ndep = file.path(mainDir, "crudata", "GlobalNitrogenDeposition.bin"),
+> ##D                     file.temp = file.path(mainDir, "temp.nc"),
+> ##D                     file.prec = file.path(mainDir, "prec.nc"),
+> ##D                     file.insol = file.path(mainDir, "rad.nc"),
+> ##D                     variable.temp = "temp", variable.insol = "rad",
+> ##D                     variable.prec = "prec", delete = FALSE, save = FALSE, processing = TRUE,
+> ##D                     plot.data = FALSE, save.plots = FALSE, scale = scaleLPJ, mode = "cf",
+> ##D                     gridList = "gridlist.txt")
+> ##D 
+> ##D # Define the design for the simulation:  number of patches simulated,
+> ##D # disturbances, and other simulation options
+> ##D 
+> ##D # Obtain the standard design
+> ##D designLPJ <- getDesign(scaleLPJ, list = TRUE)
+> ##D 
+> ##D # Modify the desired options
+> ##D designLPJ$run_vegmode <- "cohort"
+> ##D designLPJ$run_ifcentury <- 0
+> ##D designLPJ$run_iffire <- 0
+> ##D designLPJ$run_ifnlim <- 0
+> ##D designLPJ$run_ifstochestab <- 0
+> ##D designLPJ$run_ifstochmort <- 0
+> ##D designLPJ$run_patcharea <- 25^2
+> ##D designLPJ$run_npatch <- 1
+> ##D designLPJ$run_ifdisturb <- 0
+> ##D designLPJ$run_nyear_spinup <- 1
+> ##D designLPJ$run_freenyears <- 0
+> ##D designLPJ$run_save_state <- 0
+> ##D designLPJ$run_restart <- 0
+> ##D designLPJ$run_state_path <- mainDir
+> ##D 
+> ##D # Add the desing to the settings
+> ##D LPJsettings$design <- designLPJ
+> ##D 
+> ##D # Run the model
+> ##D results_SPP <- runLPJ(x = mainDur, parameterList = parameters,
+> ##D                       typeList = typeList, settings = LPJsettings)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getDesign", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getLPJData")
+> ### * getLPJData
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getLPJData
+> ### Title: A function to process LPJ-GUESS outputs
+> ### Aliases: getLPJData
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D #  Specify folder where the ASCII outputs produced by LPJ-GUESS files are located
+> ##D outDir <- "/some/absolute/path/runDirectory/outDirectory"
+> ##D list.files(outDir)
+> ##D 
+> ##D # Any specific output you are interest in
+> ##D typeList <- c("aaet","lai")
+> ##D 
+> ##D # What information should be associated to the data
+> ##D runInfo <-  list(parameters = 0.5, grid = 1)
+> ##D 
+> ##D # Call the function and obtain the outputs as LPJData and
+> ##D   # stored as zoo time series
+> ##D LPJout <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = TRUE)
+> ##D   # stored as data.frame
+> ##D LPJout <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = FALSE)
+> ##D 
+> ##D # Plot the data
+> ##D plotLPJData(LPJout)
+> ##D   
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getLPJData", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getParameterList")
+> ### * getParameterList
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getParameterList
+> ### Title: A get parameter list function
+> ### Aliases: getParameterList
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Get the default parameters as a list
+> ##D parameterList <- getParameterList("global", list = TRUE)
+> ##D parameterList <- getParameterList("europe", list = TRUE)
+> ##D 
+> ##D # Modify any parameter
+> ##D parameterList$common_emax <- 1
+> ##D parameterList[["common_emax"]] <- 1
+> ##D 
+> ##D 
+> ##D # Get the default parameters as a matrix
+> ##D parameterList <- getParameterList("global", list = FALSE)
+> ##D parameterList <- getParameterList("europe", list = FALSE)
+> ##D 
+> ##D # Modify any parameter
+> ##D parameterList["common_emax",] <- 1
+> ##D 
+> ##D # Call runLPJ with the desired parameter
+> ##D result <-  runLPJ(x=mainDir, settings=settings, parameterList = parameterList)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getParameterList", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getRunInfo")
+> ### * getRunInfo
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getRunInfo
+> ### Title: A get runInfo data
+> ### Aliases: getRunInfo
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # recover the data from the runInfo folder
+> ##D result <- getRunInfo("/some/absolute/path/runInfo_2016_08_11_121507")
+> ##D 
+> ##D # recover only the paramaters from the runInfo folder
+> ##D parameters <- getRunInfo("/some/absolute/path/runInfo_2016_08_11_121507", parameters =TRUE)
+> ##D 
+> ##D # recover only the parameters from the result
+> ##D parameters <- getRunInfo(result, parameters =TRUE)
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getRunInfo", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getTemplate")
+> ### * getTemplate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getTemplate
+> ### Title: A get template function
+> ### Aliases: getTemplate
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Get templates as r objects
+> ##D template <- getTemplate("global")
+> ##D template <- getTemplate("global_cf")
+> ##D template <- getTemplate("global_cru")
+> ##D template <- getTemplate("europe")
+> ##D template <- getTemplate("europe_cf")
+> ##D template <- getTemplate("europe_cru")
+> ##D 
+> ##D 
+> ##D # Get templates written in a folder
+> ##D getTemplate("global","/home/mainDir/")
+> ##D getTemplate("global_cf","/home/mainDir/")
+> ##D getTemplate("global_cru","/home/mainDir/")
+> ##D getTemplate("europe","/home/mainDir/")
+> ##D getTemplate("europe_cf","/home/mainDir/")
+> ##D getTemplate("europe_cru", "/home/mainDir/")
+> ##D )
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getTemplate", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("getTypeList")
+> ### * getTypeList
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: getTypeList
+> ### Title: A get type list function
+> ### Aliases: getTypeList
+> 
+> ### ** Examples
+> 
+> typelist <- getTypeList()
+> typelist
+ [1] "aaet"          "agpp"          "aiso"          "amon"         
+ [5] "anpp"          "cflux"         "clitter"       "cmass"        
+ [9] "cpool"         "cton_leaf"     "dens"          "firert"       
+[13] "fpc"           "speciesheight" "lai"           "maet"         
+[17] "mevap"         "mgpp"          "mintercep"     "miso"         
+[21] "mlai"          "mmon"          "mnee"          "mnpp"         
+[25] "mpet"          "mra"           "mrh"           "mrunoff"      
+[29] "mwcont_lower"  "mwcont_upper"  "nflux"         "ngases"       
+[33] "nlitter"       "nmass"         "npool"         "nsources"     
+[37] "nuptake"       "runoff"        "vmaxnlim"     
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("getTypeList", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("plotLPJData")
+> ### * plotLPJData
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plotLPJData
+> ### Title: A plot function for LPJData objects
+> ### Aliases: plotLPJData
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ### Plot LPJData object  ###
+> ##D 
+> ##D # After runLPJ
+> ##D result <-   runLPJ(mainDir,  settings= settings)
+> ##D plotLPJData(result, save.plots = FALSE)
+> ##D 
+> ##D # After getLPJData
+> ##D result <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = TRUE)
+> ##D result <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, processing = FALSE)
+> ##D plotLPJData(result, save.plots = FALSE)
+> ##D 
+> ##D 
+> ##D # Plot specific outputs
+> ##D plotLPJData(result, typeList = c("aaet", "lai"), save.plots = FALSE)
+> ##D 
+> ##D # Save plots
+> ##D plotLPJData(result,  outDir = "/runDir/outDir", save.plots = TRUE)
+> ##D 
+> ##D 
+> ##D ### Plot from runLPJ  ###
+> ##D LPJsettings <- list(file.co2 = file.path(mainDir, "crudata", "co2_1765-2500_RCP3.txt"),
+> ##D                     file.cru = file.path(mainDir, "crudata", "cru_1901_2006.bin"),
+> ##D                     file.cru.misc = file.path(mainDir, "crudata", "cru_1901_2006misc.bin"),
+> ##D                     file.ndep = file.path(mainDir, "crudata", "GlobalNitrogenDeposition.bin"),
+> ##D                     file.temp = file.path(mainDir, "temp.nc"),
+> ##D                     file.prec = file.path(mainDir, "prec.nc"),
+> ##D                     file.insol = file.path(mainDir, "rad.nc"),
+> ##D                     variable.temp = "temp", variable.insol = "rad",
+> ##D                     variable.prec = "prec", delete = FALSE, save = FALSE, processing = TRUE,
+> ##D                     plot.data = FALSE, save.plots = FALSE, scale = scaleLPJ, mode = "cf",
+> ##D                     gridList = "gridlist.txt")
+> ##D 
+> ##D # Activate plot option
+> ##D LPJsettings$plot.data <- TRUE
+> ##D 
+> ##D # Save plots
+> ##D LPJsettings$plot.data <- TRUE
+> ##D LPJsettings$save.plots <- TRUE
+> ##D 
+> ##D # runLPJ and plot
+> ##D results <- runLPJ(x = mainDur, settings = LPJsettings)
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("plotLPJData", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("runLPJ")
+> ### * runLPJ
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: runLPJ
+> ### Title: The function to run the LPJ-GUESS in parallel
+> ### Aliases: runLPJ
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D ### Settings and options ###
+> ##D 
+> ##D # main directory
+> ##D mainDir <- "/some/absolute/path/mainDir"
+> ##D list.files(mainDir)
+> ##D   [1] "guess" or "guesscmd.exe"  # link to the model executable
+> ##D   [2] "gridlist.txt"      # list of gridcells
+> ##D   [3] "global.ins"        # template1 (optional)
+> ##D   [4] "global_cru.ins"    # template2 (optional)
+> ##D 
+> ##D # Input files
+> ##D file.co2<-"/some/absolute/path/crudata/co2_1901-2013.txt"
+> ##D file.cru <- "/some/absolute/path/crudata/cru_1901_2006.bin"
+> ##D file.cru.misc <- "/some/absolute/path/crudata/cru_1901_2006misc.bin"
+> ##D file.ndep <- "/some/absolute/path/crudata/GlobalNitrogenDeposition.bin"
+> ##D file.temp <- "/some/absolute/path/cfdata/temp.nc"
+> ##D file.prec <- "/some/absolute/path/cfdata/prec.nc"
+> ##D file.insol <- "/some/absolute/path/cfdata/rad.nc"
+> ##D 
+> ##D # General settings
+> ##D settings <- list (gridList = gridList,mode = "cf", scale = "global",
+> ##D                file.co2 = file.co2, file.cru = file.cru,
+> ##D                file.cru.misc = file.cru.misc, file.ndep = file.ndep,
+> ##D                file.temp = file.temp, file.prec = file.prec,
+> ##D                file.insol = file.insol, delete = FALSE)
+> ##D 
+> ##D # (Optional) Modify design
+> ##D   # Obtain the standard design
+> ##D designLPJ <- getDesign(scaleLPJ, list = TRUE)
+> ##D 
+> ##D   # Modify the desired options
+> ##D designLPJ$run_vegmode <- "cohort"
+> ##D designLPJ$run_ifcentury <- 0
+> ##D designLPJ$run_iffire <- 0
+> ##D designLPJ$run_ifnlim <- 0
+> ##D 
+> ##D   # Add to settings
+> ##D settings$design <- designLPJ
+> ##D 
+> ##D ### Single  Run ###
+> ##D result <-  runLPJ(x=mainDir, settings=settings)
+> ##D result
+> ##D     class              : LPJData
+> ##D     LPJ template 1     : global.ins
+> ##D     LPJ template 2     : global_cf.ins
+> ##D     grid cells         : 99  Somewhere
+> ##D     run directory      : /some/absolute/path/mainDir/runDirectory
+> ##D     LPJ model outputs  : 39 outputs
+> ##D     aaet agpp aiso amon anpp cflux clitter cmass cpool cton_leaf dens
+> ##D     firert fpc speciesheight lai maet mevap mgpp mintercep miso mlai mmon
+> ##D     mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
+> ##D     nlitter nmass npool nsources nuptake runoff vmaxnlim
+> ##D 
+> ##D 
+> ##D ### Parallel Run ###
+> ##D 
+> ##D # Create some paramaters to test the model.
+> ##D # Number of runs is proportional to number of parameter being testet
+> ##D parameterDefault <- list (run_emax = NULL)
+> ##D 
+> ##D # Test 6 different values for emax.
+> ##D par <- seq(1,5, len = 6)
+> ##D # Create the list object with the parameters
+> ##D parameterList <- vector("list", length(par))
+> ##D for (i in 1:length(par)) {
+> ##D   parameterDefault$run_emax <- par[i]
+> ##D   parameterList[[i]] <- parameterDefault
+> ##D }
+> ##D 
+> ##D # Call setupParallel
+> ##D mySetup <- setupLPJParallel(numCores=3, clusterType="SOCK", mainDir=mainDir)
+> ##D 
+> ##D # Call runLPJ
+> ##D result <- runLPJ(x=mySetup, settings=settings, parameterList=parameterList)
+> ##D str(result,1)
+> ##D   List of 6
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("runLPJ", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("setupLPJParallel")
+> ### * setupLPJParallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: setupLPJParallel
+> ### Title: The function to create a setup for parallel runs of the
+> ###   LPJ-GUESS
+> ### Aliases: setupLPJParallel
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # 20 different parameters or parameters conbinations to test
+> ##D   # as a matrix
+> ##D parameterList <- as.matrix(seq(1,5, len = 20))
+> ##D colnames(parameterList) <- "common_emax"
+> ##D   # as a list
+> ##D dummy <- list (common_emax = NULL)
+> ##D par <- seq(1,5, len = 20)
+> ##D parameterList <- vector("list", length(par))
+> ##D for (i in 1:length(par)) {
+> ##D   dummy$common_emax <- par[i]
+> ##D   parameterList[[i]] <- dummy
+> ##D }
+> ##D 
+> ##D 
+> ##D # Create a parallel setup for MPI cluster
+> ##D # Number of cores must be equal or larger than the parameter combinations
+> ##D mySetup <- setupLPJParallel(numCores= 20, clusterType = "MPI", mainDir=mainDir)
+> ##D 
+> ##D # Create a parallel setup for SOCK cluster
+> ##D # Number of cores must be equal or larger than the parameter combinations
+> ##D mySetup <- setupLPJParallel(numCores= 3, clusterType = "SOCK", mainDir=mainDir)
+> ##D 
+> ##D # Run LPJ-GUESS in parallel
+> ##D result <- runLPJ(x = mySetup,  settings= settings, parameterList = parameterList )
+> ##D 
+> ##D # After running runLPJ (20 simulations)
+> ##D str(result,1)
+> ##D 
+> ##D   List of 20
+> ##D 
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D   $ :Formal class 'LPJData' [package "rLPJGUESS"] with 2 slots
+> ##D 
+> ##D   [...]
+> ##D 
+> ##D 
+> ##D 
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("setupLPJParallel", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> cleanEx()
+> nameEx("writeTemplate")
+> ### * writeTemplate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: writeTemplate
+> ### Title: A writing template function for LPJ-GUESS
+> ### Aliases: writeTemplate
+> ### Keywords: rLPJGUESS
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Define the parametes to be written
+> ##D parameterList <- list(run_lamda_max = 0.5, run_emax= 5)
+> ##D 
+> ##D # write the template
+> ##D writeTemplate(template1 = "global.ins", parameterList = parameterList,
+> ##D               runDir = "/some/absolute/path/mainDir/runDirectory", check = "serial")
+> ## End(Not run)
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("writeTemplate", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.467 0.013 0.482 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

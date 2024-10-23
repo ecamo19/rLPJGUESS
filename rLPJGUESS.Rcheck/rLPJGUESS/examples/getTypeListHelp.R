@@ -1,0 +1,2 @@
+typelist <- getTypeList()
+typelist

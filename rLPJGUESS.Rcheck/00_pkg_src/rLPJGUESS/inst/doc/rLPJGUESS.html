@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig" />
+
+<meta name="date" content="2024-10-23" />
+
+<title>rLPJGUESS Package</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">rLPJGUESS Package</h1>
+<h4 class="author">Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian
+Hartig</h4>
+<h4 class="date">2024-10-23</h4>
+
+
+
+<p>The rLPJGUESS package is thought to ease the parallelization of the
+LPJ-GUESS 3.1 in High Computer Performance Environments (HPC). The
+package is a collection of tools that will allow you to create a
+parallel setup and run in parallel not only the LPJ-GUESS 3.1 model, but
+also the processing of the model outputs. The package can be also used
+for parallel runs on personal computers.</p>
+<p>In this document you will learn how to prepare a parallel setup and
+how to use the different functions of rLPJGUESS. The code is open to
+further improvements and modifications, feel free to adapt it to your
+needs.</p>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<div id="general-aspects" class="section level4">
+<h4>General aspects</h4>
+<p>The rLPJGUESS package will help you to run LPJ-GUESS 3.1 in parallel,
+but first you will have to prepare your data, so that you can make use
+the of the package utilities. Specifically, rLPJGUESS requires that
+<em>i)</em> you have already compiled the LPJ-GUESS 3.1 model in your
+computer or home folder in the HPC, and that <em>ii)</em> the existence
+of a directory where the outputs of the model will be saved, a sort of
+main directory.</p>
+<p>In the main directory (<em>mainDir</em>), the following files must be
+available:</p>
+<ul>
+<li>a link to the guess executable</li>
+<li>a text file with the grids</li>
+<li>the model input templates (optional)</li>
+</ul>
+<p>with a structure like this:</p>
+<p>$ cd ./mainDir</p>
+<p>$ ls</p>
+<pre><code>      guess / guesscmd.exe   # link to the model executable (not for Windows)
+      gridlist.txt           # list of grid cells
+      global.ins             # model template  (optional)
+      global_cru.ins         # model template  (optional) </code></pre>
+<p>or global_cf.ins # model template (optional)</p>
+<p>The model templates are included within the package as part of the
+system data. They have been edited with some reference values, but you
+might want to change then. The function <em>getTemplate</em> allows to
+obtain templates from the package. To learn more about how to writing
+parameters in the template, check out the <em>writeParameters</em>
+function and the <em>getParameterList</em>.</p>
+</div>
+<div id="running-lpj-guess-in-parallel" class="section level4">
+<h4>Running LPJ-GUESS in parallel</h4>
+<p>Running the LPJ-GUESS parallel involves two steps. First, to create a
+parallel setup (<strong>setupParallel</strong>), and second, to actually
+run the model (<strong>runLPJ</strong>) in parallel. The parallelization
+requires the package <em>snow</em> for SOCK cluster and for MPI cluster,
+the <em>Rmpi</em> package.</p>
+<p>The <strong>setupParallel</strong> function will help you at creating
+a directory structure for storing your model outputs and arranging the
+model templates for each run. Calling the setupParallel returns a list
+object that contains all information needed to run the LPJ-GUESS in
+parallel.</p>
+<p>The <strong>runLPJ</strong> function reads the setup parallel object
+and creates a cluster to it which submits the model call with its
+respective parameters.</p>
+</div>
+</div>
+<div id="an-example-of-using-rlpjguess" class="section level2">
+<h2>An Example of using rLPJGUESS</h2>
+<p>Here you will see an example of how to use the rLPJGUESS package. We
+will not run the LPJ-GUESS itself because the model is not included in
+the package. However, we will make use of <em>almost</em> all package
+functions.</p>
+<div id="first-steps" class="section level4">
+<h4>First steps</h4>
+<p>Lets choose a main directory (<em>mainDir</em>) and have a look at
+it. Remember that the mainDir should contain a link to your guess
+executable and file with list of grid cells.</p>
+<ol style="list-style-type: decimal">
+<li>Clear the local environment and load the library</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(rLPJGUESS)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Set the mainDir. In this case, it is within the package.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>mainDir <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="at">package =</span> <span class="st">&quot;rLPJGUESS&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">list.files</span>(mainDir) </span></code></pre></div>
+<pre><code>## [1] &quot;LPJParameters_calibrate.csv&quot; &quot;exampleOutputs&quot;             
+## [3] &quot;gridlist.txt&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Now specicify the paths to the input data. They must be absolute
+paths.</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>file_co2 <span class="ot">&lt;-</span><span class="st">&quot;/some/absolute/path/crudata/co2_1901-2006.txt&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>file_cru <span class="ot">&lt;-</span> <span class="st">&quot;/some/absolute/path/crudata/cru_1901_2006.bin&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>file_cru_misc <span class="ot">&lt;-</span> <span class="st">&quot;/some/absolute/path/crudata/cru_1901_2006misc.bin&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>file_ndep <span class="ot">&lt;-</span> <span class="st">&quot;/some/absolute/path/crudata/GlobalNitrogenDeposition.bin&quot;</span></span></code></pre></div>
+<p>Note: If running the cf mode, the following files must be specified
+as well.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>file_temp <span class="ot">&lt;-</span> <span class="st">&quot;/some/absolute/path/cfdata/temp.nc&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>file_prec <span class="ot">&lt;-</span> <span class="st">&quot;/some/absolute/path/cfdata/prec.nc&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>file_insol <span class="ot">&lt;-</span> <span class="st">&quot;/some/absolute/path/cfdata/rad.nc&quot;</span></span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Specify the file contain the grids for the model run. This file
+should be placed in <strong>mainDir</strong>.</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>gridList <span class="ot">&lt;-</span> <span class="st">&quot;gridlist.txt&quot;</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Set options for <strong>runLPJ</strong>.</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>settings <span class="ot">&lt;-</span> <span class="fu">list</span> (<span class="at">gridList =</span> gridList,<span class="at">mode =</span> <span class="st">&quot;cf&quot;</span>, <span class="at">scale =</span> <span class="st">&quot;global&quot;</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                  <span class="at">file.co2 =</span> file_co2, <span class="at">file.cru =</span> file_cru, <span class="at">file.cru.misc =</span> file_cru_misc,</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                  <span class="at">file.ndep =</span> file_ndep, <span class="at">file.temp =</span> file_temp, <span class="at">file.prec =</span> file_prec,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                  <span class="at">file_insol =</span> file_insol)</span></code></pre></div>
+</div>
+<div id="a-serial-run" class="section level4">
+<h4>A serial run</h4>
+<p>After the steps above, we are ready to call <strong>runLPJ</strong>.
+LPJ-GUESS is, however, not part of this package, and thus, we will skip
+<strong>runLPJ</strong> here. Anyway, we should procceed as follows</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>result <span class="ot">&lt;-</span>   <span class="fu">runLPJ</span>(mainDir,  <span class="at">settings=</span> settings)</span></code></pre></div>
+<p>The above call will run the model wiht the default values for
+global_cf template. We can specify other values for the model parameters
+and also choose what model output we want to create. In the next
+section, we will do so for parallel runs of <strong>runLPJ</strong>.</p>
+<p>The output is a <strong>LPJData</strong> object holding the
+information on the model run and the data outputs.</p>
+<pre><code>result
+
+  class              : LPJData
+  run directory      : /some/absolute/paht/runDirectory
+  LPJ template 1     : global.ins
+  LPJ template 2     : global_cf.ins
+  grid cells         : 1 cell(s)
+  0  Somewhere
+  LPJ model outputs  : 39 output(s)
+  aaet agpp aiso amon anpp cflux clitter cmass cpool cton_leaf dens      
+  firert fpc speciesheight lai maet mevap mgpp mintercep miso mlai mmon
+  mnee mnpp mpet mra mrh mrunoff mwcont_lower mwcont_upper nflux ngases
+  nlitter nmass npool nsources nuptake runoff vmaxnlim</code></pre>
+</div>
+<div id="a-parallel-run" class="section level4">
+<h4>A parallel run</h4>
+<p>Because we are running this on a personal laptop, we will choose a
+low number cores and create a SOCK cluster. In a HPC enviroment, you can
+go for MPI clusters.</p>
+<p>By calling the function <strong>setupParallel</strong> we will create
+a parallel setup for <strong>runLPJ</strong>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">error=</span>traceback)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>mySetup <span class="ot">&lt;-</span> <span class="fu">setupLPJParallel</span>(<span class="at">numCores=</span> <span class="dv">3</span>, <span class="at">clusterType =</span> <span class="st">&quot;SOCK&quot;</span>, <span class="at">mainDir=</span>mainDir)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>mySetup</span></code></pre></div>
+<pre><code>## class              : LPJSetup
+## cluster type       : SOCK
+## number of cores    : 3
+## output directories : 
+## /tmp/RtmpJ0VHVC/Rinst341b561079fa/rLPJGUESS/extdata/runDirectory1
+## /tmp/RtmpJ0VHVC/Rinst341b561079fa/rLPJGUESS/extdata/runDirectory2
+## /tmp/RtmpJ0VHVC/Rinst341b561079fa/rLPJGUESS/extdata/runDirectory3</code></pre>
+<p>If we check the mainDir, we see that there are new folders.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">list.files</span>(mainDir) </span></code></pre></div>
+<pre><code>## [1] &quot;LPJParameters_calibrate.csv&quot; &quot;exampleOutputs&quot;             
+## [3] &quot;gridlist.txt&quot;                &quot;runDirectory1&quot;              
+## [5] &quot;runDirectory2&quot;               &quot;runDirectory3&quot;</code></pre>
+<p>Within the the runDir folders, there is also a outDir folder to
+temporary store the model outputs.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>runDir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(mainDir, <span class="st">&quot;runDirectory1&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">list.files</span>(runDir)</span></code></pre></div>
+<pre><code>## [1] &quot;outDirectory1&quot;</code></pre>
+<p>Now we can define the model outputs and the parameters to be tested.
+In this example, we will test several values for <em>emax</em> for
+europe. To see what are the default values for europe, we can use the
+<strong>getParameterList</strong> function.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>parameterDefault <span class="ot">&lt;-</span> <span class="fu">getParameterList</span>(<span class="st">&quot;europe&quot;</span>, <span class="at">list =</span> F)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>parameterDefault[<span class="dv">40</span><span class="sc">:</span><span class="dv">50</span>,]</span></code></pre></div>
+<pre><code>##       shrub_cton_sap      shrub_nuptoroot      shrub_km_volume 
+##            3.300e+02            2.800e-03            1.477e-06 
+##      shrub_fnstorage      shrub_kest_repr        shrub_kest_bg 
+##            3.000e-01            2.000e+02            1.000e-01 
+##      shrub_kest_pres       shrub_litterme      shrub_longevity 
+##            1.000e+00            3.000e-01            1.000e+02 
+## needlelleaf_k_allom1 needlelleaf_k_latosa 
+##            1.500e+02            4.000e+03</code></pre>
+<p>We can also access the paramater as a list (list= T), instead of a
+matrix (list = F).</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>parameterDefault <span class="ot">&lt;-</span> <span class="fu">getParameterList</span>(<span class="st">&quot;europe&quot;</span>, <span class="at">list =</span> T)</span></code></pre></div>
+<p>Let’s check the default value for <em>emax</em>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>parameterDefault<span class="sc">$</span>common_emax</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>We can create some test values for <em>emax</em>. As for
+<strong>getParameterList</strong>, the values can be arranged in a
+matrix</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>parameterList <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>, <span class="at">len =</span> <span class="dv">20</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="fu">colnames</span>(parameterList) <span class="ot">&lt;-</span> <span class="st">&quot;common_emax&quot;</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">head</span>(parameterList)</span></code></pre></div>
+<pre><code>##      common_emax
+## [1,]    1.000000
+## [2,]    1.210526
+## [3,]    1.421053
+## [4,]    1.631579
+## [5,]    1.842105
+## [6,]    2.052632</code></pre>
+<p>or in a list.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>dummy <span class="ot">&lt;-</span> <span class="fu">list</span> (<span class="at">common_emax =</span> <span class="cn">NULL</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>par <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>, <span class="at">len =</span> <span class="dv">20</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>parameterList <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="fu">length</span>(par))</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(par)) {</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  dummy<span class="sc">$</span>common_emax <span class="ot">&lt;-</span> par[i]</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>  parameterList[[i]] <span class="ot">&lt;-</span> dummy</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>}</span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a><span class="fu">print</span>(parameterList[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>])</span></code></pre></div>
+<pre><code>## [[1]]
+## [[1]]$common_emax
+## [1] 1.210526
+## 
+## 
+## [[2]]
+## [[2]]$common_emax
+## [1] 1.421053</code></pre>
+<p>Once the parameters are defined, we can specify which outputs we are
+interested in.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>typeList <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;aaet&quot;</span>, <span class="st">&quot;nuptake&quot;</span>)</span></code></pre></div>
+<p>Now we are ready to call the <strong>runLPJ</strong> . Because
+LPJ-GUESS is not part of this package, we will skip this step. The call
+to <strong>runLPJ</strong> would look like the one below.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>result <span class="ot">&lt;-</span>   <span class="fu">runLPJ</span>(mySetup,  <span class="at">settings=</span> settings, <span class="at">parameterList =</span> parameterList )</span></code></pre></div>
+<p><strong>runLPJ</strong> would return something like this:</p>
+<pre><code>Output typeList has not been provided
+
+Setting typeList to default values
+
+
+Using package template (template 1)
+
+Saving package template in the mainDir
+
+
+Using package template (template 2)
+
+Saving package template in the mainDir
+
+
+Checking conditions
+
+Reading the parallel object structure
+
+|==============================================================| 100%
+
+Creating a SOCK cluster with 3 cores
+
+Sending tasks to the cores
+
+
+Processing ended!</code></pre>
+<p>The output of <strong>runLPJ</strong> is a list with as many objects
+as parameter values we wanted to test. In this case 20 parameter
+values.</p>
+<pre><code>str(result,1)
+
+List of 20
+
+$ :Formal class &#39;LPJData&#39; [package &quot;rLPJGUESS&quot;] with 2 slots
+
+$ :Formal class &#39;LPJData&#39; [package &quot;rLPJGUESS&quot;] with 2 slots
+
+$ :Formal class &#39;LPJData&#39; [package &quot;rLPJGUESS&quot;] with 2 slots
+
+$ :Formal class &#39;LPJData&#39; [package &quot;rLPJGUESS&quot;] with 2 slots
+
+$ :Formal class &#39;LPJData&#39; [package &quot;rLPJGUESS&quot;] with 2 slots
+
+$ :Formal class &#39;LPJData&#39; [package &quot;rLPJGUESS&quot;] with 2 slots
+
+[...]</code></pre>
+</div>
+</div>
+<div id="how-rlpjguess-works" class="section level2">
+<h2>How rLPJGUESS works</h2>
+<p>Here you will see how a single run takes place. The
+<strong>runLPJ</strong> does some preliminary taks such as organizing
+input data into the runDirs. If parallel, it creates the desired
+cluster. In both cases, <strong>runLPJ</strong> calls a internal wrapper
+(<strong>runLPJwrapper</strong>) which agglutinates all single steps to
+carry one complete call to LPJ-GUESS. Here we will run the steps that
+take in place in a single run.</p>
+<ol style="list-style-type: decimal">
+<li>Lets move one of the run directories.</li>
+</ol>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>runDir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(mainDir, <span class="st">&quot;runDirectory1&quot;</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">list.files</span>(runDir)</span></code></pre></div>
+<pre><code>## [1] &quot;outDirectory1&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>The frst step is to write the parameters. We will selected only one
+of the parameters created above.</li>
+</ol>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>parameters <span class="ot">&lt;-</span> parameterList[[<span class="dv">1</span>]] </span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>parameters</span></code></pre></div>
+<pre><code>## $common_emax
+## [1] 1</code></pre>
+<p>We can read the template to check how it looks like. In concrete, the
+parameters we want to change.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>template <span class="ot">&lt;-</span> <span class="fu">getTemplate</span>(<span class="st">&quot;europe&quot;</span>, runDir)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">list.files</span>(runDir)</span></code></pre></div>
+<pre><code>## [1] &quot;europe.ins&quot;    &quot;outDirectory1&quot;</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>template <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="fu">file.path</span>(runDir, <span class="st">&quot;europe.ins&quot;</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>template [<span class="fu">c</span>(<span class="dv">156</span><span class="sc">:</span><span class="dv">166</span>)]</span></code></pre></div>
+<pre><code>##  [1] &quot;!// Run GUESS with -help option for list of keywords and their meanings&quot;
+##  [2] &quot;&quot;                                                                       
+##  [3] &quot;group \&quot;common\&quot; (&quot;                                                     
+##  [4] &quot;&quot;                                                                       
+##  [5] &quot;\t! Parameters common to all PFTs&quot;                                      
+##  [6] &quot;&quot;                                                                       
+##  [7] &quot;\tlambda_max \tcommon_lambda_max\t\t\t! 0.8&quot;                            
+##  [8] &quot;\temax \t\tcommon_emax\t\t\t! 5&quot;                                        
+##  [9] &quot;\treprfrac \tcommon_reprfrac\t\t\t! 0.1&quot;                                
+## [10] &quot;\twscal_min \tcommon_wscal_min\t\t\t! 0.35&quot;                             
+## [11] &quot;\tdrought_tolerance common_drought_tolerance \t! 0.0001&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Now we call the <strong>writeTemplate</strong> function and write
+the template.</li>
+</ol>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">writeTemplate</span>(<span class="at">template1 =</span> <span class="st">&quot;europe.ins&quot;</span>, <span class="at">parameterList =</span> parameters, <span class="at">runDir =</span> runDir)</span></code></pre></div>
+<p>and check the changes. We should see that all parameter values but
+emax have been written with the default values.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>template <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="fu">file.path</span>(runDir, <span class="st">&quot;europe.ins&quot;</span>))</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>template [<span class="fu">c</span>(<span class="dv">156</span><span class="sc">:</span><span class="dv">166</span>)]</span></code></pre></div>
+<pre><code>##  [1] &quot;!// Run GUESS with -help option for list of keywords and their meanings&quot;
+##  [2] &quot;&quot;                                                                       
+##  [3] &quot;group \&quot;common\&quot; (&quot;                                                     
+##  [4] &quot;&quot;                                                                       
+##  [5] &quot;\t! Parameters common to all PFTs&quot;                                      
+##  [6] &quot;&quot;                                                                       
+##  [7] &quot;\tlambda_max \t0.8\t\t\t! 0.8&quot;                                          
+##  [8] &quot;\temax \t\t1\t\t\t! 5&quot;                                                  
+##  [9] &quot;\treprfrac \t0.1\t\t\t! 0.1&quot;                                            
+## [10] &quot;\twscal_min \t0.35\t\t\t! 0.35&quot;                                         
+## [11] &quot;\tdrought_tolerance 1e-04 \t! 0.0001&quot;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Next step is to call the model. The function that internally calls
+LPJ-GUESS is <strong>callLPJ</strong>.</li>
+</ol>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">callLPJ</span>(mainDir, runDir, template, mode)</span></code></pre></div>
+<p>Assuming that we would have run the LPJ, we should see in the
+outDirectory the output files, as specified in the template. In this
+example, we do not run the LPJ and thus, we do not create any output
+data. But some output data examples are provided in the folder
+<em>extdata/exampleOutputs</em>. In the lines below, we will read the
+outputs, process and plot them.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Lets check the example output data.</li>
+</ol>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>outDir <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata/exampleOutputs&quot;</span>, <span class="at">package =</span> <span class="st">&quot;rLPJGUESS&quot;</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="fu">list.files</span>(outDir)</span></code></pre></div>
+<pre><code>##  [1] &quot;aaet.out&quot;       &quot;agpp.out&quot;       &quot;anpp.out&quot;       &quot;cflux.out&quot;     
+##  [5] &quot;clitter.out&quot;    &quot;cmass.out&quot;      &quot;cpool.out&quot;      &quot;cton_leaf.out&quot; 
+##  [9] &quot;dens.out&quot;       &quot;fpc.out&quot;        &quot;lai.out&quot;        &quot;nflux.out&quot;     
+## [13] &quot;ngases.out&quot;     &quot;nlitter.out&quot;    &quot;nmass.out&quot;      &quot;npool.out&quot;     
+## [17] &quot;nsources.out&quot;   &quot;nuptake.out&quot;    &quot;tot_runoff.out&quot; &quot;vmaxnlim.out&quot;</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>If we were interested only in some of the outputs, lets say
+<em>aaet</em> and <em>lai</em>, we can do this:</li>
+</ol>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>typeList <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;aaet&quot;</span>,<span class="st">&quot;lai&quot;</span>)</span></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li>Then we call the <strong>getLPJData</strong> function to obtain the
+processed data.</li>
+</ol>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>LPJout <span class="ot">&lt;-</span> <span class="fu">getLPJData</span>(<span class="at">x =</span> outDir,<span class="at">typeList =</span> typeList,  <span class="at">runInfo=</span><span class="fu">list</span>(<span class="at">runNumber =</span> <span class="dv">1</span>, <span class="at">template1 =</span> <span class="st">&quot;europe.ins&quot;</span>, <span class="at">template2=</span><span class="st">&quot;europe_cf.ins&quot;</span>, <span class="at">runDir =</span> <span class="st">&quot;runDirectory1&quot;</span>))</span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>LPJout</span></code></pre></div>
+<pre><code>## class              : LPJData
+## run directory      : runDirectory1
+## LPJ template 1     : europe.ins
+## LPJ template 2     : europe_cf.ins
+## LPJ model outputs  : 2 output(s)
+## aaet, lai</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>The <strong>LPJData</strong> class has two slots.</li>
+</ol>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">slotNames</span>(LPJout)</span></code></pre></div>
+<pre><code>## [1] &quot;runInfo&quot;   &quot;dataTypes&quot;</code></pre>
+<p>In <em>runInfo</em> we can find all information used to run the
+model,</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">names</span>(LPJout[<span class="st">&quot;runInfo&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;runNumber&quot; &quot;template1&quot; &quot;template2&quot; &quot;runDir&quot;</code></pre>
+<p>while in <em>dataTypes</em>, the data.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">names</span>(LPJout[<span class="st">&quot;dataTypes&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;aaet&quot; &quot;lai&quot;</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">summary</span>(LPJout[<span class="st">&quot;lai&quot;</span>])</span></code></pre></div>
+<pre><code>##       Lon           Lat          Year           BNE         BINE        BNS   
+##  Min.   :8.5   Min.   :50   Min.   :1980   Min.   :0   Min.   :0   Min.   :0  
+##  1st Qu.:8.5   1st Qu.:50   1st Qu.:1988   1st Qu.:0   1st Qu.:0   1st Qu.:0  
+##  Median :8.5   Median :50   Median :1996   Median :0   Median :0   Median :0  
+##  Mean   :8.5   Mean   :50   Mean   :1996   Mean   :0   Mean   :0   Mean   :0  
+##  3rd Qu.:8.5   3rd Qu.:50   3rd Qu.:2004   3rd Qu.:0   3rd Qu.:0   3rd Qu.:0  
+##  Max.   :8.5   Max.   :50   Max.   :2012   Max.   :0   Max.   :0   Max.   :0  
+##       TeBS             IBS         TeBE               TrBE       TrIBE  
+##  Min.   :0.9494   Min.   :0   Min.   :0.000000   Min.   :0   Min.   :0  
+##  1st Qu.:1.0413   1st Qu.:0   1st Qu.:0.000000   1st Qu.:0   1st Qu.:0  
+##  Median :1.3159   Median :0   Median :0.000000   Median :0   Median :0  
+##  Mean   :1.2573   Mean   :0   Mean   :0.001155   Mean   :0   Mean   :0  
+##  3rd Qu.:1.3965   3rd Qu.:0   3rd Qu.:0.000100   3rd Qu.:0   3rd Qu.:0  
+##  Max.   :1.5490   Max.   :0   Max.   :0.011000   Max.   :0   Max.   :0  
+##       TrBR        C3G               C4G        Total       
+##  Min.   :0   Min.   :0.00000   Min.   :0   Min.   :0.9593  
+##  1st Qu.:0   1st Qu.:0.00000   1st Qu.:0   1st Qu.:1.0427  
+##  Median :0   Median :0.00140   Median :0   Median :1.3537  
+##  Mean   :0   Mean   :0.01992   Mean   :0   Mean   :1.2784  
+##  3rd Qu.:0   3rd Qu.:0.04690   3rd Qu.:0   3rd Qu.:1.4031  
+##  Max.   :0   Max.   :0.08850   Max.   :0   Max.   :1.6106</code></pre>
+<p>The <strong>LPJData</strong> class is subsettable. So we can type
+this</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>LPJout[<span class="st">&quot;runDir&quot;</span>]</span></code></pre></div>
+<p>or this to access the information/data stored.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">summary</span>(LPJout[<span class="st">&quot;lai&quot;</span>])</span></code></pre></div>
+<pre><code>##       Lon           Lat          Year           BNE         BINE        BNS   
+##  Min.   :8.5   Min.   :50   Min.   :1980   Min.   :0   Min.   :0   Min.   :0  
+##  1st Qu.:8.5   1st Qu.:50   1st Qu.:1988   1st Qu.:0   1st Qu.:0   1st Qu.:0  
+##  Median :8.5   Median :50   Median :1996   Median :0   Median :0   Median :0  
+##  Mean   :8.5   Mean   :50   Mean   :1996   Mean   :0   Mean   :0   Mean   :0  
+##  3rd Qu.:8.5   3rd Qu.:50   3rd Qu.:2004   3rd Qu.:0   3rd Qu.:0   3rd Qu.:0  
+##  Max.   :8.5   Max.   :50   Max.   :2012   Max.   :0   Max.   :0   Max.   :0  
+##       TeBS             IBS         TeBE               TrBE       TrIBE  
+##  Min.   :0.9494   Min.   :0   Min.   :0.000000   Min.   :0   Min.   :0  
+##  1st Qu.:1.0413   1st Qu.:0   1st Qu.:0.000000   1st Qu.:0   1st Qu.:0  
+##  Median :1.3159   Median :0   Median :0.000000   Median :0   Median :0  
+##  Mean   :1.2573   Mean   :0   Mean   :0.001155   Mean   :0   Mean   :0  
+##  3rd Qu.:1.3965   3rd Qu.:0   3rd Qu.:0.000100   3rd Qu.:0   3rd Qu.:0  
+##  Max.   :1.5490   Max.   :0   Max.   :0.011000   Max.   :0   Max.   :0  
+##       TrBR        C3G               C4G        Total       
+##  Min.   :0   Min.   :0.00000   Min.   :0   Min.   :0.9593  
+##  1st Qu.:0   1st Qu.:0.00000   1st Qu.:0   1st Qu.:1.0427  
+##  Median :0   Median :0.00140   Median :0   Median :1.3537  
+##  Mean   :0   Mean   :0.01992   Mean   :0   Mean   :1.2784  
+##  3rd Qu.:0   3rd Qu.:0.04690   3rd Qu.:0   3rd Qu.:1.4031  
+##  Max.   :0   Max.   :0.08850   Max.   :0   Max.   :1.6106</code></pre>
+<p>Now that we have processed the output data, we can plot the data and
+see how the variables evolve across the years. The
+<strong>plotLPJData</strong> function will plot the data as a time
+series using the zoo library. For this example we could plot the
+<em>lai</em> data.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="fu">plotLPJData</span>(<span class="at">x =</span> LPJout, <span class="at">typeList =</span> <span class="st">&quot;lai&quot;</span> , <span class="at">outDir =</span> outDir, <span class="at">save.plots =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqAAAAEgCAMAAABcujGyAAADAFBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKTk5OUlJSVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////isF19AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVR4nO2dCVgVVRvHD8gmCIKgIoErigrigriiYJK5lWailmRqaWiIa+Lu5/KVqZmppZi5ZGWimUuhKe6VmVuafpplrqQiohgqKtzzzXLvZfY5A3NlLry/52mY5cy509//bGfO+x6EAcDAoJI+AABQAgwKGBowKGBowKCAoQGDAoYGDAoYGjAoYGjAoIChAYMChgYMChgaMChgaMCggKEBgwKGBgwKGBowKGBowKCAoQGDAoYGDAoYGjAoYGjAoIChAYMChgYMChgaMChgaMCggKEBgwKGBgwKGBowqJVj3f0rddhpXjiH3mRnagZqqmQsSqWmdV3ucdZZ68I4HU0RrpIoJbG1zAIGtbDV2fW5bq6Om9mlGwlr2RmLQXsgit/wkZYVnz3PrvkmzL3ZD7yNFAdpb11GXbk1W+siNShnhzIPGNTMgyCXXzE+7dpMsN5i0HptEhISrmZ71ppS5Zk8esUZp7CJdctf42yk5woqB2G8An0q8ytkBgUKAYOa2Yvi6T83r+GjKOmtAYxd9of7jqvOGvSx03r6zxL0Df6I+o/ic3QQb0HfczYyDEbncD/Hm3hOddfgFZy62OV0NDDKu1cW68Ztjd0jD2E8qz5zHeaUAq8WAgY1sxTNoSaJiYmUqfy8JtAeue5eaWx9xBr0DIryDNlAPWKextvRXHrN3xV7p3X2yeRsZNiCFpkqt8c/oFYz6jj8Y63LvJyOUN8+6DnGgqccm79fp+o1nIg20jtySoFBCwGDmllD33y7U4+SlEFDHzF2eR99gn8zG/QbFDu1mtPvg9AFvA9NoteYBlOFx3E3MvMP3LufQB/iPzae/bEl+sVal3k5HUVg3BxdplcloS9Pv4vmWQ6AUwoMWggY1MwvqD39py1t0ETWLkPQMWzyZA2an2fCn6I5o9DvOA3Np9fMRbMzx6DPORvZil7ymI0u4utRLjHNaYOa6zIvp6PhGI9AB+hVL9BvVmio5QA4pcCghYBBzeSHoi8x3ulAG3QUa5dJaBm+YL6Cfjslg3oA/WgRSsXz2WfQ3pRX96ARnI1sRauRX1OMZ6N03Is2qLku83I6ao5xS3SFXjUUXcUP/7ptOQBOKTBoIWBQC3vKO0Z3cq7DMeiPyG9CE7NB16Cmgyt6Xr7pFTDMuyrzFr8a1X2rOtp+un6CZSNbT1Y5NBPj0ahHggvab63LvEw9g772GurMrDqAnktpW+4n7kuSuRQYtBAwqJXfuvkFT/pfbKFB8cJ6PklB5mamOTUqtD+M8a+tvdqdYdd8HFI+7AuqdHfrRpYY6tKKr7Xx7D4KjbTWZV5OR52aeFne4r9qWL7Zd5j7kmQuBQYtBAwKGBowKGBowKCAoQGDAoYGDAoYGjAoYGjAoIChAYMChgYMChgaMChgaMCggKEBgwKGBgwKGBowKGBowKCAoQGDAoYGDAoYGjAoYGjAoIChAYMChgYMChgaMChgaMCgNmTKaWqy4wY12de8pI/FXuEZFATVFybgnZlshgtBEeEJB4LqC+hZfIpt0D/2lUHOEooLepKhoGfRDVpw/CiNk5NzmcPJmcxsoCcZSnoW3aD/tIqgYRMQli1+LUdWDvQkQ0nPYt/iHb4u6mHZLzYxqBnQkw8YtAgQG9TTz8+PmXiCngqQGxQEJYLUoKM4kNYNevLhGREEJYPUoEUB9ORT9Pa5f+fOoXH4osg12C02MSjoKUnRDZozJZnGoQwOikZs0Jtrt97DW5v4NF+tXhb0lIRn0I0cSCuHW5I8v/khFLzPqe2IdmgZad2gJx/+SxIH0spBUHk61TmW0d+5HzXXvwFp3aAnH54Rs8wcboH6kVYOgsrjswjja4i+Z68j/PYEegqRuFI+frd8nR+IKwdB5aGH5jZBu7Iq2gy6v6HLlIcEtV7vFEuDLM//E2JLPe8QCMoTV8uHD9BTWkPBctZghxiyvjoF+3bROKwzL/+xq9RznkBQnriaOouAnpIa8hdX+fkRtIhwgVuSPCg0JiaGmYTBLV4BYoP+r73DG7flSuKC42lbjxUI14Kg8sRwEG8FPS0QG9QFNRhoQVRyT0hM//4dgvcLVoOgSjy+JPs4D3paITZocw6ikmF/0dMrLQSrQVAl8ny+kdsEelrR51Nng/v09FGkZTnDhW3RX1X0A7NXNHyLH9vDJLMF9LSij0E/rp+8eMmkMOE3Ozjj5ZlyGq9vXjtxwcKFiUGijaCnFWKDTjmwduu9HZ838Wk+QSLs+ErK9OnLrgjXgqDyoI+wvz/y9vf395G4EICeFjR0WEYoGJWjOzfIXlnzBcsgqDxoHFZtBwU9tRjU/1hGf9SWmouWE/SGcAMIKg+BQUFPrMWgg+nODUnU3Fg5QQtuWOae7Ga+Bli/fJQhdDQo6Im1GHQs3bmBVnWi+svTjS7M91SHKrXKHAEOZMKj+v369UNtqUk70FMBJT35Bh1nmRAYNHc+G6Lg7FLmcCY1qF9YWBiqTk2qg54KKOlJbtCl/Vgsy3cmMiEKCEIUZEHlFaJkQU8r5Ld4R2dnZ2biKBY0d2CvdBrBaniolwd1V4iSBT2tEBs0kIO46MmJUhWAoPIgxcgu0NOCbaI6zYCg8vQ+pL1u0JMPGLQI2CTs2AzoyUdj2HF04eyN55lmEUSufalBv7Dj6MJZ0FMSjWHHUYWz+dCwrIZ62DHoSaNj2PFy0Rq4JcmjHnYMetJA2LHOQNixvtgm7NgMCCoP5FslwzZhx2ZAUHnAoGTYJuw4w5l9m7KUfwmVenoRCMoTV0vYMegprSF3QTnsWBo44+VRDjuWBvTkQx52DHHcVvRJYAt6WtAn7BjiuK2QGvQGB9FG0NOKPp86IY7bCvEzKAfRRtDTCrFBFc94YRx3/l748qHCMg6ijaCnFX0+dQrjuIXpAssQuqS+AT2tEBtU8YyHOG4ruqS+AT2t6NrdDuK4NRj03x+6dzJhU8aZfd3kioCeWgz6cEUaxuc6B/U4JVce4rgxuUH/F0Q9K/kO9qGmcmFhoCfWYNCchqj3vbwq5VzKu8g5tED49gSCylPfe62ft2M5Z+9KvlVlioCeWINBX3NEKHgaCh0RhYStH2JyJsPAUyqgeGryPrpEVBj0lIRnUHffYxn9HT2pueYuqrVahu6DOG55ccdQk28IH/NBT2kNeQsJdAfbTtRcknocd2bfOBpUtaTzUjx9AhzJPMekGJDryAR6WlHSk2/QURifRcnU3CD1uPjH36bSQMOyPEzqm3aI50MroKcV8ob6piacjNZQj+4hEqc9xHFbIDaoH5P1JoxGvBX0tEBu0HKRzzqgjXh/HxfoYKsAsUHLubm5OSM3GtK6QU8+fIPWrOTuj0KjkXMQGFQBYoP2nmKFtG7Qkw/PiJbOtZHt5TrYRovWgKDyKKe+oYkWrQE9+Wj81MmJ487w86GBzg3yqKe+AT1pdMwswo3jzsmmgTNeAdXUN6AnjY6ZRcSAoPKop74RA3ry0ZhZRAwIKo966hsxoCcfyCxSBPRLfSMG9ORT9MwipuNHaayCXj5a6rH0+rBJ6hvQU1pDwTJ5ZpF/WkbQWN86R0WUeix5vG2SWQT0lNaQv6ghs4gZuCXJA6lvyNApswgkGrCgT+ob0NOCPplFINGAFV1S34CeVvTJLAKJBqzoEnYMelrR51OnMNGApQf4F8U4MjtFl7Bj0NOKPgYVJhrImQIxNOqM7WGS2QJ6WiE36JU3p9/DS70cvWdLFIVEAxY0GHR988bJCxZSiDeBnhaIDfqTE0LBuxzKNXBHU+V2gEQD5AadfRb7W5ArA3pqMGiNcusy+pdD6fiRX0WZ8pBoAGtqB/0XX/ua5oBMEdATazCo44v0t2P6ZB8oFwgKiQawBoN+3LET3ozKIRQwS6YI6Im1dLebSH877krNjVN/ebJkY/u8uIdnfxAbtGLQWsqgeQcav61eGPSUhG/Q0Rifkws7FlKwj8lnaftU+0aETHjk3IMNO37ZLUq1MOgprSFvQSnsWJhowIxT0sIywgddI81zY0ivoF6WsOPKnmVNz+e7kJdV0pNvUAdPH4RCY5pUcVBP3IDvMSEKTsJvdaWVXxp1t7QJEd/iR1CTMxOoyVrxW7xIT5ZSoqcpMPBj4sLkUZ1NKrn7R8VEI+dQiahOQaIBS5DXV8THYc/cTw5YY10gNugrlrk5geKtAj1vdGaeQR02Fe0ADcaR+ldqpJIW1vwl6XQe+ZE8tbfOvD/3rDkobDWkzpPZs3Js/+Pf1xjI6eZFbNAQy2ek6B6qhZ+UqtGOpyTj36vsJCysa4ZlIU/BoAU/TeoV6e9aJya+qV/8+rucLfnbXqyUMMh/8WPCmvLPb/rvK008tmo8gKuv1uHdiUkNGo0mM93pTHPRd6S/VUqamcJ/wnhPlZPSG7d/xL/QkBtUNUw2unBWGKJgI+5/O7hKkykbD//DXIyuLO3q1fHD9KN/3nyI8cWpz7RZmYvxqS51N1guVabsu7JVbWtdvvYLEz4/trfqBS1HcHlYpUkPeGuIP3XOc26yZNfuJa3RKJkC0aI1pcOgf1elz8zUwIsS29JahUbHZnLXEBtUPUyW01oiDFGwBeeWdvd6bjE/Aez9zUOejahT2dXFt/LI0+Z1uyNaHcT3flr6VusKPl7I0ce3dtN3dj/i13U4OmzrfXb246Z8wylxcajvhEzBOvJv8Yeb0o0odWWfK8WtT6XDoB8OYf4sDRYNZ7SrZeiafNOc6j9z1hEbVD1Mdrlojc0EPb/81Wo1Xl8v+4CZd4tzYy/4smagR4shi/ffoRbys7MuHPpPq4o9ll60FvgzLmhl4X2l/2DCg7jwhu/kLNFaLUMhXjtwUGH4U46edycxvZmQbXozXbdJrbJ0MD9FTWqZy11d8F1ko1TmqWdb1SWFq4kNapww2V8GPhM0YOXfGvbIOy98gcr6akDV4K7D5nx96HpmYuX3uBfN3LAV6jXm7prewW9atsQWrWN13icplDuP7Q/6pba6ybjp/lRbr25XNKttSnAL6Tn+s5+yco58MSWusVuzjZYYlwtN+1u9S/4lSUuY7MMVKTQO+jczPV7Xqs6Hf+lRk+nstiXj4lpUcR0tuAyeq3Kct3z/45DwhbcKl7O3jGtZod3k7f9KVkts0J0D+3yB59dBQSnEh2ybE35yrc62qFaOtS9ZZ/N+3/jfAS28PZr2nb7uGFfOB4Ma/WGeJTeolijE2wlDaXT/dpz1XuCzW0SxZHqzoTbn0nhzapWeB/a85t1r2xNq6eHuiZFez88+IJ8cgNSgqah++/KjnEeveMORuPFI0aA5UXJvW8rc8zsbeFy9WBERv5b2Jnox+fR184xtDGpG5zP+6ls+g2UaJ/RlTHfLi//ZIT4JzLmcs7xNtfFznvNsPXXfI4U9yQ3adLAJp6Hx9K9FqhY2o6Tn3VZvBu0lrYjL3FfxB32KsiMJt/2EYS153rckS8pBblDFMFlpdDVo7lTficJXZhvxuN1/ceYvX84a2Kbqfwp/8uyEEVvU2/1JDeqxnXrKcP2Wmtsu/hYv5NFGfo76LNFd5E6LJFNabemnDkXyAk7ifyuf174jEW+3ryloFPm+vbYaNCewlQyTFZKdqPctvuCzZ/pf1q02NTKe8aoU2XfSij3kTU4WSA1a40Nq8hH9qreyvnirIC7+1ivsKB+WL6oDGqzkX8dvR4yhLvpvDNN8uDiFHohx+pvadyThVNXbcTP5q976QFsVOn1JEgh6fzn7kqTbW2d646hf9aqLhOw7Rd2T1KBJnp8z73qmw7XE7lCNiz/Y3X865xCzm9OD2uCcGju0Hm5+3YPU9HYl25z8zy3FV/x4TdUF1TRerDUa9MrvkiVtnGjgj+51VBNmGwVSg/4b78DcibqiNvdEGwni4k++VikpwzyfGT6endkdpPXE+roV82f0GI37EbEhlHqxnM7rNHhIYkgTRTQZdIc/QrjjInFJmyYauDu28nzlFxMjQd4Oepe5lmxIk+gsIIyLN8PX8++3fSJ6Js1b9+OpsGmWdQka79WmpmxHgGuVxJ8cis2Dmnup6f0a3JiriZM0VqLFoGudhq5FeKqDuOFOKKglREGHT50Fa6q9JvomZmC0NtRLIoyLx6ck+zbc/XXTwrF92wQWBoLfq7Vd0w9tDze3V7w5vajHKs+MOObP+qaczyShhzVWosWgDUfjLGrdO+KrtFDQ/L16dQ/7pWXLX4pdydOE3KCn6M8YH4+SjOkUxMVnNGf7NqxSrfRgoNTnLVmiLW8Jf1UuQguAMlf9LrIzMYUn2p8Bcrkq5NBiUPc0xqBpHuKiOiYaeJx98czRXVtTv0pJeX9O7xrri1BFSUJq0Pwk1IH6s6QiGibxb1b07HYjXif7fYbDtZ5YZuMWaNiPiD7/Mc+crmJ9fpiXoLUWLQZtNp0x6MxwuR2Kk2jgyZm0ZZPio6o7O/nUaBAR2z2u39Ch45M/0t7OU8KQGnS5w4IbdFz82p5I/FhWjJfO3OAxC1dv3nviIklX7R6FoRfHAzX0RCdhfw1rN4NhSZa5dmlaq9Fi0FXOs35GmZ+5yJ1rhYkGMirzQz5G9J2/T/yuWsjtL/tVCnl+yKzP91+yn9chaUgN2qybJS7eLUi0sTgvnaemJg14MbpxjQouAeEdXxkxa3X6WbkOKaercT7Zdv6U7MAJyW9SeO+7VcXc9/GWt+azgNigs89ivMgXIeQ6Qe4xgpNo4C4/aO7K2pFtKjR8fXHKvOljhsQ9HxvbKy4urn/izOVbD11+eG5etNeLn/6j9cgNCqlBPT0tcfHtK4k2Er3Fq/Hw6okfvvxo8oBnQ9x9wmLj3hg1bV7K+tRU6t1gP/PKdf5Cv3c5xffXPXruws1s0gAENZZFcxYWx7J/V8Vprkfbt/jcw+v3aPiU6rR4fyF7Vo7v+ULfQcPHzZi7YMHsGTNmTBn5eve2oVVcK7/4/q79pYYU0k+dFTLYbg13PcWphIQvnRkubIj49CIe1LbVH8wYnzi47wsxMdHUy1bjejSBAcFp3EKd6wUFeHs66RTN7rKSU/WeYPPambrqKTYoMRcv0Djo9D9rX5Ap5EF/4GT63dT1FW8VvnSCnlLwDbpuBfWAe65zUI9T4pLCRAMZ9WrT2KgHuKEhvcW7ouVsXPxC5C1XxvrSCXpKwjeoB2rYr4+Hcy2vcuL+rTKJBkpHDI02SA0a1Ba1XvDtt/MjUUuJuHgGyG6HtRi0XHBYWBCqGRZaXuKMFyQaMAOCytOlzYE2rtSjWvNdsnHxkN0OazFoPDUZWJeaLAomrRwElWcvmlyQf/7sE+m4eBiGxgK5Qenm5CA6odDX5UkrB0EVUIqLh2ForGhMv7iZmpsv0cFWwINPde4Paj/oEhcvbKgHPSXhGbRaaxNOdr5D3X1aq7e2Zg+3TdCcHaBLXLywoR70lIRn0J+dIp916Ifx/j5uxDGAcEtSZ7NUnJWoux0L6MmH38qxr0u9Adk4H/kSZ84DQQlAwrY5BhiGxkLpSL9oIEgNuimeBXWMjyetG/TkYw/pFw0HqUG/d0cRrShQg1atSOsGPfloTL/IIbMvP0z2v3GlHkt0LfEt/lxECzolhPQtHvQk0VNj+kUOjzfxEw0cSS31HCMQVCBScoWlhAYFPSXRmH5RDNySlNkX1OU6kUHNgJ58NKRfhE9zFjS9xd/p6ydtUNDTgj7pF+HTnBWNzUzrRv0hsRb0tKJPdjubJm6wL3SJiwc9rehjUOGnOcs4SbbMUW9QdImLBz2tkBs0mE6/GEJNaokNKvo0l8MEzcEZL49iXDzoaUWn/KDwac6Chrh4JpdH3kS0RrwV9LSga4bl4iRuKC0Qx8X3tcz1aC1XBvTUYtAVN27cYCar5QwKMTSY3KBu/ZaY6eMuUwT0xFoMqh4IWhhD85RGmjMipAZ1rOBnxsNRpgjoibUY9K1ly5Yxk2HqnUgsI81FdCtztJWzm4BO1m7fL0SDnvIo6VnsUT7c3MqXGVzNf91cyLTZjMwjyS1EvUFPEW4kevIN6kndjZiJp9igwsQNZmppGQ7OrnnczZJX8KpclLuQMah1/Es9Y/xRdXFuJlEiDGf22WqfDodqD2RN9LX0ZlLSk2fEURxEJYWJG56kMwls/XQZEs4OKOj3oiXRJrFB8cEgynIOHpU8xJFGMokwnJ7qmIUlxu3plV+zjjlNbFBlBIkbbnZlUoA77tJ8cHaJaeiz1jyG5AbFtUaen9UFP2ghERcvnQijTBiUtifnwqaTQaUpE4JSvNOqMH+2BoO6bsPHn6GeRluqlvx3LjOYrKOGrnkG4aTGgStzpvsl8IbEITeolh71ZsqIQaeHc4KHNRi0zgf4nkMmPlBBtWTOFGY47hI36G1tw1lcfz/EfY6WHR4uqPr6Jf4qYoOq96iP5sxfYtIFlg2DLqrLHXBdg0GTfJbh8OF/xckkwogWrXkqep7ZsmTygI4NPMPH7eQPmZu36SVv3xEZMruJeLK1R6Uhhy5VPkH8y/mfVe95WriS2KDqPeqjCmczgpl0gQ6aBz6zQ1ZX553zGgya0+tlfNAZOcvEcUeJ1tjcoLfWDXqmzgvDZq3eeebO4ZlRXp0XnDFvMf2Y4NdhZU7mON8kolzYNycFRK2iB31f21A8zMB1qXQVpo0NYg6JVxMbVLlHPc1y0ZoycAX939DAP3krNBj0Lt2NKXvnBZnhDjh6ZriyzUzaBkEi5J+3Bo2cMjdl/ZbJkd49PuE2vNzdlFAbeQWERMT2rB06h+27cmOM7yjqjpFz6NMxnUIjWsTGxsUNX3dTUGXmO74jzpnn+yUJNuKfq/lO5I8bVnB8YU/fFpKXM2KDKvaol6G0G9S0s4v/DEFmEA0GRewT3REv0h1soucG/4mfLZw5bmhc18n7pRLU37129siuTZwb9fVRvh2rV4gcODft1NFfdu1KTV3Yw7vRqK2Fp9mt8b4jrlmXsoN+4Fe4qcqOK8MKLfro0PzuPg2HrZO5MJMbtAhfkkq3QfPWNApZKLp/kRr0SM+eqHNPmtBapL9oAz3vxIdoHfuNuuZ+/ze/D2v+4fdiPZv3GbNw05Hrtyb4Jl7jbtwdyLtcLgykzX5luO/EWzhzS3K7Ck1GbBBegTnoZFBBkJelB7hNbkmGIGtDQtVuUi/VpAY9ER+PXmZyiwzaq1r4/gdsM9NuTcdIQHr1RLkxarSSd2jdvKQeEVVc374q2DL25cL5gtFh5lYkyqL1Knaeka40PBHWYlClDsuiIK97/GFoShcPdiZHeHVbID2utIZbfCvp1HYS3JnINjPp/OHjQVLQTn1rlCQvfJX1F1/uUDge89XfCRpJiQ0aw0FUUibIqxQaNCdtcvsKbacfkB1OSINBKR5dfqheyIq+epq+CXlV6+jdReNUZXOnjFtt4rUO1KbPlySZgadKlUGzL538OrGJZ8zUHYo3JS0G3dzEETmEbyYur6ue3zVrpnlcwqLyQdsfUia92jbAdarWsWS1GvTK75IlhUFe/7Rg+i+WlnbQaY2qV0Te1Rv1mH9IdSA2DQbdgrp9vuuLF9E28SaZZ3r99ExvHfaNZrMUmYIBsW/MWnvwqsbvnjSaDLrDHyHccZFEUUGQl7kHeLnScQX9MPT4JeJ7oQaDthjM/HlTnN1O9Ex/V99n+h871PuyCGYpCbQYdK3T0LUIT3VIEReVTtVSOm7x2wIvqReyosGgFdhuTDs8RVts+0x/slvNlU/UixkDLQZtOJoZjvudMFFJmVQtpcKgRypraijUYND6bEeKeQ1FW4TP9A9XMIMoOO7VciQyXBpadY6WN7MSRotB3dMYg6Z5iEoKz/isBCbpv+PTaMSwMX9XI3+JodFg0Jlui26YbixxmyXaInymvz1MLz0zk32TSUaSNwxaDNpsOmPQmeGikqIz/jPmjC+3V5djLEluhyzWtgOpQWefxQVvOyFH5DRcGP6O5RI3WO9It8gba+5kX7hw8uiPu3alpaamrhzr+06W+j5GQotBVznP+hllfuayQFRSZlQK+7/FP+owXuMepAZlPspd3bpsq8iGhQida9XzTc/n3v2Z9xh599S2JRvuFi4XHF05M7Fn6yAXb5/atcMj2sTGdomLixuUzPsIaQ8QG5Q64/EiX4SQ6wSJ5gmVM95eMcXHaX3Z1WRQZQoTN1i6L1o/dd7dOrqpV5f3UhbMmZqcOOSFcG/P0G7Du3i2f+8E/Y/zd0qcb8OBUxZv+vmyhiEvjIm2b/G5h9fvuSVVVPAWnzuf/+14yxxjMSE5cejrBInSY6I0v07oaFDOYLKXmQ7gQbwo2dvfjhk6KnnGnMUpW05kM2se7EiqFzD4rTr+8avt7kophzaDyiF8izd/O3YfnMxSo1qAGlV8VYsEVFQv4ldZtUg174Cg6jVr16mrQLXa7N/mrWRpGpUsxXBSg7btZ4VsD4xrJZh/pGmk7GE1qVkjnP7buIH8oVuopV6kYbhqkcg66tXUjVAtUgQ9yQ0q0263znLFqtS2ixphQapFujg8r1qkRkPVIu0qqP9SpRaqRZrUkb46E46niYLCrJDtAXqKNOQtKJ3xMt/irTRVHz1x+RDVIthJvXl5hNR3Lj5nxO2OIqLVUyR83Ve1iBKKJ7xMIgwroCcD36BKZ7zMW7wVEFSEokFlEjdYAT0ZyG/xMm/xVkBQEcp6SidusAJ6MmgwKItEizMLCCqit0QEIzGgJ4NWg4oSrloBQfUF9GTg+Y3gjC+QzTuRqN4st4fgk+LL6j0YU9S7TN5MUC2Cx/+pWuSwppwZ+gJ6MmjIzSTd3Q4AbAm5QWW62wGALSE3qExDPQDYkmIHzQGALSE3qFpDPQDYAA0vSSoN9QBgA4qdYRkAbAkYFDA0xTZo7lKMTWNq1d+JcXLN2mupZ9UGjfaoFPH38/PLlytjLqlUjbmIqJqZDQLftezJnSqXUayG+VWJamwG6MmnuAY9Nbgfxl90zGp+8N8AAAQESURBVD0flLe/Sd71irlX6t//M6RAscgD8XczThl2qlgNOxVVk97s4a3qx9g9uVPlMorVsL8qrsZmgJ4CimvQib2oHxy5COPYAz+2KLjjm5uSjHH0ccUiZzsrVcNOFathp6Jq1qdg/Opmdk/uVLmMYjXsr4qrsRmgp4Bi3+LTqR/8pPujK54bcHzVCovxfxZj3D9Nscj2Wo0DP5Sthp0qVsNOpao5VfMuuyd3qlxGsRr2VyWrsRGgJx9dDPpoQM1WUd/tbnn2QO2MaUuoH9+qWOTEKpwRcEKuGnaqWA07FVdjWlD3OGb35E6xYhnFathflajGZoCefHQxqMmEcfuTY6nz4tV1yyZh3OGoYpECaj7+C7lq2KliNexUVE3+S4NyMGb35E6xYhnFathflTgYmwF68tHFoIc7FpwMw8u7Ug/DJy6HPboaXKBYZPZgU2aNs3LVsFPFatipqJqvmN6G7J7cKVYso1gN+6sSB2MzQE8+uhgUv1277RmcP6xWLeqMXhoZuU+5yIM3QoKFQ9kVljFPlaphp6Jqhnn5+/tvM+/JnSqWUa6G/VXxwdgM0JMPNNQDhgYMChgaMChgaMCggKEBgwKGBgwKGBowKGBowKCAoQGDAoYGDAoYGjAoYGjAoIChAYMChsZeDDoTpZr//lDCR1I6sBs97cWgj0KC6NQ7GR69S/pISgd2o6e9GBTvRtOo6ese0qlNHqmO8Q7wsRc97cagON7tIj7iMAfj1RHuoSupFfdGBrvVnmXC2H/9OJ9LJ5/39n0JEvOQYyd62o9Bb3r3wlEhj/Ai52lpoxw+wbiXz/ytI9FXlKDNe2zIrtpmXUrAcyV9kHaEnehpPwbFy9AwtAvn+tIjWw+pgvHLdKK9kPGUoOEmfBSlY7x5XEkfoz1hH3rakUELWqI+GB9GP2dlZa1F9N3n3xMrnCkN/ZMxzvJstOqfkj5C+8I+9LQjg+Jv0GGM1yOWU/jHcIeALgG0oPTY4cdecENNN5X0IdoVdqGnPRn0O/QbxntQJruU7Tz8JsataEEXMise7Hy+3LkSPDy7wy70tDuDZrp+Rs1O7Yh3or8wfljNLGhqvVyM/0bbS/oY7Qm70NPuDIqTXWanvePwEb7kHHdwS0uPrlmMoOddun23rpPf7ZI+RnvCLvS0P4Oa5oe5N6RfOL8O8WixbY3PNPaWtC3Cw6/rbyV8hPaFXehpTwYFyiBgUMDQgEEBQwMGBQwNGBQwNGBQwNCAQQFDAwYFDA0YFDA0YFDA0IBBAUMDBgUMDRgUMDRgUMDQgEEBQwMGBQwNGBQwNGBQwNCAQQFDAwYFDA0YFDA0YFDA0IBBAUMDBgUMDRgUMDRgUMDQgEEBQwMGBQzN/wFpy6+DYrmgiwAAAABJRU5ErkJggg==" /><!-- --></p>
+</div>
+<div id="any-question" class="section level2">
+<h2>Any question?</h2>
+<p>If you have any doubts about the functions, please check the help
+files.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
