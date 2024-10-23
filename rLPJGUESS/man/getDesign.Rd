@@ -70,4 +70,3 @@ results_SPP <- runLPJ(x = mainDur, parameterList = parameters,
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara
 }
-

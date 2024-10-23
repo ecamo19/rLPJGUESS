@@ -42,6 +42,7 @@ a self edited template. The function assumes a specific coding for writing the
 parameters values. For this reason, we recommend to use the package templates.
 If using self edited templates, please take the package templates as a reference.
 }
+
 \examples{
 \dontrun{
 # Define the parametes to be written
@@ -52,11 +53,10 @@ writeTemplate(template1 = "global.ins", parameterList = parameterList,
               runDir = "/some/absolute/path/mainDir/runDirectory", check = "serial")
 }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig,
-}
 \seealso{
 \code{\link{getTemplate}}, \code{\link{getParameterList}}
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig,
+}
 \keyword{rLPJGUESS}
-

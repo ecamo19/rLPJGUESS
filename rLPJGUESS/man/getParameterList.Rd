@@ -45,10 +45,9 @@ result <-  runLPJ(x=mainDir, settings=settings, parameterList = parameterList)
 
 }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara
-}
 \seealso{
 \code{\link{runLPJ}}, \code{\link{getRunInfo}}
 }
-
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara
+}

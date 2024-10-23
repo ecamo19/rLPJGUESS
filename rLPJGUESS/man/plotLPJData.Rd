@@ -4,8 +4,7 @@
 \alias{plotLPJData}
 \title{A plot function for LPJData objects}
 \usage{
-plotLPJData(x, typeList = NULL, outDir = NULL, save.plots = FALSE,
-  prefix = "")
+plotLPJData(x, typeList = NULL, outDir = NULL, save.plots = FALSE, prefix = "")
 }
 \arguments{
 \item{x}{a \linkS4class{LPJData} object}
@@ -79,12 +78,11 @@ results <- runLPJ(x = mainDur, settings = LPJsettings)
 
 }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \seealso{
 \code{\link{runLPJ}}, \linkS4class{LPJData},
  \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
+}
 \keyword{rLPJGUESS}
-

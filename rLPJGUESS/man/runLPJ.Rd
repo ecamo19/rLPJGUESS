@@ -121,6 +121,7 @@ Yet, if you want to use self edited templates, please take the package templates
 When using MPI clusters, please call the function \code{\link{exitMPI}}
 before terminating your R session.
 }
+
 \examples{
 \dontrun{
 ### Settings and options ###
@@ -209,14 +210,13 @@ str(result,1)
 
 }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \seealso{
 \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
  \url{https://cran.r-project.org/web/packages/snow/snow.pdf},
  \code{\link{setupLPJParallel}}, \code{\link{exitMPI}}, \linkS4class{LPJData},
  \linkS4class{LPJSetup}, \code{\link{getParameterList}}, \code{\link{getDesign}}
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
+}
 \keyword{rLPJGUESS}
-

@@ -81,4 +81,3 @@ names(result["dataTypes"])
 Ramiro Silveyra Gonzalez
 }
 \keyword{rLPJGUESS}
-

@@ -43,4 +43,3 @@ getTemplate("europe_cru", "/home/mainDir/")
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \keyword{rLPJGUESS}
-

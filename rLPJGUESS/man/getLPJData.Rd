@@ -61,10 +61,9 @@ LPJout <- getLPJData(x = outDir, typeList = typeList, runInfo = runInfo, process
 plotLPJData(LPJout)
   }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \seealso{
 \linkS4class{LPJData}, \url{https://cran.r-project.org/web/packages/zoo/zoo.pdf}
 }
-
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
+}
