@@ -19,4 +19,3 @@ typelist
 \author{
 Ramiro Silveyra Gonzalez, Maurizio Bagnara
 }
-

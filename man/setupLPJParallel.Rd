@@ -72,12 +72,11 @@ str(result,1)
 
 }
 }
-\author{
-Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
-}
 \seealso{
 \code{\link{runLPJ}},  \linkS4class{LPJSetup}, \url{https://cran.r-project.org/web/packages/Rmpi/Rmpi.pdf},
  \url{https://cran.r-project.org/web/packages/snow/snow.pdf}
 }
+\author{
+Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
+}
 \keyword{rLPJGUESS}
-

@@ -29,10 +29,9 @@ parameters <- getRunInfo("/some/absolute/path/runInfo_2016_08_11_121507", parame
 parameters <- getRunInfo(result, parameters =TRUE)
 }
 }
-\author{
-Ramiro Silveyra Gonzalez
-}
 \seealso{
 \code{\link{runLPJ}}, \linkS4class{LPJData}
 }
-
+\author{
+Ramiro Silveyra Gonzalez
+}

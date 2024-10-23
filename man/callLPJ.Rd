@@ -64,4 +64,3 @@ callLPJ(mainDir = mainDir, runDir = runDir, template2 = template2, mode = "cf")
 Ramiro Silveyra Gonzalez, Maurizio Bagnara, Florian Hartig
 }
 \keyword{rLPJGUESS}
-
